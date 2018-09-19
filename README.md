@@ -1,4 +1,4 @@
-# Project Name
+# Staroids
 
 Team Name: Staroids
 
