@@ -39,7 +39,8 @@ Sept 23 & Jason & Added Communication Plan and Team Member Roles content\\
 Sept 23 & Eoin & Added Coding Style content\\
 Sept 23 & Jason & Added Git Workflow content\\
 Sept 23 & Moziah & Added Technology content and temporary Excel Gantt Chart\\
-Sept 24 & Eoin & Jason & Moziah & Divided PoC work and polished\\
+Sept 24 & Eoin and Jason and Moziah & Divided PoC work and polished\\
+Sept 25 & Jason & Added planned modules and menus\\
 %Note: You cannot write '&' in the above table because that marks a new column. You must also end the line with '\\'
 \bottomrule
 \end{tabularx}
@@ -85,9 +86,9 @@ Moe\\
 - Details of architecture\\
 - Third party tool\\
 
-Jason\\
-- All modules (+ brief description)\\
-- All menus explained\\
+%Jason\\
+Staroids is planned to have four modules that contain the content of the game. The first module, and most basic, is the "Utilities" module. This fundamental module will contain functions that are needed by more than two other modules. This ensures that all other modules that share commands draw from one source, instead of using their own version. This will reduce the required code in each of the modules. The second module is the "Game Object" module which will contain all of the interactable objects within the game. This includes the player ship, asteroids and the enemy alien. This module will make use of the Utilities module. The structure of the module will include a base "Game Object" class which contains fundamental attributes that all game objects share, like an x and y coordinate, a sprite among others. The specialized objects will then inherret the base class and will then be specialized to fulfill their role. The third module will be a brief sound module, aptly named "Sound". It will contain the source and initializations for any sound files that are used. Lastly, the fourth module will be the "Game State" module, which will contain the object that runs all other module and represents the actual game. It will contain all game logic required for the other modules to interact with eachother.\\
+There are also four menus planned for Staroids that will enable the user to play the game comfortably. First, there will be an opening screen. This menu will have a prompt for the user to press a button to start the game. In this menu, the game is not active and there is no way to lose the game. Its purpose is so that the player can get ready to play and is not immediately thrusted into the game on program launch. The second menu is the pause screen. This menu will simply suspend the game state and allow for resuming at the click of a button. The button to resume the game will be shown in an on-screen prompt and the words "Paused" will appear somewhere on the screen. The final game state is "Game Over". This screen occurs only when the user has run out of lives and loses the game. The words "Game Over" will show in the centre of the screen and a button to restart will be shown. Lastly, while not strictly a menu, the "Playing" state will have constant information for the user. The majority of the screen will be taken up by the game, but in the top right corner of the screen, there will be a life count and score. These amounts can always be seen, no matter what menu the user is in and will always appear above game objects that happen to pass over the text.\\
 
 Eoin\\
 - Focus on technical feasability\\
