@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 \documentclass{article}
 
 \usepackage{amsmath}
@@ -125,3 +126,134 @@ Javascript code will be written to follow the Google Javascript Style Guide, fou
 %Leave blank for now
 
 \end{document}
+=======
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,
+			linkcolor=blue,
+			filecolor=magenta,
+			urlcolor=cyan,
+}
+\urlstyle{same}
+
+\usepackage{booktabs}
+\usepackage{tabularx}
+
+\title{SE 3XA3: Development Plan\\Staroids}
+
+\author{Team 20, Staroids
+		\\ Moziah San Vicente, 400091284, sanvicem
+		\\ Eoin Lynagh, 400067675, lynaghe
+		\\ Jason Nagy, 400055130, nagyj2
+}
+
+\date{Friday September 28, 2018}
+
+%\input{../Comments}
+
+\begin{document}
+
+\begin{table}[hp]
+\caption{Revision History} \label{TblRevisionHistory}
+\begin{tabularx}{\textwidth}{llX}
+\toprule
+\textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
+\midrule
+Sept 21 & Eoin, Jason, Moziah & Added questions to be answered\\
+Sept 23 & Jason & Added Communication Plan and Team Member Roles content\\
+Sept 23 & Eoin & Added Coding Style content\\
+Sept 23 & Jason & Added Git Workflow content\\
+Sept 23 & Moziah & Added Technology content and temporary Excel Gantt Chart\\
+Sept 24 & Eoin and Jason and Moziah & Divided PoC work and polished\\
+Sept 25 & Jason & Added planned modules and menus\\
+%Note: You cannot write '&' in the above table because that marks a new column. You must also end the line with '\\'
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\newpage
+
+\maketitle
+
+Put your introductory blurb here.
+
+\section{Team Meeting Plan}
+Eoin
+%When?Where?Frequency?Roles?Rules for agendas?Upcoming milestones?Discuss problems?
+
+Meetings Monday 5:30 (After 3BB4)
+
+Agendas:
+Form - Meeting Minutes
+	Meeting Minutes obey Harvard guidelines
+Chair - Jason/ Wallace
+Scribe - Eoin
+
+\section{Team Communication Plan}
+Most work related jobs and tasks will be discussed through Facebook Messenger. The aformentioned discussion includes assigning work, talking about current issues, discussing what is next and how implementations should be done. Facebook Messenger will be used in addition to the scheduled meetings. The meetings will be about larger issues while Facebook Messenger will have simpler issues. If someone is unable to use Facebook Messenger for whatever reason, email can also be used for casual work discussion. Some examples of issues that are Facebook Messenger worthy are bugs in the program, code portions where the coder is unsure how to solve a problem, letting the team know what someone is currently working on.\\
+For more time critical issues, the phone is to be used. It can be through text or call, but call is preferred because it allows for synchronous communication. Some example issues worth of phone communication include questions for work that are due soon and application crashing bugs, should they occur.\\
+The members of Staroids have all exchanged phone and Facebook information.\\
+
+\section{Team Member Roles}
+The leader of Staroids will be Jason. As leader, he is responsible for organizing meetings and giving deadlines.\\
+The scribe of Staroids will be Eoin. Eoin is in charge of meeting agendas and ensuring meeting documents are current and accurate. He is also responsible for assembling the meeting agendas from information from everyone.\\
+The technology expert and submitter will be Moziah. Moziah is responsible for researching and implementing new technologies and tools to be used in the project while also ensuring that the Git repo is maintained properly. Moziah will also ensure the final versions of files are properly tagged.\\
+As a group, Staroid members will collectively discuss and decide what the next tasks to complete are and who shall be assigned which parts, depending on why has what relevant skills.
+
+\section{Git Workflow Plan}
+Staroids has decided to use branching for this project. All Staroid memebers will have their own personal branches that will be periodically merged with the master. If any one member needs help from another, they can simply switch to their branch and then switch back once the issue has been resolved. Major versions will be based on milestones and minor versions will not be used. All major milestones will also be tagged from within Git. Milestones will both be project deliverables as well as group decided features. Another technology that is planned to be used is the Atom text editor's "Tele-type" functionality. This allows two members to simultaneously work on the same file from different computers. The main use of this tool will be for helping each other with problematic pieces of code.\\
+
+\section{Proof of Concept Demonstration Plan}
+
+Sources:\\ https://en.intechcore.com/proof-of-concept-in-software-development/\\ https://sensinum.com/proof-of-concept-in-software-development/\\
+
+Moe\\
+- Details of architecture\\
+- Third party tool\\
+
+%Jason\\
+Staroids is planned to have four modules that contain the content of the game. The first module, and most basic, is the "Utilities" module. This fundamental module will contain functions that are needed by more than two other modules. This ensures that all other modules that share commands draw from one source, instead of using their own version. This will reduce the required code in each of the modules. The second module is the "Game Object" module which will contain all of the interactable objects within the game. This includes the player ship, asteroids and the enemy alien. This module will make use of the Utilities module. The structure of the module will include a base "Game Object" class which contains fundamental attributes that all game objects share, like an x and y coordinate, a sprite among others. The specialized objects will then inherret the base class and will then be specialized to fulfill their role. The third module will be a brief sound module, aptly named "Sound". It will contain the source and initializations for any sound files that are used. Lastly, the fourth module will be the "Game State" module, which will contain the object that runs all other module and represents the actual game. It will contain all game logic required for the other modules to interact with eachother.\\
+There are also four menus planned for Staroids that will enable the user to play the game comfortably. First, there will be an opening screen. This menu will have a prompt for the user to press a button to start the game. In this menu, the game is not active and there is no way to lose the game. Its purpose is so that the player can get ready to play and is not immediately thrusted into the game on program launch. The second menu is the pause screen. This menu will simply suspend the game state and allow for resuming at the click of a button. The button to resume the game will be shown in an on-screen prompt and the words "Paused" will appear somewhere on the screen. The final game state is "Game Over". This screen occurs only when the user has run out of lives and loses the game. The words "Game Over" will show in the centre of the screen and a button to restart will be shown. Lastly, while not strictly a menu, the "Playing" state will have constant information for the user. The majority of the screen will be taken up by the game, but in the top right corner of the screen, there will be a life count and score. These amounts can always be seen, no matter what menu the user is in and will always appear above game objects that happen to pass over the text.\\
+
+Eoin\\
+- Focus on technical feasability\\
+- About determining if a project is buildable and most effective technologies for it\\
+
+\section{Technology}
+%JavaScript - Canvas
+%HTML5
+%Case based?
+%LaTeX (pdflatex)
+\subsection{Programming Language}
+The programming language we are choosing to use for this project is JavaScript. Since JavaScript is a web developing language, we will be able to run our game on websites, which is a very big upside because it will be able to reach many more people than if it had to be downloaded. Also this makes it easier to play since no setup is required for the user, just typing in the web address or opening up the html file. Next, the original program that we are basing this re-implementation on was also written in JavaScript so we have a guide to look at when we are re-developing the project. As well another big proponent of us wanting to the develop the game in JavaScript, is that throughout our time in the Software Engineering program at McMaster University we haven’t yet got to do any web development projects, so this was a great opportunity to get some more experience in that for our team.
+\subsection{IDE}
+The IDE that we are going to use for our project development is Atom. Atom is one of the most widely used IDE’s for coding in a broad array of languages not just JavaScript, but even so, it is still rated a top five JavaScript IDE according to https://jaxenter.com/top-5-javascript-ide-146609.html. The other good features about this IDE that are really useful for our project and why we chose it are it’s git integration, as well as the ability to work on the same files together on different computers using its portal feature.
+\subsection{Testing Framework}
+The testing Framework we are going to use is a combination of two frameworks called Mocha (Testing Framework) and Chai (Assertion Library). This is one of the most widely used JavaScript testing frameworks, and has a built in integration with our IDE Atom, to make testing as convenient and straightforward as possible for us.
+\subsection{Document generation}
+All of our documentation will be written in LaTeX, as specified in the course outline, and will then have a pdf form generated from that as also specified. The only exception to this will be for the documentation of our code, where we would like to use JsDoc to autogenerate the pdf documentation based on our comments. This is because it is a popular and widely used documentation tool for JavaScript, and has many tutorials and lots of info online to help us learn how to use it, like this for example https://milmazz.uno/article/2014/08/27/how-to-document-your-javascript-code/.
+%https://medium.com/4thought-studios/documenting-javascript-projects-f72429da2eea
+
+\section{Coding Style}
+%Eoin
+\subsection{File Names}
+File names will be written using camel case, and will use a descriptive title. For example, the title of this document is styleGuidelines.
+\subsection{Variable Names}
+Variable names will be written using camel case, and will be written as follows baseAttributeDescriptor, so for example, a variable representing the velocity of a ball would be named velocityBall.
+\subsection{Javascript}
+Javascript code will be written to follow the Google Javascript Style Guide, found at https://google.github.io/styleguide/jsguide.html, which details coding standards for source code in JavaScript. However, the style of Variable/File names is described above, and may not follow the Google Style guide.
+
+\section{Project Schedule}
+%Moe
+%Provide a pointer to your Gantt Chart.
+\includegraphics[scale=0.75]{gantt.jpg}
+
+\section{Project Review}
+%Leave blank for now
+
+\end{document}
+>>>>>>> 1dedf62e7c678385b06864fdaa8c443e5d85bb0f
