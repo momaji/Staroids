@@ -40,6 +40,7 @@
 \midrule
 Sept 26 & 0.1 & Added team and project info\\
 Sept 28 & 0.11 & Divided document work\\
+Sept 28 & 0.12 & Added basis of functional requirements\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -88,12 +89,17 @@ to the template, you should explicity state what modifications were made.
 \subsection{The Purpose of the Project}
 
 \subsection{The Stakeholders}
+- Developer
 
 \subsubsection{The Client}
+- Developer
 
 \subsubsection{The Customers}
+- Developer
+- Web Game Users
 
 \subsubsection{Other Stakeholders}
+- Advertizers
 
 \subsection{Mandated Constraints}
 
@@ -114,6 +120,20 @@ User characteristics should go under assumptions.
 \subsubsection{Individual Product Use Cases}
 
 \subsection{Functional Requirements}
+  \begin{itemize}
+    \item Run on Google Chrome, Mozilla Firefox and Apple Safari browsers.
+    \item The game shall contain pre-game, playing, post-game, and paused states.
+    \item When initially ran, the pre-game screen shall show first.
+    \item On the pre-game screen, if the play button is pressed, the playing screen shall show.
+    \item On the press of the pause button during playing, the pause screen shall show.
+    \item On the press of the pause button while paused, the playing screen shall show again.
+    \item The playing screen shall always display the player character, score and lives.
+    \item Every time the player character is hit by an enemy, the lives shall decrease by one.
+    \item When the fire button is pressed, the player character will fire a projectile.
+    \item If a projectile hits an enemy, the enemy will be removed, that enemy's death action will occur and the score will be incremented.
+    \item If zero lives remain and the player character is hit, the game shall enter the post game screen.
+    
+  \end{itemize}
 
 \section{Non-functional Requirements}
 
@@ -143,6 +163,9 @@ issues that should be considered for every engineering project.
 \subsection{Open Issues}
 
 \subsection{Off-the-Shelf Solutions}
+- Existing implementations of Asteroids
+  - Many languages, just in case JavaScript cannot be run
+  - Varying input methods, features and looks
 
 \subsection{New Problems}
 
