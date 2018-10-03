@@ -41,7 +41,7 @@
         <task id="7" name="Problem Statement" color="#8cb6ce" meeting="false" start="2018-09-18" duration="4" complete="0" thirdDate="2018-09-27" thirdDate-constraint="0" expand="true">
             <depend id="8" type="2" difference="0" hardness="Strong"/>
         </task>
-        <task id="8" name="Development Plan" color="#000000" meeting="false" start="2018-09-22" duration="7" complete="0" thirdDate="2018-09-27" thirdDate-constraint="0" expand="true">
+        <task id="8" name="Development Plan" color="#cc0000" meeting="false" start="2018-09-22" duration="7" complete="0" thirdDate="2018-09-27" thirdDate-constraint="0" expand="true">
             <depend id="14" type="2" difference="0" hardness="Strong"/>
             <task id="10" name="Communication Plan &amp; Team Member roles" color="#cc0000" meeting="false" start="2018-09-22" duration="7" complete="0" thirdDate="2018-09-21" thirdDate-constraint="0" expand="true"/>
             <task id="11" name="Coding Style" color="#cc0000" meeting="false" start="2018-09-22" duration="7" complete="0" thirdDate="2018-09-22" thirdDate-constraint="0" expand="true"/>
@@ -55,7 +55,26 @@
             <task id="75" name="Feasability" color="#cc0000" meeting="false" start="2018-09-22" duration="7" complete="0" thirdDate="2018-09-22" thirdDate-constraint="0" expand="true"/>
             <task id="77" name="Architecture" color="#cc0000" meeting="false" start="2018-09-22" duration="7" complete="0" thirdDate="2018-09-22" thirdDate-constraint="0" expand="true"/>
         </task>
-        <task id="14" name="Requirements Document Revision 0" color="#009933" meeting="false" start="2018-09-29" duration="8" complete="0" thirdDate="2018-09-28" thirdDate-constraint="0" expand="true"/>
+        <task id="14" name="Requirements Document Revision 0" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-28" thirdDate-constraint="0" expand="true">
+            <task id="78" name="Purpose of Project" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
+            <task id="112" name="Naming Conventions and Terminology" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
+            <task id="110" name="The Scope of the Work and the Product" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
+            <task id="109" name="New Problems" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true" cost-manual-value="10.0" cost-calculated="false"/>
+            <task id="80" name="Risks" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
+            <task id="82" name="Stakeholders" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
+            <task id="84" name="Client" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
+            <task id="147" name="Customers" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true" cost-manual-value="0.0" cost-calculated="true"/>
+            <task id="99" name="Other Stakeholders" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
+            <task id="151" name="Context of the Work" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true" cost-manual-value="0.0" cost-calculated="true"/>
+            <task id="97" name="Off-the-Shelf Solutions" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
+            <task id="107" name="Document and Training" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
+            <task id="105" name="Mandated Constraints" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
+            <task id="103" name="Relevant Facts and Assumptions" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
+            <task id="101" name="Work Partitioning" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
+            <task id="130" name="Open Issues" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
+            <task id="128" name="Tasks" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
+            <task id="126" name="Costs" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
+        </task>
         <task id="18" name="Becoming Familiar with our Chosen Coding Style" color="#8cb6ce" meeting="false" start="2018-10-05" duration="2" complete="0" thirdDate="2018-10-03" thirdDate-constraint="0" expand="true"/>
         <task id="19" name="Refresher of JavaScript Language" meeting="false" start="2018-10-05" duration="4" complete="0" expand="true"/>
         <task id="15" name="Development of Source Code First Draft" color="#8cb6ce" meeting="false" start="2018-10-07" duration="8" complete="0" thirdDate="2018-10-08" thirdDate-constraint="0" expand="true"/>
@@ -83,17 +102,35 @@
         <allocation task-id="66" resource-id="0" function="SoftwareDevelopment:2" responsible="false" load="10.0"/>
         <allocation task-id="71" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="10.0"/>
         <allocation task-id="77" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="10.0"/>
+        <allocation task-id="126" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="10.0"/>
+        <allocation task-id="105" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="10.0"/>
+        <allocation task-id="103" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="10.0"/>
+        <allocation task-id="101" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="10.0"/>
+        <allocation task-id="130" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="10.0"/>
+        <allocation task-id="128" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="10.0"/>
         <allocation task-id="3" resource-id="1" function="SoftwareDevelopment:2" responsible="false" load="33.3"/>
         <allocation task-id="7" resource-id="1" function="SoftwareDevelopment:2" responsible="false" load="33.3"/>
         <allocation task-id="11" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="10.0"/>
         <allocation task-id="66" resource-id="1" function="SoftwareDevelopment:2" responsible="false" load="10.0"/>
         <allocation task-id="73" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="10.0"/>
         <allocation task-id="75" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="10.0"/>
+        <allocation task-id="80" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="10.0"/>
+        <allocation task-id="109" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="10.0"/>
+        <allocation task-id="78" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="10.0"/>
+        <allocation task-id="112" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="10.0"/>
+        <allocation task-id="110" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="10.0"/>
         <allocation task-id="3" resource-id="2" function="Default:1" responsible="true" load="33.3"/>
         <allocation task-id="7" resource-id="2" function="Default:1" responsible="false" load="33.3"/>
         <allocation task-id="12" resource-id="2" function="Default:1" responsible="true" load="10.0"/>
         <allocation task-id="66" resource-id="2" function="Default:1" responsible="true" load="10.0"/>
         <allocation task-id="64" resource-id="2" function="Default:1" responsible="true" load="30.0"/>
+        <allocation task-id="82" resource-id="2" function="Default:1" responsible="true" load="5.0"/>
+        <allocation task-id="84" resource-id="2" function="Default:1" responsible="true" load="10.0"/>
+        <allocation task-id="99" resource-id="2" function="Default:1" responsible="true" load="5.0"/>
+        <allocation task-id="97" resource-id="2" function="Default:1" responsible="true" load="10.0"/>
+        <allocation task-id="107" resource-id="2" function="Default:1" responsible="true" load="10.0"/>
+        <allocation task-id="147" resource-id="2" function="Default:1" responsible="true" load="10.0"/>
+        <allocation task-id="151" resource-id="2" function="Default:1" responsible="true" load="10.0"/>
     </allocations>
     <vacations/>
     <previous/>
