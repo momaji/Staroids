@@ -41,7 +41,8 @@
 Sept 26 & 0.1 & Added team and project info\\
 Sept 28 & 0.11 & Divided document work\\
 Sept 28 & 0.12 & Added basis of functional requirements\\
-Oct 2 & 0.13 & Added stakeholders
+Oct 2 & 0.13 & Added stakeholders\\
+Oct 3 & 0.14 & Added some non functional requirements, off the shelf solutions and documentation\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -54,15 +55,16 @@ Oct 2 & 0.13 & Added stakeholders
 % The Scope of the Work and the Product
 % New Problems
 % Risks
+
 %Jason
 % Stakeholders
 % Client
 % Customers
 % Other Stakeholders
-
 % Context of the Work
 % Off-the-Shelf Solutions
 % Documentation and Training
+
 %Moziah
 % Mandated Constraints
 % Relevant Facts and Assumptions
@@ -70,6 +72,7 @@ Oct 2 & 0.13 & Added stakeholders
 % Open Issues
 % Tasks
 % Costs
+
 %All
 % Functional Requirements
 % Non-Functional Requirements
@@ -140,17 +143,20 @@ User characteristics should go under assumptions.
 
 \subsection{Look and Feel Requirements}
   \begin{itemize}
-    \item TODO
+    \item Staroids should have visually appealing graphics.
+    \item Staroids should have intuitive controls.
+    \item
   \end{itemize}
 
 \subsection{Usability and Humanity Requirements}
   \begin{itemize}
-    \item TODO
+    \item On the pre-game screen, game controls should be shown.
   \end{itemize}
 
 \subsection{Performance Requirements}
   \begin{itemize}
-    \item TODO
+    \item The playing state should not stutter or freeze.
+    \item The project should always run above 60 frames per second.
   \end{itemize}
 
 \subsection{Operational and Environmental Requirements}
@@ -160,17 +166,17 @@ User characteristics should go under assumptions.
 
 \subsection{Maintainability and Support Requirements}
   \begin{itemize}
-    \item TODO
+    \item Staroids should be sufficiently modularized so that edits to a specific aspect of the game are quick.
   \end{itemize}
 
 \subsection{Security Requirements}
   \begin{itemize}
-    \item TODO
+    \item Staroids should not have an accessor methods to any of the internal variables or game state objects and variables.
   \end{itemize}
 
 \subsection{Cultural Requirements}
   \begin{itemize}
-    \item TODO
+    \item Staroids should not use any symbols that may be considered offensive or rude in its target demographics
   \end{itemize}
 
 \subsection{Legal Requirements}
@@ -191,12 +197,7 @@ issues that should be considered for every engineering project.
 \subsection{Open Issues}
 
 \subsection{Off-the-Shelf Solutions}
-
-
-
-- Existing implementations of Asteroids
-  - Many languages, just in case JavaScript cannot be run
-  - Varying input methods, features and looks
+There are many implementations of asteroids in a variety of languages that could offer inspiration to Staroids. The core game that underlines Staroids and the others is the same, but implementation methods and add-ons are what separates them. Some games offer a more realistic physics simulation while others focus on the visual experience. The other implementations also are written in different languages for different platforms, so if a user cannot run Staroids with its JavaScript and HTML implementation, those users have alternatives. Imput methods also vary amongst the implementations.\\
 
 \subsection{New Problems}
 
@@ -209,6 +210,7 @@ issues that should be considered for every engineering project.
 \subsection{Costs}
 
 \subsection{User Documentation and Training}
+Staroids is to be documented using the JSDoc 3 documentation solution. JSDoc 3 allows for inline commenting in JavaScript documents to be converted into a documentation website. Since JSDoc documentation is written in the JavaScript source code, the Staroids team can modify it simultaneously with any edits to any function. This allows for completely up to date documentation while making it easier on the developers. All functions, classes and states are to be documented using JSDoc as soon as they are created, and any edits made to the them must be reflected in the JSDoc comments.
 
 \subsection{Waiting Room}
 
