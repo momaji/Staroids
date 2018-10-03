@@ -145,7 +145,6 @@ User characteristics should go under assumptions.
   \begin{itemize}
     \item Staroids should have visually appealing graphics.
     \item Staroids should have intuitive controls.
-    \item
   \end{itemize}
 
 \subsection{Usability and Humanity Requirements}
@@ -167,26 +166,31 @@ User characteristics should go under assumptions.
 \subsection{Maintainability and Support Requirements}
   \begin{itemize}
     \item Staroids should be sufficiently modularized so that edits to a specific aspect of the game are quick.
+    \item Documentation should be kept up to date
+    \item Each internal function, object and complicated component should be commented to allow an outsider to understand that component.
   \end{itemize}
 
 \subsection{Security Requirements}
   \begin{itemize}
     \item Staroids should not have an accessor methods to any of the internal variables or game state objects and variables.
+    \item Staroids should not transmit any malicious code or programs to a users machine
+    \item Staroids should not take any personal information from the user.
   \end{itemize}
 
 \subsection{Cultural Requirements}
   \begin{itemize}
-    \item Staroids should not use any symbols that may be considered offensive or rude in its target demographics
+    \item Staroids should not use any symbols that may be considered offensive or rude in its target demographics.
   \end{itemize}
 
 \subsection{Legal Requirements}
   \begin{itemize}
-    \item TODO
+    \item Staroids should not use logos, charcters or symbols that are owned by or licenced to people other than the creators of Staroids.
   \end{itemize}
 
 \subsection{Health and Safety Requirements}
   \begin{itemize}
-    \item TODO
+    \item The controls of Staroids should not put strain on the hand.
+    \item No screens containing flashing colours should be shown.
   \end{itemize}
 
 This section is not in the original Volere template, but health and safety are
@@ -210,7 +214,7 @@ There are many implementations of asteroids in a variety of languages that could
 \subsection{Costs}
 
 \subsection{User Documentation and Training}
-Staroids is to be documented using the JSDoc 3 documentation solution. JSDoc 3 allows for inline commenting in JavaScript documents to be converted into a documentation website. Since JSDoc documentation is written in the JavaScript source code, the Staroids team can modify it simultaneously with any edits to any function. This allows for completely up to date documentation while making it easier on the developers. All functions, classes and states are to be documented using JSDoc as soon as they are created, and any edits made to the them must be reflected in the JSDoc comments. A special documentation file will be created for training people on how to use Staroids. The document will have a table of what each keyboard key will do and how they can be used. There will also be a short explanation of the rules and goals of the game.
+Staroids is to be documented using the JSDoc 3 documentation solution. JSDoc 3 allows for inline commenting in JavaScript documents to be converted into a documentation website. Since JSDoc documentation is written in the JavaScript source code, the Staroids team can modify it simultaneously with any edits to any function. This allows for completely up to date documentation while making it easier on the developers. All functions, classes and states are to be documented using JSDoc as soon as they are created, and any edits made to the them must be reflected in the JSDoc comments. A special documentation file will be created for training people on how to use Staroids. The document will have a table of what each keyboard key will do and how they can be used. There will also be a short explanation of the rules and goals of the game.\\
 
 \subsection{Waiting Room}
 
