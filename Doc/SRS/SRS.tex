@@ -45,6 +45,7 @@ Oct 2 & 0.13 & Added stakeholders\\
 Oct 2 & 0.135 & Added Tasks with link to Gantt Chart\\
 Oct 3 & 0.14 & Added some non functional requirements, off the shelf solutions and documentation\\
 Oct 3 & 0.145 & Added Purpose of Project, Naming Conventions and Terminology and Risks\\
+Oct 3 & 0.15 & Added non functional requirements and basis of context of the work\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -79,6 +80,7 @@ Oct 3 & 0.145 & Added Purpose of Project, Naming Conventions and Terminology and
 % Functional Requirements
 % Non-Functional Requirements
 % Ideas for Solutions
+
 %?
 % Individual Product Use Cases - Who would use and why
 % Migrations to the New Project - What does the project run on and if it were to move systems, what would change
@@ -136,18 +138,18 @@ User characteristics should go under assumptions.
 
 \subsection{Functional Requirements}
   \begin{itemize}
-    \item Run on Google Chrome, Mozilla Firefox and Apple Safari browsers.
+    \item Run on Google Chrome, Mozilla Firefox, Microsoft Edge and Apple Safari browsers.
     \item The game shall contain pre-game, playing, post-game, and paused states.
     \item When initially ran, the pre-game screen shall show first.
     \item On the pre-game screen, if the play button is pressed, the playing screen shall show.
-    \item On the press of the pause button during playing, the pause screen shall show.
-    \item On the press of the pause button while paused, the playing screen shall show again.
+    \item On the press of the pause button during playing, the pause state shall show.
+    \item On the press of the pause button while paused, the playing state shall appear again.
     \item The playing screen shall always display the player character, score and lives.
     \item Every time the player character is hit by an enemy, the lives shall decrease by one.
     \item When the fire button is pressed, the player character will fire a projectile.
     \item If a projectile hits an enemy, the enemy will be removed, that enemy's death action will occur and the score will be incremented.
     \item If zero lives remain and the player character is hit, the game shall enter the post game screen.
-
+    \item After a set amount of time, an enemy character shall appear. He shall shoot at the player character.
   \end{itemize}
 
 \section{Non-functional Requirements}
@@ -171,7 +173,7 @@ User characteristics should go under assumptions.
 
 \subsection{Operational and Environmental Requirements}
   \begin{itemize}
-    \item TODO
+    \item Users should not need to install any external software to run Staroids as long as there is a web browser present.
   \end{itemize}
 
 \subsection{Maintainability and Support Requirements}
