@@ -11,6 +11,8 @@
     urlcolor=blue
 }
 \usepackage[round]{natbib}
+\usepackage{changepage}
+\usepackage{float}
 
 \title{SE 3XA3: Software Requirements Specification\\Staroids}
 
@@ -25,6 +27,22 @@
 %\input{../Comments}
 
 \begin{document}
+\begin{table}[H]
+\caption{\bf Revision History}
+\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
+\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+\midrule
+Sept 26 & 0.1 & Added team and project info\\
+Sept 28 & 0.11 & Divided document work\\
+Sept 28 & 0.12 & Added basis of functional requirements\\
+Oct 2 & 0.13 & Added stakeholders\\
+Oct 2 & 0.135 & Added Tasks with link to Gantt Chart\\
+Oct 3 & 0.14 & Added some non functional requirements, off the shelf solutions and documentation\\
+Oct 3 & 0.145 & Added Purpose of Project, Naming Conventions and Terminology and Risks\\
+Oct 3 & 0.15 & Added non functional requirements and basis of context of the work\\
+\bottomrule
+\end{tabularx}
+\end{table}
 
 \maketitle
 
@@ -108,16 +126,18 @@ Staroids is developed for the original creator of HTML5 Asteroids with the purpo
 The customers of the project are the developers again and web game users. The developers are the customers as this project is also being created for their sake as a challenge in JavaScript. As such, the developers concern as a customer is that the project provides an insightful and valuable learning opportunity. Web game players are also clients as they will also consume the project once it has been created. Their concerns are where and how the game will be played and how easy it is to get running on someone's machine.\\
 
 \subsubsection{Other Stakeholders}
-Some other stakeholders that could impact the project are advertisers and web game companies. Advertisers may look to spreak the availability of the Staroid project to new users, so they require the project to be unique, special or different in some way so that they can advertise to others and bring the Staroids project into the attention of new users. Web game companies may also be stakeholders because they may look to advertise or host Staroids on their web sites. In terms of advertising, they would be similar to the advertisers, but for hosting, the companies will need the project to meet a set of techinal requirements. The web game companies may need the project to be in a certain format, only use generic libraries or be written in a certain manner.\\
+Some other stakeholders that could impact the project are advertisers and web game companies. Advertisers may look to spreak the availability of the Staroids project to new users, so they require the project to be unique, special or different in some way so that they can advertise to others and bring the Staroids project into the attention of new users. Web game companies may also be stakeholders because they may look to advertise or host Staroids on their web sites. In terms of advertising, they would be similar to the advertisers, but for hosting, the companies will need the project to meet a set of techinal requirements. The web game companies may need the project to be in a certain format, only use generic libraries or be written in a certain manner.\\
 
 \subsection{Mandated Constraints}
+There are three main mandated constraints for this project; Firstly, the project must be completed by the project due date of December 6, 2018 and all of the project deliverables as stated and outlined by the course instructor are completed on time. Secondly the final project must be a reimplementation of the original  astroids, an open source game found on github, so therefore it will need to have a similar design and functionality to the original. Lastly, the implementation will be constrained by the users computer, because although the game can be made to run at as high of a frame rate as possible, the user will only be able to experience what their computer and monitor can handle.\\
+
 
 \subsection{Naming Conventions and Terminology}
 As described in the Development Plan, our main naming convention is to make use of camel case. This has a distintive look, as well as being easy to type.To name files, we will be descriptive in the name of the file, making sure that it is obvious to all developers what file contains what information, to name variables, we will also use camel case, and variable names will be a combination of attribute and object, so for example, if we need to store the velocity of the ship, the variable will be named velocityShip.\\
 
 \subsection{Relevant Facts and Assumptions}
-
-User characteristics should go under assumptions.
+There are many relevant facts and assumptions regarding this product. Most of these assumption are made on what it is thought that the user will do when playing the Staroids game. It is assumed the user will follow the on screen prompts and instructions. As well as know that the pause sign on the game state screen is to pause the game, and the play sign on the pause screen is to return to playing the game. Another assumption is that the user will recognize the symbols at the top of the screen shaped like spaceships are their number of remaining lives, and that the number increasing as they keep playing in the top right corner is their score. The main relevant fact to this project is the original implementation had 1218 lines of code, and is able to run on any web browser as well as on an iPad.\\ 
+%User characteristics should go under assumptions.
 
 \section{Functional Requirements}
 
@@ -128,6 +148,28 @@ The scope of the project is to duplicate the original asteroids project that Sta
 -similar to problem statement
 
 \subsubsection{Work Partitioning}
+	\begin{table}[H]
+	\caption{Work Partitioning}
+		\begin{adjustwidth}{-2.75cm}{}
+	\begin{tabular}{|c|c|c|p{5cm}|}
+	\hline
+	Event Name & Input & Output & Summary\\
+	\hline
+	Staroids Creation & Developer code & Internet Browser & Recreating a web based game implementation that works on various browsers.\\
+	\hline
+	Staroids Audio & Wav File & Speaker & Adding more sounds into the game.\\
+	\hline
+	Staroids Sprite & Developer graphics and code & Internet Browser & Adding more visuals to the objects in the game.\\
+	\hline
+	Staroids Hits & Developer code & Internet Browser & Creating hit detection for when the spaceship shoots an asteroid. \\
+	\hline
+	Staroids Collisions & Developer code & Internet Browser & Creating collision detection for when the spaceship hits an asteroid.\\
+	\hline
+	Staroids Final Collision & Developer code & Internet Browser & Creating an end screen once a max number of collisions has been met and final collision occurs.\\
+	\hline
+	\end{tabular}
+		\end{adjustwidth}
+	\end{table}%
 
 \subsubsection{Individual Product Use Cases}
 
