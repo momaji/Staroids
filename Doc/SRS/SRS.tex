@@ -122,6 +122,7 @@ User characteristics should go under assumptions.
 \section{Functional Requirements}
 
 \subsection{The Scope of the Work and the Product}
+The scope of the project is to duplicate the original asteroids project that Staroids is basing thier work on, but to document the project properly and follow the principles we were taught in 3RA3. This includes the creation of a Javascript game, an index.html file that are can be opened by any browser with a significant market share, as well as another javascript file for the typeface. It will also
 
 \subsubsection{The Context of the Work}
 -similar to problem statement
@@ -149,6 +150,7 @@ User characteristics should go under assumptions.
     \item If a small asteroid is hit, it will be removed and the score shall be incremented.
     \item No player character can spawn if there is an asteroid near by.
     \item No more than six projectiles can be on the screen at a time.
+    \item Projectiles move relative to player speeds.
     
   \end{itemize}
 
@@ -241,8 +243,12 @@ The three main types of costs associated with the project are monetary, storage 
 Staroids is to be documented using the JSDoc 3 documentation solution. JSDoc 3 allows for inline commenting in JavaScript documents to be converted into a documentation website. Since JSDoc documentation is written in the JavaScript source code, the Staroids team can modify it simultaneously with any edits to any function. This allows for completely up to date documentation while making it easier on the developers. All functions, classes and states are to be documented using JSDoc as soon as they are created, and any edits made to the them must be reflected in the JSDoc comments. A special documentation file will be created for training people on how to use Staroids. The document will have a table of what each keyboard key will do and how they can be used. There will also be a short explanation of the rules and goals of the game.\\
 
 \subsection{Waiting Room}
+The original project is implemented in a black and white palette which is not very visually appealing. A possible improvement would be to colourize all game objects. This would make the game more visually appealing and more people would play Staroids. Another possible improvement over the original would be the implementation of a more expansive sound library for in-game actions. The old implementations only has two sounds.
 
 \subsection{Ideas for Solutions}
+Through JavaScript and HTML canvas, there are several colourizing options. The game objects could be coloured dynamically or 
+- use built in JS commands
+- find more sound clips
 
 \bibliographystyle{plainnat}
 
