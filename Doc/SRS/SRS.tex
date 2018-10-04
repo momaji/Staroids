@@ -1,4 +1,4 @@
-\-documentclass[12pt, titlepage]{article}
+\documentclass[12pt, titlepage]{article}
 
 \usepackage{booktabs}
 \usepackage{tabularx}
@@ -113,13 +113,7 @@ Some other stakeholders that could impact the project are advertisers and web ga
 \subsection{Mandated Constraints}
 
 \subsection{Naming Conventions and Terminology}
-As described in the Development Plan, our main naming convention is to make use
-of camel case. This has a distintive look, as well as being easy to type.
-To name files, we will be descriptive in the name of the file, making sure
-that it is obvious to all developers what file contains what information,
-To name variables, we will also use camel case, and variable names will be a
-combination of attribute and object, so for example, if we need to store the
-velocity of the ship, the variable will be named velocityShip.
+As described in the Development Plan, our main naming convention is to make use of camel case. This has a distintive look, as well as being easy to type.To name files, we will be descriptive in the name of the file, making sure that it is obvious to all developers what file contains what information, to name variables, we will also use camel case, and variable names will be a combination of attribute and object, so for example, if we need to store the velocity of the ship, the variable will be named velocityShip.\\
 
 \subsection{Relevant Facts and Assumptions}
 
@@ -145,11 +139,17 @@ User characteristics should go under assumptions.
     \item On the press of the pause button during playing, the pause state shall show.
     \item On the press of the pause button while paused, the playing state shall appear again.
     \item The playing screen shall always display the player character, score and lives.
-    \item Every time the player character is hit by an enemy, the lives shall decrease by one.
+    \item Every time the player character is hit by an enemy, the lives count shall decrease by one.
     \item When the fire button is pressed, the player character will fire a projectile.
     \item If a projectile hits an enemy, the enemy will be removed, that enemy's death action will occur and the score will be incremented.
     \item If zero lives remain and the player character is hit, the game shall enter the post game screen.
     \item After a set amount of time, an enemy character shall appear. He shall shoot at the player character.
+    \item If a large asteroid is hit, it will separate into 3 medium asteroids and the score shall be incremented.
+    \item If a medium asteroid is hit, it will separate into 3 small asteroids and the score shall be incremented.
+    \item If a small asteroid is hit, it will be removed and the score shall be incremented.
+    \item No player character can spawn if there is an asteroid near by.
+    \item No more than six projectiles can be on the screen at a time.
+    
   \end{itemize}
 
 \section{Non-functional Requirements}
@@ -158,35 +158,41 @@ User characteristics should go under assumptions.
   \begin{itemize}
     \item Staroids should have visually appealing graphics.
     \item Staroids should have intuitive controls.
+    \item The player character should move fluently.
   \end{itemize}
 
 \subsection{Usability and Humanity Requirements}
   \begin{itemize}
     \item On the pre-game screen, game controls should be shown.
+    \item In pre-game, post-game and pause states, relevant prompts should be shown.
+    \item All text should be written in English in a readably sized font.
   \end{itemize}
 
 \subsection{Performance Requirements}
   \begin{itemize}
     \item The playing state should not stutter or freeze.
     \item The project should always run above 60 frames per second.
+    \item Staroids should load to the pre-game state in a few seconds or less.
+    \item Game states should change immediately after the relevant button is pressed.
   \end{itemize}
 
 \subsection{Operational and Environmental Requirements}
   \begin{itemize}
     \item Users should not need to install any external software to run Staroids as long as there is a web browser present.
+    \item Staroids should not use so many computer resources as to impact other running programs.
   \end{itemize}
 
 \subsection{Maintainability and Support Requirements}
   \begin{itemize}
     \item Staroids should be sufficiently modularized so that edits to a specific aspect of the game are quick.
-    \item Documentation should be kept up to date
-    \item Each internal function, object and complicated component should be commented to allow an outsider to understand that component.
+    \item Documentation should be kept up to date.
+    \item Each internal function, object and complicated component should be documented and commented to allow an outsider to understand that component.
   \end{itemize}
 
 \subsection{Security Requirements}
   \begin{itemize}
     \item Staroids should not have an accessor methods to any of the internal variables or game state objects and variables.
-    \item Staroids should not transmit any malicious code or programs to a users machine
+    \item Staroids should not transmit any malicious code or programs to a user's machine
     \item Staroids should not take any personal information from the user.
   \end{itemize}
 
@@ -217,6 +223,8 @@ issues that should be considered for every engineering project.
 There are many implementations of asteroids in a variety of languages that could offer inspiration to Staroids. The core game that underlines Staroids and the others is the same, but implementation methods and add-ons are what separates them. Some games offer a more realistic physics simulation while others focus on the visual experience. The other implementations also are written in different languages for different platforms, so if a user cannot run Staroids with its JavaScript and HTML implementation, those users have alternatives. Imput methods also vary amongst the implementations.\\
 
 \subsection{New Problems}
+Making a game with similar look as a copyrighted game may result in legal trouble, so the staroids team has to be careful not to infringe on any rights.
+
 
 \subsection{Tasks}
 The steps to deliver the project are all covered in the dynamic Gantt chart \href{https://gitlab.cas.mcmaster.ca/nagyj2/Staroids/tree/master/ProjectSchedule/StaroidsGantt.pdf}{Gantt Chart} that is being used and updated throughout the project. It covers all tasks and deliverables throughout the project with a breakdown of what goes into each as well as who is working on it, plus the amount of their efforts that are going into it. The Development phases of the project are also shown on their and are color coded to easily distinguish the different ones.
@@ -224,13 +232,10 @@ The steps to deliver the project are all covered in the dynamic Gantt chart \hre
 \subsection{Migration to the New Product}
 
 \subsection{Risks}
-As this is an online game, there is very little physical risk or ability to
-cause injury. The software itself is not running any processses that could
-be vital to the safety of a person. However, they may be other risks, not
-involving the safety of people. For example, if our code is poorly optimized,
-it could result in slowdown or overheating of the computer, which can
-cause probems.
+As this is an online game, there is very little physical risk or ability to cause injury. The software itself is not running any processses that could be vital to the safety of a person. However, they may be other risks, not involving the safety of people. For example, if our code is poorly optimized, it could result in slowdown or overheating of the computer, which can cause probems.
+
 \subsection{Costs}
+The three main types of costs associated with the project are monetary, storage and CPU. The goal is for the project have a monetary cost of \$0 CAD. In terms of storage take up a minimal amount of space ideally either less than the original implementation, or if greater in the maximum range of double the originals size. Finally the CPU usage is not very concerning for this project due to how small and simple the project is as well as it being run through a web browser. Any modern computer with a web browser installed will be able to easily run Staroids.
 
 \subsection{User Documentation and Training}
 Staroids is to be documented using the JSDoc 3 documentation solution. JSDoc 3 allows for inline commenting in JavaScript documents to be converted into a documentation website. Since JSDoc documentation is written in the JavaScript source code, the Staroids team can modify it simultaneously with any edits to any function. This allows for completely up to date documentation while making it easier on the developers. All functions, classes and states are to be documented using JSDoc as soon as they are created, and any edits made to the them must be reflected in the JSDoc comments. A special documentation file will be created for training people on how to use Staroids. The document will have a table of what each keyboard key will do and how they can be used. There will also be a short explanation of the rules and goals of the game.\\
@@ -242,7 +247,6 @@ Staroids is to be documented using the JSDoc 3 documentation solution. JSDoc 3 a
 \bibliographystyle{plainnat}
 
 \bibliography{SRS}
-
 
 \newpage
 
