@@ -1,4 +1,4 @@
-\documentclass[12pt, titlepage]{article}
+\-documentclass[12pt, titlepage]{article}
 
 \usepackage{booktabs}
 \usepackage{tabularx}
@@ -44,6 +44,7 @@ Sept 28 & 0.12 & Added basis of functional requirements\\
 Oct 2 & 0.13 & Added stakeholders\\
 Oct 2 & 0.135 & Added Tasks with link to Gantt Chart\\
 Oct 3 & 0.14 & Added some non functional requirements, off the shelf solutions and documentation\\
+Oct 3 & 0.145 & Added Purpose of Project, Naming Conventions and Terminology and Risks\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -93,6 +94,7 @@ to the template, you should explicity state what modifications were made.
 \section{Project Drivers}
 
 \subsection{The Purpose of the Project}
+The purpose of the project is to create a fun and dynamic interactive web game, based on the classic 80s arcade game asteriods, complete with keyboard controls and sound. This game will be designed to, hold the attention of the user and provide hours of entertainment as they work towards beating previous high scores.\\
 
 \subsection{The Stakeholders}
 For the development of Staroids, there are some key shareholders that have impact on what decisions are made and and in effect, have sway in the outcome of the project. The stakeholder's primary role is to ensure that Staroids is developed properly and that all teams involved in developemnt are satisfied with the project. The main stakeholder in Staroids are the developers as well as the client and the customer. In the case of the Staroids project, the Staroids team are the developers. The clients of the project are both the original HTML5 Asertoids developer and the Staroid team, and lastly the customer of the project is once again the developers and any online web game players.\\
@@ -109,6 +111,13 @@ Some other stakeholders that could impact the project are advertisers and web ga
 \subsection{Mandated Constraints}
 
 \subsection{Naming Conventions and Terminology}
+As described in the Development Plan, our main naming convention is to make use
+of camel case. This has a distintive look, as well as being easy to type.
+To name files, we will be descriptive in the name of the file, making sure
+that it is obvious to all developers what file contains what information,
+To name variables, we will also use camel case, and variable names will be a
+combination of attribute and object, so for example, if we need to store the
+velocity of the ship, the variable will be named velocityShip.
 
 \subsection{Relevant Facts and Assumptions}
 
@@ -138,7 +147,7 @@ User characteristics should go under assumptions.
     \item When the fire button is pressed, the player character will fire a projectile.
     \item If a projectile hits an enemy, the enemy will be removed, that enemy's death action will occur and the score will be incremented.
     \item If zero lives remain and the player character is hit, the game shall enter the post game screen.
-    
+
   \end{itemize}
 
 \section{Non-functional Requirements}
@@ -213,7 +222,12 @@ The steps to deliver the project are all covered in the dynamic Gantt chart \hre
 \subsection{Migration to the New Product}
 
 \subsection{Risks}
-
+As this is an online game, there is very little physical risk or ability to
+cause injury. The software itself is not running any processses that could
+be vital to the safety of a person. However, they may be other risks, not
+involving the safety of people. For example, if our code is poorly optimized,
+it could result in slowdown or overheating of the computer, which can
+cause probems.
 \subsection{Costs}
 
 \subsection{User Documentation and Training}
