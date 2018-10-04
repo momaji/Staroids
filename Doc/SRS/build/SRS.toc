@@ -27,7 +27,7 @@
 \contentsline {subsection}{\numberline {4.1}Open Issues}{8}{subsection.4.1}
 \contentsline {subsection}{\numberline {4.2}Off-the-Shelf Solutions}{8}{subsection.4.2}
 \contentsline {subsection}{\numberline {4.3}New Problems}{8}{subsection.4.3}
-\contentsline {subsection}{\numberline {4.4}Tasks}{8}{subsection.4.4}
+\contentsline {subsection}{\numberline {4.4}Tasks}{9}{subsection.4.4}
 \contentsline {subsection}{\numberline {4.5}Migration to the New Product}{9}{subsection.4.5}
 \contentsline {subsection}{\numberline {4.6}Risks}{9}{subsection.4.6}
 \contentsline {subsection}{\numberline {4.7}Costs}{9}{subsection.4.7}
