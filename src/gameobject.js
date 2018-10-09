@@ -75,6 +75,9 @@ AlienBullet = function(){
 Asteroid = function(){
   this.init("asteroid");
   this.collidesWith = ["player", "bullet", "alien", "alienbullet"];
+  this.scale=1;
+  this.children=[]; //Instead of removing this object when destroyed, make smaller scaled asteroids as children -> the broken parts will still count as 1 asteroid present
+  //When printing to screen, if it is alive, print itself, else print children that are alive
 };
 
 
