@@ -73,6 +73,8 @@ $(function () {
   Game.canvasWidth  = canvas.width();
   Game.canvasHeight = canvas.height();
   var context = canvas[0].getContext("2d");
+  
+  var canvasNode = canvas[0];
 
   window.requestAnimFrame = (function () { //Required for game to run. A "show next frame?"
     return  window.requestAnimationFrame       ||
@@ -90,19 +92,16 @@ $(function () {
 
     Game.fsm.execute(); //Used for specific loop invariants or "run once" type of code
     
-    if (paused) {
+    document.getElementById("output1").innerHTML = Key.isDown(Key.UP); //simple output
+    document.getElementById("output2").innerHTML = Key.isDown(Key.DOWN);
+    document.getElementById("output3").innerHTML = Key.isDown(Key.LEFT);
+    document.getElementById("output4").innerHTML = Key.isDown(Key.RIGHT);
+    
+    if (false) {
       //Be paused
-    } else {
+    } else { //Show next frame
       requestAnimFrame(mainLoop, canvasNode);
     }
-    
-    // setInterval(onTimerTick, 33); // 33 milliseconds = ~ 30 frames per sec
-    // function onTimerTick() {
-    // document.getElementById("output1").innerHTML = Key.isDown(Key.UP); //simple output
-    //   document.getElementById("output2").innerHTML = Key.isDown(Key.DOWN);
-    //   document.getElementById("output3").innerHTML = Key.isDown(Key.LEFT);
-    //   document.getElementById("output4").innerHTML = Key.isDown(Key.RIGHT);
-    // }
   }
   
   mainLoop();
