@@ -19,13 +19,9 @@ Game = {
       
     }, //Initializes all code and systems
     pregame: function(){
-      
-      setInterval(waitForPlay, 33); // 33 milliseconds = ~ 30 frames per sec
-      function waitForPlay() {
-        if (Key.isDown(Key.UP)){
+        if (Key.isDown(Key.SPACE)){
           this.state="load";
         }
-      }
       
       //Display text prompting space bar
       
@@ -48,7 +44,7 @@ Game = {
         //Hook alien reference to Game.alien
         //Append asteroids to Game.sprites
         
-        
+      this.state="playing"
     }, //randomizes level
     playing: function(){}, //playing screen
     postgame: function(){}, //game over screen
@@ -67,8 +63,8 @@ $(function () {
   var canvasNode = canvas[0];
   
   //Font magic
-  context.font = "30px Arial";
-  
+  var text = new Text();
+  text.init(context,"30px Arial");
 
   window.requestAnimFrame = (function () { //Required for game to run. A "show next frame"
     return  window.requestAnimationFrame       ||
@@ -83,8 +79,8 @@ $(function () {
 
   var mainLoop = function () { //main game loop
     context.clearRect(0, 0, Game.canvasWidth, Game.canvasHeight);
-    context.fillText("Staroids",10,50);
-    context.strokeText("Staroids",10,100);
+    text.norm("Staroids",10,50);
+    text.emph("Staroids",10,100);
 
     Game.fsm.execute(); //Used for specific loop invariants or "run once" type of code
     
@@ -92,6 +88,8 @@ $(function () {
     document.getElementById("output2").innerHTML = Key.isDown(Key.DOWN);
     document.getElementById("output3").innerHTML = Key.isDown(Key.LEFT);
     document.getElementById("output4").innerHTML = Key.isDown(Key.RIGHT);
+    document.getElementById("output5").innerHTML = Game.fsm.state;
+    //There are output1 through output5. They are text boxes at the bottom of the main page
     
     //for all sprites in sprite list, update them
       //do all input in this mainLoop or the relevant object's update function?
