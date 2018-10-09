@@ -79,10 +79,3 @@ Asteroid = function(){
   this.children=[]; //Instead of removing this object when destroyed, make smaller scaled asteroids as children -> the broken parts will still count as 1 asteroid present
   //When printing to screen, if it is alive, print itself, else print children that are alive
 };
-
-
-var c = document.getElementById("canvas");
-var ctx = c.getContext("2d");
-ctx.moveTo(0, 0);
-ctx.lineTo(100, 200);
-ctx.stroke();
