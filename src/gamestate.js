@@ -1,15 +1,6 @@
 window.addEventListener('keyup', function(event) { Key.onKeyup(event); }, false);
 window.addEventListener('keydown', function(event) { Key.onKeydown(event); }, false);
 
-//Creates simple game loop
-// setInterval(onTimerTick, 33); // 33 milliseconds = ~ 30 frames per sec
-// function onTimerTick() {
-//   document.getElementById("output1").innerHTML = Key.isDown(Key.UP); //simple output
-//   document.getElementById("output2").innerHTML = Key.isDown(Key.DOWN);
-//   document.getElementById("output3").innerHTML = Key.isDown(Key.LEFT);
-//   document.getElementById("output4").innerHTML = Key.isDown(Key.RIGHT);
-// }
-
 Game = {
   score: 0,
   lives: 0,
@@ -73,22 +64,27 @@ $(function () {
   Game.canvasWidth  = canvas.width();
   Game.canvasHeight = canvas.height();
   var context = canvas[0].getContext("2d");
-  
   var canvasNode = canvas[0];
+  
+  //Font magic
+  context.font = "30px Arial";
+  
 
-  window.requestAnimFrame = (function () { //Required for game to run. A "show next frame?"
+  window.requestAnimFrame = (function () { //Required for game to run. A "show next frame"
     return  window.requestAnimationFrame       ||
             window.webkitRequestAnimationFrame ||
             window.mozRequestAnimationFrame    ||
             window.oRequestAnimationFrame      ||
             window.msRequestAnimationFrame     ||
-            function (/* function */ callback, /* DOMElement */ element) {
+            function (callback, element) {
               window.setTimeout(callback, 1000 / 60);
             };
   })();
 
   var mainLoop = function () { //main game loop
-    //context.clearRect(0, 0, Game.canvasWidth, Game.canvasHeight);
+    context.clearRect(0, 0, Game.canvasWidth, Game.canvasHeight);
+    context.fillText("Staroids",10,50);
+    context.strokeText("Staroids",10,100);
 
     Game.fsm.execute(); //Used for specific loop invariants or "run once" type of code
     
@@ -96,6 +92,9 @@ $(function () {
     document.getElementById("output2").innerHTML = Key.isDown(Key.DOWN);
     document.getElementById("output3").innerHTML = Key.isDown(Key.LEFT);
     document.getElementById("output4").innerHTML = Key.isDown(Key.RIGHT);
+    
+    //for all sprites in sprite list, update them
+      //do all input in this mainLoop or the relevant object's update function?
     
     if (false) {
       //Be paused
