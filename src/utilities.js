@@ -28,4 +28,17 @@ Matrix = function(){}; //determine how this works
 
 GridNode = function(){}; //determine how it works
 
-Text = function(){};
+Text = function(){
+  this.init = function(context,font){
+    this.context = context;
+    this.context.font=font;
+  };
+  
+  this.norm = function(text,x,y){
+    this.context.fillText(text,x,y);
+  };
+  
+  this.emph = function(text,x,y){
+    this.context.strokeText(text,x,y);
+  };
+};
