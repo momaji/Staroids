@@ -10,7 +10,7 @@
 		const SHIP_SIZE = 30; // ship height in pixels
 		const TURN_SPEED = 360; //Turn speed in degrees per second
 		const SHIP_THRUST = 5; //acceleration of the ship in pixels per second per second
-		const FRICTION = 0.7; // friction coefficient of space (0 = none 1 = lots)		
+		const FRICTION = 0.7; // friction coefficient of space (0 = none 1 = lots)
 
 		/** @type {HTMLCanvasElement} */
 
@@ -23,12 +23,16 @@
 			r: SHIP_SIZE/2, //radius of ship
 			a: 90/180 * Math.PI,   //heading of ship converted to radians
 			rot: 0,
-			thrushing: false, 
+			thrushing: false,
 			thrust: {
 				x: 0,
 				y: 0
-			}
+			},
+			fire: false
 		}
+
+		//create bullets on space bar press, have some intial velocity and are relative to the ship
+		//can only be a certain number of bullets on screen/bullets can only go so far
 
 		//set up event handlers
 		document.addEventListener("keydown", keyDown);
@@ -38,7 +42,7 @@
 		//set up the game loop
 		setInterval(update, 1000/FPS);
 
-		function keyDown(/** @type {KeyboardEvent}*/ ev){
+		function keyDown(ev){
 			switch(ev.keyCode){
 				case 37: //left arrow (rotate ship left)
 					ship.rot = TURN_SPEED/180*Math.PI/FPS; //converts turn speed to radians then gets per frame speed of that
@@ -49,8 +53,8 @@
 				case 39: //right arrow (rotate ship right)
 					ship.rot = -TURN_SPEED/180*Math.PI/FPS;
 					break;
-				case 37: 
-
+				case 32: //spacebar press (fire bullet)
+					ship.fire =  true;
 					break;
 			}
 		}
@@ -66,8 +70,8 @@
 				case 39: //right arrow (stop rotating ship right)
 					ship.rot = 0;
 					break;
-				case 37: 
-
+				case 32: //spacebar released (delay for next bullet)
+					ship.fire = false;
 					break;
 			}
 		}
@@ -77,6 +81,19 @@
 			ctx.fillStyle = "black";
 			ctx.fillRect(0,0,cvs.width, cvs.height);
 
+			//ship fires bullet
+			if(ship.fire){
+				ctx.beginPath();
+				ctx.arc(100,75,50,0,2*Math.PI);
+				//ctx.stroke();
+				ctx.moveTo(// nose of the ship
+					ship.x + 4/3 * ship.r * Math.cos(ship.a),
+					ship.y - 4/3 * ship.r * Math.sin(ship.a)
+				);
+				ctx.stroke();
+
+			}
+
 			//thrust the ship
 			if (ship.thrusting) {
 				ship.thrust.x+= SHIP_THRUST * Math.cos(ship.a)/FPS; //cos = adj/hyp
@@ -85,7 +102,7 @@
 				//draw the thruster
 				ctx.strokeStyle = "yellow";
 				ctx.fillStyle = "red";
-				ctx.lineWidth = SHIP_SIZE / 10; 
+				ctx.lineWidth = SHIP_SIZE / 10;
 				ctx.beginPath();
 				ctx.moveTo(// rear left of the ship
 					ship.x - ship.r * (2/3*Math.cos(ship.a) + 0.5*Math.sin(ship.a)),
@@ -103,7 +120,9 @@
 				);
 
 				ctx.closePath();
+		document.addEventListener("keyup", keyUp);
 				ctx.fillStyle = "red";
+
 
 				ctx.stroke();
 			} else {
@@ -113,7 +132,7 @@
 
 			//draw triangular ship
 			ctx.strokeStyle = "white";
-			ctx.lineWidth = SHIP_SIZE / 20; 
+			ctx.lineWidth = SHIP_SIZE / 20;
 			ctx.beginPath();
 			ctx.moveTo(// nose of the ship
 				ship.x + 4/3 * ship.r * Math.cos(ship.a),
@@ -158,7 +177,7 @@
 			ctx.fillRect(ship.x-1, ship.y - 1, 2, 2);
 		}
 
-		
+
 
 
 
