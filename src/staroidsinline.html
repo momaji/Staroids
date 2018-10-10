@@ -9,19 +9,16 @@
 		const FPS = 30; //frames per second
 		const SHIP_SIZE = 30; // ship height in pixels
 		const TURN_SPEED = 360; //Turn speed in degrees per second
-		const SHIP_THRUST = 5; //acceleration of the ship in pixels per second per second
+		const SHIP_THRUST = 1; //acceleration of the ship in pixels per second per second
 		const FRICTION = 0.7; // friction coefficient of space (0 = none 1 = lots)
+		const MAX_SPEED = 15; //Maximum ship speed
 		const MIN_SPEED = 0.000001; //minimum speed
+		const MAX_ACC = 3;
 
 		/** @type {HTMLCanvasElement} */
 
 		var cvs = document.getElementById("canvas"); //sets up canvas
 		var ctx = cvs.getContext("2d"); //sets up context
-
-		var firethrustX = 0;
-		var firethrustY = 0;
-		var shipPosX = 0;
-		var shipPosY = 0;
 
 		var Key = {
 			//  Key.isDown(Key.UP); "undefined" if up and pressed duration if down
@@ -30,7 +27,7 @@
 		  LEFT: 37,
 		  UP: 38,
 		  RIGHT: 39,
-		  DOWN:40,
+		  DOWN: 40,
 		  SPACE: 32,
 
 		  isDown: function(keyCode){
@@ -49,7 +46,6 @@
 		window.addEventListener('keyup', function(event) { Key.onKeyup(event); }, false);
 		window.addEventListener('keydown', function(event) { Key.onKeydown(event); }, false);
 
-
 		Player = function(){
 			this.x=300;
 			this.y=300;
@@ -65,25 +61,20 @@
 			this.a = 90/180 * Math.PI;
 			this.rot = 0;
 
-			this.thrusting = false;
-			this.thrust = {
-				x: 0,
-				y: 0
-			};
-
 			this.fire=false;
 
 			this.init = function(ctx){
 				this.ctx=ctx;
 			};
 
-			this.draw = function(){
+			this.draw = function(){atom://teletype/portal/8fcb0450-410b-4a9a-ab6e-fc7bf20fdc66
 				if (Key.isDown(Key.UP)) {
 					//draw the thruster
 					this.ctx.strokeStyle = "yellow";
 					this.ctx.fillStyle = "red";
 					this.ctx.lineWidth = SHIP_SIZE / 10;
 					this.ctx.beginPath();
+
 					this.ctx.moveTo(// rear left of the ship
 						this.x - this.r * (2/3*Math.cos(this.a) + 0.5*Math.sin(this.a)),
 						this.y + this.r * (2/3*Math.sin(this.a) - 0.5*Math.cos(this.a))
@@ -130,7 +121,7 @@
 
 				//centre dot
 				this.ctx.fillStyle = "red";
-				this.ctx.fillRect(this.x-1, this.y - 1, 2, 2);
+				this.ctx.fillRect(this.x - 1 + this.acc.x, this.y - 1 + this.acc.y, 2, 2);
 
 			};
 
@@ -138,18 +129,49 @@
 				//requestAnimationFrame(draw);
 				//If thrusting, adjust speed
 				if (Key.isDown(Key.UP)) {
-					this.thrust.x+= SHIP_THRUST * Math.cos(this.a)/FPS; //cos = adj/hyp
-					this.thrust.y-= SHIP_THRUST * Math.sin(this.a)/FPS; //sin = opp/hyp
-					if(Math.abs(this.thrust.y) < MIN_SPEED){
-						this.thrust.y = 0;
+
+					if (Math.abs(this.acc.x) < MAX_ACC){
+						this.acc.x += SHIP_THRUST * Math.cos(this.a)/FPS;
+					}else{
+						this.acc.x += 0;
 					}
-					if(Math.abs(this.thrust.x) < MIN_SPEED){
-						this.thrust.x = 0;
+
+					if (Math.abs(this.acc.y) < MAX_ACC){
+						this.acc.y += SHIP_THRUST * Math.sin(this.a)/FPS;
+					}else{
+						this.acc.y += 0;
 					}
+
 				}else {
-					this.thrust.x -= FRICTION * this.thrust.x/FPS;
-					this.thrust.y -= FRICTION * this.thrust.y/FPS;
+					this.acc.x = 0;
+					this.acc.y = 0;
 				}
+
+				//Move ship
+
+				// trueVel=Math.sqrt(this.vel.x*this.vel.x + this.vel.y*this.vel.y);
+				// if (trueVel <= MAX_SPEED){
+				// 	this.vel.x += this.acc.x
+				// 	this.vel.y -= this.acc.y
+				// }
+
+				if (Math.abs(this.vel.x) < MAX_SPEED){
+					this.vel.x += this.acc.x;
+				}else{
+					this.vel.x = 3;
+				}
+
+				if (Math.abs(this.vel.y) < MAX_SPEED){
+					this.vel.y -= this.acc.y;
+				}else{
+					this.vel.y += 3;
+				}
+
+
+
+
+				this.x += this.vel.x;
+				this.y += this.vel.y;
 
 				if (Key.isDown(Key.RIGHT)){
 					this.rot = -TURN_SPEED/180*Math.PI/FPS
@@ -167,13 +189,8 @@
 					bulletList.push(bull);
 				}
 
-
 				//Adjust heading
 				this.a += this.rot;
-
-				//Move ship
-				this.x += this.thrust.x;
-				this.y += this.thrust.y;
 
 				//Handle screen edge TODO: fix cvs
 				if (this.x < 0 - this.r){
@@ -221,14 +238,14 @@
 				this.x=ship.x;
 				this.y=ship.y;
 				this.rot=ship.a;
-				this.base=ship.thrust;
+				this.base=ship.vel;
 				this.ctx=ship.ctx;
 
-				if (this.base.x > 0){
-					this.extraVel.x *= -1;
+				if (this.base.x < 0){
+					this.extraVel.x *= -2;
 				}
-				if (this.base.y > 0){
-					this.extraVel.y *= -1;
+				if (this.base.y < 0){
+					this.extraVel.y *= -2;
 				}
 			};
 		};
@@ -299,8 +316,12 @@
 				bulletList[i].update();
 			}
 
-			document.getElementById("output1").innerHTML=player.x; //bulletList.length;
-			document.getElementById("output2").innerHTML=player.y;
+			// document.getElementById("output1").innerHTML=player.x; //bulletList.length;
+			// document.getElementById("output2").innerHTML=player.y;
+			document.getElementById("output3").innerHTML=Math.round(player.vel.x); //bulletList.length;
+			document.getElementById("output4").innerHTML=Math.round(player.vel.y);
+			document.getElementById("output5").innerHTML=Math.round(player.acc.x); //bulletList.length;
+			document.getElementById("output6").innerHTML=Math.round(player.acc.y);
 }
 	</script>
 	<p>
