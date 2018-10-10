@@ -11,6 +11,7 @@
 		const TURN_SPEED = 360; //Turn speed in degrees per second
 		const SHIP_THRUST = 5; //acceleration of the ship in pixels per second per second
 		const FRICTION = 0.7; // friction coefficient of space (0 = none 1 = lots)
+		const MIN_SPEED = 0.000001; //minimum speed
 
 		/** @type {HTMLCanvasElement} */
 
@@ -22,31 +23,178 @@
 		var shipPosX = 0;
 		var shipPosY = 0;
 
-		var ship = {
-			x: cvs.width/2,
-			y: cvs.height/2,
-			r: SHIP_SIZE/2, //radius of ship
-			a: 90/180 * Math.PI,   //heading of ship converted to radians
-			rot: 0,
-			thrushing: false,
-			thrust: {
-				x: 0,
-				y: 0
-			},
-			fire: false
-		}
+		var Key = {
+			//  Key.isDown(Key.UP); "undefined" if up and pressed duration if down
+		  pressed: {},
 
-		var bullet = {
-			x: 0,
-			y: 0,
-			rot: 0,
-			baseVel: 0,
-			extraVel: 10,
-			thrust: {
+		  LEFT: 37,
+		  UP: 38,
+		  RIGHT: 39,
+		  DOWN:40,
+		  SPACE: 32,
+
+		  isDown: function(keyCode){
+		    return this.pressed[keyCode];
+		  },
+
+		  onKeydown: function(event){
+		    this.pressed[event.keyCode]=(new Date).getTime();
+		  },
+
+		  onKeyup: function(event){
+		    delete this.pressed[event.keyCode];
+		  }
+		};
+
+		window.addEventListener('keyup', function(event) { Key.onKeyup(event); }, false);
+		window.addEventListener('keydown', function(event) { Key.onKeydown(event); }, false);
+
+
+		Player = function(){
+			this.x=300;
+			this.y=300;
+			this.r=SHIP_SIZE/2;
+			this.vel = {
+				x: 0,
+				y: 0,
+			};
+			this.acc = {
 				x: 0,
 				y: 0
-			}
-		}
+			};
+			this.a = 90/180 * Math.PI;
+			this.rot = 0;
+
+			this.thrusting = false;
+			this.thrust = {
+				x: 0,
+				y: 0
+			};
+
+			this.fire=false;
+
+			this.init = function(ctx){
+				this.ctx=ctx;
+			};
+
+			this.draw = function(){
+				if (Key.isDown(Key.UP)) {
+					//draw the thruster
+					this.ctx.strokeStyle = "yellow";
+					this.ctx.fillStyle = "red";
+					this.ctx.lineWidth = SHIP_SIZE / 10;
+					this.ctx.beginPath();
+					this.ctx.moveTo(// rear left of the ship
+						this.x - this.r * (2/3*Math.cos(this.a) + 0.5*Math.sin(this.a)),
+						this.y + this.r * (2/3*Math.sin(this.a) - 0.5*Math.cos(this.a))
+					);
+
+					this.ctx.lineTo( //rear centre behind the ship behind
+						this.x - this.r * 6/3*Math.cos(this.a),
+						this.y + this.r * 6/3*Math.sin(this.a)
+					);
+
+					this.ctx.lineTo( //rear right of ship
+						this.x - this.r * (2/3*Math.cos(this.a) - 0.5*Math.sin(this.a)),
+						this.y + this.r * (2/3*Math.sin(this.a) + 0.5*Math.cos(this.a))
+					);
+
+					this.ctx.closePath();
+					this.ctx.fillStyle = "red";
+
+					this.ctx.stroke();
+				}
+
+				//draw triangular ship
+				this.ctx.strokeStyle = "white";
+				this.ctx.lineWidth = SHIP_SIZE / 20;
+				this.ctx.beginPath();
+				this.ctx.moveTo(// nose of the ship
+					this.x + 4/3 * this.r * Math.cos(this.a),
+					this.y - 4/3 * this.r * Math.sin(this.a)
+				);
+
+				this.ctx.lineTo( //rear left of ship
+					this.x - this.r * (2/3*Math.cos(this.a) + Math.sin(this.a)),
+					this.y + this.r * (2/3*Math.sin(this.a) - Math.cos(this.a))
+				);
+
+				this.ctx.lineTo( //rear right of ship
+					this.x - this.r * (2/3*Math.cos(this.a) - Math.sin(this.a)),
+					this.y + this.r * (2/3*Math.sin(this.a) + Math.cos(this.a))
+				);
+
+				this.ctx.closePath();
+
+				this.ctx.stroke();
+
+				//centre dot
+				this.ctx.fillStyle = "red";
+				this.ctx.fillRect(this.x-1, this.y - 1, 2, 2);
+
+			};
+
+			this.update = function(){
+				//requestAnimationFrame(draw);
+				//If thrusting, adjust speed
+				if (Key.isDown(Key.UP)) {
+					this.thrust.x+= SHIP_THRUST * Math.cos(this.a)/FPS; //cos = adj/hyp
+					this.thrust.y-= SHIP_THRUST * Math.sin(this.a)/FPS; //sin = opp/hyp
+					if(Math.abs(this.thrust.y) < MIN_SPEED){
+						this.thrust.y = 0;
+					}
+					if(Math.abs(this.thrust.x) < MIN_SPEED){
+						this.thrust.x = 0;
+					}
+				}else {
+					this.thrust.x -= FRICTION * this.thrust.x/FPS;
+					this.thrust.y -= FRICTION * this.thrust.y/FPS;
+				}
+
+				if (Key.isDown(Key.RIGHT)){
+					this.rot = -TURN_SPEED/180*Math.PI/FPS
+				}
+				else{
+					this.rot=0;
+				}
+				if (Key.isDown(Key.LEFT)){
+					this.rot = TURN_SPEED/180*Math.PI/FPS
+				}
+
+				if (Key.isDown(Key.SPACE)){
+					bull = new Bullet();
+					bull.init(player);
+					bulletList.push(bull);
+				}
+
+
+				//Adjust heading
+				this.a += this.rot;
+
+				//Move ship
+				this.x += this.thrust.x;
+				this.y += this.thrust.y;
+
+				//Handle screen edge TODO: fix cvs
+				if (this.x < 0 - this.r){
+					this.x = cvs.width + this.r;
+				} else if (this.x > cvs.width + this.r){
+					this.x = 0 - this.r;
+				}
+				if (this.y < 0 - this.r){
+					this.y = cvs.height + this.r;
+				} else if (this.y > cvs.height + this.r){
+					this.y = 0 - this.r;
+				}
+
+				this.draw();
+			};
+
+		  /*this.init("player");
+		  this.collidesWith = ["asteroid", "alien", "alienbullet"];
+		  this.bulletCountDown = 60; //Countdown until a bullet can be fired
+		  this.interact = function(){}; //detects for input and adjusts state as necessary*/
+		};
 
 		Bullet = function(){
 		  this.x=0;
@@ -58,9 +206,15 @@
 				y: 10
 			};
 
+			this.draw = function(){
+				this.ctx.arc(this.x, this.y, 5, 0, 2*Math.PI);
+				this.ctx.stroke();
+			};
+
 			this.update = function(){
 				this.x += (this.extraVel.x + this.base.x) * Math.cos(this.rot)/FPS;
 				this.y += (this.extraVel.y + this.base.y) * Math.sin(this.rot)/FPS;
+				this.draw();
 			};
 
 			this.init = function(ship){
@@ -68,164 +222,95 @@
 				this.y=ship.y;
 				this.rot=ship.a;
 				this.base=ship.thrust;
+				this.ctx=ship.ctx;
 
-				if (this.base.x<0){
-					this.extraVel.x*=-1;
+				if (this.base.x > 0){
+					this.extraVel.x *= -1;
 				}
-				if (this.base.y<0){
-					this.extraVel.y*=-1;
+				if (this.base.y > 0){
+					this.extraVel.y *= -1;
 				}
 			};
-
-		  this.timeOut = function(){}; //Countdown until bullet disappears
 		};
 
 		//create bullets on space bar press, have some intial velocity and are relative to the ship
-		//can only be a certain number of bullets on screen/bullets can only go so far
+		//can only be a certain number4.08160117 of bullets on screen/bullets can only go so far
 
 		//set up event handlers
-		document.addEventListener("keydown", keyDown);
-		document.addEventListener("keyup", keyUp);
+		// document.addEventListener("keydown", keyDown);
+		// document.addEventListener("keyup", keyUp);
 
+		bulletList=[];
+		player = new Player();
+		player.init(ctx);
 
 		//set up the game loop
 		setInterval(update, 1000/FPS);
 
-		function keyDown(ev){
-			switch(ev.keyCode){
-				case 37: //left arrow (rotate ship left)
-					ship.rot = TURN_SPEED/180*Math.PI/FPS; //converts turn speed to radians then gets per frame speed of that
-					break;
-				case 38: //up arrow (thrusts ship forward)
-					ship.thrusting = true;
-					break;
-				case 39: //right arrow (rotate ship right)
-					ship.rot = -TURN_SPEED/180*Math.PI/FPS;
-					break;
-				case 32: //spacebar press (fire bullet)
-					bullet.rot = ship.rot;
-					ship.fire =  true;
-					firethrustX = ship.thrust.x;
-					firethrustY = ship.thrust.y;
-					shipPosX = ship.x;
-					shipPosY = ship.y;
-					break;
-			}
-		}
-
-		function keyUp(ev){
-			switch(ev.keyCode){
-				case 37: //left arrow (stop rotating ship left)
-					ship.rot = 0; //converts turn speed to radians then gets per frame speed of that
-					break;
-				case 38: //up arrow (stop thrusting ship forward)
-					ship.thrusting = false;
-					break;
-				case 39: //right arrow (stop rotating ship right)
-					ship.rot = 0;
-					break;
-				case 32: //spacebar released (delay for next bullet before we set fire to false)
-					ship.fire = false;
-					bullet.thrust.x =20;
-					bullet.thrust.y =20;
-					break;
-			}
-		}
+		// function keyDown(ev){
+		// 	switch(ev.keyCode){
+		// 		case 37: //left arrow (rotate ship left)
+		// 			player.rot = TURN_SPEED/180*Math.PI/FPS; //converts turn speed to radians then gets per frame speed of that
+		// 			break;
+		// 		case 38: //up arrow (thrusts ship forward)
+		// 			player.thrusting = true;
+		// 			break;
+		// 		case 39: //right arrow (rotate ship right)
+		// 			player.rot = -TURN_SPEED/180*Math.PI/FPS;
+		// 			break;
+		// 		case 32: //spacebar press (fire bullet)
+		// 			//bullet.rot = ship.rot;
+		// 			player.fire =  true;
+		// 			// firethrustX = ship.thrust.x;
+		// 			// firethrustY = ship.thrust.y;
+		// 			// shipPosX = ship.x;
+		// 			// shipPosY = ship.y;
+		// 			break;
+		// 	}
+		// }
+		//
+		// function keyUp(ev){
+		// 	switch(ev.keyCode){
+		// 		case 37: //left arrow (stop rotating ship left)
+		// 			player.rot = 0; //converts turn speed to radians then gets per frame speed of that
+		// 			break;
+		// 		case 38: //up arrow (stop thrusting ship forward)
+		// 			player.thrusting = false;
+		// 			break;
+		// 		case 39: //right arrow (stop rotating ship right)
+		// 			player.rot = 0;
+		// 			break;
+		// 		case 32: //spacebar released (delay for next bullet before we set fire to false)
+		// 			player.fire = false;
+		// 			// bullet.thrust.x =0;
+		// 			// bullet.thrust.y =0;
+		// 			break;
+		// 	}
+		// }
 
 		function update(){
 			//draw space
 			ctx.fillStyle = "black";
 			ctx.fillRect(0,0,cvs.width, cvs.height);
 
-			//thrust the ship
-			if (ship.thrusting) {
-				ship.thrust.x+= SHIP_THRUST * Math.cos(ship.a)/FPS; //cos = adj/hyp
-				ship.thrust.y-= SHIP_THRUST * Math.sin(ship.a)/FPS; //sin = opp/hyp
+			player.update();
 
-				//draw the thruster
-				ctx.strokeStyle = "yellow";
-				ctx.fillStyle = "red";
-				ctx.lineWidth = SHIP_SIZE / 10;
-				ctx.beginPath();
-				ctx.moveTo(// rear left of the ship
-					ship.x - ship.r * (2/3*Math.cos(ship.a) + 0.5*Math.sin(ship.a)),
-					ship.y + ship.r * (2/3*Math.sin(ship.a) - 0.5*Math.cos(ship.a))
-				);
-
-				ctx.lineTo( //rear centre behind the ship behind
-					ship.x - ship.r * 6/3*Math.cos(ship.a),
-					ship.y + ship.r * 6/3*Math.sin(ship.a)
-				);
-
-				ctx.lineTo( //rear right of ship
-					ship.x - ship.r * (2/3*Math.cos(ship.a) - 0.5*Math.sin(ship.a)),
-					ship.y + ship.r * (2/3*Math.sin(ship.a) + 0.5*Math.cos(ship.a))
-				);
-
-				ctx.closePath();
-				ctx.fillStyle = "red";
-
-				ctx.stroke();ship.fire
-			} else {
-				ship.thrust.x -= FRICTION * ship.thrust.x/FPS;
-				ship.thrust.y -= FRICTION * ship.thrust.y/FPS;
+			for (var i=0; i < bulletList.length; i++){
+				bulletList[i].update();
 			}
 
-			//draw triangular ship
-			ctx.strokeStyle = "white";
-			ctx.lineWidth = SHIP_SIZE / 20;
-			ctx.beginPath();
-			ctx.moveTo(// nose of the ship
-				ship.x + 4/3 * ship.r * Math.cos(ship.a),
-				ship.y - 4/3 * ship.r * Math.sin(ship.a)
-			);
-
-			ctx.lineTo( //rear left of ship
-				ship.x - ship.r * (2/3*Math.cos(ship.a) + Math.sin(ship.a)),
-				ship.y + ship.r * (2/3*Math.sin(ship.a) - Math.cos(ship.a))
-			);
-
-			ctx.lineTo( //rear right of ship
-				ship.x - ship.r * (2/3*Math.cos(ship.a) - Math.sin(ship.a)),
-				ship.y + ship.r * (2/3*Math.sin(ship.a) + Math.cos(ship.a))
-			);
-
-			ctx.closePath();
-
-			ctx.stroke();
-
-			//rotate ship
-			ship.a += ship.rot;
-
-			//move the ship
-			ship.x += ship.thrust.x;
-			ship.y += ship.thrust.y;
-
-			//handle edge of screen
-			if (ship.x < 0 - ship.r){
-				ship.x = cvs.width + ship.r;
-			} else if (ship.x > cvs.width + ship.r){
-				ship.x = 0 - ship.r;
-			}
-			if (ship.y < 0 - ship.r){
-				ship.y = cvs.height + ship.r;
-			} else if (ship.y > cvs.height + ship.r){
-				ship.y = 0 - ship.r;
-			}
-
-			//centre dot
-			ctx.fillStyle = "red";
-			ctx.fillRect(ship.x-1, ship.y - 1, 2, 2);
-
-			//ship fires bullet
-			if(ship.fire){ //this has to be change
-				bullet.thrust.x += firethrustX;
-				bullet.thrust.y += firethrustY;
-				ctx.arc(shipPosX + bullet.thrust.x, shipPosY + bullet.thrust.y, 5, 0, 2*Math.PI);
-				ctx.stroke();
-			}
-		}
+			document.getElementById("output1").innerHTML=player.x; //bulletList.length;
+			document.getElementById("output2").innerHTML=player.y;
+}
 	</script>
+	<p>
+		<text id="output1"></text>
+		<text id="output2"></text>
+		<text id="output3"></text>
+		<text id="output4"></text>
+		<text id="output5"></text>
+		<text id="output6"></text>
+	</p>
 
 </body>
 </html>
