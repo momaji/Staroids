@@ -1,11 +1,11 @@
 const FPS = 30; //frames per second
 const SHIP_SIZE = 30; // ship height in pixels
-const TURN_SPEED = 360; //Turn speed in degrees per second
-const SHIP_THRUST = 1; //acceleration of the ship in pixels per second per second
+const TURN_SPEED = 180; //Turn speed in degrees per second
+const SHIP_THRUST = .2; //acceleration of the ship in pixels per second per second
 const FRICTION = 0.7; // friction coefficient of space (0 = none 1 = lots)
 const MIN_SPEED = 0.000001; //minimum speed
-const MAX_ACC = 3; //maximum ship acceleration
-const MAX_SPEED = 15; //Maximum ship speed (velocity)
+const MAX_ACC = 2; //maximum ship acceleration
+const MAX_SPEED = 5; //Maximum ship speed (velocity)
 
 var Key = {
   pressed: {},
