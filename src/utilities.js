@@ -50,3 +50,56 @@ Text = function(){
     this.context.strokeText(text,x,y);
   };
 };
+
+Game = {
+  score: 0,
+  lives: 0,
+  asteroids: 0, //Count of current asteroids
+  canvasWidth: CVS_WIDTH,
+  canvasHeight: CVS_HEIGHT,
+  sprites: [],
+  player: null,
+  alien: null,
+
+  fsm: {
+    start: function(){
+      //Spawn asteroids in background
+
+      this.state="pregame";
+
+    }, //Initializes all code and systems
+    pregame: function(){
+        if (Key.isDown(Key.SPACE)){
+          this.state="load";
+        }
+
+      //Display text prompting space bar
+
+    }, //The default screen
+    load: function(){
+      Game.score=0;
+      Game.lives=3;
+      //Game.sprites=[];
+
+      Game.asteroids=2;
+      //Spawn asteroids
+        //Append asteroids to Game.sprites
+
+      //Spawn ship
+        //Hook ship reference to Game.player
+        //Append asteroids to Game.sprites
+        //Ensure player doesnt spawn on an asteroid
+
+      //Prepare Alien
+        //Hook alien reference to Game.alien
+        //Append asteroids to Game.sprites
+
+      this.state="playing"
+    }, //randomizes level
+    playing: function(){}, //playing screen
+    postgame: function(){}, //game over screen
+    pause: function(){}, //paused game
+    execute: function(){this[this.state]();}, //plays whatever "state" is set to
+    state:"start"
+  }
+}
