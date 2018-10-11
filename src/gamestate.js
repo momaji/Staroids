@@ -56,15 +56,19 @@ Game = {
 
 //Main game loop
 $(function () {
-  var canvas = $("#canvas");
-  Game.canvasWidth  = canvas.width();
-  Game.canvasHeight = canvas.height();
-  var context = canvas[0].getContext("2d");
-  var canvasNode = canvas[0];
+  var cvs = $("#canvas");
+  var ctx = cvs[0].getContext("2d");
+  Game.canvasWidth  = cvs.width();
+  Game.canvasHeight = cvs.height();
   
   //Font magic
   var text = new Text();
-  text.init(context,"30px Arial");
+  text.init(ctx,"30px Arial");
+  
+  player = new Player();
+  player.init(ctx,"player");
+  player.place(100,100);
+  player.show();
 
   window.requestAnimFrame = (function () { //Required for game to run. A "show next frame"
     return  window.requestAnimationFrame       ||
@@ -78,26 +82,27 @@ $(function () {
   })();
 
   var mainLoop = function () { //main game loop
-    context.clearRect(0, 0, Game.canvasWidth, Game.canvasHeight);
+    ctx.clearRect(0, 0, Game.canvasWidth, Game.canvasHeight);
     text.norm("Staroids",10,50);
-    text.emph("Staroids",10,100);
+    text.emph("Test Text",10,100);
 
     Game.fsm.execute(); //Used for specific loop invariants or "run once" type of code
     
-    document.getElementById("output1").innerHTML = Key.isDown(Key.UP); //simple output
-    document.getElementById("output2").innerHTML = Key.isDown(Key.DOWN);
-    document.getElementById("output3").innerHTML = Key.isDown(Key.LEFT);
-    document.getElementById("output4").innerHTML = Key.isDown(Key.RIGHT);
-    document.getElementById("output5").innerHTML = Game.fsm.state;
-    //There are output1 through output5. They are text boxes at the bottom of the main page
+    document.getElementById("output1").innerHTML = player.x; //simple output
+    document.getElementById("output2").innerHTML = player.y;
+    document.getElementById("output3").innerHTML = player.acc.x;
+    document.getElementById("output4").innerHTML = player.acc.y;
+    document.getElementById("output5").innerHTML = player.visible;
     
+    
+    player.update();
     //for all sprites in sprite list, update them
       //do all input in this mainLoop or the relevant object's update function?
     
     if (false) {
       //Be paused
     } else { //Show next frame
-      requestAnimFrame(mainLoop, canvasNode);
+      requestAnimFrame(mainLoop,cvs);
     }
   }
   
