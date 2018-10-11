@@ -14,8 +14,10 @@ $(function () {
 
   player = new Player();
   player.init(ctx,"player");
-  player.place(100,100);
-  Game.sprites.push(player);
+  Game.player = player;
+  Game.sprites.push(Game.player);
+
+  Game.player.place(100,100);
 
   window.requestAnimFrame = (function () { //Required for game to run. A "show next frame"
     return  window.requestAnimationFrame       ||
@@ -38,6 +40,9 @@ $(function () {
     for (var i = 0; i < Game.sprites.length; i++){
       Game.sprites[i].update();
     }
+
+    document.getElementById("output2").innerHTML = Game.player.vel.x;
+    document.getElementById("output3").innerHTML = Game.player.vel.y;
 
     if (false) {
       //Be paused
