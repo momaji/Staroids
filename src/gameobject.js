@@ -4,20 +4,20 @@
 //Base game object
 GameObject = function(){
   this.init = function(ctx,name) {
-    this.ctx = ctx;
-    this.name = name;
+    this.ctx = ctx; //Screen context
+    this.name = name; //Name of object (like type)
 
-    this.x = 0;
+    this.x = 0; //screen coordinates
     this.y = 0;
-    this.rot = 0;
-    this.a = 0;
+    this.rot = 0; //how much to rotate on a game frame (used to modify a)
+    this.a = 0; //heading of an object
 
-    this.vel = {
+    this.vel = { //velocity vector components
       x:   0,
       y:   0
     };
 
-    this.acc = {
+    this.acc = { //acceleration vector components
       x:   0,
       y:   0
     };
@@ -54,14 +54,14 @@ GameObject = function(){
 };
 
 Player = function(){
-  this.r = SHIP_SIZE/2;
+  this.r = SHIP_SIZE/2; //radius of ship
   this.collidesWith = ["asteroid", "alien", "alienbullet"];
-  this.bulletCountDown = FPS/2; //Countdown until a bullet can be fired
 
   this.fire = false; //is firing
   this.thrust=false; //is thrusting
   this.turn = false; //is turning
-  this.airbrake=false; //is braking -> NOTE debug only
+  this.airbrake=false; //is braking
+  this.bulletCountDown = FPS/2; //Countdown until a bullet can be fired
 
   this.interact = function(){
     if (Key.isDown(Key.UP)){
@@ -104,9 +104,9 @@ Player = function(){
       this.vel.x += this.acc.x;
     }else{
       if (this.vel.x > 0){
-        this.vel.x -= 3;
+        this.vel.x -= 1;
       }else{
-        this.vel.x += 3;
+        this.vel.x += 1;
       }
 
     }
@@ -115,9 +115,9 @@ Player = function(){
       this.vel.y -= this.acc.y;
     }else{
       if (this.vel.y < 0){
-        this.vel.y += 3;
+        this.vel.y += 1;
       }else{
-        this.vel.y -= 3;
+        this.vel.y -= 1;
       }
     }
 
@@ -144,18 +144,14 @@ Player = function(){
     }
 
     if (this.airbrake){
-      if (this.vel.x > 0.25){
-        this.vel.x-=0.05;
-      }else if (this.vel.x < -0.25){
-        this.vel.x+=0.05;
+      if (this.vel.x > MIN_SPEED || this.vel.x < -MIN_SPEED){
+        this.vel.x *= SHIP_BRAKE;
       }else{
         this.vel.x=0;
       }
 
-      if (this.vel.y > 0.25){
-        this.vel.y-=0.05;
-      }else if (this.vel.y < -0.25){
-        this.vel.y+=0.05;
+      if (this.vel.y > MIN_SPEED || this.vel.y < -MIN_SPEED){
+        this.vel.y *= SHIP_BRAKE;
       }else{
         this.vel.y=0;
       }
@@ -247,11 +243,10 @@ Player.prototype = new GameObject();
 
 Bullet = function(){
   this.collidesWith = ["asteroid", "alien", "alienbullet"];
-  this.rot = 0;
   this.timeOut = 100;
 
   this.init = function(from){
-    //Bullet.prototype.init(from.ctx,"bullet");
+    Bullet.prototype.init(from.ctx,"bullet");
 
     this.ctx = from.ctx;
     this.x = from.x;
@@ -267,8 +262,6 @@ Bullet = function(){
     this.vel.x += BULLET_EXTRA * Math.cos(this.rot);
     this.vel.y += BULLET_EXTRA * -Math.sin(this.rot);
 
-    document.getElementById("output2").innerHTML = Math.cos(this.rot);
-    document.getElementById("output3").innerHTML = Math.sin(this.rot);
   };
 
   this.action = function(){
