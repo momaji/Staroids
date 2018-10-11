@@ -8,7 +8,7 @@ const MAX_ACC = 2; //maximum ship acceleration
 const MAX_SPEED = 15; //Maximum ship speed (velocity)
 const CVS_WIDTH = 500; //canvas width
 const CVS_HEIGHT = 400; //canvas height
-const BULLET_EXTRA = 10; //Extra velocity on bullet on top of ship's velocity
+const BULLET_EXTRA = 5; //Extra velocity on bullet on top of ship's velocity
 
 var Key = {
   pressed: {},

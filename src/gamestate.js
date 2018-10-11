@@ -68,7 +68,6 @@ $(function () {
   player = new Player();
   player.init(ctx,"player");
   player.place(100,100);
-  player.activate();
   sprites.push(player);
 
   window.requestAnimFrame = (function () { //Required for game to run. A "show next frame"
@@ -91,9 +90,9 @@ $(function () {
     
     for (var i = 0; i < sprites.length; i++){
       sprites[i].update();
+      
+      document.getElementById("output1").innerHTML = player.a;
     }
-    
-    document.getElementById("output1").innerHTML = player.a;
     
     if (false) {
       //Be paused

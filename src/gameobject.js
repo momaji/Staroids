@@ -21,14 +21,16 @@ GameObject = function(){
       x:   0,
       y:   0
     };
+    
+    this.activate();
   };
   
   this.collisionWith = [];
-  this.visible = false;
+  this.visible = false; //if the sprite is active or not
   
   this.place = function(x,y){this.x=x;this.y=y;}; //Puts object at specific place
-  this.activate = function(){this.visible=true;}; //shows sprite
-  this.deactivate = function(){this.visible=false;}; //hides sprite
+  this.activate = function(){this.visible=true;}; //activates sprite
+  this.deactivate = function(){this.visible=false;}; //deactivates sprite
 
   this.interact = function(){}; //Handles user input and sets flags for operation
   this.move = function(){}; //moves the sprite on the screen
@@ -225,10 +227,9 @@ Player = function(){
   this.action = function(){
     if (this.fire && this.bulletCountDown<=0){
       this.bulletCountDown = FPS/1.5;
-      bullet = new Bullet();
-      bullet.init(this.ctx,this);
-      bullet.activate();
-      sprites.push(bullet);
+      bull = new Bullet();
+      bull.init(this.ctx,this);
+      sprites.push(bull);
     }
   };
   
@@ -246,31 +247,25 @@ Player.prototype = new GameObject();
 Bullet = function(){
   this.collidesWith = ["asteroid", "alien", "alienbullet"];
   
-  this.timeOut = 1000;
+  this.timeOut = 500;
   
   this.init = function(ctx,from){
     Bullet.prototype.init(ctx,"bullet");
     
     this.x = from.x;
     this.y = from.y;
+    this.rot = from.a;
     
-    this.a = $.extend( true, {}, from.a );
-    // /this.a = from.a;
+    this.r = 1;
     
     this.vel.x = from.vel.x;
     this.vel.y = from.vel.y;
     
-    if (this.vel.x > 0){
-      this.vel.x -= BULLET_EXTRA * Math.cos(this.a)/FPS;
-    }else{
-      this.vel.x += BULLET_EXTRA * Math.cos(this.a)/FPS;
-    }
+    this.vel.x += BULLET_EXTRA * Math.cos(this.rot);
+    this.vel.y += BULLET_EXTRA * -Math.sin(this.rot);
     
-    if (this.vel.y > 0){
-      this.vel.y += BULLET_EXTRA * Math.sin(this.a)/FPS;
-    }else{
-      this.vel.y -= BULLET_EXTRA * Math.sin(this.a)/FPS;
-    }
+    document.getElementById("output2").innerHTML = Math.cos(this.rot);
+    document.getElementById("output3").innerHTML = Math.sin(this.rot);
   };
   
   this.action = function(){
@@ -284,11 +279,24 @@ Bullet = function(){
   this.move = function(){
     this.x += (this.vel.x);
     this.y += (this.vel.y);
+    
+    //Handle screen edge
+    if (this.x < 0 - this.r){
+      this.x = CVS_WIDTH + this.r;
+    } else if (this.x > CVS_WIDTH + this.r){
+      this.x = 0 - this.r;
+    }
+    if (this.y < 0 - this.r){
+      this.y = CVS_HEIGHT + this.r;
+    } else if (this.y > CVS_HEIGHT + this.r){
+      this.y = 0 - this.r;
+    }
+    
   };
   
   this.draw = function(){
     this.ctx.beginPath();
-    this.ctx.arc(this.x, this.y, 5, 0, 2*Math.PI);
+    this.ctx.arc(this.x, this.y, this.r, 0, 2*Math.PI);
     this.ctx.stroke();
   }
 };
