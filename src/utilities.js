@@ -5,7 +5,10 @@ const SHIP_THRUST = .2; //acceleration of the ship in pixels per second per seco
 const FRICTION = 0.7; // friction coefficient of space (0 = none 1 = lots)
 const MIN_SPEED = 0.000001; //minimum speed
 const MAX_ACC = 2; //maximum ship acceleration
-const MAX_SPEED = 5; //Maximum ship speed (velocity)
+const MAX_SPEED = 15; //Maximum ship speed (velocity)
+const CVS_WIDTH = 500; //canvas width
+const CVS_HEIGHT = 400; //canvas height
+const BULLET_EXTRA = 10; //Extra velocity on bullet on top of ship's velocity
 
 var Key = {
   pressed: {},
@@ -47,3 +50,5 @@ Text = function(){
     this.context.strokeText(text,x,y);
   };
 };
+
+sprites = []

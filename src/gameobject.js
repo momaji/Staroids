@@ -26,39 +26,56 @@ GameObject = function(){
   this.collisionWith = [];
   this.visible = false;
   
-  this.move = function(){}; //template movement function
-  this.draw = function(){}; //draws the object
-  this.isCollision = function(){}; //determines if there is a collision; same for all. Sprite -> Hitboxes, Points -> Geometry touching
-  //TODO: Determine if sprites will be sprite based or geometry point based
-  this.collision = function(){}; //the collision code itself; empty function - each sprite will define their own collision code
-  this.delete = function(){}; //removes object from play
   this.place = function(x,y){this.x=x;this.y=y;}; //Puts object at specific place
-  this.update = function(){}; //Runs all general purpose code to make object seem alive
-  this.show = function(){this.visible=true;}; //shows sprite
-  this.hide = function(){this.visible=false;}; //hides sprite
+  this.activate = function(){this.visible=true;}; //shows sprite
+  this.deactivate = function(){this.visible=false;}; //hides sprite
+
+  this.interact = function(){}; //Handles user input and sets flags for operation
+  this.move = function(){}; //moves the sprite on the screen
+  this.action = function(){}; //any actions the sprite should perform every frame
+  this.draw = function(){}; //draws the sprite
+  this.reset = function(){}; //resets any flags and tidys sprite for next loop
+  this.pass = function(){}; //any action the sprite should do when not active
+
+  this.update = function(){
+    if (this.visible){
+      this.interact();
+      this.move();
+      this.action();
+      this.draw();
+      this.reset();
+    }else{
+      this.pass();
+    }
+  };
+  
 };
   
 Player = function(){
   this.r = SHIP_SIZE/2;
   this.collidesWith = ["asteroid", "alien", "alienbullet"];
-  this.bulletCountDown = 60; //Countdown until a bullet can be fired
+  this.bulletCountDown = FPS/2; //Countdown until a bullet can be fired
   
   this.fire = false; //is firing
   this.thrust=false; //is thrusting
   this.turn = false; //is turning
+  this.airbrake=false; //is braking -> NOTE debug only
   
   this.interact = function(){
-    if (Key.isDown(Key.UP)) {
+    if (Key.isDown(Key.UP)){
       this.thrust = true;
     }
-    if (Key.isDown(Key.SPACE)) {
+    if (Key.isDown(Key.SPACE)){
       this.fire = true;
     }
-    if (Key.isDown(Key.LEFT)) {
+    if (Key.isDown(Key.LEFT)){
       this.turn = "left";
     }
-    if (Key.isDown(Key.RIGHT)) {
+    if (Key.isDown(Key.RIGHT)){
       this.turn = "right";
+    }
+    if (Key.isDown(Key.DOWN)){
+      this.airbrake=true;
     }
   }; //Input handling
   
@@ -84,13 +101,22 @@ Player = function(){
     if (Math.abs(this.vel.x) < MAX_SPEED){
       this.vel.x += this.acc.x;
     }else{
-      this.vel.x -= 3;
+      if (this.vel.x > 0){
+        this.vel.x -= 3;
+      }else{
+        this.vel.x += 3;
+      }
+      
     }
 
     if (Math.abs(this.vel.y) < MAX_SPEED){
       this.vel.y -= this.acc.y;
     }else{
-      this.vel.y += 3;
+      if (this.vel.y < 0){
+        this.vel.y += 3;
+      }else{
+        this.vel.y -= 3;
+      }
     }
 
     this.x += this.vel.x;
@@ -98,11 +124,40 @@ Player = function(){
     
     switch (this.turn){
       case "right": this.rot = -TURN_SPEED/180*Math.PI/FPS; break;
-      case "left" : this.rot = TURN_SPEED/180*Math.PI/FPS ; break;
+      case "left" : this.rot =  TURN_SPEED/180*Math.PI/FPS; break;
       default     : this.rot = 0; break;
     }
-    
     this.a += this.rot;
+    
+    //Handle screen edge
+    if (this.x < 0 - this.r){
+      this.x = CVS_WIDTH + this.r;
+    } else if (this.x > CVS_WIDTH + this.r){
+      this.x = 0 - this.r;
+    }
+    if (this.y < 0 - this.r){
+      this.y = CVS_HEIGHT + this.r;
+    } else if (this.y > CVS_HEIGHT + this.r){
+      this.y = 0 - this.r;
+    }
+    
+    if (this.airbrake){
+      if (this.vel.x > 0.25){
+        this.vel.x-=0.05;
+      }else if (this.vel.x < -0.25){
+        this.vel.x+=0.05;
+      }else{
+        this.vel.x=0;
+      }
+      
+      if (this.vel.y > 0.25){
+        this.vel.y-=0.05;
+      }else if (this.vel.y < -0.25){
+        this.vel.y+=0.05;
+      }else{
+        this.vel.y=0;
+      }
+    }
     
   }; //movement of sprite
   
@@ -155,38 +210,89 @@ Player = function(){
     );
 
     this.ctx.closePath();
-
     this.ctx.stroke();
+    
+    //centre dot
+    // this.ctx.fillStyle = "red";
+    // this.ctx.fillRect(this.x - 1 + this.vel.x, this.y - 1 + this.vel.y, 2, 2);
+    // this.ctx.fillRect(this.x - 1, this.y - 1, 2, 2);
+
     
     this.ctx.strokeStyle = "black";
     this.ctx.fillStyle = "black";
   };
   
-  this.reset = function(){ //reset flags about object
+  this.action = function(){
+    if (this.fire && this.bulletCountDown<=0){
+      this.bulletCountDown = FPS/1.5;
+      bullet = new Bullet();
+      bullet.init(this.ctx,this);
+      bullet.activate();
+      sprites.push(bullet);
+    }
+  };
+  
+  this.reset = function(){
     this.fire = false;
     this.thrust = false;
     this.turn = false;
-  };
-  
-  this.update = function(){
-    this.interact();
-    this.move();
-    if (this.visible){
-      this.draw();
-    }
-    this.reset();
+    this.bulletCountDown -= 1;
+    this.airbrake=false;
   };
   
 };
 Player.prototype = new GameObject();
   
 Bullet = function(){
-  
   this.collidesWith = ["asteroid", "alien", "alienbullet"];
   
-  this.timeOut = function(){}; //Countdown until bullet disappears
+  this.timeOut = 1000;
+  
+  this.init = function(ctx,from){
+    Bullet.prototype.init(ctx,"bullet");
+    
+    this.x = from.x;
+    this.y = from.y;
+    
+    this.a = $.extend( true, {}, from.a );
+    // /this.a = from.a;
+    
+    this.vel.x = from.vel.x;
+    this.vel.y = from.vel.y;
+    
+    if (this.vel.x > 0){
+      this.vel.x -= BULLET_EXTRA * Math.cos(this.a)/FPS;
+    }else{
+      this.vel.x += BULLET_EXTRA * Math.cos(this.a)/FPS;
+    }
+    
+    if (this.vel.y > 0){
+      this.vel.y += BULLET_EXTRA * Math.sin(this.a)/FPS;
+    }else{
+      this.vel.y -= BULLET_EXTRA * Math.sin(this.a)/FPS;
+    }
+  };
+  
+  this.action = function(){
+    if (this.timeOut<=0){
+      this.deactivate();
+    }else{
+      this.timeOut-=1;
+    }
+  };
+  
+  this.move = function(){
+    this.x += (this.vel.x);
+    this.y += (this.vel.y);
+  };
+  
+  this.draw = function(){
+    this.ctx.beginPath();
+    this.ctx.arc(this.x, this.y, 5, 0, 2*Math.PI);
+    this.ctx.stroke();
+  }
 };
-//Bullet.prototype = new GameObject();
+Bullet.prototype = new GameObject();
   
 Alien = function(){
   this.init("alien");

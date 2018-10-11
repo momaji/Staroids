@@ -5,8 +5,8 @@ Game = {
   score: 0,
   lives: 0,
   asteroids: 0, //Count of current asteroids
-  canvasWidth: 780,
-  canvasHeight: 540,
+  canvasWidth: CVS_WIDTH,
+  canvasHeight: CVS_HEIGHT,
   sprites: [],
   player: null,
   alien: null,
@@ -68,7 +68,8 @@ $(function () {
   player = new Player();
   player.init(ctx,"player");
   player.place(100,100);
-  player.show();
+  player.activate();
+  sprites.push(player);
 
   window.requestAnimFrame = (function () { //Required for game to run. A "show next frame"
     return  window.requestAnimationFrame       ||
@@ -88,16 +89,11 @@ $(function () {
 
     Game.fsm.execute(); //Used for specific loop invariants or "run once" type of code
     
-    document.getElementById("output1").innerHTML = player.x; //simple output
-    document.getElementById("output2").innerHTML = player.y;
-    document.getElementById("output3").innerHTML = player.acc.x;
-    document.getElementById("output4").innerHTML = player.acc.y;
-    document.getElementById("output5").innerHTML = player.visible;
+    for (var i = 0; i < sprites.length; i++){
+      sprites[i].update();
+    }
     
-    
-    player.update();
-    //for all sprites in sprite list, update them
-      //do all input in this mainLoop or the relevant object's update function?
+    document.getElementById("output1").innerHTML = player.a;
     
     if (false) {
       //Be paused
