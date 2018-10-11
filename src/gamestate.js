@@ -10,40 +10,40 @@ Game = {
   sprites: [],
   player: null,
   alien: null,
-  
+
   fsm: {
     start: function(){
       //Spawn asteroids in background
-      
+
       this.state="pregame";
-      
+
     }, //Initializes all code and systems
     pregame: function(){
         if (Key.isDown(Key.SPACE)){
           this.state="load";
         }
-      
+
       //Display text prompting space bar
-      
+
     }, //The default screen
     load: function(){
       Game.score=0;
       Game.lives=3;
-      Game.sprites=[];
-      
+      //Game.sprites=[];
+
       Game.asteroids=2;
       //Spawn asteroids
         //Append asteroids to Game.sprites
-      
+
       //Spawn ship
         //Hook ship reference to Game.player
         //Append asteroids to Game.sprites
         //Ensure player doesnt spawn on an asteroid
-        
+
       //Prepare Alien
         //Hook alien reference to Game.alien
         //Append asteroids to Game.sprites
-        
+
       this.state="playing"
     }, //randomizes level
     playing: function(){}, //playing screen
@@ -60,15 +60,15 @@ $(function () {
   var ctx = cvs[0].getContext("2d");
   Game.canvasWidth  = cvs.width();
   Game.canvasHeight = cvs.height();
-  
+
   //Font magic
   var text = new Text();
   text.init(ctx,"30px Arial");
-  
+
   player = new Player();
   player.init(ctx,"player");
   player.place(100,100);
-  sprites.push(player);
+  Game.sprites.push(player);
 
   window.requestAnimFrame = (function () { //Required for game to run. A "show next frame"
     return  window.requestAnimationFrame       ||
@@ -87,20 +87,25 @@ $(function () {
     text.emph("Test Text",10,100);
 
     Game.fsm.execute(); //Used for specific loop invariants or "run once" type of code
-    
-    for (var i = 0; i < sprites.length; i++){
-      sprites[i].update();
-      
-      document.getElementById("output1").innerHTML = player.a;
+
+    for (var i = 0; i < Game.sprites.length; i++){
+      Game.sprites[i].update();
     }
-    
+
+    if (Key.isDown(Key.SPACE)){
+        bullet = new Bullet();
+        bullet.init(player);
+        bullet.rot=Math.random()*360
+        Game.sprites.push(bullet);
+    }
+
     if (false) {
       //Be paused
     } else { //Show next frame
       requestAnimFrame(mainLoop,cvs);
     }
   }
-  
+
   mainLoop();
 
 });

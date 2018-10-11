@@ -41,14 +41,12 @@ Text = function(){
     this.context = context;
     this.context.font=font;
   };
-  
+
   this.norm = function(text,x,y){
     this.context.fillText(text,x,y);
   };
-  
+
   this.emph = function(text,x,y){
     this.context.strokeText(text,x,y);
   };
 };
-
-sprites = []

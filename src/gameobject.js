@@ -6,7 +6,7 @@ GameObject = function(){
   this.init = function(ctx,name) {
     this.ctx = ctx;
     this.name = name;
-    
+
     this.x = 0;
     this.y = 0;
     this.rot = 0;
@@ -21,13 +21,13 @@ GameObject = function(){
       x:   0,
       y:   0
     };
-    
+
     this.activate();
   };
-  
+
   this.collisionWith = [];
   this.visible = false; //if the sprite is active or not
-  
+
   this.place = function(x,y){this.x=x;this.y=y;}; //Puts object at specific place
   this.activate = function(){this.visible=true;}; //activates sprite
   this.deactivate = function(){this.visible=false;}; //deactivates sprite
@@ -50,25 +50,25 @@ GameObject = function(){
       this.pass();
     }
   };
-  
+
 };
-  
+
 Player = function(){
   this.r = SHIP_SIZE/2;
   this.collidesWith = ["asteroid", "alien", "alienbullet"];
   this.bulletCountDown = FPS/2; //Countdown until a bullet can be fired
-  
+
   this.fire = false; //is firing
   this.thrust=false; //is thrusting
   this.turn = false; //is turning
   this.airbrake=false; //is braking -> NOTE debug only
-  
+
   this.interact = function(){
     if (Key.isDown(Key.UP)){
       this.thrust = true;
     }
     if (Key.isDown(Key.SPACE)){
-      this.fire = true;
+      this.fire = false;
     }
     if (Key.isDown(Key.LEFT)){
       this.turn = "left";
@@ -80,9 +80,9 @@ Player = function(){
       this.airbrake=true;
     }
   }; //Input handling
-  
+
   this.move = function(){
-    
+
     if (this.thrust){
       if (Math.abs(this.acc.x) < MAX_ACC){
         this.acc.x += SHIP_THRUST * Math.cos(this.a)/FPS;
@@ -99,7 +99,7 @@ Player = function(){
       this.acc.x = 0;
       this.acc.y = 0;
     }
-    
+
     if (Math.abs(this.vel.x) < MAX_SPEED){
       this.vel.x += this.acc.x;
     }else{
@@ -108,7 +108,7 @@ Player = function(){
       }else{
         this.vel.x += 3;
       }
-      
+
     }
 
     if (Math.abs(this.vel.y) < MAX_SPEED){
@@ -123,14 +123,14 @@ Player = function(){
 
     this.x += this.vel.x;
     this.y += this.vel.y;
-    
+
     switch (this.turn){
       case "right": this.rot = -TURN_SPEED/180*Math.PI/FPS; break;
       case "left" : this.rot =  TURN_SPEED/180*Math.PI/FPS; break;
       default     : this.rot = 0; break;
     }
     this.a += this.rot;
-    
+
     //Handle screen edge
     if (this.x < 0 - this.r){
       this.x = CVS_WIDTH + this.r;
@@ -142,7 +142,7 @@ Player = function(){
     } else if (this.y > CVS_HEIGHT + this.r){
       this.y = 0 - this.r;
     }
-    
+
     if (this.airbrake){
       if (this.vel.x > 0.25){
         this.vel.x-=0.05;
@@ -151,7 +151,7 @@ Player = function(){
       }else{
         this.vel.x=0;
       }
-      
+
       if (this.vel.y > 0.25){
         this.vel.y-=0.05;
       }else if (this.vel.y < -0.25){
@@ -160,9 +160,9 @@ Player = function(){
         this.vel.y=0;
       }
     }
-    
+
   }; //movement of sprite
-  
+
   this.draw = function(){
     if (Key.isDown(Key.UP)) {
       //draw the thruster
@@ -213,17 +213,17 @@ Player = function(){
 
     this.ctx.closePath();
     this.ctx.stroke();
-    
+
     //centre dot
     // this.ctx.fillStyle = "red";
     // this.ctx.fillRect(this.x - 1 + this.vel.x, this.y - 1 + this.vel.y, 2, 2);
     // this.ctx.fillRect(this.x - 1, this.y - 1, 2, 2);
 
-    
+
     this.ctx.strokeStyle = "black";
     this.ctx.fillStyle = "black";
   };
-  
+
   this.action = function(){
     if (this.fire && this.bulletCountDown<=0){
       this.bulletCountDown = FPS/1.5;
@@ -232,7 +232,7 @@ Player = function(){
       sprites.push(bull);
     }
   };
-  
+
   this.reset = function(){
     this.fire = false;
     this.thrust = false;
@@ -240,34 +240,36 @@ Player = function(){
     this.bulletCountDown -= 1;
     this.airbrake=false;
   };
-  
+
 };
 Player.prototype = new GameObject();
-  
+
 Bullet = function(){
   this.collidesWith = ["asteroid", "alien", "alienbullet"];
-  
+  this.rot = 0;
   this.timeOut = 500;
-  
-  this.init = function(ctx,from){
-    Bullet.prototype.init(ctx,"bullet");
-    
+
+  this.init = function(from){
+    //Bullet.prototype.init(from.ctx,"bullet");
+
+    this.ctx = from.ctx;
     this.x = from.x;
     this.y = from.y;
     this.rot = from.a;
-    
+    this.vel = {};
+
     this.r = 1;
-    
+
     this.vel.x = from.vel.x;
     this.vel.y = from.vel.y;
-    
+
     this.vel.x += BULLET_EXTRA * Math.cos(this.rot);
     this.vel.y += BULLET_EXTRA * -Math.sin(this.rot);
-    
+
     document.getElementById("output2").innerHTML = Math.cos(this.rot);
     document.getElementById("output3").innerHTML = Math.sin(this.rot);
   };
-  
+
   this.action = function(){
     if (this.timeOut<=0){
       this.deactivate();
@@ -275,11 +277,11 @@ Bullet = function(){
       this.timeOut-=1;
     }
   };
-  
+
   this.move = function(){
     this.x += (this.vel.x);
     this.y += (this.vel.y);
-    
+
     //Handle screen edge
     if (this.x < 0 - this.r){
       this.x = CVS_WIDTH + this.r;
@@ -291,17 +293,34 @@ Bullet = function(){
     } else if (this.y > CVS_HEIGHT + this.r){
       this.y = 0 - this.r;
     }
-    
+
   };
-  
+
   this.draw = function(){
     this.ctx.beginPath();
     this.ctx.arc(this.x, this.y, this.r, 0, 2*Math.PI);
     this.ctx.stroke();
-  }
+  };
+
+  this.interact = function(){};
+  this.action = function(){}; //any actions the sprite should perform every frame
+  this.reset = function(){}; //resets any flags and tidys sprite for next loop
+  this.pass = function(){this.visible=true;}; //any action the sprite should do when not active
+
+  this.update = function(){
+    if (this.visible){
+      this.interact();
+      this.move();
+      this.action();
+      this.draw();
+      this.reset();
+    }else{
+      this.pass();
+    }
+  };
 };
-Bullet.prototype = new GameObject();
-  
+//Bullet.prototype = new GameObject();
+
 Alien = function(){
   this.init("alien");
   this.collidesWith = ["asteroid", "player", "bullet"];
@@ -312,7 +331,7 @@ Alien = function(){
 
 AlienBullet = function(){
   this.init("alienbullet");
-  
+
   this.timeOut = function(){}; //Countdown until bullet disappears
 };
 
