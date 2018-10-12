@@ -162,7 +162,7 @@ Player = function(){
   this.draw = function(){
     if (Key.isDown(Key.UP)) {
       //draw the thruster
-      this.ctx.strokeStyle = "yellow";
+      this.ctx.strokeStyle = "red";
       this.ctx.fillStyle = "red";
       this.ctx.lineWidth = SHIP_SIZE / 10;
       this.ctx.beginPath();
@@ -249,18 +249,19 @@ Bullet = function(){
     Bullet.prototype.init(from.ctx,"bullet");
 
     this.ctx = from.ctx;
-    this.x = from.x;
-    this.y = from.y;
-    this.rot = from.a;
+    this.a = from.a;
     this.vel = {};
+
+    this.x = from.x + 4/3 * from.r * Math.cos(this.a);
+    this.y = from.y - 4/3 * from.r * Math.sin(this.a);
 
     this.r = 1;
 
     this.vel.x = from.vel.x;
     this.vel.y = from.vel.y;
 
-    this.vel.x += BULLET_EXTRA * Math.cos(this.rot);
-    this.vel.y += BULLET_EXTRA * -Math.sin(this.rot);
+    this.vel.x += BULLET_EXTRA * Math.cos(this.a);
+    this.vel.y += BULLET_EXTRA * -Math.sin(this.a);
 
   };
 
