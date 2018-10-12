@@ -320,4 +320,4 @@ Asteroid = function(){
   //When printing to screen, if it is alive, print itself, else print children that are alive
 };
 
-//test
+//testg
