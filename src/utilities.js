@@ -18,6 +18,8 @@ var Key = {
   RIGHT: 39,
   DOWN:40,
   SPACE: 32,
+  M: 77,
+  P: 80,
 
   isDown: function(keyCode){
     return this.pressed[keyCode];
@@ -60,6 +62,13 @@ Game = {
   sprites: [],
   player: null,
   alien: null,
+  counter: {
+      muteSound: FPS
+  },
+
+  reduceCounter: function(){
+      this.counter.muteSound -= 1;
+  },
 
   fsm: {
     start: function(){
