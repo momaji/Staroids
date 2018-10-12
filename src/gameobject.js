@@ -230,6 +230,12 @@ Player = function(){
       if (!Sound.muted){
           Sound.play(Sound.LASER);
       }
+
+      if (TEST){
+          this.vel.x += SHIP_THRUST * -Math.cos(this.a);
+          this.vel.y += SHIP_THRUST * Math.sin(this.a);
+      }
+
     }
 
     if (this.airbrake && Sound.AIRBRAKE.currentTime<1 ){
