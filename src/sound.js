@@ -1,32 +1,44 @@
 
+var Sound = {
+    LASER: new Audio("laser.wav"),
+    EXPLOSION: new Audio("explosion.wav"),
+    AIRBRAKE: new Audio("brake.wav"),
 
-//Below is for reference only
-// Sound = {
-//   laser:     new Audio('39459__THE_bizniss__laser.wav'),
-//   explosion: new Audio('51467__smcameron__missile_explosion.wav')
-// };
+    muted: true,
 
-// preload audio
-// for (var sfx in SFX) {
-//   (function () {
-//     var audio = SFX[sfx];
-//     audio.muted = true;
-//     audio.play();
-//
-//     SFX[sfx] = function () {
-//       if (!this.muted) {
-//         if (audio.duration == 0) {
-//           // somehow dropped out
-//           audio.load();
-//           audio.play();
-//         } else {
-//           audio.muted = false;
-//           audio.currentTime = 0;
-//         }
-//       }
-//       return audio;
-//     }
-//   })();
-// }
-// // pre-mute audio
-// SFX.muted = true;
+    play: function(sound){
+        if (!this.muted){
+            sound.play();
+        }
+    },
+
+    isPlay: function(sound){
+        return !sound.paused;
+    },
+
+    pause: function(sound){
+        sound.paused = true;
+    },
+
+    unpause: function(sound){
+        sound.paused = false;
+    },
+
+    stop: function(sound){
+        sound.pause();
+        sound.currentTime = 0;
+    },
+
+    mute: function(){
+        this.muted = true;
+    },
+
+    unmute: function(){
+        this.muted = false;
+    },
+
+    toggle: function(){
+        this.muted = !this.muted;
+    }
+
+};
