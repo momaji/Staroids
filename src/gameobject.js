@@ -227,6 +227,16 @@ Player = function(){
       bull.init(this);
       bull.activate();
       Game.sprites.push(bull);
+      if (!Sound.muted){
+          Sound.play(Sound.LASER);
+      }
+    }
+
+    if (this.airbrake && Sound.AIRBRAKE.currentTime<1 ){
+        //if (!Sound.isPlay(Sound.AIRBRAKE))
+        Sound.play(Sound.AIRBRAKE);
+    }else{
+        Sound.stop(Sound.AIRBRAKE);
     }
   };
 
