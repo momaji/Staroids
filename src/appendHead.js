@@ -1,6 +1,6 @@
 window.onload = dynamicallyLoadScript("utilities.js")
-window.onload = dynamicallyLoadScript("gameobject.js")
 window.onload = dynamicallyLoadScript("sound.js")
+window.onload = dynamicallyLoadScript("gameobject.js")
 window.onload = dynamicallyLoadScript("gamestate.js")
 
 function dynamicallyLoadScript(url) {
