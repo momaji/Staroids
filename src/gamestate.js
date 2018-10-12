@@ -12,6 +12,8 @@ $(function () {
   var text = new Text();
   text.init(ctx,"30px Arial");
 
+  Sound.unmute();
+
   player = new Player();
   player.init(ctx,"player");
   Game.player = player;
@@ -30,19 +32,33 @@ $(function () {
             };
   })();
 
+  var update = function(){
+      Game.fsm.execute(); //Used for specific loop invariants or "run once" type of code
+
+      for (var i = 0; i < Game.sprites.length; i++){
+        Game.sprites[i].update();
+      }
+
+      document.getElementById("output1").innerHTML = Game.counter.muteSound;
+      document.getElementById("output2").innerHTML = Sound.muted;
+
+      document.getElementById("output3").innerHTML = Game.counter[i];
+
+      Game.reduceCounter();
+      if (Key.isDown(Key.M) && Game.counter.muteSound<=0){
+          Sound.toggle();
+          Game.counter.muteSound = FPS;
+      }
+  };
+
   var mainLoop = function () { //main game loop
     ctx.clearRect(0, 0, Game.canvasWidth, Game.canvasHeight);
-    text.norm("Staroids",10,50);
+
+    var mutedState = "Muted: " + Sound.muted.toString();
+    text.norm(mutedState,10,50);
     text.emph("Test Text",10,100);
 
-    Game.fsm.execute(); //Used for specific loop invariants or "run once" type of code
-
-    for (var i = 0; i < Game.sprites.length; i++){
-      Game.sprites[i].update();
-    }
-
-    document.getElementById("output2").innerHTML = Game.player.vel.x;
-    document.getElementById("output3").innerHTML = Game.player.vel.y;
+    update();
 
     if (false) {
       //Be paused
