@@ -328,12 +328,29 @@ AlienBullet = function(){
   this.timeOut = function(){}; //Countdown until bullet disappears
 };
 
+
 Asteroid = function(){
-  this.init("asteroid");
-  this.collidesWith = ["player", "bullet", "alien", "alienbullet"];
+  this.init = function(from){
+    Asteroid.prototype.init(from,"asteroid");
+
+    this.ctx = from.ctx;
+
+    this.x = Math.floor((Math.random() * CVS_WIDTH));
+    this.y = Math.floor((Math.random() * CVS_HEIGHT));
+
+    this.r = 1;
+
+    this.vel.x = (Math.random() * 5);
+    this.vel.y = (Math.random() * 5);
+
+    this.vel.x += BULLET_EXTRA * Math.cos(this.a);
+    this.vel.y += BULLET_EXTRA * -Math.sin(this.a);
+  };
+  this.collidesWith=["player", "bullet", "alien", "alienbullet"];
   this.scale=1;
   this.children=[]; //Instead of removing this object when destroyed, make smaller scaled asteroids as children -> the broken parts will still count as 1 asteroid present
   //When printing to screen, if it is alive, print itself, else print children that are alive
-};
 
+};
+Asteroid.prototype = new GameObject();
 //testg
