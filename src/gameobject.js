@@ -90,7 +90,7 @@ Player = function(){
         this.acc.x += 0;
       }
 
-      if (Math.abs(this.acc.y) < MAX_ACC){
+    if (Math.abs(this.acc.y) < MAX_ACC){
         this.acc.y += SHIP_THRUST * Math.sin(this.a)/FPS;
       }else{
         this.acc.y += 0;
@@ -258,7 +258,7 @@ Player = function(){
 Player.prototype = new GameObject();
 
 Bullet = function(){
-  this.collidesWith = ["asteroid", "alien", "alienbullet"];
+  this.collidesWith = ["asteroid", "alien"];
   this.timeOut = 100;
 
   this.init = function(from){
