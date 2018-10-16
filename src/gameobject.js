@@ -309,7 +309,7 @@ Bullet = function(){
   this.draw = function(){
     this.ctx.beginPath();
     this.ctx.arc(this.x, this.y, this.r, 0, 2*Math.PI);
-    this.ctx.stroke();
+    this.ctx.stroke()pgit;
   };
 };
 Bullet.prototype = new GameObject();
@@ -335,8 +335,8 @@ Asteroid = function(){
 
     this.ctx = from.ctx;
 
-    this.x = Math.floor((Math.random() * CVS_WIDTH));
-    this.y = Math.floor((Math.random() * CVS_HEIGHT));
+    this.x = Math.round((Math.random() * CVS_WIDTH));
+    this.y = Math.round((Math.random() * CVS_HEIGHT));
 
     this.r = 5;
 
