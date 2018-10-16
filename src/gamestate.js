@@ -23,7 +23,7 @@ StateMachine = {
     Game.sound = Sound;
     Game.sound.unmute();
 
-    this.generateAsteroids(5);
+    this.generateAsteroids(MAX_ASTEROIDS);
 
     this.state="pregame";
   },
@@ -54,6 +54,7 @@ StateMachine = {
     this.state="playing";
   },
   playing: function(){
+    
     //this.generateAsteroids(1);
   },
   postgame: function(){},
