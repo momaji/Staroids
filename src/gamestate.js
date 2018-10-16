@@ -7,8 +7,14 @@ StateMachine = {
     
     Game.cvs = $("#canvas");
     Game.ctx = Game.cvs[0].getContext("2d");
+    Game.canvasWidth  = Game.cvs.width();
+    Game.canvasHeight = Game.cvs.height();
+    
     Game.text = new Text();
     Game.text.init(Game.ctx,"30px Arial");
+    
+    Game.sound = Sound;
+    Game.sound.unmute();
     
     this.state="pregame";
   },
@@ -21,19 +27,16 @@ StateMachine = {
   load: function(){
     Game.score=0;
     Game.lives=3;
-    //Game.sprites=[];
 
-    Game.asteroids=2;
     //Spawn asteroids
       //Append asteroids to Game.sprites
 
     //Spawn ship
-      //Hook ship reference to Game.player
-      //Append asteroids to Game.sprites
       //Ensure player doesnt spawn on an asteroid
     Game.player = new Player();
     Game.player.init(Game.ctx,"player");
     Game.sprites.push(Game.player);
+    Game.player.place(100,100);
 
     //Prepare Alien
       //Hook alien reference to Game.alien
@@ -51,23 +54,8 @@ StateMachine = {
 //Main game loop
 $(function () {
   
-  Game.cvs = $("#canvas");
-  Game.ctx = Game.cvs[0].getContext("2d");
-  Game.canvasWidth  = Game.cvs.width();
-  Game.canvasHeight = Game.cvs.height();
+  StateMachine.execute(); //Execute startup code
   
-  Game.text = new Text();
-  Game.text.init(Game.ctx,"30px Arial");
-  
-  //TODO: See if works
-  Game.sound = Sound;
-  Game.sound.unmute();
-  
-  Game.player = new Player();
-  Game.player.init(Game.ctx,"player");
-  Game.sprites.push(Game.player);
-  Game.player.place(100,100);
-
   window.requestAnimFrame = (function () { //Required for game to run. A "show next frame"
     return  window.requestAnimationFrame       ||
             window.webkitRequestAnimationFrame ||
@@ -85,9 +73,6 @@ $(function () {
       for (var i = 0; i < Game.sprites.length; i++){
         Game.sprites[i].update();
       }
-
-      document.getElementById("output1").innerHTML = Game.counter.muteSound;
-      document.getElementById("output2").innerHTML = Sound.muted;
 
       document.getElementById("output3").innerHTML = StateMachine.state;
 
