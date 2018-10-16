@@ -2,6 +2,17 @@ window.addEventListener('keyup', function(event) { Key.onKeyup(event); }, false)
 window.addEventListener('keydown', function(event) { Key.onKeydown(event); }, false);
 
 StateMachine = {
+  generateAsteroids: function(num){
+    for (var i = 0; i<num; i+=1){
+      ast = new Asteroid();
+      ast.init(Game);
+      Game.sprites.push(ast);
+      ast = null;
+      
+      Game.asteroids+=1;
+    }
+  },
+  
   start:  function(){
     //Spawn asteroids in background
 
@@ -9,16 +20,14 @@ StateMachine = {
     Game.ctx = Game.cvs[0].getContext("2d");
     Game.canvasWidth  = Game.cvs.width();
     Game.canvasHeight = Game.cvs.height();
-
-    ast = new Asteroid(Game);
-    ast.init(Game, "asteroid");
-    Game.sprites.push(ast);
     
     Game.text = new Text();
     Game.text.init(Game.ctx,"30px Arial");
 
     Game.sound = Sound;
     Game.sound.unmute();
+    
+    this.generateAsteroids(5);
 
     this.state="pregame";
   },
@@ -48,7 +57,9 @@ StateMachine = {
 
     this.state="playing";
   },
-  playing: function(){},
+  playing: function(){
+    this.generateAsteroids(1);
+  },
   postgame: function(){},
   pause: function(){},
   execute: function(){this[this.state]();},
@@ -82,7 +93,6 @@ $(function () {
 
       Game.reduceCounter();
       if (Key.isDown(Key.M) && Game.counter.muteSound<=0){
-          //TODO: See if working
           Game.sound.toggle();
           Game.counter.muteSound = FPS;
       }
