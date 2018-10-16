@@ -2,7 +2,7 @@ const FPS = 30; //frames per second
 const SHIP_SIZE = 30; // ship height in pixels
 const TURN_SPEED = 180; //Turn speed in degrees per second
 const SHIP_THRUST = .2; //acceleration of the ship in pixels per second per second
-const SHIP_BRAKE = 0.92; // player airbrake power (<0.9 = full stop 1 = no brake)
+const SHIP_BRAKE = 0.98; // player airbrake power (<0.9 = full stop 1 = no brake)
 const MIN_SPEED = 0.1; //minimum speed
 const MAX_ACC = 2; //maximum ship acceleration
 const MAX_SPEED = 20; //Maximum ship speed (velocity)
