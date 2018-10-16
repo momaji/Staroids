@@ -321,7 +321,7 @@ Alien = function(){
 
   this.shoot = function(){};
 };
-
+n
 AlienBullet = function(){
   this.init("alienbullet");
 
@@ -338,7 +338,7 @@ Asteroid = function(){
     this.x = Math.floor((Math.random() * CVS_WIDTH));
     this.y = Math.floor((Math.random() * CVS_HEIGHT));
 
-    this.r = 1;
+    this.r = 5;
 
     this.vel.x = (Math.random() * 5);
     this.vel.y = (Math.random() * 5);
@@ -347,6 +347,11 @@ Asteroid = function(){
   this.scale=1;
   this.children=[]; //Instead of removing this object when destroyed, make smaller scaled asteroids as children -> the broken parts will still count as 1 asteroid present
   //When printing to screen, if it is alive, print itself, else print children that are alive
+  this.draw = function(){
+    this.ctx.beginPath();
+    this.ctx.arc(this.x, this.y, this.r, 0, 2*Math.PI);
+    this.ctx.stroke();
+  };
 
 };
 Asteroid.prototype = new GameObject();
