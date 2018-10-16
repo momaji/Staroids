@@ -252,7 +252,7 @@ Player = function(){
     for (var i = 0; i < arrayLength; i++) {
       if(Game.sprites[i].name === "asteroid"){
         var ast = Game.sprites[i];
-        if(pyth(Math.abs(this.x-ast.x), Math.abs(this.y-ast.y)) < this.r + ast.r){
+        if(KILLABLE && pyth(Math.abs(this.x-ast.x), Math.abs(this.y-ast.y)) < this.r + ast.r){
           this.visible = false;
           alert("Gameover")
         }
