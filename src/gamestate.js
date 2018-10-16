@@ -5,14 +5,13 @@ StateMachine = {
   generateAsteroids: function(num){
     for (var i = 0; i<num; i+=1){
       ast = new Asteroid();
-      ast.init(Game);
-      Game.sprites.push(ast);
+      ast.init(Game.ctx);
       
-      document.getElementById("output1").innerHTML = ast.name;
-      ast = null;
-      document.getElementById("output2").innerHTML = ast;
-      document.getElementById("output3").innerHTML = "==========";
-
+      document.getElementById("output1").innerHTML = ast.vel.x;
+      document.getElementById("output2").innerHTML = ast.vel.y;
+      Game.sprites.push(ast);
+      document.getElementById("output3").innerHTML = Game.sprites[0].vel.x;
+      document.getElementById("output4").innerHTML = Game.sprites[0].vel.y;
       
       Game.asteroids+=1;
     }
@@ -91,8 +90,6 @@ $(function () {
       for (var i = 0; i < Game.sprites.length; i++){
         Game.sprites[i].update();
       }
-
-      document.getElementById("output3").innerHTML = StateMachine.state;
 
       Game.reduceCounter();
       if (Key.isDown(Key.M) && Game.counter.muteSound<=0){

@@ -65,6 +65,8 @@ Player = function(){
   this.airbrake=false; //is braking
   this.bulletCountDown = FPS/2; //Countdown until a bullet can be fired
 
+  //TODO: custom init
+
   this.interact = function(){
     if (Key.isDown(Key.UP)){
       this.thrust = true;
@@ -227,7 +229,6 @@ Player = function(){
       this.bulletCountDown = FPS/1.5;
       bull = new Bullet();
       bull.init(this);
-      bull.activate();
       Game.sprites.push(bull);
       if (!Game.sound.muted){
           Game.sound.play(Sound.LASER);
@@ -367,16 +368,16 @@ AlienBullet = function(){
 
 
 Asteroid = function(){
-  this.init = function(from){
-    Asteroid.prototype.init(from.ctx,"asteroid");
-
-    this.ctx = from.ctx;
+  this.init = function(ctx){
+    Asteroid.prototype.init(ctx,"asteroid");
+    //this.ctx=ctx;
 
     this.x = Math.round((Math.random() * CVS_WIDTH));
     this.y = Math.round((Math.random() * CVS_HEIGHT));
 
     this.r = 15;
 
+    this.vel = {};
     this.vel.x = (Math.random() * 5);
     this.vel.y = (Math.random() * 5);
 
@@ -392,6 +393,7 @@ Asteroid = function(){
   this.scale=1;
   this.children=[]; //Instead of removing this object when destroyed, make smaller scaled asteroids as children -> the broken parts will still count as 1 asteroid present
   //When printing to screen, if it is alive, print itself, else print children that are alive
+  
   this.draw = function(){
     this.ctx.beginPath();
     this.ctx.arc(this.x, this.y, this.r, 0, 2*Math.PI);
@@ -424,8 +426,7 @@ Asteroid = function(){
         }
       }
     }
-  }
+  };
 
 };
 Asteroid.prototype = new GameObject();
-//testg
