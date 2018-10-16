@@ -4,18 +4,21 @@ window.addEventListener('keydown', function(event) { Key.onKeydown(event); }, fa
 StateMachine = {
   start:  function(){
     //Spawn asteroids in background
-    
+
     Game.cvs = $("#canvas");
     Game.ctx = Game.cvs[0].getContext("2d");
     Game.canvasWidth  = Game.cvs.width();
     Game.canvasHeight = Game.cvs.height();
-    
+
+    ast = new Asteroid();
+    ast.init(Game, "asteroid");
+    Game.sprites.push(ast);
     Game.text = new Text();
     Game.text.init(Game.ctx,"30px Arial");
-    
+
     Game.sound = Sound;
     Game.sound.unmute();
-    
+
     this.state="pregame";
   },
   pregame: function(){
@@ -53,9 +56,9 @@ StateMachine = {
 
 //Main game loop
 $(function () {
-  
+
   StateMachine.execute(); //Execute startup code
-  
+
   window.requestAnimFrame = (function () { //Required for game to run. A "show next frame"
     return  window.requestAnimationFrame       ||
             window.webkitRequestAnimationFrame ||
