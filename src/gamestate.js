@@ -10,9 +10,10 @@ StateMachine = {
     Game.canvasWidth  = Game.cvs.width();
     Game.canvasHeight = Game.cvs.height();
 
-    ast = new Asteroid();
+    ast = new Asteroid(Game);
     ast.init(Game, "asteroid");
     Game.sprites.push(ast);
+    
     Game.text = new Text();
     Game.text.init(Game.ctx,"30px Arial");
 
