@@ -331,7 +331,7 @@ AlienBullet = function(){
 
 Asteroid = function(){
   this.init = function(from){
-    Asteroid.prototype.init(from,"asteroid");
+    Asteroid.prototype.init(from.ctx,"asteroid");
 
     this.ctx = from.ctx;
 
@@ -342,9 +342,6 @@ Asteroid = function(){
 
     this.vel.x = (Math.random() * 5);
     this.vel.y = (Math.random() * 5);
-
-    this.vel.x += BULLET_EXTRA * Math.cos(this.a);
-    this.vel.y += BULLET_EXTRA * -Math.sin(this.a);
   };
   this.collidesWith=["player", "bullet", "alien", "alienbullet"];
   this.scale=1;
