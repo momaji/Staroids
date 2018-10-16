@@ -5,26 +5,8 @@ StateMachine = {
   generateAsteroids: function(num){
     for (var i = 0; i<num; i+=1){
       ast = new Asteroid();
-<<<<<<< HEAD
       ast.init(Game.ctx);
-      
-      document.getElementById("output1").innerHTML = ast.vel.x;
-      document.getElementById("output2").innerHTML = ast.vel.y;
       Game.sprites.push(ast);
-      document.getElementById("output3").innerHTML = Game.sprites[0].vel.x;
-      document.getElementById("output4").innerHTML = Game.sprites[0].vel.y;
-      
-=======
-      ast.init(Game);
-      Game.sprites.push(ast);
-
-      document.getElementById("output1").innerHTML = ast.name;
-      ast = null;
-      document.getElementById("output2").innerHTML = ast;
-      document.getElementById("output3").innerHTML = "==========";
-
-
->>>>>>> 8e4073a090e9f2ddc1480c7df7c7f52ce54f5e07
       Game.asteroids+=1;
     }
   },
