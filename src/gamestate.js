@@ -5,6 +5,7 @@ StateMachine = {
   generateAsteroids: function(num){
     for (var i = 0; i<num; i+=1){
       ast = new Asteroid();
+<<<<<<< HEAD
       ast.init(Game.ctx);
       
       document.getElementById("output1").innerHTML = ast.vel.x;
@@ -13,22 +14,33 @@ StateMachine = {
       document.getElementById("output3").innerHTML = Game.sprites[0].vel.x;
       document.getElementById("output4").innerHTML = Game.sprites[0].vel.y;
       
+=======
+      ast.init(Game);
+      Game.sprites.push(ast);
+
+      document.getElementById("output1").innerHTML = ast.name;
+      ast = null;
+      document.getElementById("output2").innerHTML = ast;
+      document.getElementById("output3").innerHTML = "==========";
+
+
+>>>>>>> 8e4073a090e9f2ddc1480c7df7c7f52ce54f5e07
       Game.asteroids+=1;
     }
   },
-  
+
   start:  function(){
     Game.cvs = $("#canvas");
     Game.ctx = Game.cvs[0].getContext("2d");
     Game.canvasWidth  = Game.cvs.width();
     Game.canvasHeight = Game.cvs.height();
-    
+
     Game.text = new Text();
     Game.text.init(Game.ctx,"30px Arial");
 
     Game.sound = Sound;
     Game.sound.unmute();
-    
+
     this.generateAsteroids(5);
 
     this.state="pregame";
@@ -60,7 +72,7 @@ StateMachine = {
     this.state="playing";
   },
   playing: function(){
-    this.generateAsteroids(1);
+    //this.generateAsteroids(1);
   },
   postgame: function(){},
   pause: function(){},
