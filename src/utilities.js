@@ -71,6 +71,7 @@ Game = {
   counter: {
       muteSound: FPS
   },
+  paused: false,
 
   reduceCounter: function(){
       this.counter.muteSound -= 1;
