@@ -321,7 +321,7 @@ Alien = function(){
 
   this.shoot = function(){};
 };
-n
+
 AlienBullet = function(){
   this.init("alienbullet");
 
