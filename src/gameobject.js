@@ -227,6 +227,7 @@ Player = function(){
       this.bulletCountDown = FPS/1.5;
       bull = new Bullet();
       bull.init(this);
+      bull.activate();
       Game.sprites.push(bull);
       if (!Game.sound.muted){
           Game.sound.play(Sound.LASER);
@@ -254,7 +255,7 @@ Player = function(){
         var ast = Game.sprites[i];
         if(pyth(Math.abs(this.x-ast.x), Math.abs(this.y-ast.y)) < this.r + ast.r){
           this.visible = false;
-          alert("Gameover")
+          alert("Game Over")
         }
       }
     }
@@ -329,6 +330,24 @@ Bullet = function(){
     this.ctx.arc(this.x, this.y, this.r, 0, 2*Math.PI);
     this.ctx.stroke();
   };
+
+  this.collide = function(){
+    var arrayLength = Game.sprites.length;
+    for (var i = 0; i < arrayLength; i++) {
+      if(Game.sprites[i].name === "asteroid"){
+        var ast = Game.sprites[i];
+        if(pyth(Math.abs(this.x-ast.x), Math.abs(this.y-ast.y)) < this.r + ast.r){
+          ast.visible = false;
+          this.visible = false;
+        }
+      }
+    }
+  }
+
+  pyth = function(x, y){
+    return Math.sqrt(x*x + y*y);
+  }
+
 };
 Bullet.prototype = new GameObject();
 
@@ -394,6 +413,18 @@ Asteroid = function(){
       this.y = 0 - this.r;
     }
   };
+
+  this.collide = function(){
+    var arrayLength = Game.sprites.length;
+    for (var i = 0; i < arrayLength; i++) {
+      if(Game.sprites[i].name === "player"){
+        var ast = Game.sprites[i];
+        if(pyth(Math.abs(this.x-ast.x), Math.abs(this.y-ast.y)) < this.r + ast.r){
+          this.visible = false;
+        }
+      }
+    }
+  }
 
 };
 Asteroid.prototype = new GameObject();
