@@ -225,7 +225,6 @@ Player = function(){
       this.bulletCountDown = FPS/1.5;
       bull = new Bullet();
       bull.init(this);
-      bull.activate();
       Game.sprites.push(bull);
       if (!Game.sound.muted){
           Game.sound.play(Sound.LASER);
