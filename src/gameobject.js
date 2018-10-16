@@ -227,8 +227,8 @@ Player = function(){
       bull.init(this);
       bull.activate();
       Game.sprites.push(bull);
-      if (!Sound.muted){
-          Sound.play(Sound.LASER);
+      if (!Game.sound.muted){
+          Game.sound.play(Sound.LASER);
       }
 
       if (TEST){
@@ -240,9 +240,9 @@ Player = function(){
 
     if (this.airbrake && Sound.AIRBRAKE.currentTime<1 ){
         //if (!Sound.isPlay(Sound.AIRBRAKE))
-        Sound.play(Sound.AIRBRAKE);
+        Game.sound.play(Sound.AIRBRAKE);
     }else{
-        Sound.stop(Sound.AIRBRAKE);
+        Game.sound.stop(Sound.AIRBRAKE);
     }
   };
 
@@ -347,7 +347,7 @@ Asteroid = function(){
       this.vel.x *=-1;
     }
     if (Math.round(Math.random())==0){
-      this.vel.y *=-1; 
+      this.vel.y *=-1;
     }
     
   };
