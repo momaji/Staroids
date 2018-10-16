@@ -309,7 +309,7 @@ Bullet = function(){
   this.draw = function(){
     this.ctx.beginPath();
     this.ctx.arc(this.x, this.y, this.r, 0, 2*Math.PI);
-    this.ctx.stroke()pgit;
+    this.ctx.stroke();
   };
 };
 Bullet.prototype = new GameObject();
@@ -342,14 +342,14 @@ Asteroid = function(){
 
     this.vel.x = (Math.random() * 5);
     this.vel.y = (Math.random() * 5);
-    
+
     if (Math.round(Math.random())==0){
       this.vel.x *=-1;
     }
     if (Math.round(Math.random())==0){
       this.vel.y *=-1;
     }
-    
+
   };
   this.collidesWith=["player", "bullet", "alien", "alienbullet"];
   this.scale=1;
@@ -360,11 +360,11 @@ Asteroid = function(){
     this.ctx.arc(this.x, this.y, this.r, 0, 2*Math.PI);
     this.ctx.stroke();
   };
-  
+
   this.move = function(){
     this.x += this.vel.x;
     this.y += this.vel.y;
-    
+
     if (this.x < 0 - this.r){
       this.x = CVS_WIDTH + this.r;
     } else if (this.x > CVS_WIDTH + this.r){
