@@ -38,11 +38,13 @@ GameObject = function(){
   this.draw = function(){}; //draws the sprite
   this.reset = function(){}; //resets any flags and tidys sprite for next loop
   this.pass = function(){}; //any action the sprite should do when not active
+  this.collide = function(){}; //checks for collision each frame
 
   this.update = function(){
     if (this.visible){
       this.interact();
       this.move();
+      this.collide()
       this.action();
       this.draw();
       this.reset();
@@ -245,6 +247,23 @@ Player = function(){
     }
   };
 
+  this.collide = function(){
+    var arrayLength = Game.sprites.length;
+    for (var i = 0; i < arrayLength; i++) {
+      if(Game.sprites[i].name === "asteroid"){
+        var ast = Game.sprites[i];
+        if(pyth(Math.abs(this.x-ast.x), Math.abs(this.y-ast.y)) < this.r + ast.r){
+          this.visible = false;
+          alert("Gameover")
+        }
+      }
+    }
+  }
+
+  pyth = function(x, y){
+    return Math.sqrt(x*x + y*y);
+  }
+
   this.reset = function(){
     this.fire = false;
     this.thrust = false;
@@ -337,7 +356,7 @@ Asteroid = function(){
     this.x = Math.round((Math.random() * CVS_WIDTH));
     this.y = Math.round((Math.random() * CVS_HEIGHT));
 
-    this.r = 5;
+    this.r = 15;
 
     this.vel.x = (Math.random() * 5);
     this.vel.y = (Math.random() * 5);
