@@ -7,29 +7,29 @@ StateMachine = {
       ast = new Asteroid();
       ast.init(Game);
       Game.sprites.push(ast);
-      
+
       document.getElementById("output1").innerHTML = ast.name;
       ast = null;
       document.getElementById("output2").innerHTML = ast;
       document.getElementById("output3").innerHTML = "==========";
 
-      
+
       Game.asteroids+=1;
     }
   },
-  
+
   start:  function(){
     Game.cvs = $("#canvas");
     Game.ctx = Game.cvs[0].getContext("2d");
     Game.canvasWidth  = Game.cvs.width();
     Game.canvasHeight = Game.cvs.height();
-    
+
     Game.text = new Text();
     Game.text.init(Game.ctx,"30px Arial");
 
     Game.sound = Sound;
     Game.sound.unmute();
-    
+
     this.generateAsteroids(5);
 
     this.state="pregame";
@@ -61,7 +61,7 @@ StateMachine = {
     this.state="playing";
   },
   playing: function(){
-    this.generateAsteroids(1);
+    //this.generateAsteroids(1);
   },
   postgame: function(){},
   pause: function(){},
