@@ -10,7 +10,7 @@ const CVS_WIDTH = 500; //canvas width
 const CVS_HEIGHT = 400; //canvas height
 const BULLET_EXTRA = 5; //Extra velocity on bullet on top of ship's velocity
 const KILLABLE = false; //Testing invulnerability
-const MAX_ASTEROIDS = 5; //Maximum amount of asteroids
+const MAX_ASTEROIDS = 1; //Maximum amount of asteroids
 
 const TEST=true; //experimental features
 
@@ -28,6 +28,9 @@ var Key = {
   SPACE: 32,
   M: 77,
   P: 80,
+  ONE: 49,
+  TWO: 50,
+  THREE: 51,
 
   isDown: function(keyCode){
     return this.pressed[keyCode];
