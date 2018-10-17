@@ -37,7 +37,8 @@ StateMachine = {
 
     Game.sound = Sound;
     Game.sound.unmute();
-
+    
+    Game.sprites = [];
     this.generateAsteroids(MAX_ASTEROIDS);
 
     this.state="pregame";
@@ -94,7 +95,7 @@ StateMachine = {
     
     Game.text.emph("Press 'R' to Restart",20,100);
     if (Key.isDown(Key.R)){
-      this.state="load";
+      this.state="reload";
     }
   },
   pause: function(){
@@ -102,6 +103,13 @@ StateMachine = {
       Game.sprites[i].draw();
     }
     
+  },
+  reload: function(){
+    Game.sprites = [];
+
+    this.generateAsteroids(MAX_ASTEROIDS);
+    
+    this.state = "load";
   },
   execute: function(){this[this.state]();},
   
