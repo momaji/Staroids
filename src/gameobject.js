@@ -58,7 +58,6 @@ GameObject = function(){
 };
 
 Player = function(){
-  this.r = SHIP_SIZE/2; //radius of ship
   this.collidesWith = ["asteroid", "alien", "alienbullet"];
 
   this.fire = false; //is firing
@@ -67,7 +66,21 @@ Player = function(){
   this.airbrake=false; //is braking
   this.bulletCountDown = FPS/2; //Countdown until a bullet can be fired
 
-  //TODO: custom init
+  this.init = function(ctx){
+    Player.prototype.init(ctx,"PLAYER");
+
+    this.vel = {
+      x: 0,
+      y: 0
+    };
+    
+    this.acc = {
+      x: 0,
+      y: 0
+    };
+    
+    this.r = SHIP_SIZE/2; //radius of ship
+  };
 
   this.interact = function(){
     if (Key.isDown(Key.UP)){
@@ -228,7 +241,7 @@ Player = function(){
 
   this.action = function(){
     if (this.fire && this.bulletCountDown<=0){
-      this.bulletCountDown = FPS/1.5;
+      this.bulletCountDown = FPS/1.25;
       bull = new Bullet();
       bull.init(this);
       Game.sprites.push(bull);
@@ -344,7 +357,6 @@ Bullet = function(){
   
         if (ast.visible){
           if(pyth(Math.abs(this.x-ast.x), Math.abs(this.y-ast.y)) < this.r + ast.r){
-            printOut(1,"collide");
             this.die();
             this.place(-100,-100);
             ast.die();
@@ -403,12 +415,12 @@ Asteroid = function(){
     this.y = Math.round((Math.random() * CVS_HEIGHT));
 
     this.scale=scale;
-    this.r = 3 * this.scale;
+    this.r = 5 * this.scale;
     this.children=[];
 
     this.vel = {};
-    this.vel.x = (Math.random() * 3);
-    this.vel.y = (Math.random() * 3);
+    this.vel.x = (Math.random() * 1.5);
+    this.vel.y = (Math.random() * 1.5);
 
     if (Math.round(Math.random())==0){
       this.vel.x *=-1;
@@ -453,11 +465,15 @@ Asteroid = function(){
     // if (Key.isDown(Key.SPACE) && this.scale==3){
     //   this.die();
     // }
+    if (Key.isDown(Key.ONE) && this.scale==1)   this.die();
+    if (Key.isDown(Key.TWO) && this.scale==2)   this.die();
+    if (Key.isDown(Key.THREE) && this.scale==3) this.die();
+    
   };
 
   this.die = function(){
     this.deactivate();
-    if (this.scale>0){
+    if (this.scale>1){
       for (var i=0; i<3; i+=1){
         ast = new Asteroid();
         ast.init(this.ctx,this.scale-1);
@@ -465,17 +481,45 @@ Asteroid = function(){
         this.children.push(ast);
       }
     }
-    
-    // for (var i = 0; i < 3; i++){
-    //   ast = new Asteroid();
-    //   ast.init(this.ctx,this.scale-1);
-    //   this.children.push(ast);
-    // }
   };
   
   this.pass = function(){
     for (var i=0; i<this.children.length; i+=1){
       this.children[i].update();
+    }
+    
+    if (this.scale==3){
+      if (this.isDead()){
+        Game.asteroids -= 1;
+        Game.sprites.remove(this);
+      }
+    }
+    
+  };
+  
+  this.isDead = function(){
+    if (this.visible){
+      //not destroyed -> alive
+      return false;
+    }else{
+      if (this.children.length==0){
+        //destroyed and no children -> dead scale 1
+        return true;
+      }else{
+        //destroyed and has children -> scale 2 or 3
+        
+        this.c=0;
+        for (var i=0; i<this.children.length; i+=1){
+          if (this.children[0].isDead()) this.c+=1;
+        }
+        
+        if (this.c==this.children.length){
+          return true;
+        }
+        return false;
+        
+      }
+        
     }
   };
 
