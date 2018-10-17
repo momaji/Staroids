@@ -11,6 +11,8 @@ GameObject = function(){
     this.y = 0;
     this.rot = 0; //how much to rotate on a game frame (used to modify a)
     this.a = 0; //heading of an object
+    
+    this.visible = false; //if the sprite is active or not
 
     this.vel = { //velocity vector components
       x:   0,
@@ -26,11 +28,11 @@ GameObject = function(){
   };
 
   this.collisionWith = [];
-  this.visible = false; //if the sprite is active or not
-
+  
   this.place = function(x,y){this.x=x;this.y=y;}; //Puts object at specific place
   this.activate = function(){this.visible=true;}; //activates sprite
   this.deactivate = function(){this.visible=false;}; //deactivates sprite
+  this.die = function(){this.deactivate();}; //what occurs upon death
 
   this.interact = function(){}; //Handles user input and sets flags for operation
   this.move = function(){}; //moves the sprite on the screen
@@ -255,8 +257,8 @@ Player = function(){
       if(Game.sprites[i].visible && Game.sprites[i].name === "asteroid"){
         var ast = Game.sprites[i];
         if(KILLABLE && pyth(Math.abs(this.x-ast.x), Math.abs(this.y-ast.y)) < this.r + ast.r){
-          this.deactivate();
-          ast.deactivate();
+          this.die();
+          ast.die();
           alert("Game Over")
         }
       }
@@ -336,16 +338,40 @@ Bullet = function(){
   this.collide = function(){
     var arrayLength = Game.sprites.length;
     for (var i = 0; i < arrayLength; i++) {
-      if(Game.sprites[i].visible && Game.sprites[i].name === "asteroid"){
+      
+      if (Game.sprites[i].name == "asteroid"){
         var ast = Game.sprites[i];
-        if(pyth(Math.abs(this.x-ast.x), Math.abs(this.y-ast.y)) < this.r + ast.r){
-          ast.deactivate();
-          this.deactivate();
+  
+        if (ast.visible){
+          if(pyth(Math.abs(this.x-ast.x), Math.abs(this.y-ast.y)) < this.r + ast.r){
+            printOut(1,"collide");
+            this.die();
+            this.place(-100,-100);
+            ast.die();
+          }
+          
+        }else{
+          this.collideOffshoot(ast.children);
         }
-        
+      }
+       
+    }
+  };
+  
+  this.collideOffshoot = function(astChildren){
+    for (var i=0; i<astChildren.length; i+=1){
+      var ast = astChildren[i];
+      if (ast.visible){
+        if(pyth(Math.abs(this.x-ast.x), Math.abs(this.y-ast.y)) < this.r + ast.r){
+          this.die();
+          this.place(-100,-100);
+          ast.die();
+        }
+      }else{
+        this.collideOffshoot(ast.children);
       }
     }
-  }
+  };
 
   pyth = function(x, y){
     return Math.sqrt(x*x + y*y);
@@ -368,20 +394,21 @@ AlienBullet = function(){
   this.timeOut = function(){}; //Countdown until bullet disappears
 };
 
-
 Asteroid = function(){
-  this.init = function(ctx){
+  this.init = function(ctx,scale){
     Asteroid.prototype.init(ctx,"asteroid");
     //this.ctx=ctx;
 
     this.x = Math.round((Math.random() * CVS_WIDTH));
     this.y = Math.round((Math.random() * CVS_HEIGHT));
 
-    this.r = 15;
+    this.scale=scale;
+    this.r = 3 * this.scale;
+    this.children=[];
 
     this.vel = {};
-    this.vel.x = (Math.random() * 5);
-    this.vel.y = (Math.random() * 5);
+    this.vel.x = (Math.random() * 3);
+    this.vel.y = (Math.random() * 3);
 
     if (Math.round(Math.random())==0){
       this.vel.x *=-1;
@@ -392,14 +419,18 @@ Asteroid = function(){
 
   };
   this.collidesWith=["player", "bullet", "alien", "alienbullet"];
-  this.scale=1;
-  this.children=[]; //Instead of removing this object when destroyed, make smaller scaled asteroids as children -> the broken parts will still count as 1 asteroid present
-  //When printing to screen, if it is alive, print itself, else print children that are alive
   
   this.draw = function(){
-    this.ctx.beginPath();
-    this.ctx.arc(this.x, this.y, this.r, 0, 2*Math.PI);
-    this.ctx.stroke();
+    if (this.visible){
+      this.ctx.beginPath();
+      this.ctx.arc(this.x, this.y, this.r, 0, 2*Math.PI);
+      this.ctx.stroke();
+    }else{
+      for (var i=0; i<this.children.length; i+=1){
+        this.children[i].draw();
+      }
+    }
+      
   };
 
   this.move = function(){
@@ -418,17 +449,35 @@ Asteroid = function(){
     }
   };
 
-  // this.collide = function(){
-  //   var arrayLength = Game.sprites.length;
-  //   for (var i = 0; i < arrayLength; i++) {
-  //     if(Game.sprites[i].visible && Game.sprites[i].name === "player"){
-  //       var ast = Game.sprites[i];
-  //       if(pyth(Math.abs(this.x-ast.x), Math.abs(this.y-ast.y)) < this.r + ast.r){
-  //         this.visible = false;
-  //       }
-  //     }
-  //   }
-  // };
+  this.action = function(){
+    // if (Key.isDown(Key.SPACE) && this.scale==3){
+    //   this.die();
+    // }
+  };
+
+  this.die = function(){
+    this.deactivate();
+    if (this.scale>0){
+      for (var i=0; i<3; i+=1){
+        ast = new Asteroid();
+        ast.init(this.ctx,this.scale-1);
+        ast.place(this.x,this.y);
+        this.children.push(ast);
+      }
+    }
+    
+    // for (var i = 0; i < 3; i++){
+    //   ast = new Asteroid();
+    //   ast.init(this.ctx,this.scale-1);
+    //   this.children.push(ast);
+    // }
+  };
+  
+  this.pass = function(){
+    for (var i=0; i<this.children.length; i+=1){
+      this.children[i].update();
+    }
+  };
 
 };
 Asteroid.prototype = new GameObject();
