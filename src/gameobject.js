@@ -316,7 +316,7 @@ Player.prototype = new GameObject();
 
 Bullet = function(){
   this.collidesWith = ["asteroid", "alien"];
-  this.timeOut = 100;
+  this.timeOut = 200;
 
   this.init = function(from){
     Bullet.prototype.init(from.ctx,"bullet");
@@ -365,9 +365,12 @@ Bullet = function(){
   };
 
   this.draw = function(){
-    this.ctx.beginPath();
-    this.ctx.arc(this.x, this.y, this.r, 0, 2*Math.PI);
-    this.ctx.stroke();
+    if (this.visible){
+      this.ctx.beginPath();
+      this.ctx.arc(this.x, this.y, this.r, 0, 2*Math.PI);
+      this.ctx.stroke();
+    }
+    
   };
 
   this.collide = function(){
@@ -440,8 +443,8 @@ Asteroid = function(){
     this.children=[];
 
     this.vel = {};
-    this.vel.x = (Math.random() * 1.5);
-    this.vel.y = (Math.random() * 1.5);
+    this.vel.x = (Math.random() * 3);
+    this.vel.y = (Math.random() * 3);
 
     if (Math.round(Math.random())==0){
       this.vel.x *=-1;
