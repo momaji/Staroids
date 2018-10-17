@@ -179,7 +179,7 @@ Player = function(){
   }; //movement of sprite
 
   this.draw = function(){
-    if (Key.isDown(Key.UP)) {
+    if (this.thrust) {
       //draw the thruster
       this.ctx.strokeStyle = "red";
       this.ctx.fillStyle = "red";
@@ -267,16 +267,37 @@ Player = function(){
   this.collide = function(){
     var arrayLength = Game.sprites.length;
     for (var i = 0; i < arrayLength; i++) {
-      if(Game.sprites[i].visible && Game.sprites[i].name === "asteroid"){
+      if(Game.sprites[i].name === "asteroid"){
         var ast = Game.sprites[i];
-        if(KILLABLE && pyth(Math.abs(this.x-ast.x), Math.abs(this.y-ast.y)) < this.r + ast.r){
-          this.die();
-          ast.die();
-          alert("Game Over")
+        
+        if (ast.visible){
+          if(KILLABLE && pyth(Math.abs(this.x-ast.x), Math.abs(this.y-ast.y)) < this.r + ast.r){
+            this.die();
+            ast.die();
+            Game.player = null;
+          }
+        }else{
+          this.collideOffshoot(ast.children);
         }
+        
       }
     }
   }
+  
+  this.collideOffshoot = function(astChildren){
+    for (var i=0; i<astChildren.length; i+=1){
+      var ast = astChildren[i];
+      if (ast.visible){
+        if(KILLABLE && pyth(Math.abs(this.x-ast.x), Math.abs(this.y-ast.y)) < this.r + ast.r){
+          this.die();
+          ast.die();
+          Game.player = null;
+        }
+      }else{
+        this.collideOffshoot(ast.children);
+      }
+    }
+  };
 
   pyth = function(x, y){
     return Math.sqrt(x*x + y*y);
@@ -320,6 +341,7 @@ Bullet = function(){
   this.action = function(){
     if (this.timeOut<=0){
       this.deactivate();
+      Game.sprites.remove(this);
     }else{
       this.timeOut-=1;
     }
@@ -358,7 +380,6 @@ Bullet = function(){
         if (ast.visible){
           if(pyth(Math.abs(this.x-ast.x), Math.abs(this.y-ast.y)) < this.r + ast.r){
             this.die();
-            this.place(-100,-100);
             ast.die();
           }
           
@@ -510,7 +531,7 @@ Asteroid = function(){
         
         this.c=0;
         for (var i=0; i<this.children.length; i+=1){
-          if (this.children[0].isDead()) this.c+=1;
+          if (this.children[i].isDead()) this.c+=1;
         }
         
         if (this.c==this.children.length){
