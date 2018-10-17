@@ -10,6 +10,21 @@ StateMachine = {
       Game.asteroids+=1;
     }
   },
+  
+  togglePause: function(){
+    if (this.state != "pause"){
+      this.stateSave = this.state;
+      this.state = "pause";
+      
+      if (Key.isDown(Key.UP)){
+        Game.player.thrust = true;
+      }
+      
+    }else{
+      this.state = this.stateSave;
+      this.stateSave = null;
+    }
+  },
 
   start:  function(){
     Game.cvs = $("#canvas");
@@ -28,6 +43,10 @@ StateMachine = {
     this.state="pregame";
   },
   pregame: function(){
+    for (var i = 0; i < Game.sprites.length; i++){
+      Game.sprites[i].update();
+    }
+    
     Game.text.emph("Press Space To Start",20,100);
     if (Key.isDown(Key.SPACE)){
       this.state="load";
@@ -55,16 +74,39 @@ StateMachine = {
   },
   playing: function(){
     
-    printOut(1,Game.asteroids);
+    for (var i = 0; i < Game.sprites.length; i++){
+      Game.sprites[i].update();
+    }
+    
     if (Game.asteroids < MAX_ASTEROIDS){
       this.generateAsteroids(1);
     }
     
+    if (Game.player == null){
+      this.state = "postgame";
+    }
+    
   },
-  postgame: function(){},
-  pause: function(){},
+  postgame: function(){
+    for (var i = 0; i < Game.sprites.length; i++){
+      Game.sprites[i].update();
+    }
+    
+    Game.text.emph("Press 'R' to Restart",20,100);
+    if (Key.isDown(Key.R)){
+      this.state="load";
+    }
+  },
+  pause: function(){
+    for (var i = 0; i < Game.sprites.length; i++){
+      Game.sprites[i].draw();
+    }
+    
+  },
   execute: function(){this[this.state]();},
-  state: "start"
+  
+  state: "start",
+  stateSave: null
 }
 
 //Main game loop
@@ -86,20 +128,19 @@ $(function () {
   var update = function(){
     StateMachine.execute(); //Used for specific loop invariants or "run once" type of code
 
-    collect = 0;
-    for (var i = 0; i < Game.sprites.length; i++){
-      Game.sprites[i].update();
-    }
-
     Game.reduceCounter();
     if (Key.isDown(Key.M) && Game.counter.muteSound<=0){
         Game.sound.toggle();
         Game.counter.muteSound = FPS;
     }
-    if (Key.isDown(Key.R)){
-      StateMachine.state = "start";
-      Game.sprites=[];
+    if (Key.isDown(Key.P) && Game.counter.pauseGame<=0){
+        StateMachine.togglePause();
+        Game.counter.pauseGame = FPS;
     }
+    
+    printOut(1,Game.counter.pauseGame);
+    printOut(2,StateMachine.state);
+    printOut(3,StateMachine.stateSave);
   };
 
   var mainLoop = function () { //main game loop

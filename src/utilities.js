@@ -10,7 +10,7 @@ const CVS_WIDTH = 500; //canvas width
 const CVS_HEIGHT = 400; //canvas height
 const BULLET_EXTRA = 5; //Extra velocity on bullet on top of ship's velocity
 const KILLABLE = false; //Testing invulnerability
-const MAX_ASTEROIDS = 3; //Maximum amount of asteroids
+const MAX_ASTEROIDS = 1; //Maximum amount of asteroids
 
 const TEST=false; //experimental features
 
@@ -79,12 +79,14 @@ Game = {
   text: null,
   sound: null,
   counter: {
-      muteSound: FPS
+      muteSound: FPS,
+      pauseGame: FPS
   },
   paused: false,
 
   reduceCounter: function(){
       this.counter.muteSound -= 1;
+      this.counter.pauseGame -= 1;
   }
 }
 
