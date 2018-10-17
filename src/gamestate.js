@@ -79,8 +79,9 @@ StateMachine = {
       Game.sprites[i].update();
     }
     
-    if (Game.asteroids < MAX_ASTEROIDS){
-      this.generateAsteroids(1);
+    if (Game.asteroids == 0){
+      Game.level += 1;
+      this.generateAsteroids(MAX_ASTEROIDS + Game.level * 2);
     }
     
     if (Game.player == null){
