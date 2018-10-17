@@ -104,6 +104,7 @@ StateMachine = {
       Game.sprites[i].draw();
     }
     
+    Game.text.emph("Press 'P' to Unpause",20,100);
   },
   reload: function(){
     Game.sprites = [];
