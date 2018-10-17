@@ -5,7 +5,7 @@ StateMachine = {
   generateAsteroids: function(num){
     for (var i = 0; i<num; i+=1){
       ast = new Asteroid();
-      ast.init(Game.ctx);
+      ast.init(Game.ctx,3);
       Game.sprites.push(ast);
       Game.asteroids+=1;
     }
