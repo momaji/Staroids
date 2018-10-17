@@ -43,7 +43,7 @@ StateMachine = {
     //Spawn ship
       //Ensure player doesnt spawn on an asteroid
     Game.player = new Player();
-    Game.player.init(Game.ctx,"player");
+    Game.player.init(Game.ctx);
     Game.sprites.push(Game.player);
     Game.player.place(100,100);
 
@@ -55,7 +55,11 @@ StateMachine = {
   },
   playing: function(){
     
-    //this.generateAsteroids(1);
+    printOut(1,Game.asteroids);
+    if (Game.asteroids < MAX_ASTEROIDS){
+      this.generateAsteroids(1);
+    }
+    
   },
   postgame: function(){},
   pause: function(){},
@@ -80,17 +84,22 @@ $(function () {
   })();
 
   var update = function(){
-      StateMachine.execute(); //Used for specific loop invariants or "run once" type of code
+    StateMachine.execute(); //Used for specific loop invariants or "run once" type of code
 
-      for (var i = 0; i < Game.sprites.length; i++){
-        Game.sprites[i].update();
-      }
+    collect = 0;
+    for (var i = 0; i < Game.sprites.length; i++){
+      Game.sprites[i].update();
+    }
 
-      Game.reduceCounter();
-      if (Key.isDown(Key.M) && Game.counter.muteSound<=0){
-          Game.sound.toggle();
-          Game.counter.muteSound = FPS;
-      }
+    Game.reduceCounter();
+    if (Key.isDown(Key.M) && Game.counter.muteSound<=0){
+        Game.sound.toggle();
+        Game.counter.muteSound = FPS;
+    }
+    if (Key.isDown(Key.R)){
+      StateMachine.state = "start";
+      Game.sprites=[];
+    }
   };
 
   var mainLoop = function () { //main game loop
