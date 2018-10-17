@@ -10,13 +10,13 @@ const CVS_WIDTH = 500; //canvas width
 const CVS_HEIGHT = 400; //canvas height
 const BULLET_EXTRA = 5; //Extra velocity on bullet on top of ship's velocity
 const KILLABLE = false; //Testing invulnerability
-const MAX_ASTEROIDS = 1; //Maximum amount of asteroids
+const MAX_ASTEROIDS = 3; //Maximum amount of asteroids
 
-const TEST=true; //experimental features
+const TEST=false; //experimental features
 
 printOut = function(select,output){
-  document.getElementById("output"+select.toString()).innerHTML = output;
-}
+  document.getElementById("output"+select.toString()).innerHTML = select.toString() + ": "+ output;
+};
 
 var Key = {
   pressed: {},
@@ -28,6 +28,7 @@ var Key = {
   SPACE: 32,
   M: 77,
   P: 80,
+  R: 82,
   ONE: 49,
   TWO: 50,
   THREE: 51,
@@ -86,3 +87,15 @@ Game = {
       this.counter.muteSound -= 1;
   }
 }
+
+// from:  https://stackoverflow.com/questions/3954438/how-to-remove-item-from-array-by-value
+Array.prototype.remove = function() {
+    var what, a = arguments, L = a.length, ax;
+    while (L && this.length) {
+        what = a[--L];
+        while ((ax = this.indexOf(what)) !== -1) {
+            this.splice(ax, 1);
+        }
+    }
+    return this;
+};
