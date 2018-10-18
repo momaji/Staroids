@@ -2,23 +2,55 @@
 //Need to figure out how it works -> stored in utilities module
 
 //Base game object
+/**
+* The basic object from which all other objects inheirt from
+*/
 GameObject = function(){
+  /**
+  *The initialization function
+  * @param ctx - The Screen context
+  * @param name - The name of the object (like type)
+  */
   this.init = function(ctx,name) {
     this.ctx = ctx; //Screen context
     this.name = name; //Name of object (like type)
-
-    this.x = 0; //screen coordinates
+    /**
+    * The x coordinate of the GameObject on the screen
+    * @type {number}
+    */
+    this.x = 0;
+    /**
+    * The y coordinate of the GameObject on the screen
+    * @type {number}
+    */
     this.y = 0;
-    this.rot = 0; //how much to rotate on a game frame (used to modify a)
-    this.a = 0; //heading of an object
-    
+    /**
+    * how much to rotate on a game frame (used to modify a)
+    * @type {number}
+    */
+    this.rot = 0; //
+    /**
+    * heading of an object
+    * @type {number}
+    */
+    this.a = 0;
+    /**
+    * the visibility of a GameObject
+    * @type {boolean}
+    */
     this.visible = false; //if the sprite is active or not
-
+    /**
+    * the velocity vector components
+    * @type {number|Array.}
+    */
     this.vel = { //velocity vector components
       x:   0,
       y:   0
     };
-
+    /**
+    * the acceleration vector components
+    * @type {number|Array.}
+    */
     this.acc = { //acceleration vector components
       x:   0,
       y:   0
@@ -28,20 +60,59 @@ GameObject = function(){
   };
 
   this.collisionWith = [];
-  
-  this.place = function(x,y){this.x=x;this.y=y;}; //Puts object at specific place
+  /**
+  * Puts object at specific place
+  * @param x - The x coordinate of where the object should be placed
+  * @param y - The y coordinate of where the object should be placed
+  */
+  this.place = function(x,y){this.x=x;this.y=y;}; //
+  /**
+  * Activates sprites by toggling visibility on
+  */
   this.activate = function(){this.visible=true;}; //activates sprite
+  /**
+  * Activates sprites by toggling visibility off
+  */
   this.deactivate = function(){this.visible=false;}; //deactivates sprite
+  /**
+  * "Kills" GameObjects
+  */
   this.die = function(){this.deactivate();}; //what occurs upon death
+  /**
+  * Handles user input and sets flags for operation
+  */
+  this.interact = function(){}; //
+  /**
+  * moves the sprite on the screen
+  */
+  this.move = function(){}; //
+  /**
+  * any actions the sprite should perform every frame
+  */
+  this.action = function(){}; //
 
-  this.interact = function(){}; //Handles user input and sets flags for operation
-  this.move = function(){}; //moves the sprite on the screen
-  this.action = function(){}; //any actions the sprite should perform every frame
-  this.draw = function(){}; //draws the sprite
-  this.reset = function(){}; //resets any flags and tidys sprite for next loop
-  this.pass = function(){}; //any action the sprite should do when not active
-  this.collide = function(){}; //checks for collision each frame
+  /**
+  * draws the sprite
+  */
+  this.draw = function(){}; //
 
+  /**
+  * resets any flags and tidys sprite for next loop
+  */
+  this.reset = function(){}; //
+
+  /**
+  * any action the sprite should do when not active
+  */
+  this.pass = function(){}; //
+
+  /**
+  * checks for collision each frame
+  */
+  this.collide = function(){}; //
+  /**
+  * calls each GameObject function in a specific order to allow gameplay to happen in the intended manner
+  */
   this.update = function(){
     if (this.visible){
       this.interact();
@@ -56,7 +127,9 @@ GameObject = function(){
   };
 
 };
-
+/**
+* Object that represents the player object
+*/
 Player = function(){
   this.collidesWith = ["asteroid", "alien", "alienbullet"];
 
@@ -73,12 +146,12 @@ Player = function(){
       x: 0,
       y: 0
     };
-    
+
     this.acc = {
       x: 0,
       y: 0
     };
-    
+
     this.r = SHIP_SIZE/2; //radius of ship
   };
 
@@ -269,7 +342,7 @@ Player = function(){
     for (var i = 0; i < arrayLength; i++) {
       if(Game.sprites[i].name === "asteroid"){
         var ast = Game.sprites[i];
-        
+
         if (ast.visible){
           if(KILLABLE && pyth(Math.abs(this.x-ast.x), Math.abs(this.y-ast.y)) < this.r + ast.r){
             this.die();
@@ -279,11 +352,11 @@ Player = function(){
         }else{
           this.collideOffshoot(ast.children);
         }
-        
+
       }
     }
   }
-  
+
   this.collideOffshoot = function(astChildren){
     for (var i=0; i<astChildren.length; i+=1){
       var ast = astChildren[i];
@@ -370,30 +443,30 @@ Bullet = function(){
       this.ctx.arc(this.x, this.y, this.r, 0, 2*Math.PI);
       this.ctx.stroke();
     }
-    
+
   };
 
   this.collide = function(){
     var arrayLength = Game.sprites.length;
     for (var i = 0; i < arrayLength; i++) {
-      
+
       if (Game.sprites[i].name == "asteroid"){
         var ast = Game.sprites[i];
-  
+
         if (ast.visible){
           if(pyth(Math.abs(this.x-ast.x), Math.abs(this.y-ast.y)) < this.r + ast.r){
             this.die();
             ast.die();
           }
-          
+
         }else{
           this.collideOffshoot(ast.children);
         }
       }
-       
+
     }
   };
-  
+
   this.collideOffshoot = function(astChildren){
     for (var i=0; i<astChildren.length; i+=1){
       var ast = astChildren[i];
@@ -455,7 +528,7 @@ Asteroid = function(){
 
   };
   this.collidesWith=["player", "bullet", "alien", "alienbullet"];
-  
+
   this.draw = function(){
     if (this.visible){
       this.ctx.beginPath();
@@ -466,7 +539,7 @@ Asteroid = function(){
         this.children[i].draw();
       }
     }
-      
+
   };
 
   this.move = function(){
@@ -492,7 +565,7 @@ Asteroid = function(){
     if (Key.isDown(Key.ONE) && this.scale==1)   this.die();
     if (Key.isDown(Key.TWO) && this.scale==2)   this.die();
     if (Key.isDown(Key.THREE) && this.scale==3) this.die();
-    
+
   };
 
   this.die = function(){
@@ -506,21 +579,21 @@ Asteroid = function(){
       }
     }
   };
-  
+
   this.pass = function(){
     for (var i=0; i<this.children.length; i+=1){
       this.children[i].update();
     }
-    
+
     if (this.scale==3){
       if (this.isDead()){
         Game.asteroids -= 1;
         Game.sprites.remove(this);
       }
     }
-    
+
   };
-  
+
   this.isDead = function(){
     if (this.visible){
       //not destroyed -> alive
@@ -531,19 +604,19 @@ Asteroid = function(){
         return true;
       }else{
         //destroyed and has children -> scale 2 or 3
-        
+
         this.c=0;
         for (var i=0; i<this.children.length; i+=1){
           if (this.children[i].isDead()) this.c+=1;
         }
-        
+
         if (this.c==this.children.length){
           return true;
         }
         return false;
-        
+
       }
-        
+
     }
   };
 
