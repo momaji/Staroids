@@ -131,12 +131,35 @@ GameObject = function(){
 * Object that represents the player object
 */
 Player = function(){
+  /**
+  * The list of objects the player can collide with
+  * @type {string|Array.}
+  */
   this.collidesWith = ["asteroid", "alien", "alienbullet"];
-
+  /**
+  * Is the ship firing
+  * @type {boolean}
+  */
   this.fire = false; //is firing
+  /**
+  * Is the ship thrusting
+  * @type {boolean}
+  */
   this.thrust=false; //is thrusting
+  /**
+  * Is the ship turing
+  * @type {boolean}
+  */
   this.turn = false; //is turning
+  /**
+  * Is the player air braking
+  * @type {boolean}
+  */
   this.airbrake=false; //is braking
+  /**
+  * Countdown until another bullet can be fired
+  * @type {number}
+  */
   this.bulletCountDown = FPS/2; //Countdown until a bullet can be fired
 
   this.init = function(ctx){
