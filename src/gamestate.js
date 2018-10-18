@@ -1,7 +1,14 @@
+/** Initailizes the program to listen to when keys are pressed down during game operation.*/
 window.addEventListener('keyup', function(event) { Key.onKeyup(event); }, false);
+/** Initailizes the program to listen to when keys are released during game operation.*/
 window.addEventListener('keydown', function(event) { Key.onKeydown(event); }, false);
 
+/** State Machine of the game containing the Major four game states (Pregame, Playing, Pause & End) as well as some minor things*/
 StateMachine = {
+  /**
+   * Spawns Asteroids and adds to game's sprite list
+   * @param {Integer} num - The number of asteroids to be spawned
+   */
   generateAsteroids: function(num){
     for (var i = 0; i<num; i+=1){
       ast = new Asteroid();
@@ -10,16 +17,19 @@ StateMachine = {
       Game.asteroids+=1;
     }
   },
-  
+
+  /**
+   *
+   */
   togglePause: function(){
     if (this.state != "pause"){
       this.stateSave = this.state;
       this.state = "pause";
-      
+
       if (Key.isDown(Key.UP)){
         Game.player.thrust = true;
       }
-      
+
     }else{
       this.state = this.stateSave;
       this.stateSave = null;
@@ -37,7 +47,7 @@ StateMachine = {
 
     Game.sound = Sound;
     Game.sound.unmute();
-    
+
     Game.sprites = [];
     this.generateAsteroids(MAX_ASTEROIDS);
 
@@ -47,7 +57,7 @@ StateMachine = {
     for (var i = 0; i < Game.sprites.length; i++){
       Game.sprites[i].update();
     }
-    
+
     Game.text.emph("Press Space To Start",20,100);
     if (Key.isDown(Key.SPACE)){
       this.state="load";
@@ -74,26 +84,26 @@ StateMachine = {
     this.state="playing";
   },
   playing: function(){
-    
+
     for (var i = 0; i < Game.sprites.length; i++){
       Game.sprites[i].update();
     }
-    
+
     if (Game.asteroids == 0){
       Game.level += 1;
       this.generateAsteroids(MAX_ASTEROIDS + Game.level * 2);
     }
-    
+
     if (Game.player == null){
       this.state = "postgame";
     }
-    
+
   },
   postgame: function(){
     for (var i = 0; i < Game.sprites.length; i++){
       Game.sprites[i].update();
     }
-    
+
     Game.text.emph("Press 'R' to Restart",20,100);
     if (Key.isDown(Key.R)){
       this.state="reload";
@@ -103,23 +113,23 @@ StateMachine = {
     for (var i = 0; i < Game.sprites.length; i++){
       Game.sprites[i].draw();
     }
-    
+
     Game.text.emph("Press 'P' to Unpause",20,100);
   },
   reload: function(){
     Game.sprites = [];
 
     this.generateAsteroids(MAX_ASTEROIDS);
-    
+
     this.state = "load";
   },
   execute: function(){this[this.state]();},
-  
+
   state: "start",
   stateSave: null
 }
 
-//Main game loop
+/**Main game loop*/
 $(function () {
 
   StateMachine.execute(); //Execute startup code
@@ -134,7 +144,7 @@ $(function () {
               window.setTimeout(callback, 1000 / 60);
             };
   })();
-
+  /** Function used to continuosly update each frame of the game */
   var update = function(){
     StateMachine.execute(); //Used for specific loop invariants or "run once" type of code
 
@@ -147,12 +157,13 @@ $(function () {
         StateMachine.togglePause();
         Game.counter.pauseGame = FPS;
     }
-    
+
     printOut(1,Game.counter.pauseGame);
     printOut(2,StateMachine.state);
     printOut(3,StateMachine.stateSave);
   };
 
+  /** */
   var mainLoop = function () { //main game loop
     Game.ctx.clearRect(0, 0, Game.canvasWidth, Game.canvasHeight);
 
