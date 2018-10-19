@@ -673,8 +673,12 @@ Asteroid = function(){
       * draws a circle
       * @param this.x - the x coordinate of the center of the circle
       * @param this.y - the y coordinate of the center of the circle
+      * @param this.r - the radius of the circle
       */
       this.ctx.arc(this.x, this.y, this.r, 0, 2*Math.PI);
+      /**
+      * outputs path to canvas
+      */
       this.ctx.stroke();
     }else{
       for (var i=0; i<this.children.length; i+=1){
@@ -683,7 +687,9 @@ Asteroid = function(){
     }
 
   };
-
+  /**
+  * function in charge of moving the astroid
+  */
   this.move = function(){
     this.x += this.vel.x;
     this.y += this.vel.y;
@@ -700,6 +706,9 @@ Asteroid = function(){
     }
   };
 
+  /**
+  * function in charge of controlling the asteroid every frame
+  */
   this.action = function(){
     // if (Key.isDown(Key.SPACE) && this.scale==3){
     //   this.die();
@@ -709,7 +718,9 @@ Asteroid = function(){
     if (Key.isDown(Key.THREE) && this.scale==3) this.die();
 
   };
-
+  /**
+  * function in charge of controlling behaviour when the asteroid is destroyed
+  */
   this.die = function(){
     this.deactivate();
     if (this.scale>1){
@@ -721,7 +732,8 @@ Asteroid = function(){
       }
     }
   };
-
+  /**
+  */
   this.pass = function(){
     for (var i=0; i<this.children.length; i+=1){
       this.children[i].update();
