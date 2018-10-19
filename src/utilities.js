@@ -13,7 +13,7 @@ const MAX_SPEED = 20; //Maximum ship speed (velocity)
 const CVS_WIDTH = 500; //canvas width
 const CVS_HEIGHT = 400; //canvas height
 const BULLET_EXTRA = 5; //Extra velocity on bullet on top of ship's velocity
-const KILLABLE = false; //Testing invulnerability
+const KILLABLE = true; //Testing invulnerability
 const MAX_ASTEROIDS = 2; //Maximum amount of asteroids
 
 const TEST=false; //experimental features
