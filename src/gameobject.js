@@ -161,23 +161,37 @@ Player = function(){
   * @type {number}
   */
   this.bulletCountDown = FPS/2; //Countdown until a bullet can be fired
-
+  /**
+  * the players initialization funcion
+  * @param ctx - the context of the screen
+  */
   this.init = function(ctx){
     Player.prototype.init(ctx,"PLAYER");
-
+    /**
+    * vector representing the velocity of the player
+    * @type {number}
+    */
     this.vel = {
       x: 0,
       y: 0
     };
-
+    /**
+    * vector representing the acceleration of the player
+    * @type {number}
+    */
     this.acc = {
       x: 0,
       y: 0
     };
-
+    /**
+    * integer representing the radius of the player
+    * @type {number}
+    */
     this.r = SHIP_SIZE/2; //radius of ship
   };
-
+  /**
+  * function that controls how the player responds to a key input
+  */
   this.interact = function(){
     if (Key.isDown(Key.UP)){
       this.thrust = true;
@@ -195,7 +209,9 @@ Player = function(){
       this.airbrake=true;
     }
   }; //Input handling
-
+  /**
+  * function that controls thrust and rotation of the player,
+  */
   this.move = function(){
 
     if (this.thrust){
@@ -273,7 +289,9 @@ Player = function(){
     }
 
   }; //movement of sprite
-
+  /**
+  * this function is in charge of drawing the ship and its thrust
+  */
   this.draw = function(){
     if (this.thrust) {
       //draw the thruster
@@ -281,48 +299,82 @@ Player = function(){
       this.ctx.fillStyle = "red";
       this.ctx.lineWidth = SHIP_SIZE / 10;
       this.ctx.beginPath();
-
+      /**
+      * this function adds the rear left side of the thruster to the path
+      */
       this.ctx.moveTo(// rear left of the ship
         this.x - this.r * (2/3*Math.cos(this.a) + 0.5*Math.sin(this.a)),
         this.y + this.r * (2/3*Math.sin(this.a) - 0.5*Math.cos(this.a))
       );
-
+      /**
+      * adds the rear center behind the thruster to the path
+      */
       this.ctx.lineTo( //rear centre behind the ship behind
         this.x - this.r * 6/3*Math.cos(this.a),
         this.y + this.r * 6/3*Math.sin(this.a)
       );
-
+      /**
+      * adds the rear right of the thruster to the path
+      */
       this.ctx.lineTo( //rear right of ship
         this.x - this.r * (2/3*Math.cos(this.a) - 0.5*Math.sin(this.a)),
         this.y + this.r * (2/3*Math.sin(this.a) + 0.5*Math.cos(this.a))
       );
-
+      /**
+      * closes the path, so the drawing is done
+      */
       this.ctx.closePath();
+      /**
+      * makes the thruster triangle red
+      */
       this.ctx.fillStyle = "red";
-
+      /**
+      * draws the ship on the canvas
+      */
       this.ctx.stroke();
     }
 
     //draw triangular ship
+    /**
+    * the line used to create the ship  will be black
+    */
     this.ctx.strokeStyle = "black";
+    /**
+    * sets the width of the line used to draw the ship
+    */
     this.ctx.lineWidth = SHIP_SIZE / 20;
+    /**
+    * begins adding points to the path
+    */
     this.ctx.beginPath();
+    /**
+    * adds the coordinates of the nose of the ship
+    */
     this.ctx.moveTo(// nose of the ship
       this.x + 4/3 * this.r * Math.cos(this.a),
       this.y - 4/3 * this.r * Math.sin(this.a)
     );
-
+    /**
+    * adds the coordinates of the rear left of the ship
+    */
     this.ctx.lineTo( //rear left of ship
       this.x - this.r * (2/3*Math.cos(this.a) + Math.sin(this.a)),
       this.y + this.r * (2/3*Math.sin(this.a) - Math.cos(this.a))
     );
-
+    /**
+    * adds the coordinates of the rear right of the ship
+    */
     this.ctx.lineTo( //rear right of ship
       this.x - this.r * (2/3*Math.cos(this.a) - Math.sin(this.a)),
       this.y + this.r * (2/3*Math.sin(this.a) + Math.cos(this.a))
     );
-
+    /**
+    * closes the path, completing the triangle
+    */
     this.ctx.closePath();
+    /**
+    * draws the ship
+    */
     this.ctx.stroke();
 
     //centre dot
@@ -334,7 +386,9 @@ Player = function(){
     this.ctx.strokeStyle = "black";
     this.ctx.fillStyle = "black";
   };
-
+  /**
+  * this function describes actions the player takes every frame
+  */
   this.action = function(){
     if (this.fire && this.bulletCountDown<=0){
       this.bulletCountDown = FPS/1.25;
@@ -359,7 +413,9 @@ Player = function(){
         Game.sound.stop(Sound.AIRBRAKE);
     }
   };
-
+  /**
+  * this function descrives the behaviour of the player when it collides with objects
+  */
   this.collide = function(){
     var arrayLength = Game.sprites.length;
     for (var i = 0; i < arrayLength; i++) {
@@ -379,7 +435,10 @@ Player = function(){
       }
     }
   }
-
+  /**
+  * this function describes how the player collides with asteroid children
+  * @param {GameObject|Array.} astChildren - an array of GameObjects, representing the smaller, created asteroids
+   */
   this.collideOffshoot = function(astChildren){
     for (var i=0; i<astChildren.length; i+=1){
       var ast = astChildren[i];
@@ -394,11 +453,17 @@ Player = function(){
       }
     }
   };
-
+  /**
+  * function for computing the hypotenous of a triangle with two sides the length of the param
+  * @param {number} x - one side of the triangle
+  * @param {number} y - the other side of the triangle
+  */
   pyth = function(x, y){
     return Math.sqrt(x*x + y*y);
   }
-
+  /**
+  * function that resets all player behaviour to pregame state
+  */
   this.reset = function(){
     this.fire = false;
     this.thrust = false;
@@ -410,10 +475,16 @@ Player = function(){
 };
 Player.prototype = new GameObject();
 
+/**
+* function representing bullet objects
+*/
 Bullet = function(){
   this.collidesWith = ["asteroid", "alien"];
   this.timeOut = 200;
-
+  /**
+  * function for initialization of bullet values
+  * @param {GameObject} from - the context of the bullets parent (player)
+  */
   this.init = function(from){
     Bullet.prototype.init(from.ctx,"bullet");
 
@@ -433,7 +504,9 @@ Bullet = function(){
     this.vel.y += BULLET_EXTRA * -Math.sin(this.a);
 
   };
-
+  /**
+  * actions the bullet will take every frame
+  */
   this.action = function(){
     if (this.timeOut<=0){
       this.deactivate();
@@ -442,7 +515,9 @@ Bullet = function(){
       this.timeOut-=1;
     }
   };
-
+  /**
+  * function that controls how the bullet moves on screen
+  */
   this.move = function(){
     this.x += (this.vel.x);
     this.y += (this.vel.y);
@@ -459,16 +534,32 @@ Bullet = function(){
       this.y = 0 - this.r;
     }
   };
-
+  /**
+  * function that controls drawing the bullets
+  */
   this.draw = function(){
     if (this.visible){
+      /**
+      * starts the procedure of adding shapes to be drawn
+      */
       this.ctx.beginPath();
+      /**
+      * draws a circle
+      * @param {number} this.x - x coordinate of circle
+      * @param {number} this.y - y coordinate of circle
+      * @param {number} this.r - the radius of the circle
+      */
       this.ctx.arc(this.x, this.y, this.r, 0, 2*Math.PI);
+      /**
+      * draws the bullet on the canvas
+      */
       this.ctx.stroke();
     }
 
   };
-
+  /**
+  * function that controls what happens to the bullet when it collides with another object
+  */
   this.collide = function(){
     var arrayLength = Game.sprites.length;
     for (var i = 0; i < arrayLength; i++) {
@@ -489,7 +580,10 @@ Bullet = function(){
 
     }
   };
-
+  /**
+  * function that controls how the bullet acts when it collides with asteroid children
+  * @param {GameObject|Array.} astChildren - array of asteroid children
+  */
   this.collideOffshoot = function(astChildren){
     for (var i=0; i<astChildren.length; i+=1){
       var ast = astChildren[i];
@@ -504,14 +598,20 @@ Bullet = function(){
       }
     }
   };
-
+  /**
+  * function for computing the hypotenous of a triangle with two sides the length of the param
+  * @param {number} x - one side of the triangle
+  * @param {number} y - the other side of the triangle
+  */
   pyth = function(x, y){
     return Math.sqrt(x*x + y*y);
   }
 
 };
 Bullet.prototype = new GameObject();
-
+/**
+* function for controlling the actions of the alien
+*/
 Alien = function(){
   this.init("alien");
   this.collidesWith = ["asteroid", "player", "bullet"];
@@ -519,14 +619,23 @@ Alien = function(){
 
   this.shoot = function(){};
 };
-
+/**
+* function that controls the aliens bullets
+*/
 AlienBullet = function(){
   this.init("alienbullet");
 
   this.timeOut = function(){}; //Countdown until bullet disappears
 };
-
+/**
+* function that controls the asteroids
+*/
 Asteroid = function(){
+  /**
+  * function that initializes the asteroids
+  * @param ctx - the context of the Screen
+  * @param scale - the relative size of the asteroid
+  */
   this.init = function(ctx,scale){
     Asteroid.prototype.init(ctx,"asteroid");
     //this.ctx=ctx;
@@ -551,11 +660,25 @@ Asteroid = function(){
 
   };
   this.collidesWith=["player", "bullet", "alien", "alienbullet"];
-
+  /**
+  * function that controls creating the asteroid on the screen
+  */
   this.draw = function(){
     if (this.visible){
+      /**
+      * starts recording points for drawing later
+      */
       this.ctx.beginPath();
+      /**
+      * draws a circle
+      * @param this.x - the x coordinate of the center of the circle
+      * @param this.y - the y coordinate of the center of the circle
+      * @param this.r - the radius of the circle
+      */
       this.ctx.arc(this.x, this.y, this.r, 0, 2*Math.PI);
+      /**
+      * outputs path to canvas
+      */
       this.ctx.stroke();
     }else{
       for (var i=0; i<this.children.length; i+=1){
@@ -564,7 +687,9 @@ Asteroid = function(){
     }
 
   };
-
+  /**
+  * function in charge of moving the astroid
+  */
   this.move = function(){
     this.x += this.vel.x;
     this.y += this.vel.y;
@@ -581,6 +706,9 @@ Asteroid = function(){
     }
   };
 
+  /**
+  * function in charge of controlling the asteroid every frame
+  */
   this.action = function(){
     // if (Key.isDown(Key.SPACE) && this.scale==3){
     //   this.die();
@@ -590,7 +718,9 @@ Asteroid = function(){
     if (Key.isDown(Key.THREE) && this.scale==3) this.die();
 
   };
-
+  /**
+  * function in charge of controlling behaviour when the asteroid is destroyed
+  */
   this.die = function(){
     this.deactivate();
     if (this.scale>1){
@@ -602,7 +732,8 @@ Asteroid = function(){
       }
     }
   };
-
+  /**
+  */
   this.pass = function(){
     for (var i=0; i<this.children.length; i+=1){
       this.children[i].update();
