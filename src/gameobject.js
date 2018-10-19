@@ -619,14 +619,23 @@ Alien = function(){
 
   this.shoot = function(){};
 };
-
+/**
+* function that controls the aliens bullets
+*/
 AlienBullet = function(){
   this.init("alienbullet");
 
   this.timeOut = function(){}; //Countdown until bullet disappears
 };
-
+/**
+* function that controls the asteroids
+*/
 Asteroid = function(){
+  /**
+  * function that initializes the asteroids
+  * @param ctx - the context of the Screen
+  * @param scale - the relative size of the asteroid
+  */
   this.init = function(ctx,scale){
     Asteroid.prototype.init(ctx,"asteroid");
     //this.ctx=ctx;
@@ -651,10 +660,20 @@ Asteroid = function(){
 
   };
   this.collidesWith=["player", "bullet", "alien", "alienbullet"];
-
+  /**
+  * function that controls creating the asteroid on the screen
+  */
   this.draw = function(){
     if (this.visible){
+      /**
+      * starts recording points for drawing later
+      */
       this.ctx.beginPath();
+      /**
+      * draws a circle
+      * @param this.x - the x coordinate of the center of the circle
+      * @param this.y - the y coordinate of the center of the circle
+      */
       this.ctx.arc(this.x, this.y, this.r, 0, 2*Math.PI);
       this.ctx.stroke();
     }else{
