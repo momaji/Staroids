@@ -733,6 +733,7 @@ Asteroid = function(){
     }
   };
   /**
+  * controls how the astroid interacts with its children
   */
   this.pass = function(){
     for (var i=0; i<this.children.length; i+=1){
@@ -747,7 +748,9 @@ Asteroid = function(){
     }
 
   };
-
+  /**
+  * controls the behaviour of the asteroid when it dies
+  */
   this.isDead = function(){
     if (this.visible){
       //not destroyed -> alive
