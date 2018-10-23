@@ -46,15 +46,24 @@ var Sound = {
         sound.pause();
         sound.currentTime = 0;
     },
-
+    /**
+    * function that sets the mute flag of a sound to true
+    * @param {Audio} sound - The Audio object this applies to
+    */
     mute: function(){
         this.muted = true;
     },
-
+    /**
+    * function that sets the mute flag of a sound to false
+    * @param {Audio} sound - The Audio object this applies to
+    */
     unmute: function(){
         this.muted = false;
     },
-
+    /**
+    * function that switches the value of the muted flag for a sound
+    * @param {Audio} sound - The Audio object this applies to
+    */
     toggle: function(){
         this.muted = !this.muted;
     }
