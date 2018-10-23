@@ -4,7 +4,7 @@
         <field id="tpd3" name="Name" width="158" order="0"/>
         <field id="tpd4" name="Begin date" width="62" order="1"/>
         <field id="tpd5" name="End date" width="61" order="2"/>
-        <option id="color.recent"><![CDATA[#0033ff #f4f4f4 #ff9933 #009933 #cc0000]]></option>
+        <option id="color.recent"><![CDATA[#00ff00 #000000 #33ffff #9933ff #0033ff #f4f4f4 #ff9933 #009933 #cc0000]]></option>
     </view>
     <view id="resource-table">
         <field id="0" name="Name" width="269" order="0"/>
@@ -75,7 +75,7 @@
             <task id="130" name="Open Issues" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
             <task id="128" name="Tasks" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
             <task id="126" name="Costs" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
-            <task id="154" name="Requirements Doc Completed" color="#009933" meeting="true" start="2018-10-05" duration="0" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
+            <task id="154" name="SRS Doc Completed" color="#009933" meeting="true" start="2018-10-05" duration="0" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
         </task>
         <task id="18" name="Becoming Familiar with our Chosen Coding Style" color="#0033ff" meeting="false" start="2018-10-05" duration="2" complete="0" thirdDate="2018-10-03" thirdDate-constraint="0" expand="true"/>
         <task id="19" name="Refresher of JavaScript Language" color="#0033ff" meeting="false" start="2018-10-05" duration="4" complete="0" thirdDate="2018-10-05" thirdDate-constraint="0" expand="true"/>
@@ -86,11 +86,15 @@
         <task id="159" name="Test Plan Rev0 Completed" color="#ff9933" meeting="true" start="2018-10-26" duration="0" complete="0" thirdDate="2018-09-09" thirdDate-constraint="0" priority="2" expand="true"/>
         <task id="25" name="Unit Tests" meeting="false" start="2018-10-22" duration="5" complete="0" expand="true"/>
         <task id="47" name="Design &amp; Documentation Revision 0" color="#8cb6ce" meeting="false" start="2018-10-27" duration="1" complete="0" thirdDate="2018-09-07" thirdDate-constraint="0" expand="true"/>
+        <task id="167" name="Design &amp; Document Revision 0 Completed" color="#9933ff" meeting="true" start="2018-11-10" duration="0" complete="0" thirdDate="2018-09-09" thirdDate-constraint="0" expand="true"/>
         <task id="26" name="Revision of code based on Unit Tests" meeting="false" start="2018-10-29" duration="7" complete="0" expand="true"/>
-        <task id="34" name="Revision 0 Demonstration" meeting="false" start="2018-10-31" duration="15" complete="0" expand="true"/>
+        <task id="34" name="Revision 0 Demonstration" color="#8cb6ce" meeting="false" start="2018-10-31" duration="15" complete="0" thirdDate="2018-10-31" thirdDate-constraint="0" expand="true"/>
+        <task id="172" name="Revision 0 Demonstration Completed" color="#33ffff" meeting="true" start="2018-11-14" duration="0" complete="0" thirdDate="2018-09-09" thirdDate-constraint="0" expand="true"/>
         <task id="28" name="Final Demonstration (Revision 1)" meeting="false" start="2018-11-16" duration="13" complete="0" expand="true"/>
+        <task id="179" name="Final Demonstration (Revision 1) Completed" color="#00ff00" meeting="true" start="2018-11-28" duration="0" complete="0" thirdDate="2018-11-16" thirdDate-constraint="0" priority="4" expand="true"/>
         <task id="49" name="Final Documentation (Revision 1)" color="#8cb6ce" meeting="false" start="2018-11-21" duration="16" complete="0" thirdDate="2018-11-21" thirdDate-constraint="0" expand="true"/>
-        <task id="33" name="Peer Eval of Other Teams Final Demo" meeting="false" start="2018-11-28" duration="1" complete="0" expand="true"/>
+        <task id="182" name="Final Documentation (Revision 1) Completed" color="#000000" meeting="true" start="2018-12-06" duration="0" complete="0" thirdDate="2018-11-21" thirdDate-constraint="0" priority="4" expand="true"/>
+        <task id="33" name="Peer Eval of Other Teams Final Demo" color="#00ff00" meeting="false" start="2018-11-28" duration="3" complete="0" thirdDate="2018-11-28" thirdDate-constraint="0" expand="true"/>
     </tasks>
     <resources>
         <resource id="0" name="Moziah" function="SoftwareDevelopment:2" contacts="" phone=""/>
