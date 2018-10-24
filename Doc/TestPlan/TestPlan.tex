@@ -79,15 +79,24 @@ SRS & Software Requirements Specification\\
 \toprule
 \textbf{Term} & \textbf{Definition}\\
 \midrule
-Term1 & Definition1\\
-Term2 & Definition2\\
+Functional Testing & Input-Output type of testing apporach known Input, expexted Output\\
+Static Testing & Just looking at code, no actual execution\\
+Dynamic Testing & Testing that requries code execution\\
+Structural Testing & A whitebox type of testing Approach so cases are derived from internal structure of the software\\
+Automated Testing & Testing is handeled by the testing framework (JUnit) (testing done by software)\\
+Manual Testing & Manual individually written test cases. (testing done by people)\\
+Stress Test & Testing the limits of a system, usually refers to amounts of data the system can handle\\
 \bottomrule
 \end{tabularx}
 
 \end{table}
 
 \subsection{Overview of Document}
+<<<<<<< HEAD
 This Test Plan's main goal is to inform on how Staroids is tested for correctness about its various objectives and requirements. All tools are stated and their use case is explained. All planned test cases are also listed that are used to verify the correctness of Staroids with regards to its functional and non-functional requirements.
+=======
+The Staroids project is a reimplementation of the arcade game asteroids. The software ...... All of the requirements from SRS.PDF lint it here have been followed in the creation of the game.
+>>>>>>> 1abb46dcfe9fd42706f47a7891b7931e5d05c12c
 
 \section{Plan}
 
@@ -250,6 +259,22 @@ This is where you can place additional information.
 
 The definition of the test cases will call for SYMBOLIC\_CONSTANTS.
 Their values are defined in this section for easy maintenance.
+\textbf{Constants}\\
+FPS = 30; The curent frames per second\\
+SHIP_SIZE = 30; The ship size in pixels\\
+TURN_SPEED = 180; Player turn speed in degrees per second\\
+SHIP_THRUST = .2; Player thrust power in pixels per second squared \\
+SHIP_BRAKE = 0.98; player airbrake power (<0.9 = full stop 1 = no brake) \\
+MIN_SPEED = 0.1; minimum speed \\
+MAX_ACC = 2; maximum ship acceleration \\
+MAX_SPEED = 20; Maximum ship speed (velocity) \\
+CVS_WIDTH = 500; canvas width \\
+CVS_HEIGHT = 400; canvas height \\
+BULLET_EXTRA = 5; Extra velocity on bullet on top of ship's velocity \\
+KILLABLE = true; Testing invulnerability \\
+MAX_ASTEROIDS = 2; Maximum amount of asteroids \\
+TEST=false; experimental features \\
+
 
 \subsection{Usability Survey Questions?}
 
