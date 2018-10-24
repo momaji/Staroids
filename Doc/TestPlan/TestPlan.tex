@@ -120,7 +120,7 @@ See Gantt Chart at the following url ...
 
 \subsubsection{States}
 
-\paragraph{Pre-game Tests}
+\paragraph{Pre-game State Tests}
 
 \begin{enumerate}
 
@@ -128,19 +128,85 @@ See Gantt Chart at the following url ...
 %number tests
 %create tests that are meant to fail
 
-Type: Functional static manual test
+Type: Functional dynamic manual test
 
 Initial State: Closed
 
 Input: Opening file
 
-Output: On pre-game screen
+Output: In pre-game state
 
 How test will be performed: On game start, the game should be in the pre-game state. This can be acomplished by an assertation as part of the game set-up that states that the current game state is the pre-game.
 
 \item{2. Starting game\\}
 
-Type: Functional, Dynamic, Manual, Static etc.
+Type: Functional dynamic manual
+
+Initial State: Pre-game state
+
+Input: Spacebar
+
+Output: In playing state
+
+How test will be performed: Once the pre-game screen is loaded, the spacebar registers as pressed and Staroids should enter the playing state. Staroids is allowed to go through a few intermediate states but must end on the playing state within one second.
+
+\item{3. Prohibit game start on pause\\}
+
+Type: Functional dynamic automatic test
+
+Initial State: Pre-game state
+
+Input: Pause button and spacebar
+
+Output: Paused state
+
+How test will be performed: In the pre-game state, the pause button is register prohibit progression from the pre-game state to the playing state
+
+\end{enumerate}
+
+\paragraph{Playing State Tests}
+
+\begin{enumerate}
+
+\item{1. Permitting pause\\}
+
+Type: Functional
+
+Initial State:
+
+Input:
+
+Output:
+
+How test will be performed:
+
+\end{enumerate}
+
+\paragraph{Post-game State Tests}
+
+\begin{enumerate}
+
+\item{1. \\}
+
+Type:
+
+Initial State:
+
+Input:
+
+Output:
+
+How test will be performed:
+
+\end{enumerate}
+
+\paragraph{Pause State Tests}
+
+\begin{enumerate}
+
+\item{1. \\}
+
+Type:
 
 Initial State:
 
