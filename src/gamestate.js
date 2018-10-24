@@ -156,7 +156,7 @@ StateMachine = {
   },
 
   /**
-   *
+   *runs current state code
    */
   execute: function(){this[this.state]();},
 
