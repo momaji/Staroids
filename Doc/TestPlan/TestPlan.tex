@@ -92,6 +92,7 @@ Stress Test & Testing the limits of a system, usually refers to amounts of data 
 \end{table}
 
 \subsection{Overview of Document}
+The Staroids project is a reimplementation of the arcade game asteroids. The software ...... All of the requirements from SRS.PDF lint it here have been followed in the creation of the game.
 
 \section{Plan}
 
@@ -252,6 +253,22 @@ This is where you can place additional information.
 
 The definition of the test cases will call for SYMBOLIC\_CONSTANTS.
 Their values are defined in this section for easy maintenance.
+\textbf{Constants}\\
+FPS = 30; The curent frames per second\\
+SHIP_SIZE = 30; The ship size in pixels\\
+TURN_SPEED = 180; Player turn speed in degrees per second\\
+SHIP_THRUST = .2; Player thrust power in pixels per second squared \\
+SHIP_BRAKE = 0.98; player airbrake power (<0.9 = full stop 1 = no brake) \\
+MIN_SPEED = 0.1; minimum speed \\
+MAX_ACC = 2; maximum ship acceleration \\
+MAX_SPEED = 20; Maximum ship speed (velocity) \\
+CVS_WIDTH = 500; canvas width \\
+CVS_HEIGHT = 400; canvas height \\
+BULLET_EXTRA = 5; Extra velocity on bullet on top of ship's velocity \\
+KILLABLE = true; Testing invulnerability \\
+MAX_ASTEROIDS = 2; Maximum amount of asteroids \\
+TEST=false; experimental features \\
+
 
 \subsection{Usability Survey Questions?}
 
