@@ -39,7 +39,7 @@
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 Oct 22 2018 & 1.0 & Added Purpose, Test Team, Scope, a couple Acronyms, abbreviations, and symbols\\
-Oct 24 & 1.1 & Added Software Description, Overview of Document\\
+Oct 24 & 1.1 & Added Software Description, Overview of Document, Automated Testing Approach\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -101,6 +101,7 @@ The test team for this project consists of the following members who are each re
 - Jason Nagy\\ %Why am I last :(
 
 \subsection{Automated Testing Approach}
+Automated tests are to be used for all game situations where the situation result is expected to be the same for every situation. Since the result is always true, these tests can be quickly run after every Staroids edit to ensure that no game functionalities have been broken by the edits. These tests are not done automatically at game for several reasons. Firstly, if there is an assertation error, it would be meaningless to the user and there would be no action done on the user's part. Additionally there would be time added to the startup with no benefit to the user. Therefore, all major versions of Staroids will run through the test cases before they are pushed as a final Staroids build.
 
 \subsection{Testing Tools}
 
