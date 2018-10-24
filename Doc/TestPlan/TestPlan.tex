@@ -39,7 +39,7 @@
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 Oct 22 2018 & 1.0 & Added Purpose, Test Team, Scope, a couple Acronyms, abbreviations, and symbols\\
-Date 2 & 1.1 & Notes\\
+Oct 24 & 1.1 & Added Software Description, Overview of Document\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -87,16 +87,18 @@ Term2 & Definition2\\
 \end{table}
 
 \subsection{Overview of Document}
+This Test Plan's main goal is to inform on how Staroids is tested for correctness about its various objectives and requirements. All tools are stated and their use case is explained. All planned test cases are also listed that are used to verify the correctness of Staroids with regards to its functional and non-functional requirements.
 
 \section{Plan}
 
 \subsection{Software Description}
+Staroids is a recreation of the HTML-5 Asteroids created by Doug McInnes which itself is a recreation of the Asteroids arcade game. It allows the user to pilot a space ship through a rectangular piece of space with wrapping edges. Cohabiting with the space ship, there are several asteroids and an alien. These entities are considered hostile to the space ship and will damage it if they come into contact. The space ship and alien can defend themselves from any hostiles by firing at them with a laser bullet. This will damage anything (except the shooter) that the bullet comes into contact with. Staroids allows the user to have 3 lives and keeps a running score for the current game that is based off of how many asteroids and aliens have been destroyed.
 
 \subsection{Test Team}
 The test team for this project consists of the following members who are each responsible for writing and executing tests for modules later to be specified:\\
 - Moziah San Vicente\\
 - Eoin Lynagh\\
-- Jason Nagy\\
+- Jason Nagy\\ %Why am I last :(
 
 \subsection{Automated Testing Approach}
 
