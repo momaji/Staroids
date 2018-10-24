@@ -39,7 +39,7 @@
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 Oct 22 2018 & 1.0 & Added Purpose, Test Team, Scope, a couple Acronyms, abbreviations, and symbols\\
-Date 2 & 1.1 & Notes\\
+Oct 24 & 1.1 & Added Software Description, Overview of Document, Automated Testing Approach\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -92,19 +92,21 @@ Stress Test & Testing the limits of a system, usually refers to amounts of data 
 \end{table}
 
 \subsection{Overview of Document}
-The Staroids project is a reimplementation of the arcade game asteroids. The software ...... All of the requirements from SRS.PDF lint it here have been followed in the creation of the game.
+This Test Plan's main goal is to inform on how Staroids is tested for correctness about its various objectives and requirements. All tools are stated and their use case is explained. All planned test cases are also listed that are used to verify the correctness of Staroids with regards to its functional and non-functional requirements.
 
 \section{Plan}
 
 \subsection{Software Description}
+Staroids is a recreation of the HTML-5 Asteroids created by Doug McInnes which itself is a recreation of the Asteroids arcade game. It allows the user to pilot a space ship through a rectangular piece of space with wrapping edges. Cohabiting with the space ship, there are several asteroids and an alien. These entities are considered hostile to the space ship and will damage it if they come into contact. The space ship and alien can defend themselves from any hostiles by firing at them with a laser bullet. This will damage anything (except the shooter) that the bullet comes into contact with. Staroids allows the user to have 3 lives and keeps a running score for the current game that is based off of how many asteroids and aliens have been destroyed.
 
 \subsection{Test Team}
 The test team for this project consists of the following members who are each responsible for writing and executing tests for modules later to be specified:\\
 - Moziah San Vicente\\
 - Eoin Lynagh\\
-- Jason Nagy\\
+- Jason Nagy\\ %Why am I last :(
 
 \subsection{Automated Testing Approach}
+Automated tests are to be used for all game situations where the situation result is expected to be the same for every situation. Since the result is always true, these tests can be quickly run after every Staroids edit to ensure that no game functionalities have been broken by the edits. These tests are not done automatically at game for several reasons. Firstly, if there is an assertation error, it would be meaningless to the user and there would be no action done on the user's part. Additionally there would be time added to the startup with no benefit to the user. Therefore, all major versions of Staroids will run through the test cases before they are pushed as a final Staroids build.
 
 \subsection{Testing Tools}
 
@@ -123,6 +125,8 @@ See Gantt Chart at the following url ...
 \begin{enumerate}
 
 \item{test-id1\\}
+%number tests
+%create tests that are meant to fail
 
 Type: Functional, Dynamic, Manual, Static etc.
 
@@ -234,6 +238,7 @@ How test will be performed:
 \section{Comparison to Existing Implementation}
 
 \section{Unit Testing Plan}
+%FROM RUBRIC - what type of tests? need for stubs or drivers? coverage metrics?
 
 \subsection{Unit testing of internal functions}
 
@@ -255,18 +260,18 @@ The definition of the test cases will call for SYMBOLIC\_CONSTANTS.
 Their values are defined in this section for easy maintenance.
 \textbf{Constants}\\
 FPS = 30; The curent frames per second\\
-SHIP_SIZE = 30; The ship size in pixels\\
-TURN_SPEED = 180; Player turn speed in degrees per second\\
-SHIP_THRUST = .2; Player thrust power in pixels per second squared \\
-SHIP_BRAKE = 0.98; player airbrake power (<0.9 = full stop 1 = no brake) \\
-MIN_SPEED = 0.1; minimum speed \\
-MAX_ACC = 2; maximum ship acceleration \\
-MAX_SPEED = 20; Maximum ship speed (velocity) \\
-CVS_WIDTH = 500; canvas width \\
-CVS_HEIGHT = 400; canvas height \\
-BULLET_EXTRA = 5; Extra velocity on bullet on top of ship's velocity \\
+SHIP\_SIZE = 30; The ship size in pixels\\
+TURN\_SPEED = 180; Player turn speed in degrees per second\\
+SHIP\_THRUST = .2; Player thrust power in pixels per second squared \\
+SHIP\_BRAKE = 0.98; player airbrake power (<0.9 = full stop 1 = no brake) \\
+MIN\_SPEED = 0.1; minimum speed \\
+MAX\_ACC = 2; maximum ship acceleration \\
+MAX\_SPEED = 20; Maximum ship speed (velocity) \\
+CVS\_WIDTH = 500; canvas width \\
+CVS\_HEIGHT = 400; canvas height \\
+BULLET\_EXTRA = 5; Extra velocity on bullet on top of ship's velocity \\
 KILLABLE = true; Testing invulnerability \\
-MAX_ASTEROIDS = 2; Maximum amount of asteroids \\
+MAX\_ASTEROIDS = 2; Maximum amount of asteroids \\
 TEST=false; experimental features \\
 
 
