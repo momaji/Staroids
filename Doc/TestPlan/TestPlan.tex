@@ -40,6 +40,8 @@
 \midrule
 Oct 22 2018 & 1.0 & Added Purpose, Test Team, Scope, a couple Acronyms, abbreviations, and symbols\\
 Oct 24 & 1.1 & Added Software Description, Overview of Document, Automated Testing Approach\\
+Oct 24 & 1.15 & Added functional requirement tests\\
+Oct 24 & 1.16 & Added..\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -103,8 +105,8 @@ Staroids is a recreation of the HTML-5 Asteroids created by Doug McInnes which i
 The test team for this project consists of the following members who are each responsible for writing and executing tests for modules later to be specified:\\
 - Moziah San Vicente\\
 - Eoin Lynagh\\
-- Jason Nagy\\ %Why am I last :(
-
+- Jason Nagy\\ %Why am I last :( //becasuse your the shortest in the group //and you have two names
+% - Walace
 \subsection{Automated Testing Approach}
 Automated tests are to be used for all game situations where the situation result is expected to be the same for every situation. Since the result is always true, these tests can be quickly run after every Staroids edit to ensure that no game functionalities have been broken by the edits. These tests are not done automatically at game for several reasons. Firstly, if there is an assertation error, it would be meaningless to the user and there would be no action done on the user's part. Additionally there would be time added to the startup with no benefit to the user. Therefore, all major versions of Staroids will run through the test cases before they are pushed as a final Staroids build.
 
@@ -144,7 +146,7 @@ Type: Functional dynamic manual
 
 Initial State: Pre-game state
 
-Input: Spacebar
+Input: Spacebar pressed
 
 Output: In playing state
 
@@ -156,11 +158,11 @@ Type: Functional dynamic automatic test
 
 Initial State: Pre-game state
 
-Input: Pause button and spacebar
+Input: Pause button and spacebar pressed
 
 Output: Paused state
 
-How test will be performed: In the pre-game state, the pause button is register prohibit progression from the pre-game state to the playing state
+How test will be performed: In the pre-game state, the pause button is registered as pressed and then the game enters the paused state. The paused state will prohibit progression from the pre-game state to the playing state when the spacebar is pressed. Upon registering the spacebar again, the game shall return to the pre-game state.
 
 \end{enumerate}
 
@@ -170,57 +172,94 @@ How test will be performed: In the pre-game state, the pause button is register 
 
 \item{1. Permitting pause\\}
 
-Type: Functional
+Type: Functional dynamic automatic test
 
-Initial State:
+Initial State: Playing State
 
-Input:
+Input: Pause button pressed
 
-Output:
+Output: Paused state
 
-How test will be performed:
+How test will be performed: When the spacebar is registered as depressed, the game shall enter the paused state. Upon registering the spacebar again, the game shall return to the playing state.
+
+\item{2. Displaying player information above all\\}
+
+Type: Structural static manual test
+
+Initial State: None
+
+Input: None
+
+Output: None
+
+How test will be performed: For the player information to be displayed above all other sprites, those sprites need to be drawn last. Inspecting the code will ensure that the player, score and lives are drawn above all other sprites.
+
+\item{3. Player firing and alien destruction\\}
+
+Type: Functional dynamic automatic test
+
+Initial State: Playing State
+
+Input: Player object, alien object, and fire button pressed
+
+Output: Bullet generation, bullet movement, alien destruction
+
+How test will be performed: By placing the player and alien opposite of each other, the spacebar should generate a bullet that originates from the tip of the player ship. This bullet should then proceed forward and impact the alien. The bullet speed is derrived from the player ship speed plus a constant. The alien death should trigger, which can set a detectable flag. The bullet must only move in one direction.
+
+\item{4. Asteroid collision with player\\}
+
+Type: Functional dynamic automatic test
+
+Initial State: Playing State
+
+Input: Player object and asteroid object
+
+Output: Player loss of life, player location reset, asteroid destruction, asteroid separation, Post-game state (if number of lives == 0)
+
+How test will be performed: Set up the game to have a player facing a single asteroid moving towards the player. When the asteroid collides with the player, both the player and asteroid trigger their death functions, setting flags to register their deaths. On player death, the lives count is decresed which can be compared to the initial value. The asteroid child array will also increase which can once again be compared to the initial value.
+
+\item{5. Asteroid separation\\}
+
+Type: Functional dynamic automatic test
+
+Initial State: Playing State
+
+Input: Asteroid object
+
+Output: Production of child asteroids
+
+How test will be performed: Starting with a large asteroid, a signal is sent to the asteroid to trigger its death response. The asteroid itself should become disabled and should spawn 3 children asteroids. By transmitting another signal, those children asteroids should disable themselves and then create 3 of their own children. One last signal is used to destroy those children. They should not produce any children. The original large asteroid object should detect that all of its children are dead and those children's children are dead. The asteroid should broadcast that it has been completely destroyed.
+
+\item{6. Witholding player spawn\\}
+
+Type: Functional dynamic automatic test
+
+Initial State: Pre-game state
+
+Input: Spacebar pressed
+
+Output: Delayed player spawning
+
+How test will be performed: When the player changes from the pre-game state to the playing state, the player shall not spawn if an asteroid is within 100 pixels. If there is, the game shall wait for the asteroid to pass and then spawn the player
 
 \end{enumerate}
 
 \paragraph{Post-game State Tests}
-
 \begin{enumerate}
 
-\item{1. \\}
+\item{1. Post-game \\}
 
-Type:
+Type: Functional dynamic manual test
 
-Initial State:
+Initial State: Post-game State
 
-Input:
+Input: The restart game button "R" is pressed
 
-Output:
+Output: Pre-game State
 
-How test will be performed:
-
+How test will be performed: Set up the game in the post-game state and then press the "R" key and check if the new state after the key has been pressed is the pre-game state. It will also be tested that if any other keys are pressed no changes to the game state or game will be performed.
 \end{enumerate}
 
-\paragraph{Pause State Tests}
-
-\begin{enumerate}
-
-\item{1. \\}
-
-Type:
-
-Initial State:
-
-Input:
-
-Output:
-
-How test will be performed:
-
-\end{enumerate}
-
-\subsubsection{Area of Testing2}
-
-...
 
 \subsection{Tests for Nonfunctional Requirements}
 
