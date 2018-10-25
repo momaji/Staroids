@@ -317,17 +317,17 @@ Output/Result: Properly created JSDoc documentation
 
 How test will be performed: In addition to an inspector looking over the JSDoc comments, the executable should also compile proper documentation based on the JSDoc commenting within the source code.
 
-\item{2. Complicated Function Documentation\\}
+\item{3. Complicated Function Documentation Inspection\\}
 
 Type: Structural static manual test
 
-Initial State:
+Initial State: Closed game
 
-Input/Condition:
+Input/Condition: Staroids source code and an inspector
 
-Output/Result:
+Output/Result: Verification of commented code
 
-How test will be performed:
+How test will be performed: Similar to the JSDoc commenting inspection, all complicated pieces of code must be commented to help a reader understand what a particular piece of code is doing. An external programmer can also be brought in to ensure that the code sufficiently commented to allow an outside user to understand what is occuring.
 
 \end{enumerate}
 
@@ -424,6 +424,7 @@ TEST=false; experimental features \\
   \item Is the Staroids art style appealing? Would colour improve the experience?
   \item Is the text in the game readable?
   \item Did the game run smoothly? Was there any screen tearing or stuttering?
+  \item Were there any symbols or graphics that you recognize?
   
 \end{enumerate}
 
