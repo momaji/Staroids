@@ -41,7 +41,7 @@
 Oct 22 2018 & 1.0 & Added Purpose, Test Team, Scope, a couple Acronyms, abbreviations, and symbols\\
 Oct 24 & 1.1 & Added Software Description, Overview of Document, Automated Testing Approach\\
 Oct 24 & 1.15 & Added functional requirement tests\\
-Oct 24 & 1.16 & Added..\\
+Oct 25 & 1.2 & Added some non functional tests\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -263,15 +263,39 @@ How test will be performed: Set up the game in the post-game state and then pres
 
 \subsection{Tests for Nonfunctional Requirements}
 
-\subsubsection{Area of Testing1}
+\subsubsection{Usability and Style}
 
-\paragraph{Title for Test}
+\paragraph{Player Test}
 
 \begin{enumerate}
 
-\item{test-id1\\}
+\item{1. Player test\\}
+%All look and feel requirements
+%readable text
+%good performance
+%strain on hand
 
-Type:
+Type: Functional dynamic manual test
+
+Initial State: pre-game state
+
+Input/Condition: An outside person
+
+Output/Result: The outsider playing through Staroids a few times
+
+How test will be performed: A friend or colleague will open Staroids with only the knowledge of what they can do in the game. After a few plays, the person is informed about all the functions of Staroids and how to perform them. The person then proceeds to play a few more rounds. After they are finished playing, they will be asked some \hyperref[interview:questions]{questions} with regards to the game's usability and playability.
+
+\end{enumerate}
+
+\subsubsection{Internal Requirements}
+
+\paragraph{Documentation}
+
+\begin{enumerate}
+  
+\item{1. JSDoc Documentation\\}
+
+Type: Functional, Dynamic, Manual, Static etc.
 
 Initial State:
 
@@ -281,23 +305,19 @@ Output/Result:
 
 How test will be performed:
 
-\item{test-id2\\}
+\item{2. Complicated Function Documentation\\}
 
 Type: Functional, Dynamic, Manual, Static etc.
 
 Initial State:
 
-Input:
+Input/Condition:
 
-Output:
+Output/Result:
 
 How test will be performed:
 
 \end{enumerate}
-
-\subsubsection{Area of Testing2}
-
-...
 
 \subsection{Traceability Between Test Cases and Requirements}
 
@@ -380,8 +400,19 @@ MAX\_ASTEROIDS = 2; Maximum amount of asteroids \\
 TEST=false; experimental features \\
 
 
-\subsection{Usability Survey Questions?}
+\subsection{Usability Survey Questions}
+\label{interview:questions}
 
-This is a section that would be appropriate for some teams.
+\begin{enumerate}
+  
+  \item Do the controls feel comfortable? Do they place the hand in an awkward position?
+  \item Do the controls make sense?
+  \item Do the buttons used make sense given their function? Are they relatively consistant with other programs of similar nature you have used?
+  \item Is the game too difficult or easy? If so, how could this be corrected?
+  \item Is the Staroids art style appealing? Would colour improve the experience?
+  \item Is the text in the game readable?
+  \item Did the game run smoothly? Was there any screen tearing or stuttering?
+  
+\end{enumerate}
 
 \end{document}
