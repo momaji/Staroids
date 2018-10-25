@@ -42,6 +42,7 @@ Oct 22 2018 & 1.0 & Added Purpose, Test Team, Scope, a couple Acronyms, abbrevia
 Oct 24 & 1.1 & Added Software Description, Overview of Document, Automated Testing Approach\\
 Oct 24 & 1.15 & Added functional requirement tests\\
 Oct 25 & 1.2 & Added non functional tests\\
+Oct 25 & 1.3 & Added Testing tools\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -111,10 +112,11 @@ The test team for this project consists of the following members who are each re
 Automated tests are to be used for all game situations where the situation result is expected to be the same for every situation. Since the result is always true, these tests can be quickly run after every Staroids edit to ensure that no game functionalities have been broken by the edits. These tests are not done automatically at game for several reasons. Firstly, if there is an assertation error, it would be meaningless to the user and there would be no action done on the user's part. Additionally there would be time added to the startup with no benefit to the user. Therefore, all major versions of Staroids will run through the test cases before they are pushed as a final Staroids build.
 
 \subsection{Testing Tools}
+The testing tool we will be using to facilitate our automated tests will be JUnit. This will allow us to create a test suite once, and then keep running it automatically after each major revision of the software to make sure that we are still meeting all of the game requirements. The only other things that may be considered as testing tools could be the internet browsers that we are going to test running the game on which are Safari, Edge, Firefox and Chrome.
 
 \subsection{Testing Schedule}
 
-See Gantt Chart at the following url ...
+See
 
 \section{System Test Description}
 
