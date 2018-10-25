@@ -293,21 +293,33 @@ How test will be performed: A friend or colleague will open Staroids with only t
 
 \begin{enumerate}
   
-\item{1. JSDoc Documentation\\}
+\item{1. JSDoc Documentation Inspection\\}
 
-Type: Functional, Dynamic, Manual, Static etc.
+Type: Structural static manual test
 
-Initial State:
+Initial State: Closed game
 
-Input/Condition:
+Input/Condition: Staroids source code and an inspector
 
-Output/Result:
+Output/Result: Verification of proper JSDoc documentation
 
-How test will be performed:
+How test will be performed: To ensure all functions and classes are properly commented in accordance to JSDoc, a member of the Staroids team will need to inspect the Staroids source code to ensure that all functions are documented and documented correctly.
+
+\item{2. JSDoc Documentation Compilation\\}
+
+Type: Structural static automatic test
+
+Initial State: Closed game
+
+Input/Condition: JSDoc executable and the Staroids modules
+
+Output/Result: Properly created JSDoc documentation
+
+How test will be performed: In addition to an inspector looking over the JSDoc comments, the executable should also compile proper documentation based on the JSDoc commenting within the source code.
 
 \item{2. Complicated Function Documentation\\}
 
-Type: Functional, Dynamic, Manual, Static etc.
+Type: Structural static manual test
 
 Initial State:
 
