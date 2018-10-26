@@ -131,7 +131,7 @@ See \href{https://gitlab.cas.mcmaster.ca/nagyj2/Staroids/tree/master/ProjectSche
 
 \begin{enumerate}
 
-\item{1. Loading into pre-game\\}
+\item{Loading into pre-game\\}
 %number tests
 %create tests that are meant to fail
 
@@ -145,7 +145,7 @@ Output: In pre-game state
 
 How test will be performed: On game start, the game should be in the pre-game state. This can be acomplished by an assertation as part of the game set-up that states that the current game state is the pre-game.
 
-\item{2. Starting game\\}
+\item{Starting game\\}
 
 Type: Functional dynamic manual
 
@@ -157,7 +157,7 @@ Output: In playing state
 
 How test will be performed: Once the pre-game screen is loaded, the spacebar registers as pressed and Staroids should enter the playing state. Staroids is allowed to go through a few intermediate states but must end on the playing state within one second.
 
-\item{3. Prohibit game start on pause\\}
+\item{Prohibit game start on pause\\}
 
 Type: Functional dynamic automatic test
 
@@ -175,7 +175,7 @@ How test will be performed: In the pre-game state, the pause button is registere
 
 \begin{enumerate}
 
-\item{1. Permitting pause\\}
+\item{Permitting pause\\}
 
 Type: Functional dynamic automatic test
 
@@ -187,7 +187,7 @@ Output: Paused state
 
 How test will be performed: When the spacebar is registered as depressed, the game shall enter the paused state. Upon registering the spacebar again, the game shall return to the playing state.
 
-\item{2. Displaying player information above all\\}
+\item{Displaying player information above all\\}
 
 Type: Structural static manual test
 
@@ -199,7 +199,7 @@ Output: None
 
 How test will be performed: For the player information to be displayed above all other sprites, those sprites need to be drawn last. Inspecting the code will ensure that the player, score and lives are drawn above all other sprites.
 
-\item{3. Player firing and alien destruction\\}
+\item{Player firing and alien destruction\\}
 
 Type: Functional dynamic automatic test
 
@@ -211,7 +211,7 @@ Output: Bullet generation, bullet movement, alien destruction
 
 How test will be performed: By placing the player and alien opposite of each other, the spacebar should generate a bullet that originates from the tip of the player ship. This bullet should then proceed forward and impact the alien. The bullet speed is derrived from the player ship speed plus a constant. The alien death should trigger, which can set a detectable flag. The bullet must only move in one direction.
 
-\item{4. Asteroid collision with player\\}
+\item{Asteroid collision with player\\}
 
 Type: Functional dynamic automatic test
 
@@ -223,7 +223,7 @@ Output: Player loss of life, player location reset, asteroid destruction, astero
 
 How test will be performed: Set up the game to have a player facing a single asteroid moving towards the player. When the asteroid collides with the player, both the player and asteroid trigger their death functions, setting flags to register their deaths. On player death, the lives count is decresed which can be compared to the initial value. The asteroid child array will also increase which can once again be compared to the initial value.
 
-\item{5. Asteroid separation\\}
+\item{Asteroid separation\\}
 
 Type: Functional dynamic automatic test
 
@@ -235,7 +235,7 @@ Output: Production of child asteroids
 
 How test will be performed: Starting with a large asteroid, a signal is sent to the asteroid to trigger its death response. The asteroid itself should become disabled and should spawn 3 children asteroids. By transmitting another signal, those children asteroids should disable themselves and then create 3 of their own children. One last signal is used to destroy those children. They should not produce any children. The original large asteroid object should detect that all of its children are dead and those children's children are dead. The asteroid should broadcast that it has been completely destroyed.
 
-\item{6. Witholding player spawn\\}
+\item{Witholding player spawn\\}
 
 Type: Functional dynamic automatic test
 
@@ -252,7 +252,7 @@ How test will be performed: When the player changes from the pre-game state to t
 \paragraph{Post-game State Tests}
 \begin{enumerate}
 
-\item{1. Post-game \\}
+\item{Post-game \\}
 
 Type: Functional dynamic manual test
 
@@ -274,7 +274,7 @@ How test will be performed: Set up the game in the post-game state and then pres
 
 \begin{enumerate}
 
-\item{1. Player test\\}
+\item{Player test\\}
 %All look and feel requirements
 %readable text
 %good performance
@@ -290,7 +290,7 @@ Output/Result: The outsider playing through Staroids a few times
 
 How test will be performed: A friend or colleague will open Staroids with only the knowledge of what they can do in the game. After a few plays, the person is informed about all the functions of Staroids and how to perform them. The person then proceeds to play a few more rounds. After they are finished playing, they will be asked some \hyperref[interview:questions]{questions} with regards to the game's usability and playability.
 
-\item{2. Browsers\\}
+\item{Browsers\\}
 
 Type: Functional dynamic manual test
 
@@ -308,7 +308,7 @@ How test will be performed: Staroids is to run on any major browser, so a develo
 
 \begin{enumerate}
 
-\item{1. Player information\\}
+\item{Player information\\}
 
 Type: Functional dynamic manual test
 
@@ -328,7 +328,7 @@ How test will be performed: A member of the Staroids team will start Staroids an
 
 \begin{enumerate}
 
-\item{1. JSDoc Documentation Inspection\\}
+\item{JSDoc Documentation Inspection\\}
 
 Type: Structural static manual test
 
@@ -340,7 +340,7 @@ Output/Result: Verification of proper JSDoc documentation
 
 How test will be performed: To ensure all functions and classes are properly commented in accordance to JSDoc, a developer of Staroids will need to inspect the Staroids source code to ensure that all functions are documented and documented correctly. The developer will also ensure that all the modules contain only elements that are related to the game's operation.
 
-\item{2. JSDoc Documentation Compilation\\}
+\item{JSDoc Documentation Compilation\\}
 
 Type: Structural static automatic test
 
@@ -352,7 +352,7 @@ Output/Result: Properly created JSDoc documentation
 
 How test will be performed: In addition to an inspector looking over the JSDoc comments, the executable should also compile proper documentation based on the JSDoc commenting within the source code.
 
-\item{3. Complicated Function Documentation Inspection\\}
+\item{Complicated Function Documentation Inspection\\}
 
 Type: Structural static manual test
 
@@ -376,7 +376,7 @@ How test will be performed: Similar to the JSDoc commenting inspection, all comp
 
 \begin{enumerate}
 
-\item{1. Playability on all major browsers\\}
+\item{Playability on all major browsers\\}
 
 Type: Functional dynamic manual test
 
@@ -388,7 +388,7 @@ Output: Game runs in pregame state on browser
 
 How test will be performed: The test will be performed by opening the game with the specified browsers (Edge, Firefox, Safari, Chrome) and looking to see if the pregame screen shows up.
 
-\item{2. Player test\\}
+\item{Player test\\}
 
 Type: Functional dynamic manual test
 
@@ -408,7 +408,7 @@ How test will be performed: A friend or colleague will open Staroids with only t
 
 \begin{enumerate}
 
-\item{1. Sound tests\\}
+\item{Sound tests\\}
 
 Type: Functional, Dynamic, Manual, Static etc.
 
@@ -420,7 +420,7 @@ Output: Brake sound plays through speakers
 
 How test will be performed:
 
-\item{2. Sound tests\\}
+\item{Sound tests\\}
 
 Type: Functional, Dynamic, Manual, Static etc.
 
@@ -432,7 +432,7 @@ Output: Fire sound through speakers
 
 How test will be performed:
 
-\item{3. Sound tests\\}
+\item{Sound tests\\}
 
 Type: Functional, Dynamic, Manual, Static etc.
 
