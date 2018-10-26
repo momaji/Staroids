@@ -108,7 +108,7 @@ Staroids is a recreation of the HTML-5 Asteroids created by Doug McInnes which i
 The test team for this project consists of the following members who are each responsible for writing and executing tests for modules later to be specified:\\
 - Moziah San Vicente\\
 - Eoin Lynagh\\
-- Jason Nagy\\ 
+- Jason Nagy\\
 
 \subsection{Automated Testing Approach}
 Automated tests are to be used for all game situations where the situation result is expected to be the same for every situation. Since the result is always true, these tests can be quickly run after every Staroids edit to ensure that no game functionalities have been broken by the edits. These tests are not done automatically at game for several reasons. Firstly, if there is an assertation error, it would be meaningless to the user and there would be no action done on the user's part. Additionally there would be time added to the startup with no benefit to the user. Therefore, all major versions of Staroids will run through the test cases before they are pushed as a final Staroids build.
@@ -391,7 +391,7 @@ How test will be performed: The test will be performed by opening the game with 
 \subsection{Sound Tests}
 \paragraph{Sounds}
 \begin{enumerate}
-\item{1. Sound tests\\}
+\item{1. Brake Sound Test\\}
 
 Type: Functional, Dynamic, Manual, Static etc.
 
@@ -401,9 +401,9 @@ Input: Down on the keypad (brake)
 
 Output: Brake sound plays through speakers
 
-How test will be performed:
+How test will be performed: While the game is in the player state the down key will be pushed and it will be monitored to see if the break sound is heard.
 
-\item{2. Sound tests\\}
+\item{2. Fire Sound Test\\}
 
 Type: Functional, Dynamic, Manual, Static etc.
 
@@ -413,9 +413,9 @@ Input: Spacebar (Fire button)
 
 Output: Fire sound through speakers
 
-How test will be performed:
+How test will be performed: While the game is in the player state the spacebar key will be pushed and it will be monitored to see if the fire sound is heard.
 
-\item{3. Sound tests\\}
+\item{3. Collision Sound tests\\}
 
 Type: Functional, Dynamic, Manual, Static etc.
 
@@ -425,7 +425,21 @@ Input: Collision between player and asteroid
 
 Output: Collision sound will be played through speakers
 
-How test will be performed:
+How test will be performed: While the game is in the player statea collision will be simulated and monitored to see if the fire sound is heard.
+
+\item{4. Mute Sound Test\\}
+
+Type: Functional, Dynamic, Manual, Static etc.
+
+Initial State: Playing with Mute on
+
+Input: All sound actions will be simulated
+
+Output: animations still show on screen but no sounds acompanie them
+
+How test will be performed: The three sound actions above will be simulated and the volume of the computer will be monitured to make sure that no sounds are being produced.
+
+
 
 \end{enumerate}
 
