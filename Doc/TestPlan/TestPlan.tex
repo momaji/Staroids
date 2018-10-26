@@ -108,7 +108,7 @@ Staroids is a recreation of the HTML-5 Asteroids created by Doug McInnes which i
 The test team for this project consists of the following members who are each responsible for writing and executing tests for modules later to be specified:\\
 - Moziah San Vicente\\
 - Eoin Lynagh\\
-- Jason Nagy\\ 
+- Jason Nagy\\
 
 \subsection{Automated Testing Approach}
 Automated tests are to be used for all game situations where the situation result is expected to be the same for every situation. Since the result is always true, these tests can be quickly run after every Staroids edit to ensure that no game functionalities have been broken by the edits. These tests are not done automatically at game for several reasons. Firstly, if there is an assertation error, it would be meaningless to the user and there would be no action done on the user's part. Additionally there would be time added to the startup with no benefit to the user. Therefore, all major versions of Staroids will run through the test cases before they are pushed as a final Staroids build.
@@ -369,7 +369,7 @@ How test will be performed: Similar to the JSDoc commenting inspection, all comp
 
 \section{Tests for Proof of Concept}
 
-\subsection{Portability}
+\subsection{Usability}
 
 \paragraph{Browser test}
 
@@ -386,11 +386,27 @@ Input: Open game with browser
 Output: Game runs in pregame state on browser
 
 How test will be performed: The test will be performed by opening the game with the specified browsers (Edge, Firefox, Safari, Chrome) and looking to see if the pregame screen shows up.
+
+\item{2. Player test\\}
+
+Type: Functional dynamic manual test
+
+Initial State: pre-game state
+
+Input/Condition: An outside person
+
+Output/Result: The outsider playing through Staroids a few times
+
+How test will be performed: A friend or colleague will open Staroids with only the knowledge of what they can do in the game. After a few plays, the person is informed about all the functions of Staroids and how to perform them. The person then proceeds to play a few more rounds. After they are finished playing, they will be asked some \hyperref[interview:questions]{questions} with regards to the game's usability and playability.
+
 \end{enumerate}
 
 \subsection{Sound Tests}
+
 \paragraph{Sounds}
+
 \begin{enumerate}
+
 \item{1. Sound tests\\}
 
 Type: Functional, Dynamic, Manual, Static etc.
@@ -428,11 +444,6 @@ Output: Collision sound will be played through speakers
 How test will be performed:
 
 \end{enumerate}
-
-\subsection{Area of Testing2}
-
-...
-
 
 \section{Comparison to Existing Implementation}
 
