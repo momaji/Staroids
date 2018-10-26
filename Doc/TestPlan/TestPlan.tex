@@ -386,16 +386,44 @@ Input: Open game with browser
 Output: Game runs in pregame state on browser
 
 How test will be performed: The test will be performed by opening the game with the specified browsers (Edge, Firefox, Safari, Chrome) and looking to see if the pregame screen shows up.
+\end{enumerate}
 
-\item{test-id2\\}
+\subsection{Sound Tests}
+\paragraph{Sounds}
+\begin{enumerate}
+\item{1. Sound tests\\}
 
 Type: Functional, Dynamic, Manual, Static etc.
 
-Initial State:
+Initial State: Playing
 
-Input:
+Input: Down on the keypad (brake)
 
-Output:
+Output: Brake sound plays through speakers
+
+How test will be performed:
+
+\item{2. Sound tests\\}
+
+Type: Functional, Dynamic, Manual, Static etc.
+
+Initial State: Playing
+
+Input: Spacebar (Fire button)
+
+Output: Fire sound through speakers
+
+How test will be performed:
+
+\item{3. Sound tests\\}
+
+Type: Functional, Dynamic, Manual, Static etc.
+
+Initial State: Playing
+
+Input: Collision between player and asteroid
+
+Output: Collision sound will be played through speakers
 
 How test will be performed:
 
@@ -412,7 +440,7 @@ How test will be performed:
 Mocha and Chai are to be used in Staroids unit testing. The testing suite will be a seperate file that runs over top of all the other files and controls what occurs on the screen. All of the games modules are complete, so there is no need for stubs or drivers for testing. The coverage method will be Mocha's metric as well as the Staroids team ensuring that each method has been tested at least once.
 
 \subsection{Unit testing of internal functions}
-To test Staroids functions the team will use test cases on all functions, having at least one test per function, perhaps more. These tests will be created until we have full coverage over the internal functions. Testing will also take place as a mode, rather than having tests automatically run every time the game is exectuted. The testing mode will have to be enabled from the developer side, and does not require any user inputs (besides activing the mode). 
+To test Staroids functions the team will use test cases on all functions, having at least one test per function, perhaps more. These tests will be created until we have full coverage over the internal functions. Testing will also take place as a mode, rather than having tests automatically run every time the game is exectuted. The testing mode will have to be enabled from the developer side, and does not require any user inputs (besides activing the mode).
 
 \subsection{Unit testing of output files}
 Staroids will not create any output files, and as such, no testing on output files will be nessescary.
