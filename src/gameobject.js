@@ -238,7 +238,7 @@ Player = function(){
 
     }
 
-    if (this.airbrake && Sound.AIRBRAKE.currentTime<1 ){
+    if (this.airbrake && Sound.AIRBRAKE.currentTime<1){
         //if (!Sound.isPlay(Sound.AIRBRAKE))
         Sound.play(Sound.AIRBRAKE);
     }else{
