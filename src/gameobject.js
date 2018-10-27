@@ -477,16 +477,24 @@ Player = function(){
   };
 
   //Setters
-  /**  */
+  /** Calls for the ship to fire for the frame
+    * */
   this.callFire = function(){this.fire=true;};
+  /** Calls for the ship to thrust forward for the frame
+    * */
   this.callThrust = function(){this.thrust=true;};
+  /** Calls for the ship to brake for the frame
+    * */
   this.callBrake = function(){this.brake=true;};
+  /** Calls for the ship to turn for the frame
+    * @param dir The direction in which to turn */
   this.callTurn = function(dir){this.turn=dir;};
+  /** Resets the ship's firing countdown
+    * */
   this.resetFire = function(){this.bulletCountDown=0;};
-
-  //Getters
 };
 Player.prototype = new GameObject();
+
 
 /**
 * Representation of the bullet produced by the player
