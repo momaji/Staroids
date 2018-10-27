@@ -121,6 +121,11 @@ GameObject = function(){
     }
   };
 
+  //Getters for all object variables
+  this.getCoordinates = function(){return {this.x,this.y};};
+
+  //Setters for all object variables
+
 };
 /**
 * Object that represents the player's ship
