@@ -137,6 +137,9 @@ GameObject = function(){
   /** Returns if the sprite is active or not
     * @return Whether the sprite is active or not */
   this.getActivity = function(){return this.visible;};
+  /** Access the sprite radius
+    * @return The sprite's radius */
+  this.getRadius = function(){return this.r};
   /** Access the velocity
     * @return The sprite velocity, containing x and y components */
   this.getVel = function(){return this.vel;};
