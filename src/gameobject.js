@@ -148,6 +148,29 @@ GameObject = function(){
   this.getAcc = function(){return this.acc;};
 
   //Setters for all object variables
+  /** Set the x coordinate
+    * @param x The sprite x coordinate */
+  this.setX = function(x){this.x = x;};
+  /** Set the y coordinate
+    * @param y The sprite y coordinate */
+  this.setY = function(y){this.y = y;};
+  /** Set the sprite's heading
+    * @param a The sprite heading in radians */
+  this.setHeading = function(a){this.a = a;};
+  /** Sets if the sprite is active or not
+    * @param activity Whether the sprite is active or not */
+  this.setActivity = function(activity){this.visible = activity;};
+  /** Set the sprite radius
+    * @param r The sprite's radius */
+  this.setRadius = function(r){this.r = r};
+  /** Set the velocity
+    * @param ix The x component
+    * @param iy The y component */
+  this.setVel = function(ix,iy){this.vel = {x:ix,y:iy};};
+  /** Set the acceleration
+    * @param ix The x component
+    * @param iy The y component */
+  this.setAcc = function(ix,iy){this.acc = {x:ix,y:iy};;};
 
 };
 /**
