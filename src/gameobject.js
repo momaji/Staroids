@@ -56,6 +56,9 @@ GameObject = function(){
       y:   0
     };
 
+    /** The radius of the sprite. Not applicable to all sprites */
+    this.r=0;
+
     this.activate();
   };
 
