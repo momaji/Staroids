@@ -122,7 +122,24 @@ GameObject = function(){
   };
 
   //Getters for all object variables
-  this.getCoordinates = function(){return {this.x,this.y};};
+  /** Access the x coordinate
+    * @return The sprite x coordinate */
+  this.getX = function(){return this.x;};
+  /** Access the y coordinate
+    * @return The sprite y coordinate */
+  this.getY = function(){return this.y;};
+  /** Access the sprite's heading
+    * @return The sprite heading in radians */
+  this.getHeading = function(){return this.a;};
+  /** Returns if the sprite is active or not
+    * @return Whether the sprite is active or not */
+  this.getActivity = function(){return this.visible;};
+  /** Access the velocity
+    * @return The sprite velocity, containing x and y components */
+  this.getVel = function(){return this.vel;};
+  /** Access the acceleration
+    * @return The sprite acceleration, containing both x and y components */
+  this.getAcc = function(){return this.acc;};
 
   //Setters for all object variables
 
