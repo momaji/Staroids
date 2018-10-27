@@ -6,18 +6,31 @@ const SHIP_SIZE = 30;
 const TURN_SPEED = 180;
 /** Player thrust power in pixels per second squared */
 const SHIP_THRUST = .2;
-const SHIP_BRAKE = 0.98; // player airbrake power (<0.9 = full stop 1 = no brake)
-const MIN_SPEED = 0.1; //minimum speed
-const MAX_ACC = 2; //maximum ship acceleration
-const MAX_SPEED = 20; //Maximum ship speed (velocity)
-const CVS_WIDTH = 500; //canvas width
-const CVS_HEIGHT = 400; //canvas height
-const BULLET_EXTRA = 5; //Extra velocity on bullet on top of ship's velocity
-const KILLABLE = true; //Testing invulnerability
-const MAX_ASTEROIDS = 2; //Maximum amount of asteroids
+/** Player air brake power */
+const SHIP_BRAKE = 0.98;
+/** Minimum player speed */
+const MIN_SPEED = 0.1;
+/** Maximum player ship acceleration */
+const MAX_ACC = 2;
+/** Maximum player ship velocity in the x and y planes */
+const MAX_SPEED = 20;
+/** HTML Canvas width */
+const CVS_WIDTH = 500;
+/** HTML Canvas height */
+const CVS_HEIGHT = 400;
+/** Extra velocity added to a player bullet to make it faster than the ship at firing */
+const BULLET_EXTRA = 5;
+/** Player invulnerability */
+const KILLABLE = true;
+/** Starting amount of asteroids */
+const MAX_ASTEROIDS = 2;
+/** Staroids experimental features toggle */
+const TEST=false;
 
-const TEST=false; //experimental features
-
+/** Debugging script that allows for HTML output under the canvas (to up to five p HTML elements)
+ * @param select The id of the output p HTML element
+ * @param output What to set the p element to
+ */
 printOut = function(select,output){
   document.getElementById("output"+select.toString()).innerHTML = select.toString() + ": "+ output;
 };
