@@ -47,6 +47,7 @@ Oct 25 & 1.35 & Added Testing Schedule\\
 Oct 25 & 1.5 & Added Unit Testing Plan and all subsections\\
 Oct 25 & 1.55 & Added PoC tests\\
 Oct 26 & 1.6 & Reviewed all sections for spelling and finished up unfinished ones\\
+Oct 26 & 1.65 & Added Test Plan\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -459,6 +460,7 @@ How test will be performed: The three sound actions above will be simulated and 
 \end{enumerate}
 
 \section{Comparison to Existing Implementation}
+Staroids is quite comparable to the original implementation of HTML5-Asteroids. Both have movement of the player ship and asteroids and asteroids explode into smaller asteroids when destroyed. The level mechanic of respawning asteroids is also working. The major differences between Staroids and the original is the absence of the alien and scoring. These are planned to be implemented into Staroids within a week of the Test Plan's creation. Staroids also has one feature that the original is lacking is the ability for the player to break and come to a stop.
 
 \section{Unit Testing Plan}
 Mocha and Chai are to be used in Staroids unit testing. The testing suite will be a seperate file that runs over top of all the other files and controls what occurs on the screen. All of the games modules are complete, so there is no need for stubs or drivers for testing. The coverage method will be a combination of  Mocha's metric as well as the Staroids team ensuring that each method has been tested at least once.
