@@ -58,7 +58,7 @@ Oct 26 & 1.6 & Reviewed all sections for spelling and finished up unfinished one
 \section{General Information}
 
 \subsection{Purpose}
-This document is designed to show the detailed test plan for the Staroids game. This will include a description of the testing, validation, and verification procedures that will be implemented. All the tests in this document have been created before the final implementation has been completed and any tests have actually occured, so it will be the guide followed during the testing phase of the project.
+This document is designed to show the detailed test plan for the Staroids game. This will include a description of the testing, validation, and verification procedures that will be implemented. All the tests in this document have been created before the final implementation has been completed or tests have actually occured, so it will be the guide followed during the testing phase of the project.
 
 \subsection{Scope}
 The scope of the test plan is to provides a basis for testing the functionality of this re-implementation of asteroids. The objective of the Test Plan is to prove all the functional and non functional requirements listed in the SRS document.
@@ -461,10 +461,10 @@ How test will be performed: The three sound actions above will be simulated and 
 \section{Comparison to Existing Implementation}
 
 \section{Unit Testing Plan}
-Mocha and Chai are to be used in Staroids unit testing. The testing suite will be a seperate file that runs over top of all the other files and controls what occurs on the screen. All of the games modules are complete, so there is no need for stubs or drivers for testing. The coverage method will be Mocha's metric as well as the Staroids team ensuring that each method has been tested at least once.
+Mocha and Chai are to be used in Staroids unit testing. The testing suite will be a seperate file that runs over top of all the other files and controls what occurs on the screen. All of the games modules are complete, so there is no need for stubs or drivers for testing. The coverage method will be a combination of  Mocha's metric as well as the Staroids team ensuring that each method has been tested at least once.
 
 \subsection{Unit testing of internal functions}
-To test Staroids functions the team will use test cases on all functions, having at least one test per function, perhaps more. These tests will be created until we have full coverage over the internal functions. Testing will also take place as a mode, rather than having tests automatically run every time the game is exectuted. The testing mode will have to be enabled from the developer side, and does not require any user inputs (besides activing the mode).
+To test Staroids functions the team will use test cases on all functions, having at least one test per function, perhaps more. These tests will be created until there is full coverage over all the internal functions. Testing will also run in developer mode, rather than having tests automatically run every time the game is exectuted. The developer mode will have to be enabled from the developer side, and does not require any user inputs (besides activing the mode).
 
 \subsection{Unit testing of output files}
 Staroids will not create any output files, and as such, no testing on output files will be nessescary.
