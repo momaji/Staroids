@@ -426,14 +426,14 @@ Player = function(){
 Player.prototype = new GameObject();
 
 /**
-* function representing bullet objects
+* Representation of the bullet produced by the player
 */
 Bullet = function(){
-  this.collidesWith = ["asteroid", "alien"];
+  /** Amount of frames a bullet can exist for */
   this.timeOut = 200;
   /**
-  * function for initialization of bullet values
-  * @param {GameObject} from - the context of the bullets parent (player)
+  * Initializes all bullet internal variables
+  * @param {GameObject} from the context of the bullets parent (player)
   */
   this.init = function(from){
     Bullet.prototype.init(from.ctx,"bullet");
@@ -455,7 +455,7 @@ Bullet = function(){
 
   };
   /**
-  * actions the bullet will take every frame
+  * Actions the bullet will take every frame
   */
   this.action = function(){
     if (this.timeOut<=0){
@@ -466,7 +466,7 @@ Bullet = function(){
     }
   };
   /**
-  * function that controls how the bullet moves on screen
+  * How the bullet moves on the screen
   */
   this.move = function(){
     this.x += (this.vel.x);
@@ -485,53 +485,44 @@ Bullet = function(){
     }
   };
   /**
-  * function that controls drawing the bullets
+  * Draws the bullets onto the screen
   */
   this.draw = function(){
     if (this.visible){
-      /**
-      * starts the procedure of adding shapes to be drawn
-      */
+
       this.ctx.beginPath();
-      /**
-      * draws a circle
-      * @param {number} this.x - x coordinate of circle
-      * @param {number} this.y - y coordinate of circle
-      * @param {number} this.r - the radius of the circle
-      */
+
       this.ctx.arc(this.x, this.y, this.r, 0, 2*Math.PI);
-      /**
-      * draws the bullet on the canvas
-      */
+
       this.ctx.stroke();
     }
 
   };
   /**
-  * function that controls what happens to the bullet when it collides with another object
+  * Controls what happens on a collision with another sprite
   */
   this.collide = function(){
     var arrayLength = Game.sprites.length;
-    for (var i = 0; i < arrayLength; i++) {
+    for (var i = 0; i < arrayLength; i++) { //Look at all sprites...
 
-      if (Game.sprites[i].name == "asteroid"){
+      if (Game.sprites[i].name == "asteroid"){ //...and if it is an asteroid...
         var ast = Game.sprites[i];
 
-        if (ast.visible){
-          if(pyth(Math.abs(this.x-ast.x), Math.abs(this.y-ast.y)) < this.r + ast.r){
-            this.die();
-            ast.die();
+        if (ast.visible){ //..and is alive...
+          if(pyth(Math.abs(this.x-ast.x), Math.abs(this.y-ast.y)) < this.r + ast.r){ //...and invincibility is off and asteroid is in collision range...
+            this.die(); //kill self
+            ast.die(); //kill asteroid
           }
 
-        }else{
-          this.collideOffshoot(ast.children);
+        }else{ //otherwise:
+          this.collideOffshoot(ast.children); //check children
         }
       }
 
     }
   };
   /**
-  * function that controls how the bullet acts when it collides with asteroid children
+  * Same as collision code, but is recursive
   * @param {GameObject|Array.} astChildren - array of asteroid children
   */
   this.collideOffshoot = function(astChildren){
@@ -549,7 +540,7 @@ Bullet = function(){
     }
   };
   /**
-  * function for computing the hypotenous of a triangle with two sides the length of the param
+  * Computes the hypotenous of a triangle with two sides the length of the param
   * @param {number} x - one side of the triangle
   * @param {number} y - the other side of the triangle
   */
@@ -559,32 +550,38 @@ Bullet = function(){
 
 };
 Bullet.prototype = new GameObject();
+
+
 /**
-* function for controlling the actions of the alien
+* Representation of the alien spaceship
 */
 Alien = function(){
   this.init("alien");
-  this.collidesWith = ["asteroid", "player", "bullet"];
-  this.bulletCountDown = 180; //Countdown until a bullet can be fired
+  /** Countdown until a bullet can be fired */
+  this.bulletCountDown = 180;
 
   this.shoot = function(){};
 };
+
 /**
-* function that controls the aliens bullets
+* Representation of a alien's bullet
 */
 AlienBullet = function(){
   this.init("alienbullet");
-
-  this.timeOut = function(){}; //Countdown until bullet disappears
+  /** Amount of frames the bullet exists on the screen */
+  this.timeOut = function(){};
 };
+
+
 /**
-* function that controls the asteroids
+* Asteroid representation
 */
 Asteroid = function(){
   /**
-  * function that initializes the asteroids
-  * @param ctx - the context of the Screen
-  * @param scale - the relative size of the asteroid
+  * Builds an asteroid
+  * @constructor
+  * @param ctx the context of the Screen
+  * @param scale the relative size of the asteroid (differentiates large, medium and small)
   */
   this.init = function(ctx,scale){
     Asteroid.prototype.init(ctx,"asteroid");
@@ -595,6 +592,7 @@ Asteroid = function(){
 
     this.scale=scale;
     this.r = 5 * this.scale;
+    /** How many children the asteroid possesses. Once destroyed, instead of appending new asteroids to the sprite list, the new asteroids get added to the children */
     this.children=[];
 
     this.vel = {};
@@ -609,36 +607,25 @@ Asteroid = function(){
     }
 
   };
-  this.collidesWith=["player", "bullet", "alien", "alienbullet"];
   /**
-  * function that controls creating the asteroid on the screen
+  * Draws the asteroid to the screen
   */
   this.draw = function(){
-    if (this.visible){
-      /**
-      * starts recording points for drawing later
-      */
-      this.ctx.beginPath();
-      /**
-      * draws a circle
-      * @param this.x - the x coordinate of the center of the circle
-      * @param this.y - the y coordinate of the center of the circle
-      * @param this.r - the radius of the circle
-      */
+    if (this.visible){ //if alive...
+
+      this.ctx.beginPath(); //draw self
       this.ctx.arc(this.x, this.y, this.r, 0, 2*Math.PI);
-      /**
-      * outputs path to canvas
-      */
       this.ctx.stroke();
-    }else{
-      for (var i=0; i<this.children.length; i+=1){
+
+    }else{ //otherwise:
+      for (var i=0; i<this.children.length; i+=1){ //draw children
         this.children[i].draw();
       }
     }
 
   };
   /**
-  * function in charge of moving the astroid
+  * Moves the asteroid
   */
   this.move = function(){
     this.x += this.vel.x;
@@ -657,25 +644,24 @@ Asteroid = function(){
   };
 
   /**
-  * function in charge of controlling the asteroid every frame
+  * Actions an asteroid performs every frame
   */
   this.action = function(){
-    // if (Key.isDown(Key.SPACE) && this.scale==3){
-    //   this.die();
-    // }
+
+    //Debug options to destroy all asteroid of a certain size
     if (Key.isDown(Key.ONE) && this.scale==1)   this.die();
     if (Key.isDown(Key.TWO) && this.scale==2)   this.die();
     if (Key.isDown(Key.THREE) && this.scale==3) this.die();
 
   };
   /**
-  * function in charge of controlling behaviour when the asteroid is destroyed
+  * Effect of an asteroid getting destroyed
   */
   this.die = function(){
-    this.deactivate();
-    if (this.scale>1){
+    this.deactivate(); //Deactivate self
+    if (this.scale>1){ //if the asteroid is NOT small
       for (var i=0; i<3; i+=1){
-        ast = new Asteroid();
+        ast = new Asteroid(); //generate 3 new asteroids of a smaller size and append them to the asteroid shildren array
         ast.init(this.ctx,this.scale-1);
         ast.place(this.x,this.y);
         this.children.push(ast);
@@ -683,44 +669,44 @@ Asteroid = function(){
     }
   };
   /**
-  * controls how the astroid interacts with its children
+  * What an asteroid performs after it has been destroyed
   */
   this.pass = function(){
-    for (var i=0; i<this.children.length; i+=1){
-      this.children[i].update();
+    for (var i=0; i<this.children.length; i+=1){ //for all children...
+      this.children[i].update(); //...update them
     }
 
-    if (this.scale==3){
-      if (this.isDead()){
-        Game.asteroids -= 1;
-        Game.sprites.remove(this);
+    if (this.scale==3){ //If this asteroid is a large (master/top level) asteroid...
+      if (this.isDead()){ //...see if all children have been destroyed
+        Game.asteroids -= 1; //decrement amount of asteroids (since itself and no children are alive)
+        Game.sprites.remove(this); //remove self from the active sprites
       }
     }
 
   };
   /**
-  * controls the behaviour of the asteroid when it dies
+  * Detects if an asteroid and all its children are dead
   */
   this.isDead = function(){
-    if (this.visible){
-      //not destroyed -> alive
-      return false;
-    }else{
-      if (this.children.length==0){
-        //destroyed and no children -> dead scale 1
-        return true;
-      }else{
-        //destroyed and has children -> scale 2 or 3
+    if (this.visible){ //if active...
+      //Large active asteroid
+      return false; //Asteroid is alive
+    }else{ //otherwise:
+      if (this.children.length==0){ //if there are no children...
+        //Small destroyed asteroid
+        return true; //The asteroid is dead (only for small)
+      }else{ //otherwise:
+        //Destroyed large or medium asteroid
 
-        this.c=0;
-        for (var i=0; i<this.children.length; i+=1){
-          if (this.children[i].isDead()) this.c+=1;
+        this.c=0; //counter to count dead children
+        for (var i=0; i<this.children.length; i+=1){ //for every child...
+          if (this.children[i].isDead()) this.c+=1; //..see if it are dead by seeing if its own children are dead
         }
 
-        if (this.c==this.children.length){
-          return true;
-        }
-        return false;
+        if (this.c==this.children.length){ //if all children are dead...
+          return true; //the higher asteroid is dead
+        } //otherwise:
+        return false; //the higher asteroid is not dead
 
       }
 
