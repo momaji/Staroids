@@ -10,38 +10,40 @@ GameObject = function(){
   * @param name The id (or type) of the sprite
   */
   this.init = function(ctx,name) {
-    this.ctx = ctx; //Screen context
-    this.name = name; //Name of object (like type)
+    /** Screen context where the sprite will print itself */
+    this.ctx = ctx;
+    /** ID type of the sprite. What sprite it is */
+    this.name = name;
     /**
-    * The x coordinate of the GameObject on the screen
+    * The x coordinate of the entity on the screen
     * @type {number}
     */
     this.x = 0;
     /**
-    * The y coordinate of the GameObject on the screen
+    * The y coordinate of the entity on the screen
     * @type {number}
     */
     this.y = 0;
     /**
-    * how much to rotate on a game frame (used to modify a)
+    * How much to rotate the entity on a game frame (used to modify a)
     * @type {number}
     */
     this.rot = 0; //
     /**
-    * heading of an object
+    * Heading of the entity
     * @type {number}
     */
     this.a = 0;
     /**
-    * the visibility of a GameObject
+    * If the entity is active or not
     * @type {boolean}
     */
-    this.visible = false; //if the sprite is active or not
+    this.visible = false;
     /**
     * the velocity vector components
     * @type {number|Array.}
     */
-    this.vel = { //velocity vector components
+    this.vel = {
       x:   0,
       y:   0
     };
@@ -49,7 +51,7 @@ GameObject = function(){
     * the acceleration vector components
     * @type {number|Array.}
     */
-    this.acc = { //acceleration vector components
+    this.acc = {
       x:   0,
       y:   0
     };
