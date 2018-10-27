@@ -23,13 +23,14 @@
 \contentsline {paragraph}{Documentation}{9}{section*.9}
 \contentsline {subsection}{\numberline {3.3}Traceability Between Test Cases and Requirements}{10}{subsection.3.3}
 \contentsline {section}{\numberline {4}Tests for Proof of Concept}{10}{section.4}
-\contentsline {subsection}{\numberline {4.1}Portability}{10}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.1}Usability}{10}{subsection.4.1}
 \contentsline {paragraph}{Browser test}{10}{section*.10}
-\contentsline {subsection}{\numberline {4.2}Area of Testing2}{11}{subsection.4.2}
-\contentsline {section}{\numberline {5}Comparison to Existing Implementation}{11}{section.5}
-\contentsline {section}{\numberline {6}Unit Testing Plan}{11}{section.6}
-\contentsline {subsection}{\numberline {6.1}Unit testing of internal functions}{11}{subsection.6.1}
-\contentsline {subsection}{\numberline {6.2}Unit testing of output files}{11}{subsection.6.2}
-\contentsline {section}{\numberline {7}Appendix}{12}{section.7}
-\contentsline {subsection}{\numberline {7.1}Symbolic Parameters}{12}{subsection.7.1}
-\contentsline {subsection}{\numberline {7.2}Usability Survey Questions}{12}{subsection.7.2}
+\contentsline {subsection}{\numberline {4.2}Sound Tests}{11}{subsection.4.2}
+\contentsline {paragraph}{Sounds}{11}{section*.11}
+\contentsline {section}{\numberline {5}Comparison to Existing Implementation}{12}{section.5}
+\contentsline {section}{\numberline {6}Unit Testing Plan}{12}{section.6}
+\contentsline {subsection}{\numberline {6.1}Unit testing of internal functions}{13}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Unit testing of output files}{13}{subsection.6.2}
+\contentsline {section}{\numberline {7}Appendix}{14}{section.7}
+\contentsline {subsection}{\numberline {7.1}Symbolic Parameters}{14}{subsection.7.1}
+\contentsline {subsection}{\numberline {7.2}Usability Survey Questions}{14}{subsection.7.2}
