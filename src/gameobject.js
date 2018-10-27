@@ -173,6 +173,7 @@ GameObject = function(){
   this.setAcc = function(ix,iy){this.acc = {x:ix,y:iy};;};
 
 };
+
 /**
 * Object that represents the player's ship
 */
@@ -475,6 +476,15 @@ Player = function(){
     this.airbrake=false;
   };
 
+  //Setters
+  /**  */
+  this.callFire = function(){this.fire=true;};
+  this.callThrust = function(){this.thrust=true;};
+  this.callBrake = function(){this.brake=true;};
+  this.callTurn = function(dir){this.turn=dir;};
+  this.resetFire = function(){this.bulletCountDown=0;};
+
+  //Getters
 };
 Player.prototype = new GameObject();
 
