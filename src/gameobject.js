@@ -619,7 +619,7 @@ Bullet = function(){
 
   //Getters
   /** Calls for the bullet's current lifetime until it gets destroyed
-    * */
+    * @return The integer amount of frames until the bullet kills itself */
   this.getTimeout = function(){return this.timeOut;};
 
   //Setters
@@ -720,7 +720,6 @@ Asteroid = function(){
       this.y = 0 - this.r;
     }
   };
-
   /**
   * Actions an asteroid performs every frame
   */
@@ -791,5 +790,24 @@ Asteroid = function(){
     }
   };
 
+  //Getters
+  /** Accesses the asteroid's children
+    * @return An array of the asteroid's children */
+  this.getChildren = function(){return thi.children;};
+  /** Accesses the asteroid's scale (size)
+    * @return The integer size of the asteroid */
+  this.getScale = function(){return this.scale;};
+
+  //Setters
+  /** Sets an asteroid's children
+    * @param children An array to set as the asteroid's children */
+  this.setChildren = function(){this.children=children;};
+  /** Sets an asteroid's scale
+    * @param scale The integer scale to set the asteroid */
+  this.setScale = function(scale){this.scale=scale;};
+
+  /** Appends to an asteroid's children
+    * @param children An element to append to the asteroid's children */
+  this.addChild = function(){this.children.push(children);};
 };
 Asteroid.prototype = new GameObject();
