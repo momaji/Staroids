@@ -146,6 +146,23 @@ Game = {
       this.counter.muteSound -= 1;
       this.counter.pauseGame -= 1;
   }
+
+  //Getters
+  getScore: function(){return this.score;},
+  getLives: function(){return this.lives;},
+  getLevel: function(){return this.level;},
+  getAsteroids: function(){return this.asteroids;},
+  getWidth: function(){return this.canvasWidth;},
+  getHeight: function(){return this.canvasHeight;},
+  getCvs: function(){return this.cvs;},
+  getCtx: function(){return this.ctx;},
+  getSprites: function(){return this.sprites;},
+  getPlayer: function(){return this.player;},
+  getAlien: function(){return this.alien;},
+  getText: function(){return this.text;},
+  getSound: function(){return this.sound;},
+  getPaused: function(){return this.paused;},
+
 }
 
 // from:  https://stackoverflow.com/questions/3954438/how-to-remove-item-from-array-by-value
