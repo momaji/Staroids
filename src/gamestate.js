@@ -17,7 +17,6 @@ StateMachine = {
       Game.asteroids+=1;
     }
   },
-
   /**
    * Saves Current game state if pause mode/game state is activated
    */
@@ -35,7 +34,6 @@ StateMachine = {
       this.stateSave = null;
     }
   },
-
   /**
    * Initiates game canvas, sounds, sprite, and objects before the game begins for the pregame state
    */
@@ -60,7 +58,6 @@ StateMachine = {
 
     this.state="pregame";
   },
-
   /**
    * Pregame state for the staroids game, loads all the sprites onto the screen
    */
@@ -74,7 +71,6 @@ StateMachine = {
       this.state="load";
     }
   },
-
   /**
    * @brief Transition from pre-game to playing states.
    * @details Resets the game lives, score, level. Generates the player ship and asteroids
@@ -100,13 +96,11 @@ StateMachine = {
 
     this.state="playing";
   },
-
   /**
    * @brief Playing state for the Staroids game
    * @details Updates all sprites and checks for the game over status. Handles the generation of new asteroids at the end of each level (or wave)
    */
   playing: function(){
-
     for (var i = 0; i < Game.sprites.length; i++){
       Game.sprites[i].update();
     }
@@ -121,7 +115,6 @@ StateMachine = {
     }
 
   },
-
   /**
    * @brief Post-game state for the Staroids game
    * @details Post-game screen for when the player dies and is out of lives. Displays the reset key
@@ -136,7 +129,6 @@ StateMachine = {
       this.state="reload";
     }
   },
-
   /**
    * @brief Pause state for the Staroids game
    * @details Preserves all the sprites in their current state
@@ -148,7 +140,6 @@ StateMachine = {
 
     Game.text.emph("Press 'P' to Unpause",20,100);
   },
-
   /**
    * @brief Transitions the game from the postgame state back to the load state
    * @details Removes all game sprites, then re-generates all the asteroids and then finally resets back to the load state
@@ -160,12 +151,10 @@ StateMachine = {
 
     this.state = "load";
   },
-
   /**
    * Runs the code for the current state
    */
   execute: function(){this[this.state]();},
-
   /** Initializes start function when game begins */
   state: "start",
   /** Used to save the last state entered (for pausing) */
