@@ -192,14 +192,32 @@ Game = {
   getPaused: function(){return this.paused;},
 
   //Setters
+  /** Sets the game's score
+   * @param score The score to set the game to */
   setScore: function(score){ this.score=score;},
+  /** Sets the game's life count
+   * @param life The new life count */
   setLives: function(life){ this.lives=life;},
+  /** Sets the game's current level
+   * @param lvl */
   setLevel: function(lvl){ this.level=lvl;},
+  /** Sets the game's max large asteroid count
+   * @param ast The new asteroid count */
   setAsteroids: function(ast){ this.asteroids=ast;},
+  /** Sets the game's currently active sprite array
+   * @param sprites The new active sprite array */
   setSprites: function(sprites){ this.sprites=sprites;},
+  /** Sets the game's player pointer
+   * @param player The new player instance */
   setPlayer: function(player){ this.player=player;},
+  /** Sets the game's alien reference
+   * @param alien The new alien object */
   setAlien: function(alien){ this.alien=alien;},
+  /** Sets the game's text generator
+   * @param text The text generator*/
   setText: function(text){ this.text=text;},
+  /** Sets the game's sound manager
+   * @param sound The sound manager */
   setSound: function(sound){ this.sound=sound;},
 
   //Append-ers
