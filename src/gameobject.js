@@ -562,9 +562,7 @@ Bullet = function(){
     if (this.visible){
 
       this.ctx.beginPath();
-
       this.ctx.arc(this.x, this.y, this.r, 0, 2*Math.PI);
-
       this.ctx.stroke();
     }
 
@@ -619,6 +617,15 @@ Bullet = function(){
     return Math.sqrt(x*x + y*y);
   }
 
+  //Getters
+  /** Calls for the bullet's current lifetime until it gets destroyed
+    * */
+  this.getTimeout = function(){return this.timeOut;};
+
+  //Setters
+  /** Set a bullet's timeout (life) time
+    * @param life The new lifetime of the bullet in frames*/
+  this.setTimeout = function(life){this.timeOut=life;};
 };
 Bullet.prototype = new GameObject();
 
