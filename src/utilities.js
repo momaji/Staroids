@@ -148,21 +148,48 @@ Game = {
   }
 
   //Getters
+  /** Accesses the game's score
+   * @return {Integer} The game's score */
   getScore: function(){return this.score;},
+  /** Accesses the player's lives
+   * @return {Integer} The player's life count */
   getLives: function(){return this.lives;},
+  /** Accesses the game's current level
+   * @return {Integer} The current level */
   getLevel: function(){return this.level;},
+  /** Accesses the game's current amount of large asteroids
+   * @return {Integer} The amount of asteroids */
   getAsteroids: function(){return this.asteroids;},
+  /** Accesses the game canvas' width
+   * @return {Integer} The canvas' width */
   getWidth: function(){return this.canvasWidth;},
+  /** Accesses the game canvas' height
+   * @return {Integer} The canvas' height */
   getHeight: function(){return this.canvasHeight;},
+  /** Accesses the game's canvas
+   * @return The canvas the game is being played on */
   getCvs: function(){return this.cvs;},
+  /** Accesses the game's context
+   * @return The game's context */
   getCtx: function(){return this.ctx;},
+  /** Accesses the game's current sprites
+   * @return {Array} The sprites currently in the game */
   getSprites: function(){return this.sprites;},
+  /** Accesses the game's player
+   * @return A pointer to the current player */
   getPlayer: function(){return this.player;},
+  /** Accesses the game's enemy alien
+   * @return A pointer to the current alien */
   getAlien: function(){return this.alien;},
+  /** Accesses the game's text placer
+   * @return A pointer to the current text generator */
   getText: function(){return this.text;},
+  /** Accesses the game's sound manager
+   * @return A pointer to the current sound manager */
   getSound: function(){return this.sound;},
+  /** Accesses the game's paused state
+   * @return {Boolean} The current paused state */
   getPaused: function(){return this.paused;},
-
 
   //Setters
   setScore: function(score){ this.score=score;},
