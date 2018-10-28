@@ -145,7 +145,7 @@ Game = {
   reduceCounter: function(){
       this.counter.muteSound -= 1;
       this.counter.pauseGame -= 1;
-  }
+  },
 
   //Getters
   /** Accesses the game's score
@@ -227,6 +227,9 @@ Game = {
   /** Increases the game's live count
    * @param amount The amount to increase lives by */
   addLives: function (amount){ this.lives+=amount;},
+  /** Increases the game's asteroid count
+   * @param amount The amount to increase the asteroid count by */
+  addAsteroids: function (amount){ this.asteroids+=amount;},
   /** Adds a sprite to the current active sprites
    * @param sprite The sprite to append */
   addSprites: function(sprite){ this.getSprites().push(sprite);},
@@ -238,6 +241,9 @@ Game = {
   /** Decrease the game's live count
    * @param amount The amount to decrease lives by */
   subLives: function (amount){ this.lives-=amount;},
+  /** Decreases the game's asteroid count
+   * @param amount The amount to decrease the asteroid count by */
+  subAsteroids: function (amount){ this.asteroids-=amount;},
   /** Removes a currently active sprite
    * @param sprite The sprite to remove */
   subSprites: function(sprite){ this.getSprites().remove(sprite);}
