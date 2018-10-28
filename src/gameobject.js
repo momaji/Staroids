@@ -385,9 +385,9 @@ Player = function(){
       this.bulletCountDown = FPS/1.25; //Reset bullet counter
       bull = new Bullet(); //Create and initialize new bullet
       bull.init(this);
-      Game.sprites.push(bull);
-      if (!Game.sound.muted){ //If not muted, play the sound
-          Game.sound.play(Sound.LASER);
+      Game.addSprites(bull);
+      if (!Game.getSound().muted){ //If not muted, play the sound
+          Game.getSound().play(Sound.LASER);
       }
 
       if (TEST){
@@ -398,23 +398,23 @@ Player = function(){
     }
 
     if (this.airbrake && Sound.AIRBRAKE.currentTime<1){ //If braking...
-        Game.sound.play(Sound.AIRBRAKE); //Play the sound
+        Game.getSound().play(Sound.AIRBRAKE); //Play the sound
     }else{
-        Game.sound.stop(Sound.AIRBRAKE);
+        Game.getSound().stop(Sound.AIRBRAKE);
     }
   };
   /** Describes the behaviour of the player when it collides with objects */
   this.collide = function(){
-    var arrayLength = Game.sprites.length;
+    var arrayLength = Game.getSprites().length;
     for (var i = 0; i < arrayLength; i++) { //Search through the available sprites
       if(Game.sprites[i].name === "asteroid"){ //On an asteroid...
-        var ast = Game.sprites[i];
+        var ast = Game.getSprites()[i];
 
         if (ast.getActivity()){ //...And it is visible...
           if(KILLABLE && pyth(Math.abs(this.x-ast.x), Math.abs(this.y-ast.y)) < this.r + ast.r){ //...and invincibility is off and are in collision range
             this.die(); //Kill self
             ast.die(); //Kill asteroid
-            Game.player = null; //Dereference yourself (signals the player is dead)
+            Game.setPlayer(null); //Dereference yourself (signals the player is dead)
           }
         }else{ //otherwise:
           this.collideOffshoot(ast.getChildren()); //check collisions of its children
@@ -429,10 +429,10 @@ Player = function(){
     for (var i=0; i<astChildren.length; i+=1){
       var ast = astChildren[i];
       if (ast.getActivity()){
-        if(KILLABLE && pyth(Math.abs(this.x-ast.x), Math.abs(this.y-ast.y)) < this.r + ast.r){
+        if(KILLABLE && pyth(Math.abs(this.getX()-ast.getX()), Math.abs(this.getY()-ast.getY())) < this.getRadius() + ast.getRadius()){
           this.die();
           ast.die();
-          Game.player = null;
+          Game.setPlayer(null);
         }
       }else{
         this.collideOffshoot(ast.getChildren());
@@ -505,7 +505,7 @@ Bullet = function(){
   this.action = function(){
     if (this.timeOut<=0){
       this.deactivate();
-      Game.sprites.remove(this);
+      Game.subSprites(this);
     }else{
       this.timeOut-=1;
     }
@@ -539,11 +539,11 @@ Bullet = function(){
   };
   /** Controls what happens on a collision with another sprite */
   this.collide = function(){
-    var arrayLength = Game.sprites.length;
+    var arrayLength = Game.getSprites().length;
     for (var i = 0; i < arrayLength; i++) { //Look at all sprites...
 
-      if (Game.sprites[i].name == "asteroid"){ //...and if it is an asteroid...
-        var ast = Game.sprites[i];
+      if (Game.getSprites()[i].name == "asteroid"){ //...and if it is an asteroid...
+        var ast = Game.getSprites()[i];
 
         if (ast.getActivity()){ //..and is alive...
           if(pyth(Math.abs(this.getX()-ast.getX()), Math.abs(this.getY()-ast.getY())) < this.getRadius() + ast.getRadius()){ //...and invincibility is off and asteroid is in collision range...
@@ -705,8 +705,8 @@ Asteroid = function(){
 
     if (this.scale==3){ //If this asteroid is a large (master/top level) asteroid...
       if (this.isDead()){ //...see if all children have been destroyed
-        Game.asteroids -= 1; //decrement amount of asteroids (since itself and no children are alive)
-        Game.sprites.remove(this); //remove self from the active sprites
+        Game.subAsteroids(1); //decrement amount of asteroids (since itself and no children are alive)
+        Game.subSprites(this); //remove self from the active sprites
       }
     }
 
