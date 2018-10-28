@@ -221,9 +221,19 @@ Game = {
   setSound: function(sound){ this.sound=sound;},
 
   //Append-ers
+  /** Increases the game's current score
+   * @param amount The amount to increase the score by */
+  addScore: function (amount){ this.score+=amount;},
+  /** Increases the game's live count
+   * @param amount The amount to increase lives by */
+  addLives: function (amount){ this.lives+=amount;},
+  /** Adds a sprite to the current active sprites
+   * @param sprite The sprite to append */
   addSprites: function(sprite){ this.getSprites().push(sprite);},
 
   //Remove-ers
+  subScore: function (amount){ this.score-=amount;},
+  subLives: function (amount){ this.lives-=amount;},
   subSprites: function(sprite){ this.getSprites().remove(sprite);}
 
 }
