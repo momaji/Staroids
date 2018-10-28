@@ -146,6 +146,9 @@ GameObject = function(){
   /** Access the acceleration
     * @return The sprite acceleration, containing both x and y components */
   this.getAcc = function(){return this.acc;};
+  /** Access the screen context
+    * @return The sprite's screen context */
+  this.getCtx = function(){return this.ctx;};
 
   //Setters for all object variables
   /** Set the x coordinate
@@ -171,7 +174,9 @@ GameObject = function(){
     * @param ix The x component
     * @param iy The y component */
   this.setAcc = function(ix,iy){this.acc = {x:ix,y:iy};;};
-
+  /** Set the screen context
+    * @param ctx The sprite's screen context */
+  this.setCtx = function(ctx){this.ctx=ctx;};
 };
 
 /**
