@@ -21,7 +21,7 @@ const CVS_HEIGHT = 400;
 /** Extra velocity added to a player bullet to make it faster than the ship at firing */
 const BULLET_EXTRA = 5;
 /** Player invulnerability */
-const KILLABLE = true;
+const KILLABLE = false;
 /** Starting amount of asteroids */
 const MAX_ASTEROIDS = 2;
 /** Staroids experimental features toggle */
@@ -193,20 +193,26 @@ Game = {
 
   //Setters
   /** Sets the game's score
-   * @param score The score to set the game to */
+   * @param {Integer} score The score to set the game to */
   setScore: function(score){ this.score=score;},
   /** Sets the game's life count
-   * @param life The new life count */
+   * @param {Integer} life The new life count */
   setLives: function(life){ this.lives=life;},
   /** Sets the game's current level
-   * @param lvl */
+   * @param {Integer} lvl */
   setLevel: function(lvl){ this.level=lvl;},
   /** Sets the game's max large asteroid count
-   * @param ast The new asteroid count */
+   * @param {Integer} ast The new asteroid count */
   setAsteroids: function(ast){ this.asteroids=ast;},
   /** Sets the game's currently active sprite array
-   * @param sprites The new active sprite array */
+   * @param {Array} sprites The new active sprite array */
   setSprites: function(sprites){ this.sprites=sprites;},
+  /** Sets the game canvas' width
+   * @param {Integer} width The canvas' width */
+  setWidth: function(width){ this.canvasWidth=width;},
+  /** Sets the game canvas' height
+   * @param {Integer} height The canvas' height */
+  setHeight: function(height){ this.canvasHeight=height;},
   /** Sets the game's player pointer
    * @param player The new player instance */
   setPlayer: function(player){ this.player=player;},
@@ -222,13 +228,13 @@ Game = {
 
   //Append-ers
   /** Increases the game's current score
-   * @param amount The amount to increase the score by */
+   * @param {Integer} amount The amount to increase the score by */
   addScore: function (amount){ this.score+=amount;},
   /** Increases the game's live count
-   * @param amount The amount to increase lives by */
+   * @param {Integer} amount The amount to increase lives by */
   addLives: function (amount){ this.lives+=amount;},
   /** Increases the game's asteroid count
-   * @param amount The amount to increase the asteroid count by */
+   * @param {Integer} amount The amount to increase the asteroid count by */
   addAsteroids: function (amount){ this.asteroids+=amount;},
   /** Adds a sprite to the current active sprites
    * @param sprite The sprite to append */
@@ -236,13 +242,13 @@ Game = {
 
   //Remove-ers
   /** Decreases the game's current score
-   * @param amount The amount to decrease the score by */
+   * @param {Integer} amount The amount to decrease the score by */
   subScore: function (amount){ this.score-=amount;},
   /** Decrease the game's live count
-   * @param amount The amount to decrease lives by */
+   * @param {Integer} amount The amount to decrease lives by */
   subLives: function (amount){ this.lives-=amount;},
   /** Decreases the game's asteroid count
-   * @param amount The amount to decrease the asteroid count by */
+   * @param {Integer} amount The amount to decrease the asteroid count by */
   subAsteroids: function (amount){ this.asteroids-=amount;},
   /** Removes a currently active sprite
    * @param sprite The sprite to remove */
