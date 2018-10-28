@@ -232,10 +232,15 @@ Game = {
   addSprites: function(sprite){ this.getSprites().push(sprite);},
 
   //Remove-ers
+  /** Decreases the game's current score
+   * @param amount The amount to decrease the score by */
   subScore: function (amount){ this.score-=amount;},
+  /** Decrease the game's live count
+   * @param amount The amount to decrease lives by */
   subLives: function (amount){ this.lives-=amount;},
+  /** Removes a currently active sprite
+   * @param sprite The sprite to remove */
   subSprites: function(sprite){ this.getSprites().remove(sprite);}
-
 }
 
 // from:  https://stackoverflow.com/questions/3954438/how-to-remove-item-from-array-by-value
