@@ -146,6 +146,12 @@ Game = {
       this.counter.muteSound -= 1;
       this.counter.pauseGame -= 1;
   },
+  resetMute: function(){
+    this.counter.muteSound = FPS;
+  },
+  resetPause: function(){
+    this.counter.pauseGame = FPS;
+  },
 
   //Getters
   /** Accesses the game's score
@@ -213,6 +219,12 @@ Game = {
   /** Sets the game canvas' height
    * @param {Integer} height The canvas' height */
   setHeight: function(height){ this.canvasHeight=height;},
+  /** Sets the game's canvas
+   * @param cvs The game canvas */
+  setCvs: function(cvs){ this.cvs=cvs;},
+  /** Sets the game's context
+   * @param ctx The context to set */
+  setCtx: function(ctx){ this.ctx=ctx;},
   /** Sets the game's player pointer
    * @param player The new player instance */
   setPlayer: function(player){ this.player=player;},
