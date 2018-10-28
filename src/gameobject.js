@@ -564,7 +564,7 @@ Bullet = function(){
   * Draws the bullets onto the screen
   */
   this.draw = function(){
-    if (this.visible){
+    if (this.getActivity()){
 
       this.ctx.beginPath();
       this.ctx.arc(this.x, this.y, this.r, 0, 2*Math.PI);
@@ -582,14 +582,14 @@ Bullet = function(){
       if (Game.sprites[i].name == "asteroid"){ //...and if it is an asteroid...
         var ast = Game.sprites[i];
 
-        if (ast.visible){ //..and is alive...
-          if(pyth(Math.abs(this.x-ast.x), Math.abs(this.y-ast.y)) < this.r + ast.r){ //...and invincibility is off and asteroid is in collision range...
+        if (ast.getActivity()){ //..and is alive...
+          if(pyth(Math.abs(this.getX()-ast.getX()), Math.abs(this.getY()-ast.getY())) < this.getRadius() + ast.getRadius()){ //...and invincibility is off and asteroid is in collision range...
             this.die(); //kill self
             ast.die(); //kill asteroid
           }
 
         }else{ //otherwise:
-          this.collideOffshoot(ast.children); //check children
+          this.collideOffshoot(ast.getChildren()); //check children
         }
       }
 
@@ -597,19 +597,19 @@ Bullet = function(){
   };
   /**
   * Same as collision code, but is recursive
-  * @param {GameObject|Array.} astChildren - array of asteroid children
+  * @param {GameObject|Array.} astChildren Array of asteroid children
   */
   this.collideOffshoot = function(astChildren){
     for (var i=0; i<astChildren.length; i+=1){
       var ast = astChildren[i];
-      if (ast.visible){
-        if(pyth(Math.abs(this.x-ast.x), Math.abs(this.y-ast.y)) < this.r + ast.r){
+      if (ast.getActivity()){
+        if(pyth(Math.abs(this.getX()-ast.getX()), Math.abs(this.getY()-ast.getY())) < this.getRadius() + ast.getRadius()){
           this.die();
           this.place(-100,-100);
           ast.die();
         }
       }else{
-        this.collideOffshoot(ast.children);
+        this.collideOffshoot(ast.getChildren());
       }
     }
   };
@@ -642,12 +642,10 @@ Alien = function(){
   this.init("alien");
   /** Countdown until a bullet can be fired */
   this.bulletCountDown = 180;
-
-  this.shoot = function(){};
 };
 
 /**
-* Representation of a alien's bullet
+* Representation of an alien's bullet
 */
 AlienBullet = function(){
   this.init("alienbullet");
