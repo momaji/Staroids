@@ -67,15 +67,15 @@ GameObject = function(){
   * @param x - The x coordinate of where the object should be placed
   * @param y - The y coordinate of where the object should be placed
   */
-  this.place = function(x,y){this.x=x;this.y=y;};
+  this.place = function(x,y){this.setX(x);this.setY(y);};
   /**
   * Activates sprites by toggling visibility on
   */
-  this.activate = function(){this.visible=true;};
+  this.activate = function(){this.setActivity(true);};
   /**
   * Deactivates sprites by toggling visibility off
   */
-  this.deactivate = function(){this.visible=false;};
+  this.deactivate = function(){this.setActivity(false);};
   /**
   * What the sprite is to do once it has been determined it should 'die'
   */
@@ -330,7 +330,7 @@ Player = function(){
       }
     }
 
-  }; //movement of sprite
+  };
   /**
   * Draws the ship and its thruster
   */
@@ -426,14 +426,14 @@ Player = function(){
       if(Game.sprites[i].name === "asteroid"){ //On an asteroid...
         var ast = Game.sprites[i];
 
-        if (ast.visible){ //...And it is visible...
+        if (ast.getActivity()){ //...And it is visible...
           if(KILLABLE && pyth(Math.abs(this.x-ast.x), Math.abs(this.y-ast.y)) < this.r + ast.r){ //...and invincibility is off and are in collision range
             this.die(); //Kill self
             ast.die(); //Kill asteroid
             Game.player = null; //Dereference yourself (signals the player is dead)
           }
         }else{ //otherwise:
-          this.collideOffshoot(ast.children); //check collisions of its children
+          this.collideOffshoot(ast.getChildren()); //check collisions of its children
         }
 
       }
@@ -446,14 +446,14 @@ Player = function(){
   this.collideOffshoot = function(astChildren){ //Same as collide(), but recursive
     for (var i=0; i<astChildren.length; i+=1){
       var ast = astChildren[i];
-      if (ast.visible){
+      if (ast.getActivity()){
         if(KILLABLE && pyth(Math.abs(this.x-ast.x), Math.abs(this.y-ast.y)) < this.r + ast.r){
           this.die();
           ast.die();
           Game.player = null;
         }
       }else{
-        this.collideOffshoot(ast.children);
+        this.collideOffshoot(ast.getChildren());
       }
     }
   };
@@ -509,17 +509,17 @@ Bullet = function(){
   this.init = function(from){
     Bullet.prototype.init(from.ctx,"bullet");
 
-    this.ctx = from.ctx;
-    this.a = from.a;
+    this.ctx = from.getCtx();
+    this.a = from.getHeading();
     this.vel = {};
 
-    this.x = from.x + 4/3 * from.r * Math.cos(this.a);
-    this.y = from.y - 4/3 * from.r * Math.sin(this.a);
+    this.x = from.getX() + 4/3 * from.getRadius() * Math.cos(this.a);
+    this.y = from.getY() - 4/3 * from.getRadius() * Math.sin(this.a);
 
     this.r = 1;
 
-    this.vel.x = from.vel.x;
-    this.vel.y = from.vel.y;
+    this.vel.x = from.getVel().x;
+    this.vel.y = from.getVel().y;
 
     this.vel.x += BULLET_EXTRA * Math.cos(this.a);
     this.vel.y += BULLET_EXTRA * -Math.sin(this.a);
@@ -793,7 +793,7 @@ Asteroid = function(){
   //Getters
   /** Accesses the asteroid's children
     * @return An array of the asteroid's children */
-  this.getChildren = function(){return thi.children;};
+  this.getChildren = function(){return this.children;};
   /** Accesses the asteroid's scale (size)
     * @return The integer size of the asteroid */
   this.getScale = function(){return this.scale;};
