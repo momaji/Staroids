@@ -78,7 +78,7 @@ StateMachine = {
   load: function(){
     Game.score=0;
     Game.lives=3;
-    Game.level=1;
+    Game.level=0;
 
     //Spawn asteroids
       //Append asteroids to Game.sprites
