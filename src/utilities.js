@@ -29,15 +29,12 @@ const TEST=false;
 
 /** Debugging script that allows for HTML output under the canvas (to up to five p HTML elements)
  * @param select The id of the output p HTML element
- * @param output What to set the p element to
- */
+ * @param output What to set the p element to */
 printOut = function(select,output){
   document.getElementById("output"+select.toString()).innerHTML = select.toString() + ": "+ output;
 };
 
-/**
- * Variable to handle user input
- */
+/** Variable to handle user input */
 var Key = {
   pressed: {},
 
@@ -53,70 +50,54 @@ var Key = {
   TWO: 50,
   THREE: 51,
 
-  /**
-   * Returns if a specified key is pressed down or not
-   * @param keyCode The JavaScript key code to check
-   */
+  /** Returns if a specified key is pressed down or not
+   * @param keyCode The JavaScript key code to check */
   isDown: function(keyCode){
     return this.pressed[keyCode];
   },
 
-  /**
-   * Used by event handler to update the pressed keys
-   * @param event The event that needs to be handlesd
-   */
+  /** Used by event handler to update the pressed keys
+   * @param event The event that needs to be handled */
   onKeydown: function(event){
     this.pressed[event.keyCode]=(new Date).getTime();
   },
 
-  /**
-   * Used by event handler to uodate released keys
-   * @param event Released key
-   */
+  /** Used by event handler to uodate released keys
+   * @param event Released key */
   onKeyup: function(event){
     delete this.pressed[event.keyCode];
   }
 };
 
-/**
- * Represents the ability to place text onto the HTML Canvas
- */
+/** Represents the ability to place text onto the HTML Canvas */
 Text = function(){
-  /**
-   * Establishes font and context to draw to
+  /** Establishes font and context to draw to
    * @constructor
    * @param context The screen context on which draws will be done upon
-   * @param font The font that text will be drawn with
-   */
+   * @param font The font that text will be drawn with */
   this.init = function(context,font){
     this.context = context;
     this.context.font=font;
   };
 
-  /**
-   * Places normal text on the screen
+  /** Places normal text on the screen
    * @param text The text to be displayed
    * @param x The x coordinate of the text
-   * @param y The y coordinate of the text
-   */
+   * @param y The y coordinate of the text */
   this.norm = function(text,x,y){
     this.context.fillText(text,x,y);
   };
 
-  /**
-   * Places emphasized text on the screen
+  /** Places emphasized text on the screen
    * @param text The text to be displayed
    * @param x The x coordinate of the text
-   * @param y The y coordinate of the text
-   */
+   * @param y The y coordinate of the text */
   this.emph = function(text,x,y){
     this.context.strokeText(text,x,y);
   };
 };
 
-/**
- * A object that contains all variables related to the operation of the Staroids game
- */
+/** A object that contains all variables related to the operation of the Staroids game */
 Game = {
   /** Current game score */
   score: 0,
@@ -126,13 +107,17 @@ Game = {
   level: 0,
   /** How many large (scale 3) asteroids equivalent are on the screen */
   asteroids: 0,
-  /** Width of the canvas @const */
+  /** Width of the canvas
+   * @const */
   canvasWidth: CVS_WIDTH,
-  /** Height of the canvas @const */
+  /** Height of the canvas
+   * @const */
   canvasHeight: CVS_HEIGHT,
-  /** The canvas in which the game is displayed upon @const */
+  /** The canvas in which the game is displayed upon
+   * @const */
   cvs: null,
-  /** The canvas context @const */
+  /** The canvas context
+   * @const */
   ctx: null,
   /** All active objects in the game */
   sprites: [],
@@ -140,9 +125,11 @@ Game = {
   player: null,
   /** The next alien to spawn */
   alien: null,
-  /** Holds a text object that displays text to the same canvas that the game is running @const */
+  /** Holds a text object that displays text to the same canvas that the game is running
+   * @const */
   text: null,
-  /** The sound manager for the current game @const */
+  /** The sound manager for the current game
+   * @const */
   sound: null,
   /** A container to hold all countdowns to when a particular button can be pressed */
   counter: {
@@ -154,9 +141,7 @@ Game = {
   /** The current paused state */
   paused: false,
 
-  /**
-   * Decrements the game's counters every frame
-   */
+  /** Decrements the game's counters every frame */
   reduceCounter: function(){
       this.counter.muteSound -= 1;
       this.counter.pauseGame -= 1;
