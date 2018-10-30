@@ -1,4 +1,6 @@
 
+/** A sound effect manager
+*/
 var Sound = {
     LASER: new Audio("laser.wav"),
     EXPLOSION: new Audio("explosion.wav"),
@@ -6,8 +8,8 @@ var Sound = {
 
     muted: true,
     /**
-    * plays the appropriate sound when called if the muted flag is false
-    * @param {Audio} sound - The Audio object this applies to
+    * Plays a specific inputted sound. The sound must be in the format 'Sound.[SOUND]'
+    * @param sound The sound that will play
     */
     play: function(sound){
         if (!this.muted){
@@ -15,57 +17,51 @@ var Sound = {
         }
     },
     /**
-    * function that checks if a sound is playing or not
-    * @return {Boolean} true if the sound is not paused, false if the sound is paused
-    * @param {Audio} sound - The Audio object this applies to
+    * Returns if a sound is playing
+    * @param sound - The Audio object this applies to
+    * @return {Boolean} Returns whether a sound is playing or not
     */
     isPlay: function(sound){
         return !sound.paused;
     },
     /**
-    * function that sets the value of paused to true for the sound that it is called on
-    * @param {Audio} sound - The Audio object this applies to
+    * Pauses a sound
+    * @param sound The sound to pause
     */
     pause: function(sound){
         sound.paused = true;
     },
-
     /**
-    * function that sets the value of paused to false for a sound
-    * @param {Audio} sound - The Audio object this applies to
+    * Unpauses a sound
+    * @param sound The sound to unpause
     */
     unpause: function(sound){
         sound.paused = false;
     },
-
     /**
-    * function that is called to pause a sound, and then resets its currentTime
-    * @param {Audio} sound - The Audio object this applies to
+    * Stops a currently playing sound
+    * @param sound The sound to stop
     */
     stop: function(sound){
         sound.pause();
         sound.currentTime = 0;
     },
     /**
-    * function that sets the mute flag of a sound to true
-    * @param {Audio} sound - The Audio object this applies to
+    * Mutes the sound manager
     */
     mute: function(){
         this.muted = true;
     },
     /**
-    * function that sets the mute flag of a sound to false
-    * @param {Audio} sound - The Audio object this applies to
+    * Unmutes the sound manager
     */
     unmute: function(){
         this.muted = false;
     },
     /**
-    * function that switches the value of the muted flag for a sound
-    * @param {Audio} sound - The Audio object this applies to
+    * Toggles the mute status of the sound manager
     */
     toggle: function(){
         this.muted = !this.muted;
     }
-
 };

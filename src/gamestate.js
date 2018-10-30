@@ -7,17 +7,16 @@ window.addEventListener('keydown', function(event) { Key.onKeydown(event); }, fa
 StateMachine = {
   /**
    * Spawns Asteroids and adds to game's sprite list
-   * @param {Integer} num - The number of asteroids to be spawned
+   * @param {Integer} num The number of asteroids to be spawned
    */
   generateAsteroids: function(num){
     for (var i = 0; i<num; i+=1){
       ast = new Asteroid();
-      ast.init(Game.ctx,3);
-      Game.sprites.push(ast);
-      Game.asteroids+=1;
+      ast.init(Game.getCtx(),3);
+      Game.addSprites(ast);
+      Game.addAsteroids(1);
     }
   },
-
   /**
    * Saves Current game state if pause mode/game state is activated
    */
@@ -27,7 +26,7 @@ StateMachine = {
       this.state = "pause";
 
       if (Key.isDown(Key.UP)){
-        Game.player.thrust = true;
+        Game.getPlayer().callThrust();
       }
 
     }else{
@@ -35,59 +34,61 @@ StateMachine = {
       this.stateSave = null;
     }
   },
-
   /**
    * Initiates game canvas, sounds, sprite, and objects before the game begins for the pregame state
    */
   start:  function(){
-    Game.cvs = $("#canvas");
-    Game.ctx = Game.cvs[0].getContext("2d");
-    Game.canvasWidth  = Game.cvs.width();
-    Game.canvasHeight = Game.cvs.height();
+    /** The game canvas */
+    Game.setCvs($("#canvas"));
+    /** Retrieves the canvas context */
+    Game.setCtx(Game.getCvs()[0].getContext("2d"));
+    Game.setWidth(Game.getCvs().width());
+    Game.setHeight(Game.getCvs().height());
 
-    Game.text = new Text();
-    Game.text.init(Game.ctx,"30px Arial");
+    /** How the game prints to the screen */
+    Game.setText(new Text());
+    Game.getText().init(Game.getCtx(),"30px Arial");
 
-    Game.sound = Sound;
-    Game.sound.unmute();
+    /** How the game plays sounds */
+    Game.setSound(Sound);
+    Game.getSound().unmute();
 
-    Game.sprites = [];
+    Game.setSprites([]);
     this.generateAsteroids(MAX_ASTEROIDS);
 
     this.state="pregame";
   },
-
   /**
    * Pregame state for the staroids game, loads all the sprites onto the screen
    */
   pregame: function(){
-    for (var i = 0; i < Game.sprites.length; i++){
-      Game.sprites[i].update();
+    for (var i = 0; i < Game.getSprites().length; i++){
+      Game.getSprites()[i].update();
     }
 
-    Game.text.emph("Press Space To Start",20,100);
+    Game.getText().emph("Press Space To Start",20,100);
     if (Key.isDown(Key.SPACE)){
       this.state="load";
     }
   },
-
   /**
-   * Funtion to transition from pregame to playing state, initiates
-   * game score and lives, as well as the player and alien
+   * @brief Transition from pre-game to playing states.
+   * @details Resets the game lives, score, level. Generates the player ship and asteroids
    */
   load: function(){
-    Game.score=0;
-    Game.lives=3;
+    Game.setScore(0);
+    Game.setLives(3);
+    Game.setLevel(0);
 
     //Spawn asteroids
       //Append asteroids to Game.sprites
 
     //Spawn ship
       //Ensure player doesnt spawn on an asteroid
-    Game.player = new Player();
-    Game.player.init(Game.ctx);
-    Game.sprites.push(Game.player);
-    Game.player.place(100,100);
+    Game.setPlayer(new Player());
+    Game.getPlayer().init(Game.getCtx());
+    Game.addSprites(Game.getPlayer());
+    Game.getPlayer().place(100,100);
 
     //Prepare Alien
       //Hook alien reference to Game.alien
@@ -95,85 +96,78 @@ StateMachine = {
 
     this.state="playing";
   },
-
   /**
-   * Playing state for the staroids game, genereates asteroids, keeps updating sprites, and has endgame condition
+   * @brief Playing state for the Staroids game
+   * @details Updates all sprites and checks for the game over status. Handles the generation of new asteroids at the end of each level (or wave)
    */
   playing: function(){
-
-    for (var i = 0; i < Game.sprites.length; i++){
-      Game.sprites[i].update();
+    for (var i = 0; i < Game.getSprites().length; i++){
+      Game.getSprites()[i].update();
     }
 
-    if (Game.asteroids == 0){
-      Game.level += 1;
-      this.generateAsteroids(MAX_ASTEROIDS + Game.level * 2);
+    if (Game.getAsteroids() == 0){
+      Game.setLevel(Game.getLevel()+1);
+      this.generateAsteroids(MAX_ASTEROIDS + Game.getLevel() * 2);
     }
 
-    if (Game.player == null){
+    if (Game.getPlayer() == null){
       this.state = "postgame";
     }
 
   },
-
   /**
-   * Postgame state for the staroids game, achieved when the player has run out of lives.
-   * Initializes a new functional key R to restart the game back to reload state.
+   * @brief Post-game state for the Staroids game
+   * @details Post-game screen for when the player dies and is out of lives. Displays the reset key
    */
   postgame: function(){
-    for (var i = 0; i < Game.sprites.length; i++){
-      Game.sprites[i].update();
+    for (var i = 0; i < Game.getSprites().length; i++){
+      Game.getSprites()[i].update();
     }
 
-    Game.text.emph("Press 'R' to Restart",20,100);
+    Game.getText().emph("Press 'R' to Restart",20,100);
     if (Key.isDown(Key.R)){
       this.state="reload";
     }
   },
-
   /**
-   * Pause state for the staroids game, preserves all the sprites in the current
-   * frame as well as game state info such as score and lives and object locations.
+   * @brief Pause state for the Staroids game
+   * @details Preserves all the sprites in their current state
    */
   pause: function(){
-    for (var i = 0; i < Game.sprites.length; i++){
-      Game.sprites[i].draw();
+    for (var i = 0; i < Game.getSprites().length; i++){
+      Game.getSprites()[i].draw();
     }
 
-    Game.text.emph("Press 'P' to Unpause",20,100);
+    Game.getText().emph("Press 'P' to Unpause",20,100);
   },
-
   /**
-   * Funtion transitions the game from the postgame state back to the load state
-   * by removing all game sprites first, then re-generating all the asteroids and transitinoing states.
+   * @brief Transitions the game from the postgame state back to the load state
+   * @details Removes all game sprites, then re-generates all the asteroids and then finally resets back to the load state
    */
   reload: function(){
-    Game.sprites = [];
+    Game.setSprites([]);
 
     this.generateAsteroids(MAX_ASTEROIDS);
 
     this.state = "load";
   },
-
   /**
-   *runs current state code
+   * Runs the code for the current state
    */
   execute: function(){this[this.state]();},
-
-  /** initializes start function when game begins and makes sure statesave for pause is null*/
+  /** Initializes start function when game begins */
   state: "start",
+  /** Used to save the last state entered (for pausing) */
   stateSave: null
 }
 
-/**Main game Function */
+/** Main game function */
 $(function () {
 
   /** Execute startup code */
   StateMachine.execute();
 
-  /** Keeps updating sprite locations on screen. Prety much requesting next
-   * frame of the game to show.
-   */
+  /** Keeps updating sprite locations on screen. Prety much requesting next frame of the game to show */
   window.requestAnimFrame = (function () {
     return  window.requestAnimationFrame       ||
             window.webkitRequestAnimationFrame ||
@@ -185,51 +179,35 @@ $(function () {
             };
   })();
 
-  /** Function used to continuosly update each frame of the game */
+  /** The global game update */
   var update = function(){
-    /** Used for specific loop invariants or "run once" type of code*/
+    /** Used for specific loop invariants or "run once" type of code */
     StateMachine.execute();
 
-    /** Stops the pause and mute buttons from toggling back and forth insanely
-     * when they are pressed down, by only accepting inputs after a specified
-     * time delay.
-     */
     Game.reduceCounter();
     if (Key.isDown(Key.M) && Game.counter.muteSound<=0){
-        Game.sound.toggle();
-        Game.counter.muteSound = FPS;
+        Game.getSound().toggle();
+        Game.resetMute(); //Reset counter. Prevents from a single button press to change button several times. Essentially a lockout
     }
     if (Key.isDown(Key.P) && Game.counter.pauseGame<=0){
         StateMachine.togglePause();
-        Game.counter.pauseGame = FPS;
+        Game.resetPause();
     }
-
-
-    printOut(1,Game.counter.pauseGame);
-    printOut(2,StateMachine.state);
-    printOut(3,StateMachine.stateSave);
   };
 
   /** Main game loop */
   var mainLoop = function () {
-    Game.ctx.clearRect(0, 0, Game.canvasWidth, Game.canvasHeight);
+    Game.getCtx().clearRect(0, 0, Game.getWidth(), Game.getHeight());
 
-    var mutedState = "Muted: " + Sound.muted.toString();
+    var mutedState = "Muted: " + Game.getSound().muted.toString();
     Game.text.norm(mutedState,10,50);
 
-    /** calls update function to keep updating the window frame with updated sprite
-     * objects and etc. based on the users inputs and the games automated functions.
-     */
     update();
 
-    if (false) {
-      //Be paused
-    } else { //Show next frame
-      requestAnimFrame(mainLoop,Game.cvs);
-    }
+    requestAnimFrame(mainLoop,Game.getCvs());
   }
 
-  /** Recalls itself to keep running the game */
+  /** Main game loop that allows the game to run */
   mainLoop();
 
 });
