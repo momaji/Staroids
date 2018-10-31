@@ -77,7 +77,7 @@ StateMachine = {
    */
   load: function(){
     Game.setScore(0);
-    Game.setLives(3);
+    Game.setLives(2);
     Game.setLevel(0);
 
     //Spawn asteroids
@@ -110,9 +110,17 @@ StateMachine = {
       this.generateAsteroids(MAX_ASTEROIDS + Game.getLevel() * 2);
     }
 
-    if (Game.getPlayer() == null){
-      this.state = "postgame";
+    if (Game.getPlayer().getActivity()==false){
+      if (Game.getLives()==0){
+        this.state = "postgame";
+      }else{
+        Game.setLives(Game.getLives()-1)
+        Game.getPlayer().place(100,100)
+        Game.getPlayer().setActivity(true)
+      }
     }
+    
+    Game.getText().emph("Lives Left: "+Game.getLives(),10,30);
 
   },
   /**

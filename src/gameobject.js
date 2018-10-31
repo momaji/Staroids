@@ -414,7 +414,7 @@ Player = function(){
           if(KILLABLE && pyth(Math.abs(this.x-ast.x), Math.abs(this.y-ast.y)) < this.r + ast.r){ //...and invincibility is off and are in collision range
             this.die(); //Kill self
             ast.die(); //Kill asteroid
-            Game.setPlayer(null); //Dereference yourself (signals the player is dead)
+            //Game.setPlayer(null); //Dereference yourself (signals the player is dead)
           }
         }else{ //otherwise:
           this.collideOffshoot(ast.getChildren()); //check collisions of its children
@@ -422,7 +422,7 @@ Player = function(){
 
       }
     }
-  }
+  };
   /** How the player collides with asteroid children
    * @param {GameObject|Array.} astChildren An array of GameObjects, representing the smaller, created asteroids */
   this.collideOffshoot = function(astChildren){ //Same as collide(), but recursive
@@ -432,7 +432,7 @@ Player = function(){
         if(KILLABLE && pyth(Math.abs(this.getX()-ast.getX()), Math.abs(this.getY()-ast.getY())) < this.getRadius() + ast.getRadius()){
           this.die();
           ast.die();
-          Game.setPlayer(null);
+          //Game.setPlayer(null);
         }
       }else{
         this.collideOffshoot(ast.getChildren());
@@ -444,7 +444,7 @@ Player = function(){
    * @param {number} y - the other side of the triangle */
   pyth = function(x, y){
     return Math.sqrt(x*x + y*y);
-  }
+  };
   /** Resets all player flags and decreases cooldowns */
   this.reset = function(){
     this.fire = false;
@@ -579,7 +579,7 @@ Bullet = function(){
    * @param {number} y - the other side of the triangle */
   pyth = function(x, y){
     return Math.sqrt(x*x + y*y);
-  }
+  };
 
   //Getters
   /** Calls for the bullet's current lifetime until it gets destroyed

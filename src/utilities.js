@@ -21,7 +21,7 @@ const CVS_HEIGHT = 400;
 /** Extra velocity added to a player bullet to make it faster than the ship at firing */
 const BULLET_EXTRA = 5;
 /** Player invulnerability */
-const KILLABLE = false;
+const KILLABLE = true;
 /** Starting amount of asteroids */
 const MAX_ASTEROIDS = 2;
 /** Staroids experimental features toggle */
