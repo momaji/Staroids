@@ -7,8 +7,7 @@ GameObject = function(){
   * Sprite initialization. Sets up all basic class variables
   * @constructor Must be called before any other method
   * @param ctx The screen context on which it will be drawn on
-  * @param name The id (or type) of the sprite
-  */
+  * @param name The id (or type) of the sprite */
   this.init = function(ctx,name) {
     /** Screen context where the sprite will print itself */
     this.ctx = ctx;
@@ -16,33 +15,27 @@ GameObject = function(){
     this.name = name;
     /**
     * The x coordinate of the entity on the screen
-    * @type {number}
-    */
+    * @type {number} */
     this.x = 0;
     /**
     * The y coordinate of the entity on the screen
-    * @type {number}
-    */
+    * @type {number} */
     this.y = 0;
     /**
     * How much to rotate the entity on a game frame (used to modify a)
-    * @type {number}
-    */
+    * @type {number} */
     this.rot = 0; //
     /**
     * Heading of the entity
-    * @type {number}
-    */
+    * @type {number} */
     this.a = 0;
     /**
     * If the entity is active or not
-    * @type {boolean}
-    */
+    * @type {boolean} */
     this.visible = false;
     /**
     * the velocity vector components
-    * @type {number|Array.}
-    */
+    * @type {number|Array.} */
     this.vel = {
       x:   0,
       y:   0
