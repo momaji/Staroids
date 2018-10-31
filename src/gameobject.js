@@ -360,12 +360,12 @@ Player = function(){
       this.y - 4/3 * this.r * Math.sin(this.a)
     );
     this.ctx.lineTo( //rear left of ship
-      this.x - this.r * (2/3*Math.cos(this.a) + Math.sin(this.a)),
-      this.y + this.r * (2/3*Math.sin(this.a) - Math.cos(this.a))
+      this.x - this.r * (2/3*Math.cos(this.a) + 2/3*Math.sin(this.a)),
+      this.y + this.r * (2/3*Math.sin(this.a) - 2/3*Math.cos(this.a))
     );
     this.ctx.lineTo( //rear right of ship
-      this.x - this.r * (2/3*Math.cos(this.a) - Math.sin(this.a)),
-      this.y + this.r * (2/3*Math.sin(this.a) + Math.cos(this.a))
+      this.x - this.r * (2/3*Math.cos(this.a) - 2/3*Math.sin(this.a)),
+      this.y + this.r * (2/3*Math.sin(this.a) + 2/3*Math.cos(this.a))
     );
 
     this.ctx.closePath();
