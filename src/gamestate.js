@@ -157,7 +157,7 @@ StateMachine = {
       }
     }
     
-    Game.getText().emph("Lives: "+Game.getLives(),10,30);
+    Game.getText().emph("Lives: "+Game.getLives(),10,300);
 
   },
   /** @brief Post-game state for the Staroids game
@@ -172,7 +172,7 @@ StateMachine = {
       this.state="reload";
     }
     
-    Game.getText().emph("Lives: "+Game.getLives(),10,30);
+    Game.getText().emph("Lives: "+Game.getLives(),10,300);
   },
   /** @brief Pause state for the Staroids game
    * @details Preserves all the sprites in their current state */
@@ -181,7 +181,7 @@ StateMachine = {
       Game.getSprites()[i].draw();
     }
 
-    Game.getText().emph("Lives: "+Game.getLives(),10,30);
+    Game.getText().emph("Lives: "+Game.getLives(),10,300);
   },
   /** @brief Transitions the game from the postgame state back to the load state
    * @details Removes all game sprites, then re-generates all the asteroids and then finally resets back to the load state */
@@ -239,14 +239,15 @@ $(function () {
   var mainLoop = function () {
     Game.getCtx().clearRect(0, 0, Game.getWidth(), Game.getHeight());
 
+    update();
+    
     if (Game.getSound().muted == true){
       Game.text.emph("M",CVS_WIDTH-40,35);
     }
     if (StateMachine.getState()=="pause"){
       Game.text.emph("P",CVS_WIDTH-70,35);
     }
-    
-    update();
+    Game.drawLives();
 
     requestAnimFrame(mainLoop,Game.getCvs());
   }
