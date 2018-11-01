@@ -1,3 +1,33 @@
+/** The current frames per second @const */
+const FPS = 30;
+/** The ship size in pixels @const */
+const SHIP_SIZE = 30;
+/** Player turn speed in degrees per second */
+const TURN_SPEED = 180;
+/** Player thrust power in pixels per second squared */
+const SHIP_THRUST = .2;
+/** Player air brake power */
+const SHIP_BRAKE = 0.98;
+/** Minimum player speed */
+const MIN_SPEED = 0.1;
+/** Maximum player ship acceleration */
+const MAX_ACC = 2;
+/** Maximum player ship velocity in the x and y planes */
+const MAX_SPEED = 20;
+/** HTML Canvas width */
+const CVS_WIDTH = 500;
+/** HTML Canvas height */
+const CVS_HEIGHT = 400;
+/** Extra velocity added to a player bullet to make it faster than the ship at firing */
+const BULLET_EXTRA = 5;
+/** Player invulnerability */
+const KILLABLE = true;
+/** Starting amount of asteroids */
+const MAX_ASTEROIDS = 2;
+/** Staroids experimental features toggle */
+const TEST=false;
+
+
 
                                         /** GAMEOBJECT.JS**/
 
@@ -763,4 +793,4 @@ Asteroid = function(){
 Asteroid.prototype = new GameObject();
 
 
-module.exports = {GameObject}
+module.exports = {GameObject, Player}
