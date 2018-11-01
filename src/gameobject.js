@@ -631,7 +631,7 @@ AlienBullet = function () {
   /** Initializes all bullet internal variables
    * @param {GameObject} from the context of the bullets parent (player) */
   this.init = function (from) {
-    Bullet.prototype.init(from.ctx, "alienBullet");
+    AlienBullet.prototype.init(from.ctx, "alienBullet");
 
     this.ctx = from.getCtx();
     this.a = from.getHeading();
@@ -642,8 +642,8 @@ AlienBullet = function () {
 
     this.r = 1;
 
-    this.vel.x = Math.round((Math.random() * 20));
-    this.vel.y = Math.sqrt(400 - (this.vel.x)*(this.vel.x));
+    this.vel.x = 20//Math.round((Math.random() * 20));
+    this.vel.y = 20//Math.sqrt(400 - (this.vel.x)*(this.vel.x));
 
   };
   /** Actions the bullet will take every frame */
