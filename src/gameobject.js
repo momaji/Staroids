@@ -561,6 +561,7 @@ Alien = function(){
   this.timeOut3 = 75;
   this.timeOut2 = 200;
   this.timeOut = 50;
+  this.xOrY = true;
   
   //spawn: spawns off screen after a certain time since the game has started
     //then he moves to the opposite side of the screen by alternating movements
@@ -570,13 +571,26 @@ Alien = function(){
   this.init = function(ctx){
     /** Draws the bullets onto the screen */
     Alien.prototype.init(ctx,"alien");
-    this.x = Math.round(10 + (Math.random() * CVS_WIDTH - 10));
-    this.y = -50;
-    /** Vector representing the velocity of the player */
-    this.vel = {
-      x: Math.random() + 1,
-      y: 2
+    this.xOrY = Math.random() < 0.5 ? true : false;
+    if(this.xOrY){
+      this.x = Math.round(25 + (Math.random() * CVS_WIDTH - 25));
+      this.y = -50;
+    }else{
+      this.y = Math.round(25 + (Math.random() * CVS_HEIGHT - 25));
+      this.x = -50;
     };
+    /** Vector representing the velocity of the player */
+    if (this.xOrY) {
+      this.vel = {
+        x: Math.random() + 1,
+        y: 2
+      };
+    } else {
+      this.vel = {
+        y: Math.random() + 1,
+        x: 2
+      };
+    }
     /** Vector representing the acceleration of the player */
     this.acc = {
       x: 0,
@@ -584,7 +598,7 @@ Alien = function(){
     };
     /** Integer representing the radius of the player
     * @type {number} */
-    this.r = SHIP_SIZE/2;
+    this.r = Math.sqrt(Math.pow(25,2)*2);
   };
   /** Draws the alien to the screen */
   this.draw = function(){
@@ -620,8 +634,13 @@ Alien = function(){
     this.timeOut2 -=1;
     this.timeOut3 -=1;
     if(this.timeOut3 <= 0){
-      this.vel.x = -this.vel.x;
-      this.timeOut3 = 75;
+      if (this.xOrY){
+        this.vel.x = -this.vel.x;
+        this.timeOut3 = 75;
+      }else{
+        this.vel.y = -this.vel.y;
+        this.timeOut3 = 75;
+      }
     };
     if (this.timeOut<=0 && this.timeOut2 <= 0){
       this.timeOut = 50;
