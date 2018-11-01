@@ -558,6 +558,7 @@ Bullet.prototype = new GameObject();
 /** Representation of the alien spaceship
  * @constructor */
 Alien = function(){
+  this.timeOut2 = 200;
   this.timeOut = 50;
   //spawn: spawns off screen after a certain time since the game has started
     //then he moves to the opposite side of the screen by alternating movements
@@ -567,7 +568,7 @@ Alien = function(){
   this.init = function(ctx){
     /** Draws the bullets onto the screen */
     Alien.prototype.init(ctx,"alien");
-    this.x = Math.round((Math.random() * CVS_WIDTH));
+    this.x = Math.round(10 + (Math.random() * CVS_WIDTH - 10));
     this.y = -50;
     /** Vector representing the velocity of the player */
     this.vel = {
@@ -585,40 +586,45 @@ Alien = function(){
   };
   /** Draws the alien to the screen */
   this.draw = function(){
-    if (this.getActivity()){
-      this.ctx.beginPath();
-      this.ctx.fillRect(this.x, this.y, 25,25);
-      this.ctx.stroke();
+    if(this.timeOut2 <= 0){
+      if (this.getActivity()){
+        this.ctx.beginPath();
+        this.ctx.fillRect(this.x, this.y, 25,25);
+        this.ctx.stroke();
+      }
     }
   };
   /** Moves the alien around the screen */
   this.move = function(){
-    this.x += this.vel.x;
-    this.y += this.vel.y;
-    /*if (this.x < 0 - this.r){
-      this.x = CVS_WIDTH + this.r;
-    } else if (this.x > CVS_WIDTH + this.r){
-      this.x = 0 - this.r;
+    if (this.timeOut2 <= 0) {
+      this.x += this.vel.x;
+      this.y += this.vel.y;
+      /*if (this.x < 0 - this.r){
+        this.x = CVS_WIDTH + this.r;
+      } else if (this.x > CVS_WIDTH + this.r){
+        this.x = 0 - this.r;
+      }
+      if (this.y < 0 - this.r){
+        this.y = CVS_HEIGHT + this.r;
+      } else if (this.y > CVS_HEIGHT + this.r){
+        this.y = 0 - this.r;*/
     }
-    if (this.y < 0 - this.r){
-      this.y = CVS_HEIGHT + this.r;
-    } else if (this.y > CVS_HEIGHT + this.r){
-      this.y = 0 - this.r;*/
-    };
+  };
 
   this.action = function(){
-      if (this.timeOut<=0){
-        this.timeOut = 50;
-        aBull = new AlienBullet();
-        aBull.init(this);
-        Game.addSprites(aBull);
-        if (!Game.getSound().muted) { //If not muted, play the sound
-          Game.getSound().play(Sound.LASER);
-        }
-      }else{
-        this.timeOut-=1;
+    this.timeOut2 -=1;
+    if (this.timeOut<=0 && this.timeOut2 <= 0){
+      this.timeOut = 50;
+      aBull = new AlienBullet();
+      aBull.init(this);
+      Game.addSprites(aBull);
+      if (!Game.getSound().muted) { //If not muted, play the sound
+        Game.getSound().play(Sound.LASER);
       }
-    };
+    }else{
+      this.timeOut-=1;
+    }
+  };
 };
 Alien.prototype = new GameObject();
 
@@ -634,7 +640,7 @@ AlienBullet = function () {
     AlienBullet.prototype.init(from.ctx, "alienBullet");
 
     this.ctx = from.getCtx();
-    this.a = from.getHeading();
+    this.a = 0;
     this.vel = {};
 
     this.x = from.getX();
@@ -642,8 +648,11 @@ AlienBullet = function () {
 
     this.r = 1;
 
-    this.vel.x = 20//Math.round((Math.random() * 20));
-    this.vel.y = 20//Math.sqrt(400 - (this.vel.x)*(this.vel.x));
+    var topSpeed = 6;
+    var topSquare = Math.pow(topSpeed, 2);
+    var pOrN = Math.round((Math.random() * 2) - 1)
+    this.vel.x = Math.round((Math.random() * (2*topSpeed+1)-topSpeed));
+    this.vel.y = pOrN * Math.sqrt(topSquare - (this.vel.x)*(this.vel.x));
 
   };
   /** Actions the bullet will take every frame */
