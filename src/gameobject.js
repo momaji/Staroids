@@ -575,11 +575,65 @@ Bullet.prototype = new GameObject();
 /**
 * Representation of the alien spaceship */
 Alien = function(){
-  this.init("alien");
-  /** Countdown until a bullet can be fired */
-  this.bulletCountDown = 180;
-};
+  //spawn: spawns off screen after a certain time since the game has started
+    //then he moves to the opposite side of the screen by alternating movements
+      //timer
+      //fires bullets on set interval
+  //if he collides with an asteroid he dies
+  this.init = function(ctx){
+    /** Draws the bullets onto the screen */
+    Alien.prototype.init(ctx,"alien");
+    this.x = Math.round((Math.random() * CVS_WIDTH));
+    this.y = -50;
+    /**
+    * Vector representing the velocity of the player
+    * @type {number}
+    */
+    this.vel = {
+      x: 0,
+      y: 2
+    };
+    /**
+    * Vector representing the acceleration of the player
+    * @type {number}
+    */
+    this.acc = {
+      x: 0,
+      y: 0
+    };
+    /**
+    * Integer representing the radius of the player
+    * @type {number}
+    */
+    this.r = SHIP_SIZE/2;
+  };
+  this.draw = function(){
+    if (this.getActivity()){
+      this.ctx.beginPath();
+      this.ctx.fillRect(this.x, this.y, 25,25);
+      this.ctx.stroke();
+    }
 
+  };
+  /** Moves the asteroid */
+  this.move = function(){
+    this.x += this.vel.x;
+    this.y += this.vel.y;
+
+    /*if (this.x < 0 - this.r){
+      this.x = CVS_WIDTH + this.r;
+    } else if (this.x > CVS_WIDTH + this.r){
+      this.x = 0 - this.r;
+    }
+    if (this.y < 0 - this.r){
+      this.y = CVS_HEIGHT + this.r;
+    } else if (this.y > CVS_HEIGHT + this.r){
+      this.y = 0 - this.r;*/
+    };
+  //this.init("alien");
+
+};
+Alien.prototype = new GameObject();
 /**
 * Representation of an alien's bullet
 */

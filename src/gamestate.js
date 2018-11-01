@@ -90,6 +90,10 @@ StateMachine = {
     Game.addSprites(Game.getPlayer());
     Game.getPlayer().place(100,100);
 
+    Game.setAlien(new Alien());
+    Game.getAlien().init(Game.getCtx());
+    Game.addSprites(Game.getAlien());
+
     //Prepare Alien
       //Hook alien reference to Game.alien
       //Append asteroids to Game.sprites
@@ -119,7 +123,7 @@ StateMachine = {
         Game.getPlayer().setActivity(true)
       }
     }
-    
+
     Game.getText().emph("Lives Left: "+Game.getLives(),10,30);
 
   },
