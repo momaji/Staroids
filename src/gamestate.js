@@ -156,9 +156,6 @@ StateMachine = {
         
       }
     }
-    
-    Game.getText().emph("Lives: "+Game.getLives(),10,300);
-
   },
   /** @brief Post-game state for the Staroids game
    * @details Post-game screen for when the player dies and is out of lives. Displays the reset key */
@@ -171,8 +168,6 @@ StateMachine = {
     if (Key.isDown(Key.R)){
       this.state="reload";
     }
-    
-    Game.getText().emph("Lives: "+Game.getLives(),10,300);
   },
   /** @brief Pause state for the Staroids game
    * @details Preserves all the sprites in their current state */
@@ -180,8 +175,6 @@ StateMachine = {
     for (var i = 0; i < Game.getSprites().length; i++){
       Game.getSprites()[i].draw();
     }
-
-    Game.getText().emph("Lives: "+Game.getLives(),10,300);
   },
   /** @brief Transitions the game from the postgame state back to the load state
    * @details Removes all game sprites, then re-generates all the asteroids and then finally resets back to the load state */
