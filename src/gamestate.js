@@ -254,10 +254,10 @@ $(function () {
     Game.getCtx().clearRect(0, 0, Game.getWidth(), Game.getHeight());
 
     if (Game.getSound().muted == true){
-      Game.text.norm("M",CVS_WIDTH-40,35);
+      Game.text.emph("M",CVS_WIDTH-40,35);
     }
     if (StateMachine.getState()=="pause"){
-      Game.text.norm("P",CVS_WIDTH-70,35);
+      Game.text.emph("P",CVS_WIDTH-70,35);
     }
     
     update();
