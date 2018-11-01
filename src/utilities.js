@@ -157,22 +157,23 @@ Game = {
   
   drawLives: function(){
     offset = 0;
+    angle = Math.PI/2;
     for (var i = 0; i < this.getLives(); i+=1){
       this.ctx.strokeStyle = "black";
       this.ctx.lineWidth = SHIP_SIZE / 20;
       this.ctx.beginPath();
 
       this.ctx.moveTo(// nose of the ship
-        10+offset*20 + 4/3 * 2 * Math.cos(0),
-        10 - 4/3 * 2 * Math.sin(0)
+        10+offset*15 +  5 * (Math.cos(angle)) * 4/3,
+        15 -            5 * (Math.sin(angle)) * 4/3
       );
       this.ctx.lineTo( //rear left of ship
-        10+offset*20 - 2 * (2/3*Math.cos(0) + 2/3*Math.sin(0)),
-        10 + 2 * (2/3*Math.sin(0) - 2/3*Math.cos(0))
+        10+offset*15 -  5 * (2/3*Math.cos(angle) + 2/3*Math.sin(angle)),
+        15 +            5 * (2/3*Math.sin(angle) - 2/3*Math.cos(angle))
       );
       this.ctx.lineTo( //rear right of ship
-        10+offset*20 - 2 * (2/3*Math.cos(0) - 2/3*Math.sin(0)),
-        10 + 2 * (2/3*Math.sin(0) + 2/3*Math.cos(0))
+        10+offset*15 -  5 * (2/3*Math.cos(angle) - 2/3*Math.sin(angle)),
+        15 +            5 * (2/3*Math.sin(angle) + 2/3*Math.cos(angle))
       );
 
       this.ctx.closePath();
