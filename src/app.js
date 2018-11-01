@@ -793,4 +793,4 @@ Asteroid = function(){
 Asteroid.prototype = new GameObject();
 
 
-module.exports = {GameObject, Player}
+module.exports = {GameObject, Player, Bullet}
