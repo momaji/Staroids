@@ -573,10 +573,10 @@ Alien = function(){
     Alien.prototype.init(ctx,"alien");
     this.xOrY = Math.random() < 0.5 ? true : false;
     if(this.xOrY){
-      this.x = Math.round(25 + (Math.random() * CVS_WIDTH - 25));
+      this.x = Math.round((Math.random() * CVS_WIDTH));
       this.y = -50;
     }else{
-      this.y = Math.round(25 + (Math.random() * CVS_HEIGHT - 25));
+      this.y = Math.round((Math.random() * CVS_HEIGHT));
       this.x = -50;
     };
     /** Vector representing the velocity of the player */
@@ -718,7 +718,7 @@ AlienBullet = function () {
     this.x = from.getX();
     this.y = from.getY();
 
-    this.r = 1;
+    this.r = 3; //1;
 
     var topSpeed = 6;
     var topSquare = Math.pow(topSpeed, 2);
@@ -755,9 +755,11 @@ AlienBullet = function () {
   /** Draws the bullets onto the screen */
   this.draw = function () {
     if (this.getActivity()) {
-
       this.ctx.beginPath();
       this.ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+      this.ctx.fillStyle = "red";
+      //can remove these, just added to make more distinct
+      this.ctx.fill();
       this.ctx.stroke();
     }
 

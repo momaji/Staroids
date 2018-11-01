@@ -41,6 +41,7 @@ StateMachine = {
         if (this.checkCollision(object,other,50)){
           return false;
         }
+        t  = 0;
       }
     }
     return true;

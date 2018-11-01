@@ -20,7 +20,7 @@ const CVS_WIDTH = 780;
 const CVS_HEIGHT = 620;
 /** Extra velocity added to a player bullet to make it faster than the ship at firing */
 const BULLET_EXTRA = 5;
-/** Player invulnerability */
+/** Player and Alien invulnerability */
 const KILLABLE = true;
 /** Starting amount of asteroids */
 const MAX_ASTEROIDS = 2;
