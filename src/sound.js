@@ -18,23 +18,23 @@ var Sound = {
       }
   },
   /** Returns if a sound is playing
-  * @param sound - The Audio object this applies to
-  * @return {Boolean} Returns whether a sound is playing or not */
+   * @param sound - The Audio object this applies to
+   * @return {Boolean} Returns whether a sound is playing or not */
   isPlay: function(sound){
       return !sound.paused;
   },
   /** Pauses a sound
-  * @param sound The sound to pause */
+   * @param sound The sound to pause */
   pause: function(sound){
       sound.paused = true;
   },
   /** Unpauses a sound
-  * @param sound The sound to unpause */
+   * @param sound The sound to unpause */
   unpause: function(sound){
       sound.paused = false;
   },
   /** Stops a currently playing sound
-  * @param sound The sound to stop */
+   * @param sound The sound to stop */
   stop: function(sound){
       sound.pause();
       sound.currentTime = 0;
