@@ -366,7 +366,7 @@ Player = function(){
   this.collide = function(){
     var arrayLength = Game.getSprites().length;
     for (var i = 0; i < arrayLength; i++) { //Search through the available sprites
-      if(Game.sprites[i].name === "asteroid"){ //On an asteroid...
+      if (Game.sprites[i].name === "asteroid" || Game.sprites[i].name === "alienBullet"){ //On an asteroid...
         var ast = Game.getSprites()[i];
 
         if (ast.getActivity()){ //...And it is visible...
@@ -375,7 +375,7 @@ Player = function(){
             ast.die(); //Kill asteroid
             //Game.setPlayer(null); //Dereference yourself (signals the player is dead)
           }
-        }else{ //otherwise:
+        } else if(Game.sprites[i].name === "asteroid"){ //otherwise:
           this.collideOffshoot(ast.getChildren()); //check collisions of its children
         }
 
@@ -653,7 +653,6 @@ AlienBullet = function () {
     var pOrN = Math.round((Math.random() * 2) - 1)
     this.vel.x = Math.round((Math.random() * (2*topSpeed+1)-topSpeed));
     this.vel.y = pOrN * Math.sqrt(topSquare - (this.vel.x)*(this.vel.x));
-
   };
   /** Actions the bullet will take every frame */
   this.action = function () {
