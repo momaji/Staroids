@@ -267,6 +267,13 @@ Game = {
   subSprites: function(sprite){ this.getSprites().remove(sprite);}
 }
 
+/** Computes the hypotenous of a triangle with two sides the length of the param
+ * @param {number} x - one side of the triangle
+ * @param {number} y - the other side of the triangle */
+pyth = function(x, y){
+  return Math.sqrt(x*x + y*y);
+};
+
 // from:  https://stackoverflow.com/questions/3954438/how-to-remove-item-from-array-by-value
 Array.prototype.remove = function() {
     var what, a = arguments, L = a.length, ax;

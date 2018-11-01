@@ -417,11 +417,9 @@ Player = function(){
       }
     }
   };
-  /** Computes the hypotenous of a triangle with two sides the length of the param
-   * @param {number} x - one side of the triangle
-   * @param {number} y - the other side of the triangle */
-  pyth = function(x, y){
-    return Math.sqrt(x*x + y*y);
+  this.die = function(){
+    Game.setLives(Game.getLives()-1);
+    this.deactivate();
   };
   /** Resets all player flags and decreases cooldowns */
   this.reset = function(){

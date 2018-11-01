@@ -18,6 +18,41 @@ StateMachine = {
     }
   },
   /**
+   * Determines if it is safe for an object to spawn given the current ingame object's positions
+   * @param Object to spawn
+   */
+  isSafe: function(object,sprites){
+    for (var i =0; i < sprites.length; i+=1){
+      other = sprites[i];
+      if(other.name == "asteroid"){
+        if (other.getActivity()==false){
+          if (!this.isSafe(object,other.getChildren())){
+            return false;
+          }
+        }else{
+          if(this.checkCollision(object,other,50)){
+            return false;
+          }
+        }
+      }else if (other.name=="alien" || other.name=="alienbullet"){
+        var t = 0;
+      }
+    }
+    return true;
+  },
+
+  /**
+  * Checks if two objects are within collision distance
+  * @param a first GameObject
+  * @param b second GameObject
+  * @param c The distance to determine if a collision happens or not
+  * @return {Boolean} if the objects are within distance c of each other
+  */
+  checkCollision: function(a, b, c){
+    return (pyth(Math.abs(a.getX()-b.getX()), Math.abs(a.getY()-b.getY())) < c)
+  },
+  
+  /**
    * Saves Current game state if pause mode/game state is activated
    */
   togglePause: function(){
@@ -105,6 +140,7 @@ StateMachine = {
    * @details Updates all sprites and checks for the game over status. Handles the generation of new asteroids at the end of each level (or wave)
    */
   playing: function(){
+    
     for (var i = 0; i < Game.getSprites().length; i++){
       Game.getSprites()[i].update();
     }
@@ -115,16 +151,21 @@ StateMachine = {
     }
 
     if (Game.getPlayer().getActivity()==false){
-      if (Game.getLives()==0){
+      if (Game.getLives()<=0){
         this.state = "postgame";
       }else{
-        Game.setLives(Game.getLives()-1)
+        
         Game.getPlayer().place(100,100)
-        Game.getPlayer().setActivity(true)
+        if (this.isSafe( Game.getPlayer(), Game.getSprites() )){
+          Game.getPlayer().setActivity(true)
+        }
+        
       }
     }
 
     Game.getText().emph("Lives Left: "+Game.getLives(),10,30);
+    
+    Game.getText().emph("Safe: "+this.isSafe(Game.getPlayer(), Game.getSprites()),10,70);
 
   },
   /**
