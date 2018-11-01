@@ -38,7 +38,9 @@ StateMachine = {
           }
         }
       }else if (other.name=="alien" || other.name=="alienbullet"){
-        var t = 0;
+        if (this.checkCollision(object,other,50)){
+          return false;
+        }
       }
     }
     return true;
