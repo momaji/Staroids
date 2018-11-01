@@ -558,6 +558,7 @@ Bullet.prototype = new GameObject();
 /** Representation of the alien spaceship
  * @constructor */
 Alien = function(){
+  this.timeOut3 = 75;
   this.timeOut2 = 200;
   this.timeOut = 50;
   //spawn: spawns off screen after a certain time since the game has started
@@ -572,7 +573,7 @@ Alien = function(){
     this.y = -50;
     /** Vector representing the velocity of the player */
     this.vel = {
-      x: 0,
+      x: Math.random() + 1,
       y: 2
     };
     /** Vector representing the acceleration of the player */
@@ -599,20 +600,28 @@ Alien = function(){
     if (this.timeOut2 <= 0) {
       this.x += this.vel.x;
       this.y += this.vel.y;
-      /*if (this.x < 0 - this.r){
-        this.x = CVS_WIDTH + this.r;
-      } else if (this.x > CVS_WIDTH + this.r){
-        this.x = 0 - this.r;
+      if(this.timeOut2 <= -10){
+        if (this.x < 0 - this.r){
+          this.x = CVS_WIDTH + this.r;
+        } else if (this.x > CVS_WIDTH + this.r){
+          this.x = 0 - this.r;
+        }
+        if (this.y < 0 - this.r){
+          this.y = CVS_HEIGHT + this.r;
+        } else if (this.y > CVS_HEIGHT + this.r){
+          this.y = 0 - this.r;
+        }
       }
-      if (this.y < 0 - this.r){
-        this.y = CVS_HEIGHT + this.r;
-      } else if (this.y > CVS_HEIGHT + this.r){
-        this.y = 0 - this.r;*/
     }
   };
 
   this.action = function(){
     this.timeOut2 -=1;
+    this.timeOut3 -=1;
+    if(this.timeOut3 <= 0){
+      this.vel.x = -this.vel.x;
+      this.timeOut3 = 75;
+    };
     if (this.timeOut<=0 && this.timeOut2 <= 0){
       this.timeOut = 50;
       aBull = new AlienBullet();
