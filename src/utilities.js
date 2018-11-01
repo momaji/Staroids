@@ -15,9 +15,9 @@ const MAX_ACC = 2;
 /** Maximum player ship velocity in the x and y planes */
 const MAX_SPEED = 20;
 /** HTML Canvas width */
-const CVS_WIDTH = 500;
+const CVS_WIDTH = 780;
 /** HTML Canvas height */
-const CVS_HEIGHT = 400;
+const CVS_HEIGHT = 620;
 /** Extra velocity added to a player bullet to make it faster than the ship at firing */
 const BULLET_EXTRA = 5;
 /** Player invulnerability */
@@ -154,6 +154,33 @@ Game = {
   resetPause: function(){
     this.counter.pauseGame = FPS;
   },
+  
+  drawLives: function(){
+    offset = 0;
+    for (var i = 0; i < this.getLives(); i+=1){
+      this.ctx.strokeStyle = "black";
+      this.ctx.lineWidth = SHIP_SIZE / 20;
+      this.ctx.beginPath();
+
+      this.ctx.moveTo(// nose of the ship
+        10+offset*20 + 4/3 * 2 * Math.cos(0),
+        10 - 4/3 * 2 * Math.sin(0)
+      );
+      this.ctx.lineTo( //rear left of ship
+        10+offset*20 - 2 * (2/3*Math.cos(0) + 2/3*Math.sin(0)),
+        10 + 2 * (2/3*Math.sin(0) - 2/3*Math.cos(0))
+      );
+      this.ctx.lineTo( //rear right of ship
+        10+offset*20 - 2 * (2/3*Math.cos(0) - 2/3*Math.sin(0)),
+        10 + 2 * (2/3*Math.sin(0) + 2/3*Math.cos(0))
+      );
+
+      this.ctx.closePath();
+      this.ctx.stroke();
+      offset+=1
+    }
+  },
+  
 
   //Getters
   /** Accesses the game's score
