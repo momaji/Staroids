@@ -34,7 +34,8 @@ printOut = function(select,output){
   document.getElementById("output"+select.toString()).innerHTML = select.toString() + ": "+ output;
 };
 
-/** Variable to handle user input */
+/** Variable to handle user input
+ * @constructor */
 var Key = {
   pressed: {},
 
@@ -69,10 +70,10 @@ var Key = {
   }
 };
 
-/** Represents the ability to place text onto the HTML Canvas */
+/** Represents the ability to place text onto the HTML Canvas
+ * @constructor */
 Text = function(){
   /** Establishes font and context to draw to
-   * @constructor
    * @param context The screen context on which draws will be done upon
    * @param font The font that text will be drawn with */
   this.init = function(context,font){
@@ -97,7 +98,8 @@ Text = function(){
   };
 };
 
-/** A object that contains all variables related to the operation of the Staroids game */
+/** A object that contains all variables related to the operation of the Staroids game
+ * @constructor */
 Game = {
   /** Current game score */
   score: 0,

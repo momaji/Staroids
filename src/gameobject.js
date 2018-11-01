@@ -1,53 +1,43 @@
 
-/**
-* The basic object from which all other objects inheirt from */
+/** The basic object from which all other objects inheret from
+ * @constructor */
 GameObject = function(){
-  /**
-  * Sprite initialization. Sets up all basic class variables
-  * @constructor Must be called before any other method
-  * @param ctx The screen context on which it will be drawn on
-  * @param name The id (or type) of the sprite */
+  /** Sprite initialization. Sets up all basic class variables
+   * @param ctx The screen context on which it will be drawn on
+   * @param name The id (or type) of the sprite */
   this.init = function(ctx,name) {
     /** Screen context where the sprite will print itself */
     this.ctx = ctx;
     /** ID type of the sprite. What sprite it is */
     this.name = name;
-    /**
-    * The x coordinate of the entity on the screen
-    * @type {number} */
+    /** The x coordinate of the entity on the screen
+     * @type {number} */
     this.x = 0;
-    /**
-    * The y coordinate of the entity on the screen
-    * @type {number} */
+    /** The y coordinate of the entity on the screen
+     * @type {number} */
     this.y = 0;
-    /**
-    * How much to rotate the entity on a game frame (used to modify a)
-    * @type {number} */
+    /** How much to rotate the entity on a game frame (used to modify a)
+     * @type {number} */
     this.rot = 0; //
-    /**
-    * Heading of the entity
-    * @type {number} */
+    /** Heading of the entity
+     * @type {number} */
     this.a = 0;
-    /**
-    * If the entity is active or not
+    /** If the entity is active or not
     * @type {boolean} */
     this.visible = false;
-    /**
-    * the velocity vector components
-    * @type {number|Array.} */
+    /** the velocity vector components */
     this.vel = {
       x:   0,
       y:   0
     };
-    /**
-    * the acceleration vector components
-    * @type {number|Array.} */
+    /** the acceleration vector components */
     this.acc = {
       x:   0,
       y:   0
     };
 
-    /** The radius of the sprite. Not applicable to all sprites */
+    /** The radius of the sprite. Not applicable to all sprites
+     * @type {boolean} */
     this.r=0;
 
     this.activate();
@@ -55,8 +45,8 @@ GameObject = function(){
 
   /**
   * Puts object at specific place
-  * @param x - The x coordinate of where the object should be placed
-  * @param y - The y coordinate of where the object should be placed */
+  * @param {integer} x - The x coordinate of where the object should be placed
+  * @param {integer} y - The y coordinate of where the object should be placed */
   this.place = function(x,y){this.setX(x);this.setY(y);};
   /**
   * Activates sprites by toggling visibility on */
@@ -159,8 +149,8 @@ GameObject = function(){
 };
 
 
-/**
-* Object that represents the player's ship */
+/** Object that represents the player's ship
+ * @constructor */
 Player = function(){
   /** Flag for if the ship is firing the current frame
    * @type {boolean} */
@@ -175,32 +165,23 @@ Player = function(){
    * @type {boolean} */
   this.airbrake=false;
   /** Countdown until another bullet can be fired
-   * @type {number} */
+   * @type {integer} */
   this.bulletCountDown = FPS/2;
   /** Player's initialization function
    * @param ctx The context of the screen */
   this.init = function(ctx){
     Player.prototype.init(ctx,"PLAYER");
-    /**
-    * Vector representing the velocity of the player
-    * @type {number}
-    */
+    /** Vector representing the velocity of the player */
     this.vel = {
       x: 0,
       y: 0
     };
-    /**
-    * Vector representing the acceleration of the player
-    * @type {number}
-    */
+    /** Vector representing the acceleration of the player */
     this.acc = {
       x: 0,
       y: 0
     };
-    /**
-    * Integer representing the radius of the player
-    * @type {number}
-    */
+    /** Integer representing the radius of the player */
     this.r = SHIP_SIZE/2;
   };
   /** Controls how the player responds to a key input */
@@ -402,7 +383,7 @@ Player = function(){
     }
   };
   /** How the player collides with asteroid children
-   * @param {GameObject|Array.} astChildren An array of GameObjects, representing the smaller, created asteroids */
+   * @param astChildren An array of GameObjects, representing the smaller, created asteroids */
   this.collideOffshoot = function(astChildren){ //Same as collide(), but recursive
     for (var i=0; i<astChildren.length; i+=1){
       var ast = astChildren[i];
@@ -417,9 +398,14 @@ Player = function(){
       }
     }
   };
+  /** Events to occur when the player ship gets destroyed */
   this.die = function(){
     Game.setLives(Game.getLives()-1);
     this.deactivate();
+    this.vel.x=0;
+    this.vel.y=0;
+    this.acc.x=0;
+    this.acc.y=0;
   };
   /** Resets all player flags and decreases cooldowns */
   this.reset = function(){
@@ -450,9 +436,8 @@ Player = function(){
 Player.prototype = new GameObject();
 
 
-/**
-* Representation of the bullet produced by the player
-*/
+/** Representation of the bullet produced by the player
+ * @constructor */
 Bullet = function(){
   /** Amount of frames a bullet can exist for */
   this.timeOut = 200;
@@ -535,7 +520,7 @@ Bullet = function(){
     }
   };
   /** Same as collision code, but is recursive
-   * @param {GameObject|Array.} astChildren Array of asteroid children */
+   * @param astChildren Array of asteroid children */
   this.collideOffshoot = function(astChildren){
     for (var i=0; i<astChildren.length; i+=1){
       var ast = astChildren[i];
@@ -551,27 +536,27 @@ Bullet = function(){
     }
   };
   /** Computes the hypotenous of a triangle with two sides the length of the param
-   * @param {number} x - one side of the triangle
-   * @param {number} y - the other side of the triangle */
+   * @param {integer} x - one side of the triangle
+   * @param {integer} y - the other side of the triangle */
   pyth = function(x, y){
     return Math.sqrt(x*x + y*y);
   };
 
   //Getters
   /** Calls for the bullet's current lifetime until it gets destroyed
-    * @return The integer amount of frames until the bullet kills itself */
+    * @return {integer} The integer amount of frames until the bullet kills itself */
   this.getTimeout = function(){return this.timeOut;};
 
   //Setters
   /** Set a bullet's timeout (life) time
-    * @param life The new lifetime of the bullet in frames*/
+    * @param {integer} life The new lifetime of the bullet in frames*/
   this.setTimeout = function(life){this.timeOut=life;};
 };
 Bullet.prototype = new GameObject();
 
 
-/**
-* Representation of the alien spaceship */
+/** Representation of the alien spaceship
+ * @constructor */
 Alien = function(){
   //spawn: spawns off screen after a certain time since the game has started
     //then he moves to the opposite side of the screen by alternating movements
@@ -583,28 +568,21 @@ Alien = function(){
     Alien.prototype.init(ctx,"alien");
     this.x = Math.round((Math.random() * CVS_WIDTH));
     this.y = -50;
-    /**
-    * Vector representing the velocity of the player
-    * @type {number}
-    */
+    /** Vector representing the velocity of the player */
     this.vel = {
       x: 0,
       y: 2
     };
-    /**
-    * Vector representing the acceleration of the player
-    * @type {number}
-    */
+    /** Vector representing the acceleration of the player */
     this.acc = {
       x: 0,
       y: 0
     };
-    /**
-    * Integer representing the radius of the player
-    * @type {number}
-    */
+    /** Integer representing the radius of the player
+    * @type {number} */
     this.r = SHIP_SIZE/2;
   };
+  /** Draws the alien to the screen */
   this.draw = function(){
     if (this.getActivity()){
       this.ctx.beginPath();
@@ -613,7 +591,7 @@ Alien = function(){
     }
 
   };
-  /** Moves the asteroid */
+  /** Moves the alien around the screen */
   this.move = function(){
     this.x += this.vel.x;
     this.y += this.vel.y;
@@ -632,9 +610,10 @@ Alien = function(){
 
 };
 Alien.prototype = new GameObject();
-/**
-* Representation of an alien's bullet
-*/
+
+
+/** Representation of an alien's bullet
+ * @constructor */
 AlienBullet = function(){
   this.init("alienbullet");
   /** Amount of frames the bullet exists on the screen */
@@ -642,13 +621,12 @@ AlienBullet = function(){
 };
 
 
-/**
-* Asteroid representation */
+/** Asteroid representation
+ * @constructor */
 Asteroid = function(){
   /** Builds an asteroid
-   * @constructor
    * @param ctx the context of the Screen
-   * @param scale the relative size of the asteroid (differentiates large, medium and small) */
+   * @param {integer} scale the relative size of the asteroid (differentiates large, medium and small) */
   this.init = function(ctx,scale){
     Asteroid.prototype.init(ctx,"asteroid");
     //this.ctx=ctx;
@@ -771,7 +749,7 @@ Asteroid = function(){
     * @return An array of the asteroid's children */
   this.getChildren = function(){return this.children;};
   /** Accesses the asteroid's scale (size)
-    * @return The integer size of the asteroid */
+    * @return {integer} The integer size of the asteroid */
   this.getScale = function(){return this.scale;};
 
   //Setters
@@ -779,11 +757,11 @@ Asteroid = function(){
     * @param children An array to set as the asteroid's children */
   this.setChildren = function(){this.children=children;};
   /** Sets an asteroid's scale
-    * @param scale The integer scale to set the asteroid */
+    * @param {integer} scale The integer scale to set the asteroid */
   this.setScale = function(scale){this.scale=scale;};
 
   /** Appends to an asteroid's children
-    * @param children An element to append to the asteroid's children */
+    * @param {GameObject} children An element to append to the asteroid's children */
   this.addChild = function(){this.children.push(children);};
 };
 Asteroid.prototype = new GameObject();
