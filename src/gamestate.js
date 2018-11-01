@@ -125,6 +125,10 @@ StateMachine = {
     Game.addSprites(Game.getPlayer());
     Game.getPlayer().place(100,100);
 
+    Game.setAlien(new Alien());
+    Game.getAlien().init(Game.getCtx());
+    Game.addSprites(Game.getAlien());
+
     //Prepare Alien
       //Hook alien reference to Game.alien
       //Append asteroids to Game.sprites
@@ -158,8 +162,15 @@ StateMachine = {
         
       }
     }
+<<<<<<< HEAD
     
     Game.getText().emph("Lives: "+Game.getLives(),10,30);
+=======
+
+    Game.getText().emph("Lives Left: "+Game.getLives(),10,30);
+    
+    Game.getText().emph("Safe: "+this.isSafe(Game.getPlayer(), Game.getSprites()),10,70);
+>>>>>>> 77d0c9ec6bfc62946ca0f579723a08fdf8aece21
 
   },
   /**
