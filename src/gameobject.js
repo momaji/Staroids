@@ -558,6 +558,7 @@ Bullet.prototype = new GameObject();
 /** Representation of the alien spaceship
  * @constructor */
 Alien = function(){
+  this.timeOut = 50;
   //spawn: spawns off screen after a certain time since the game has started
     //then he moves to the opposite side of the screen by alternating movements
       //timer
@@ -605,10 +606,14 @@ Alien = function(){
       this.y = 0 - this.r;*/
     };
 
-    this.action = function(){
+  this.action = function(){
       if (this.timeOut<=0){
-        this.deactivate();
-        Game.subSprites(this);
+        this.timeOut = 50;
+        bull.init(this);
+        Game.addSprites(bull);
+        if (!Game.getSound().muted) { //If not muted, play the sound
+          Game.getSound().play(Sound.LASER);
+        }
       }else{
         this.timeOut-=1;
       }
@@ -710,8 +715,10 @@ Asteroid = function(){
   };
   /** What an asteroid performs after it has been destroyed */
   this.pass = function(){
+    for (var i = 0; i < this.children.length; i += 1) { //for all children...
       this.children[i].update(); //...update them
     }
+
 
     if (this.scale==3){ //If this asteroid is a large (master/top level) asteroid...
       if (this.isDead()){ //...see if all children have been destroyed
