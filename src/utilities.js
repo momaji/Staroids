@@ -15,9 +15,9 @@ const MAX_ACC = 2;
 /** Maximum player ship velocity in the x and y planes */
 const MAX_SPEED = 20;
 /** HTML Canvas width */
-const CVS_WIDTH = 500;
+const CVS_WIDTH = 780;
 /** HTML Canvas height */
-const CVS_HEIGHT = 400;
+const CVS_HEIGHT = 620;
 /** Extra velocity added to a player bullet to make it faster than the ship at firing */
 const BULLET_EXTRA = 5;
 /** Player invulnerability */
