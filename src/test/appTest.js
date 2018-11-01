@@ -1,7 +1,7 @@
 const assert = require('chai').assert;
 const app = require('../app');
-const appendHead = ('../appendHead');
-const utilities = ('../utilities');
+/*const appendHead = ('../appendHead');
+const utilities = ('../utilities');*/
 
 //Results
 //sayHelloResult = app.sayHello();
