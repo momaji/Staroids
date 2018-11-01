@@ -366,7 +366,7 @@ Player = function(){
   this.collide = function(){
     var arrayLength = Game.getSprites().length;
     for (var i = 0; i < arrayLength; i++) { //Search through the available sprites
-      if(Game.sprites[i].name === "asteroid"){ //On an asteroid...
+      if (Game.sprites[i].name === "asteroid" || Game.sprites[i].name === "alienBullet"){ //On an asteroid...
         var ast = Game.getSprites()[i];
 
         if (ast.getActivity()){ //...And it is visible...
@@ -375,7 +375,7 @@ Player = function(){
             ast.die(); //Kill asteroid
             //Game.setPlayer(null); //Dereference yourself (signals the player is dead)
           }
-        }else{ //otherwise:
+        } else if(Game.sprites[i].name === "asteroid"){ //otherwise:
           this.collideOffshoot(ast.getChildren()); //check collisions of its children
         }
 
@@ -558,6 +558,7 @@ Bullet.prototype = new GameObject();
 /** Representation of the alien spaceship
  * @constructor */
 Alien = function(){
+  this.timeOut2 = 200;
   this.timeOut = 50;
   //spawn: spawns off screen after a certain time since the game has started
     //then he moves to the opposite side of the screen by alternating movements
@@ -567,7 +568,7 @@ Alien = function(){
   this.init = function(ctx){
     /** Draws the bullets onto the screen */
     Alien.prototype.init(ctx,"alien");
-    this.x = Math.round((Math.random() * CVS_WIDTH));
+    this.x = Math.round(10 + (Math.random() * CVS_WIDTH - 10));
     this.y = -50;
     /** Vector representing the velocity of the player */
     this.vel = {
@@ -585,50 +586,165 @@ Alien = function(){
   };
   /** Draws the alien to the screen */
   this.draw = function(){
-    if (this.getActivity()){
-      this.ctx.beginPath();
-      this.ctx.fillRect(this.x, this.y, 25,25);
-      this.ctx.stroke();
+    if(this.timeOut2 <= 0){
+      if (this.getActivity()){
+        this.ctx.beginPath();
+        this.ctx.fillRect(this.x, this.y, 25,25);
+        this.ctx.stroke();
+      }
     }
   };
   /** Moves the alien around the screen */
   this.move = function(){
-    this.x += this.vel.x;
-    this.y += this.vel.y;
-    /*if (this.x < 0 - this.r){
-      this.x = CVS_WIDTH + this.r;
-    } else if (this.x > CVS_WIDTH + this.r){
-      this.x = 0 - this.r;
+    if (this.timeOut2 <= 0) {
+      this.x += this.vel.x;
+      this.y += this.vel.y;
+      /*if (this.x < 0 - this.r){
+        this.x = CVS_WIDTH + this.r;
+      } else if (this.x > CVS_WIDTH + this.r){
+        this.x = 0 - this.r;
+      }
+      if (this.y < 0 - this.r){
+        this.y = CVS_HEIGHT + this.r;
+      } else if (this.y > CVS_HEIGHT + this.r){
+        this.y = 0 - this.r;*/
     }
-    if (this.y < 0 - this.r){
-      this.y = CVS_HEIGHT + this.r;
-    } else if (this.y > CVS_HEIGHT + this.r){
-      this.y = 0 - this.r;*/
-    };
+  };
 
   this.action = function(){
-      if (this.timeOut<=0){
-        this.timeOut = 50;
-        bull.init(this);
-        Game.addSprites(bull);
-        if (!Game.getSound().muted) { //If not muted, play the sound
-          Game.getSound().play(Sound.LASER);
-        }
-      }else{
-        this.timeOut-=1;
+    this.timeOut2 -=1;
+    if (this.timeOut<=0 && this.timeOut2 <= 0){
+      this.timeOut = 50;
+      aBull = new AlienBullet();
+      aBull.init(this);
+      Game.addSprites(aBull);
+      if (!Game.getSound().muted) { //If not muted, play the sound
+        Game.getSound().play(Sound.LASER);
       }
-    };
+    }else{
+      this.timeOut-=1;
+    }
+  };
 };
 Alien.prototype = new GameObject();
 
 
 /** Representation of an alien's bullet
  * @constructor */
-AlienBullet = function(){
-  this.init("alienbullet");
-  /** Amount of frames the bullet exists on the screen */
-  this.timeOut = function(){};
+AlienBullet = function () {
+  /** Amount of frames a bullet can exist for */
+  this.timeOut = 200;
+  /** Initializes all bullet internal variables
+   * @param {GameObject} from the context of the bullets parent (player) */
+  this.init = function (from) {
+    AlienBullet.prototype.init(from.ctx, "alienBullet");
+
+    this.ctx = from.getCtx();
+    this.a = 0;
+    this.vel = {};
+
+    this.x = from.getX();
+    this.y = from.getY();
+
+    this.r = 1;
+
+    var topSpeed = 6;
+    var topSquare = Math.pow(topSpeed, 2);
+    var pOrN = Math.round((Math.random() * 2) - 1)
+    this.vel.x = Math.round((Math.random() * (2*topSpeed+1)-topSpeed));
+    this.vel.y = pOrN * Math.sqrt(topSquare - (this.vel.x)*(this.vel.x));
+  };
+  /** Actions the bullet will take every frame */
+  this.action = function () {
+    if (this.timeOut <= 0) {
+      this.deactivate();
+      Game.subSprites(this);
+    } else {
+      this.timeOut -= 1;
+    }
+  };
+  /** How the bullet moves on the screen */
+  this.move = function () {
+    this.x += (this.vel.x);
+    this.y += (this.vel.y);
+
+    //Handle screen edge
+    if (this.x < 0 - this.r) {
+      this.x = CVS_WIDTH + this.r;
+    } else if (this.x > CVS_WIDTH + this.r) {
+      this.x = 0 - this.r;
+    }
+    if (this.y < 0 - this.r) {
+      this.y = CVS_HEIGHT + this.r;
+    } else if (this.y > CVS_HEIGHT + this.r) {
+      this.y = 0 - this.r;
+    }
+  };
+  /** Draws the bullets onto the screen */
+  this.draw = function () {
+    if (this.getActivity()) {
+
+      this.ctx.beginPath();
+      this.ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+      this.ctx.stroke();
+    }
+
+  };
+  /** Controls what happens on a collision with another sprite */
+  this.collide = function () {
+    var arrayLength = Game.getSprites().length;
+    for (var i = 0; i < arrayLength; i++) { //Look at all sprites...
+
+      if (Game.getSprites()[i].name == "asteroid") { //...and if it is an asteroid...
+        var ast = Game.getSprites()[i];
+
+        if (ast.getActivity()) { //..and is alive...
+          if (pyth(Math.abs(this.getX() - ast.getX()), Math.abs(this.getY() - ast.getY())) < this.getRadius() + ast.getRadius()) { //...and invincibility is off and asteroid is in collision range...
+            this.die(); //kill self
+            ast.die(); //kill asteroid
+          }
+
+        } else { //otherwise:
+          this.collideOffshoot(ast.getChildren()); //check children
+        }
+      }
+
+    }
+  };
+  /** Same as collision code, but is recursive
+   * @param astChildren Array of asteroid children */
+  this.collideOffshoot = function (astChildren) {
+    for (var i = 0; i < astChildren.length; i += 1) {
+      var ast = astChildren[i];
+      if (ast.getActivity()) {
+        if (pyth(Math.abs(this.getX() - ast.getX()), Math.abs(this.getY() - ast.getY())) < this.getRadius() + ast.getRadius()) {
+          this.die();
+          this.place(-100, -100);
+          ast.die();
+        }
+      } else {
+        this.collideOffshoot(ast.getChildren());
+      }
+    }
+  };
+  /** Computes the hypotenous of a triangle with two sides the length of the param
+   * @param {integer} x - one side of the triangle
+   * @param {integer} y - the other side of the triangle */
+  pyth = function (x, y) {
+    return Math.sqrt(x * x + y * y);
+  };
+
+  //Getters
+  /** Calls for the bullet's current lifetime until it gets destroyed
+    * @return {integer} The integer amount of frames until the bullet kills itself */
+  this.getTimeout = function () { return this.timeOut; };
+
+  //Setters
+  /** Set a bullet's timeout (life) time
+    * @param {integer} life The new lifetime of the bullet in frames*/
+  this.setTimeout = function (life) { this.timeOut = life; };
 };
+AlienBullet.prototype = new GameObject();
 
 
 /** Asteroid representation
