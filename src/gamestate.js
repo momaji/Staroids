@@ -112,7 +112,7 @@ StateMachine = {
    */
   load: function(){
     Game.setScore(0);
-    Game.setLives(2);
+    Game.setLives(3);
     Game.setLevel(0);
 
     //Spawn asteroids
@@ -136,7 +136,7 @@ StateMachine = {
    * @details Updates all sprites and checks for the game over status. Handles the generation of new asteroids at the end of each level (or wave)
    */
   playing: function(){
-    
+    if(Game.getLives() <= 0 ){Game.getLives() = 0;}
     for (var i = 0; i < Game.getSprites().length; i++){
       Game.getSprites()[i].update();
     }
@@ -159,9 +159,7 @@ StateMachine = {
       }
     }
     
-    Game.getText().emph("Lives Left: "+Game.getLives(),10,30);
-    
-    Game.getText().emph("Safe: "+this.isSafe(Game.getPlayer(), Game.getSprites()),10,70);
+    Game.getText().emph("Lives: "+Game.getLives(),10,30);
 
   },
   /**
@@ -177,6 +175,8 @@ StateMachine = {
     if (Key.isDown(Key.R)){
       this.state="reload";
     }
+    
+    Game.getText().emph("Lives: "+Game.getLives(),10,30);
   },
   /**
    * @brief Pause state for the Staroids game
@@ -187,7 +187,7 @@ StateMachine = {
       Game.getSprites()[i].draw();
     }
 
-    Game.getText().emph("Press 'P' to Unpause",20,100);
+    Game.getText().emph("Lives: "+Game.getLives(),10,30);
   },
   /**
    * @brief Transitions the game from the postgame state back to the load state
@@ -207,7 +207,8 @@ StateMachine = {
   /** Initializes start function when game begins */
   state: "start",
   /** Used to save the last state entered (for pausing) */
-  stateSave: null
+  stateSave: null,
+  getState: function(){return this.state}
 }
 
 /** Main game function */
@@ -248,9 +249,13 @@ $(function () {
   var mainLoop = function () {
     Game.getCtx().clearRect(0, 0, Game.getWidth(), Game.getHeight());
 
-    var mutedState = "Muted: " + Game.getSound().muted.toString();
-    Game.text.norm(mutedState,10,50);
-
+    if (Game.getSound().muted == true){
+      Game.text.norm("M",CVS_WIDTH-40,35);
+    }
+    if (StateMachine.getState()=="pause"){
+      Game.text.norm("P",CVS_WIDTH-70,35);
+    }
+    
     update();
 
     requestAnimFrame(mainLoop,Game.getCvs());

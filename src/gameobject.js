@@ -420,6 +420,10 @@ Player = function(){
   this.die = function(){
     Game.setLives(Game.getLives()-1);
     this.deactivate();
+    this.vel.x=0;
+    this.vel.y=0;
+    this.acc.x=0;
+    this.acc.y=0;
   };
   /** Resets all player flags and decreases cooldowns */
   this.reset = function(){
