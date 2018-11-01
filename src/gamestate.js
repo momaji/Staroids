@@ -226,6 +226,8 @@ $(function () {
         StateMachine.togglePause();
         Game.resetPause();
     }
+    
+    Game.drawLives(); //Draw lives in all states. If lives is zero, it will show nothing and therefore wont matter
   };
 
   /** Main game loop */
@@ -240,7 +242,6 @@ $(function () {
     if (StateMachine.getState()=="pause"){
       Game.text.emph("P",CVS_WIDTH-70,35);
     }
-    Game.drawLives();
 
     requestAnimFrame(mainLoop,Game.getCvs());
   }
