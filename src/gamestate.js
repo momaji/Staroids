@@ -51,7 +51,7 @@ StateMachine = {
   checkCollision: function(a, b, c){
     return (pyth(Math.abs(a.getX()-b.getX()), Math.abs(a.getY()-b.getY())) < c)
   },
-
+  
   /**
    * Saves Current game state if pause mode/game state is activated
    */
@@ -154,15 +154,15 @@ StateMachine = {
       if (Game.getLives()<=0){
         this.state = "postgame";
       }else{
-
+        
         Game.getPlayer().place(100,100)
         if (this.isSafe( Game.getPlayer(), Game.getSprites() )){
           Game.getPlayer().setActivity(true)
         }
-
+        
       }
     }
-
+    
     Game.getText().emph("Lives: "+Game.getLives(),10,30);
 
   },
@@ -179,7 +179,7 @@ StateMachine = {
     if (Key.isDown(Key.R)){
       this.state="reload";
     }
-
+    
     Game.getText().emph("Lives: "+Game.getLives(),10,30);
   },
   /**
@@ -259,7 +259,7 @@ $(function () {
     if (StateMachine.getState()=="pause"){
       Game.text.norm("P",CVS_WIDTH-70,35);
     }
-
+    
     update();
 
     requestAnimFrame(mainLoop,Game.getCvs());
