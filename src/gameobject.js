@@ -366,7 +366,7 @@ Player = function(){
   this.collide = function(){
     var arrayLength = Game.getSprites().length;
     for (var i = 0; i < arrayLength; i++) { //Search through the available sprites
-      if (Game.sprites[i].name === "asteroid" || Game.sprites[i].name === "alienBullet"){ //On an asteroid...
+      if (Game.sprites[i].name === "asteroid" || Game.sprites[i].name === "alienBullet" || Game.sprites[i].name === "alien"){ //On an asteroid...
         var ast = Game.getSprites()[i];
 
         if (ast.getActivity()){ //...And it is visible...
@@ -561,6 +561,7 @@ Alien = function(){
   this.timeOut3 = 75;
   this.timeOut2 = 200;
   this.timeOut = 50;
+  
   //spawn: spawns off screen after a certain time since the game has started
     //then he moves to the opposite side of the screen by alternating movements
       //timer
@@ -633,6 +634,49 @@ Alien = function(){
     }else{
       this.timeOut-=1;
     }
+  };
+
+  this.collide = function () {
+    var arrayLength = Game.getSprites().length;
+    for (var i = 0; i < arrayLength; i++) { //Search through the available sprites
+      if (Game.sprites[i].name === "asteroid" || Game.sprites[i].name === "bullet") { //On an asteroid...
+        var ast = Game.getSprites()[i];
+
+        if (ast.getActivity()) { //...And it is visible...
+          if (KILLABLE && pyth(Math.abs(this.x - ast.x), Math.abs(this.y - ast.y)) < this.r + ast.r) { //...and invincibility is off and are in collision range
+            this.die(); //Kill self
+            ast.die(); //Kill asteroid
+            //Game.setPlayer(null); //Dereference yourself (signals the player is dead)
+          }
+        } else if (Game.sprites[i].name === "asteroid") { //otherwise:
+          this.collideOffshoot(ast.getChildren()); //check collisions of its children
+        }
+
+      }
+    }
+  };
+
+  this.collideOffshoot = function (astChildren) { //Same as collide(), but recursive
+    for (var i = 0; i < astChildren.length; i += 1) {
+      var ast = astChildren[i];
+      if (ast.getActivity()) {
+        if (KILLABLE && pyth(Math.abs(this.getX() - ast.getX()), Math.abs(this.getY() - ast.getY())) < this.getRadius() + ast.getRadius()) {
+          this.die();
+          ast.die();
+          //Game.setPlayer(null);
+        }
+      } else {
+        this.collideOffshoot(ast.getChildren());
+      }
+    }
+  };
+
+  this.die = function () {
+    this.timeOut3 = 75;
+    this.timeOut2 = 200;
+    this.timeOut = 50;
+    this.x = Math.round(10 + (Math.random() * CVS_WIDTH - 10));
+    this.y = -50;
   };
 };
 Alien.prototype = new GameObject();
