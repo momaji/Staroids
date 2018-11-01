@@ -703,9 +703,9 @@ AlienBullet = function () {
 
     var topSpeed = 6;
     var topSquare = Math.pow(topSpeed, 2);
-    var pOrN = Math.round((Math.random() * 2) - 1)
+    var pOrN = Math.random() < 0.5 ? -1 : 1;
     this.vel.x = Math.round((Math.random() * (2*topSpeed+1)-topSpeed));
-    this.vel.y = pOrN * Math.sqrt(topSquare - (this.vel.x)*(this.vel.x));
+    this.vel.y = pOrN * Math.sqrt(topSquare - Math.pow(this.vel.x,2));
   };
   /** Actions the bullet will take every frame */
   this.action = function () {
