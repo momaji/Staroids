@@ -589,13 +589,11 @@ Alien = function(){
       this.ctx.fillRect(this.x, this.y, 25,25);
       this.ctx.stroke();
     }
-
   };
   /** Moves the alien around the screen */
   this.move = function(){
     this.x += this.vel.x;
     this.y += this.vel.y;
-
     /*if (this.x < 0 - this.r){
       this.x = CVS_WIDTH + this.r;
     } else if (this.x > CVS_WIDTH + this.r){
@@ -606,8 +604,15 @@ Alien = function(){
     } else if (this.y > CVS_HEIGHT + this.r){
       this.y = 0 - this.r;*/
     };
-  //this.init("alien");
 
+    this.action = function(){
+      if (this.timeOut<=0){
+        this.deactivate();
+        Game.subSprites(this);
+      }else{
+        this.timeOut-=1;
+      }
+    };
 };
 Alien.prototype = new GameObject();
 
@@ -705,7 +710,6 @@ Asteroid = function(){
   };
   /** What an asteroid performs after it has been destroyed */
   this.pass = function(){
-    for (var i=0; i<this.children.length; i+=1){ //for all children...
       this.children[i].update(); //...update them
     }
 
