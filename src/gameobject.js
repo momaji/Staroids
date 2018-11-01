@@ -1,7 +1,6 @@
 
 /**
-* The basic object from which all other objects inheirt from
-*/
+* The basic object from which all other objects inheirt from */
 GameObject = function(){
   /**
   * Sprite initialization. Sets up all basic class variables
@@ -42,8 +41,7 @@ GameObject = function(){
     };
     /**
     * the acceleration vector components
-    * @type {number|Array.}
-    */
+    * @type {number|Array.} */
     this.acc = {
       x:   0,
       y:   0
@@ -58,52 +56,40 @@ GameObject = function(){
   /**
   * Puts object at specific place
   * @param x - The x coordinate of where the object should be placed
-  * @param y - The y coordinate of where the object should be placed
-  */
+  * @param y - The y coordinate of where the object should be placed */
   this.place = function(x,y){this.setX(x);this.setY(y);};
   /**
-  * Activates sprites by toggling visibility on
-  */
+  * Activates sprites by toggling visibility on */
   this.activate = function(){this.setActivity(true);};
   /**
-  * Deactivates sprites by toggling visibility off
-  */
+  * Deactivates sprites by toggling visibility off */
   this.deactivate = function(){this.setActivity(false);};
   /**
-  * What the sprite is to do once it has been determined it should 'die'
-  */
+  * What the sprite is to do once it has been determined it should 'die' */
   this.die = function(){this.deactivate();};
   /**
-  * Handles user input
-  */
+  * Handles user input */
   this.interact = function(){};
   /**
-  * Determines how the sprite should move and applies the movement to the object
-  */
+  * Determines how the sprite should move and applies the movement to the object */
   this.move = function(){};
   /**
-  * Any actions the sprite should perform every frame
-  */
+  * Any actions the sprite should perform every frame */
   this.action = function(){};
   /**
-  * Draws the sprite to the screen
-  */
+  * Draws the sprite to the screen */
   this.draw = function(){};
   /**
-  * Resets any flags, tidies the sprite and prepares it for the next game loop
-  */
+  * Resets any flags, tidies the sprite and prepares it for the next game loop */
   this.reset = function(){};
   /**
-  * Any action the sprite should do when not active
-  */
+  * Any action the sprite should do when not active */
   this.pass = function(){};
   /**
-  * Checks for collision each frame and applies the appropriate response
-  */
+  * Checks for collision each frame and applies the appropriate response */
   this.collide = function(){}; //
   /**
-  * Updates the sprite according to the screen context and sprites around
-  */
+  * Updates the sprite according to the screen context and sprites around */
   this.update = function(){
     if (this.visible){
       this.interact();
@@ -174,8 +160,7 @@ GameObject = function(){
 
 
 /**
-* Object that represents the player's ship
-*/
+* Object that represents the player's ship */
 Player = function(){
   /** Flag for if the ship is firing the current frame
    * @type {boolean} */
@@ -588,8 +573,7 @@ Bullet.prototype = new GameObject();
 
 
 /**
-* Representation of the alien spaceship
-*/
+* Representation of the alien spaceship */
 Alien = function(){
   this.init("alien");
   /** Countdown until a bullet can be fired */
@@ -607,8 +591,7 @@ AlienBullet = function(){
 
 
 /**
-* Asteroid representation
-*/
+* Asteroid representation */
 Asteroid = function(){
   /** Builds an asteroid
    * @constructor
