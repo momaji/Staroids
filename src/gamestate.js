@@ -27,7 +27,7 @@ StateMachine = {
   isSafe: function(object,sprites){
     for (var i =0; i < sprites.length; i+=1){
       other = sprites[i];
-      if(other.name == "asteroid"){
+      if(other.getName() == "asteroid"){
         if (other.getActivity()==false){
           if (!this.isSafe(object,other.getChildren())){
             return false;
@@ -37,7 +37,7 @@ StateMachine = {
             return false;
           }
         }
-      }else if (other.name=="alien" || other.name=="alienBullet"){
+      }else if (other.getName()=="alien" || other.getName()=="alienBullet"){
         if (this.checkCollision(object,other,50)){
           return false;
         }
@@ -56,7 +56,7 @@ StateMachine = {
   checkCollision: function(a, b, c){
     return (pyth(Math.abs(a.getX()-b.getX()), Math.abs(a.getY()-b.getY())) < c)
   },
-  
+
   /** Saves Current game state if pause mode/game state is activated */
   togglePause: function(){
     if (this.state != "pause"){
@@ -151,12 +151,12 @@ StateMachine = {
       if (Game.getLives()<=0){
         this.state = "postgame";
       }else{
-        
+
         Game.getPlayer().place(100,100)
         if (this.isSafe( Game.getPlayer(), Game.getSprites() )){
           Game.getPlayer().setActivity(true)
         }
-        
+
       }
     }
   },
@@ -229,7 +229,7 @@ $(function () {
         StateMachine.togglePause();
         Game.resetPause();
     }
-    
+
     Game.drawLives(); //Draw lives in all states. If lives is zero, it will show nothing and therefore wont matter
   };
 
@@ -238,7 +238,7 @@ $(function () {
     Game.getCtx().clearRect(0, 0, Game.getWidth(), Game.getHeight());
 
     update();
-    
+
     if (Game.getSound().muted == true){
       Game.text.emph("M",CVS_WIDTH-40,35);
     }
