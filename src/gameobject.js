@@ -118,6 +118,9 @@ GameObject = function(){
   /** Access the screen context
     * @return The sprite's screen context */
   this.getCtx = function(){return this.ctx;};
+  /** Access the id string of the object, which represents what it is
+   * @return {string} The object's id */
+  this.getName = function(){return this.name;};
 
   //Setters for all object variables
   /** Set the x coordinate
@@ -366,7 +369,7 @@ Player = function(){
   this.collide = function(){
     var arrayLength = Game.getSprites().length;
     for (var i = 0; i < arrayLength; i++) { //Search through the available sprites
-      if (Game.sprites[i].name === "asteroid" || Game.sprites[i].name === "alienBullet" || Game.sprites[i].name === "alien"){ //On an asteroid...
+      if (Game.sprites[i].getName() === "asteroid" || Game.sprites[i].getName() === "alienBullet" || Game.sprites[i].getName() === "alien"){ //On an asteroid...
         var ast = Game.getSprites()[i];
 
         if (ast.getActivity()){ //...And it is visible...
@@ -375,7 +378,7 @@ Player = function(){
             ast.die(); //Kill asteroid
             //Game.setPlayer(null); //Dereference yourself (signals the player is dead)
           }
-        } else if(Game.sprites[i].name === "asteroid"){ //otherwise:
+        } else if(Game.sprites[i].getName() === "asteroid"){ //otherwise:
           this.collideOffshoot(ast.getChildren()); //check collisions of its children
         }
 
@@ -503,7 +506,7 @@ Bullet = function(){
     var arrayLength = Game.getSprites().length;
     for (var i = 0; i < arrayLength; i++) { //Look at all sprites...
 
-      if (Game.getSprites()[i].name == "asteroid"){ //...and if it is an asteroid...
+      if (Game.getSprites()[i].getName() == "asteroid"){ //...and if it is an asteroid...
         var ast = Game.getSprites()[i];
 
         if (ast.getActivity()){ //..and is alive...
@@ -562,7 +565,7 @@ Alien = function(){
   this.timeOut2 = 200;
   this.timeOut = 50;
   this.xOrY = true;
-  
+
   //spawn: spawns off screen after a certain time since the game has started
     //then he moves to the opposite side of the screen by alternating movements
       //timer
@@ -658,7 +661,7 @@ Alien = function(){
   this.collide = function () {
     var arrayLength = Game.getSprites().length;
     for (var i = 0; i < arrayLength; i++) { //Search through the available sprites
-      if (Game.sprites[i].name === "asteroid" || Game.sprites[i].name === "bullet") { //On an asteroid...
+      if (Game.sprites[i].getName() === "asteroid" || Game.sprites[i].getName() === "bullet") { //On an asteroid...
         var ast = Game.getSprites()[i];
 
         if (ast.getActivity()) { //...And it is visible...
@@ -667,7 +670,7 @@ Alien = function(){
             ast.die(); //Kill asteroid
             //Game.setPlayer(null); //Dereference yourself (signals the player is dead)
           }
-        } else if (Game.sprites[i].name === "asteroid") { //otherwise:
+        } else if (Game.sprites[i].getName() === "asteroid") { //otherwise:
           this.collideOffshoot(ast.getChildren()); //check collisions of its children
         }
 
@@ -769,7 +772,7 @@ AlienBullet = function () {
     var arrayLength = Game.getSprites().length;
     for (var i = 0; i < arrayLength; i++) { //Look at all sprites...
 
-      if (Game.getSprites()[i].name == "asteroid") { //...and if it is an asteroid...
+      if (Game.getSprites()[i].getName() == "asteroid") { //...and if it is an asteroid...
         var ast = Game.getSprites()[i];
 
         if (ast.getActivity()) { //..and is alive...
