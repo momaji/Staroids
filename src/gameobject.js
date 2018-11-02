@@ -173,7 +173,7 @@ Player = function(){
   /** Player's initialization function
    * @param ctx The context of the screen */
   this.init = function(ctx){
-    Player.prototype.init(ctx,"PLAYER");
+    Player.prototype.init(ctx,"player");
     /** Vector representing the velocity of the player */
     this.vel = {
       x: 0,
@@ -513,6 +513,11 @@ Bullet = function(){
           if(pyth(Math.abs(this.getX()-ast.getX()), Math.abs(this.getY()-ast.getY())) < this.getRadius() + ast.getRadius()){ //...and invincibility is off and asteroid is in collision range...
             this.die(); //kill self
             ast.die(); //kill asteroid
+            switch(ast.getScale()){
+              case 3: Game.addScore(20);  break;
+              case 2: Game.addScore(60);  break;
+              case 1: Game.addScore(180); break;
+            }
           }
 
         }else{ //otherwise:
@@ -530,8 +535,12 @@ Bullet = function(){
       if (ast.getActivity()){
         if(pyth(Math.abs(this.getX()-ast.getX()), Math.abs(this.getY()-ast.getY())) < this.getRadius() + ast.getRadius()){
           this.die();
-          this.place(-100,-100);
           ast.die();
+          switch(ast.getScale()){
+            case 3: Game.addScore(20);  break;
+            case 2: Game.addScore(60);  break;
+            case 1: Game.addScore(180); break;
+          }
         }
       }else{
         this.collideOffshoot(ast.getChildren());
@@ -668,6 +677,7 @@ Alien = function(){
           if (KILLABLE && pyth(Math.abs(this.x - ast.x), Math.abs(this.y - ast.y)) < this.r + ast.r) { //...and invincibility is off and are in collision range
             this.die(); //Kill self
             ast.die(); //Kill asteroid
+            if (ast.getName()=="bullet"){Game.addScore(200);}
             //Game.setPlayer(null); //Dereference yourself (signals the player is dead)
           }
         } else if (Game.sprites[i].getName() === "asteroid") { //otherwise:

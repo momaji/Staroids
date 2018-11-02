@@ -176,6 +176,13 @@ StateMachine = {
    * @details Preserves all the sprites in their current state */
   pause: function(){
     for (var i = 0; i < Game.getSprites().length; i++){
+      object = Game.getSprites()[i];
+      printOut(1,this.stateSave);
+      if (this.stateSave=="postgame" && object.getName()=="player"){
+        printOut(1,"Skipped");
+        Game.getText().emph("Press 'R' to Restart",20,100);
+        continue
+      }
       Game.getSprites()[i].draw();
     }
   },
@@ -244,6 +251,9 @@ $(function () {
     }
     if (StateMachine.getState()=="pause"){
       Game.text.emph("P",CVS_WIDTH-70,35);
+    }
+    if (StateMachine.getState()!="pregame"){
+      Game.text.emph(Game.getScore(),5,45);
     }
 
     requestAnimFrame(mainLoop,Game.getCvs());
