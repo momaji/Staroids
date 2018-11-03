@@ -38,7 +38,7 @@ StateMachine = {
           }
         }
       }else if (other.getName()=="alien" || other.getName()=="alienBullet"){
-        if (this.checkCollision(object,other,50)){
+        if (other.getActivity()==true && this.checkCollision(object,other,50)){
           return false;
         }
         t  = 0;
