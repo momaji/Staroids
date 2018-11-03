@@ -332,7 +332,7 @@ Player = function(){
 
     this.ctx.closePath();
     this.ctx.stroke();
-    
+
     this.ctx.closePath();
     this.ctx.fillStyle = "black";
     this.ctx.fill();
@@ -657,6 +657,7 @@ Alien = function(){
       this.timeOut = 50;
       aBull = new AlienBullet();
       aBull.init(this);
+      aBull.place(this.x+this.r,this.y+this.r);
       Game.addSprites(aBull);
       if (!Game.getSound().muted) { //If not muted, play the sound
         Game.getSound().play(Sound.LASER);
@@ -818,7 +819,7 @@ AlienBullet = function () {
   pyth = function (x, y) {
     return Math.sqrt(x * x + y * y);
   };
-  
+
   this.die = function(){
     this.deactivate();
     //Game.getSprites().remove(this);
