@@ -574,16 +574,11 @@ Bullet.prototype = new GameObject();
 /** Representation of the alien spaceship
  * @constructor */
 Alien = function(){
-  this.timeOut3 = 75;
+  this.timeOut3 = 75; //What are these???
   this.timeOut2 = 200;
   this.timeOut = 50;
   this.xOrY = true;
 
-  //spawn: spawns off screen after a certain time since the game has started
-    //then he moves to the opposite side of the screen by alternating movements
-      //timer
-      //fires bullets on set interval
-  //if he collides with an asteroid he dies
   this.init = function(ctx){
     /** Draws the bullets onto the screen */
     Alien.prototype.init(ctx,"alien");
@@ -595,7 +590,7 @@ Alien = function(){
       this.y = Math.round((Math.random() * CVS_HEIGHT));
       this.x = -50;
     };
-    /** Vector representing the velocity of the player */
+    /* Vector representing the velocity of the player */
     if (this.xOrY) {
       this.vel = {
         x: Math.random() + 1,
