@@ -609,7 +609,7 @@ Alien = function(){
     };
     /** Integer representing the radius of the player
     * @type {number} */
-    this.r = Math.sqrt(Math.pow(25,2)*2);
+    this.r = 12.5//Math.sqrt(Math.pow(25,2)*2);
   };
   /** Draws the alien to the screen */
   this.draw = function(){
@@ -673,7 +673,7 @@ Alien = function(){
         var ast = Game.getSprites()[i];
 
         if (ast.getActivity()) { //...And it is visible...
-          if (KILLABLE && pyth(Math.abs(this.x - ast.x), Math.abs(this.y - ast.y)) < this.r + ast.r) { //...and invincibility is off and are in collision range
+          if (KILLABLE && pyth(Math.abs(this.x+12.5 - ast.x), Math.abs(this.y+12.5 - ast.y)) < this.r + ast.r) { //...and invincibility is off and are in collision range
             this.die(); //Kill self
             ast.die(); //Kill asteroid
             if (ast.getName()=="bullet"){Game.addScore(200);}
@@ -730,9 +730,9 @@ AlienBullet = function () {
     this.x = from.getX();
     this.y = from.getY();
 
-    this.r = 3; //1;
+    this.r = 2; //1;
 
-    var topSpeed = 6;
+    var topSpeed = 4;
     var topSquare = Math.pow(topSpeed, 2);
     var pOrN = Math.random() < 0.5 ? -1 : 1;
     this.vel.x = Math.round((Math.random() * (2*topSpeed+1)-topSpeed));
@@ -786,8 +786,8 @@ AlienBullet = function () {
 
         if (ast.getActivity()) { //..and is alive...
           if (pyth(Math.abs(this.getX() - ast.getX()), Math.abs(this.getY() - ast.getY())) < this.getRadius() + ast.getRadius()) { //...and invincibility is off and asteroid is in collision range...
-            this.die(); //kill self
             ast.die(); //kill asteroid
+            this.die(); //kill self
           }
 
         } else { //otherwise:
@@ -804,9 +804,8 @@ AlienBullet = function () {
       var ast = astChildren[i];
       if (ast.getActivity()) {
         if (pyth(Math.abs(this.getX() - ast.getX()), Math.abs(this.getY() - ast.getY())) < this.getRadius() + ast.getRadius()) {
-          this.die();
-          this.place(-100, -100);
           ast.die();
+          this.die();
         }
       } else {
         this.collideOffshoot(ast.getChildren());
@@ -818,6 +817,11 @@ AlienBullet = function () {
    * @param {integer} y - the other side of the triangle */
   pyth = function (x, y) {
     return Math.sqrt(x * x + y * y);
+  };
+  
+  this.die = function(){
+    this.deactivate();
+    //Game.getSprites().remove(this);
   };
 
   //Getters
