@@ -718,7 +718,7 @@ Alien.prototype = new GameObject();
  * @constructor */
 AlienBullet = function () {
   /** Amount of frames a bullet can exist for */
-  this.timeOut = 200;
+  this.timeOut = 100;
   /** Initializes all bullet internal variables
    * @param {GameObject} from the context of the bullets parent (player) */
   this.init = function (from) {
