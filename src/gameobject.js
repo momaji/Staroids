@@ -313,9 +313,9 @@ Player = function(){
     }
 
     //draw triangular ship
+    this.ctx.beginPath();
     this.ctx.strokeStyle = "black";
     this.ctx.lineWidth = SHIP_SIZE / 20;
-    this.ctx.beginPath();
 
     this.ctx.moveTo(// nose of the ship
       this.x + 4/3 * this.r * Math.cos(this.a),
@@ -332,6 +332,10 @@ Player = function(){
 
     this.ctx.closePath();
     this.ctx.stroke();
+    
+    this.ctx.closePath();
+    this.ctx.fillStyle = "black";
+    this.ctx.fill();
 
     //centre dot
     // this.ctx.fillStyle = "red";
