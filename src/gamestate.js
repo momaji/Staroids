@@ -27,7 +27,7 @@ StateMachine = {
   isSafe: function(object,sprites){
     for (var i =0; i < sprites.length; i+=1){
       other = sprites[i];
-      if(other.name == "asteroid"){
+      if(other.getName() == "asteroid"){
         if (other.getActivity()==false){
           if (!this.isSafe(object,other.getChildren())){
             return false;
@@ -37,8 +37,11 @@ StateMachine = {
             return false;
           }
         }
-      }else if (other.name=="alien" || other.name=="alienbullet"){
-        var t = 0;
+      }else if (other.getName()=="alien" || other.getName()=="alienBullet"){
+        if (other.getActivity()==true && this.checkCollision(object,other,50)){
+          return false;
+        }
+        t  = 0;
       }
     }
     return true;
@@ -53,7 +56,7 @@ StateMachine = {
   checkCollision: function(a, b, c){
     return (pyth(Math.abs(a.getX()-b.getX()), Math.abs(a.getY()-b.getY())) < c)
   },
-  
+
   /** Saves Current game state if pause mode/game state is activated */
   togglePause: function(){
     if (this.state != "pause"){
@@ -148,12 +151,12 @@ StateMachine = {
       if (Game.getLives()<=0){
         this.state = "postgame";
       }else{
-        
+
         Game.getPlayer().place(100,100)
         if (this.isSafe( Game.getPlayer(), Game.getSprites() )){
           Game.getPlayer().setActivity(true)
         }
-        
+
       }
     }
   },
@@ -173,6 +176,13 @@ StateMachine = {
    * @details Preserves all the sprites in their current state */
   pause: function(){
     for (var i = 0; i < Game.getSprites().length; i++){
+      object = Game.getSprites()[i];
+      printOut(1,this.stateSave);
+      if (this.stateSave=="postgame" && object.getName()=="player"){
+        printOut(1,"Skipped");
+        Game.getText().emph("Press 'R' to Restart",20,100);
+        continue
+      }
       Game.getSprites()[i].draw();
     }
   },
@@ -226,6 +236,8 @@ $(function () {
         StateMachine.togglePause();
         Game.resetPause();
     }
+
+    Game.drawLives(); //Draw lives in all states. If lives is zero, it will show nothing and therefore wont matter
   };
 
   /** Main game loop */
@@ -233,14 +245,16 @@ $(function () {
     Game.getCtx().clearRect(0, 0, Game.getWidth(), Game.getHeight());
 
     update();
-    
+
     if (Game.getSound().muted == true){
       Game.text.emph("M",CVS_WIDTH-40,35);
     }
     if (StateMachine.getState()=="pause"){
       Game.text.emph("P",CVS_WIDTH-70,35);
     }
-    Game.drawLives();
+    if (StateMachine.getState()!="pregame"){
+      Game.text.emph(Game.getScore(),5,45);
+    }
 
     requestAnimFrame(mainLoop,Game.getCvs());
   }
