@@ -733,7 +733,7 @@ AlienBullet = function () {
 
     this.r = 2; //1;
 
-    var topSpeed = 4;
+    var topSpeed = 3;
     var topSquare = Math.pow(topSpeed, 2);
     var pOrN = Math.random() < 0.5 ? -1 : 1;
     this.vel.x = Math.round((Math.random() * (2*topSpeed+1)-topSpeed));
