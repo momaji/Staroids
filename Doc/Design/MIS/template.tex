@@ -1,0 +1,554 @@
+\documentclass[12pt]{article}
+
+\usepackage{graphicx}
+\usepackage{paralist}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{hhline}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{multicol}
+
+\oddsidemargin 0mm
+\evensidemargin 0mm
+\textwidth 160mm
+\textheight 200mm
+\renewcommand\baselinestretch{1.0}
+
+\pagestyle {plain}
+\pagenumbering{arabic}
+
+\newcounter{stepnum}
+
+%% Comments
+
+\usepackage{color}
+
+\newcommand{\wss}[1]{\authornote{blue}{SS}{#1}}
+\newcommand{\means}{\Rightarrow}
+\newcommand{\s}{\mbox{ }}
+\newcommand{\m}[1]{\mbox{#1}}
+
+\title{Assignment 4, Module Interface Specification}
+\author{Jason Nagy}
+
+\begin{document}
+
+\maketitle
+
+The following is a series of MISes to control the game board state for a
+game of Freecell.
+
+%==================================================
+\newpage
+
+\section*{Card ADT Module}
+
+\subsection*{Template Module}
+
+CardT
+
+\subsection*{Uses}
+
+N/A
+
+\subsection*{Syntax}
+
+\subsubsection*{Exported Types}
+
+SuitT=\{NAS, SPADES, CLUBS, HEARTS, DIAMONDS\}\\
+RankT=\{NAR, ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, \\
+EIGHT, NINE, TEN, JACK, QUEEN, KING\}\\
+ColourT=\{NAC,RED,BLACK\}\\
+CardT=?\\
+
+\subsubsection*{Exported Access Programs}
+
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+CardT & SuitT, RankT & CardT & ~\\
+\hline
+getSuit & ~ & SuitT & ~\\
+\hline
+getRank & ~ & RankT & ~\\
+\hline
+isValid & ~ & $\mathbb{B}$ & ~\\
+\hline
+getColour & ~ & ColourT & ~\\
+\hline
+\end{tabular}
+
+\subsection*{Semantics}
+
+\subsubsection*{State Variables}
+
+$s$: SuitT\\
+$r$: RankT\\
+
+\subsubsection*{State Invariant}
+
+None
+
+\subsubsection*{Assumptions}
+
+\begin{itemize}
+    \item The constructor CardT is called for
+    each object instance before any other access routine is called
+    for that object. The constuctor cannot be called on an existing
+    object.
+\end{itemize}
+
+\subsubsection*{Access Routine Semantics}
+
+CardT($S,R$):
+\begin{itemize}
+    \item transition: $s, r := S, R$
+    \item output: $out := \mathit{self}$
+    \item exception: None
+\end{itemize}
+
+\noindent getSuit():
+\begin{itemize}
+    \item output: $out := s$
+    \item exception: None
+\end{itemize}
+
+\noindent getRank():
+\begin{itemize}
+    \item output: $out := r$
+    \item exception: None
+\end{itemize}
+
+\noindent isValid():
+\begin{itemize}
+    \item output: $out := suit=\m{NAS} \land rank=\m{NAR}$
+    \item exception: None
+\end{itemize}
+
+\noindent getColour():
+\begin{itemize}
+    \item output: $out := r=(\m{SPADES} \lor \m{CLUBS}) \means \m{BLACK} | r=(\m{HEARTS} \lor \m{DIAMONDS}) \means \m{RED} | r=(\m{NAS}) \means \m{NAC}$
+    \item exception: None
+\end{itemize}
+
+%==================================================
+\newpage
+
+\section*{Deck ADT Module}
+
+\subsection*{Template Module}
+
+DeckT
+
+\subsection*{Uses}
+
+CardADT for CardT, SuitT, RankT\\
+
+\subsection*{Syntax}
+
+\subsubsection*{Exported Types}
+
+DeckT=?
+
+\subsubsection*{Exported Constants}
+
+None
+
+\subsubsection*{Exported Access Programs}
+
+\begin{tabular}{| l | l | l | l |}
+    \hline
+    \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+    \hline
+    DeckT & ~ & DeckT & ~\\
+    \hline
+    remCard & ~ & ~ & stack\_empty\\
+    \hline
+    draw & ~ & CardT & stack\_empty\\
+    \hline
+    shuffle & ~ & ~ & ~\\
+    \hline
+    size & & $\mathbb{N}$ & ~\\
+    \hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+$d$: sequence of CardT
+
+\subsubsection* {State Invariant}
+
+\begin{itemize}
+  \item The deck will never have duplicate cards.
+  \item The max amount of cards a DeckT may have is 52 cards where
+  there is 4 sets of 13 cards (Ace to King for all four suits).
+\end{itemize}
+
+\subsubsection* {Assumptions}
+
+\begin{itemize}
+    \item The constructor DeckT is called for each object instance before
+    any other access routine is called for that object. The constuctor
+    cannot be called on an existing object.
+\end{itemize}
+
+\subsubsection* {Access Routine Semantics}
+
+DeckT():
+\begin{itemize}
+    \item transition: $d := \forall (s : \mbox{SuitT} | s \in \mbox{SuitT} : \forall (r : \mbox{RankT} | r \in \mbox{RankT} : \mbox{append}(d,\mbox{CardT}(s,r)))$
+    \item output: $out := \mathit{self}$
+    \item exception: None
+\end{itemize}
+
+\noindent draw():
+\begin{itemize}
+    %\item transition: $s := s $\textbackslash$ output$
+    \item output : $out := \exists(c : \mbox{CardT} | c \in d : c)$
+    \item exception: $(|s| = 0 \means \mbox{is\_empty})$
+\end{itemize}
+
+\noindent remCard():
+\begin{itemize}
+  \item transition: $s := s $\textbackslash$ draw()$
+  \item exception: $(|s| = 0 \means \mbox{is\_empty})$
+\end{itemize}
+
+\noindent shuffle():
+\begin{itemize}
+    \item transition: $d := \forall (s : \mbox{SuitT} | s \in \mbox{SuitT} : \forall (r : \mbox{RankT} | r \in \mbox{RankT} : \mbox{append}(d,\mbox{CardT}(s,r)))$
+    \item exception: None
+\end{itemize}
+
+\noindent size():
+\begin{itemize}
+    \item output $out := |d|$
+    \item exception: None
+\end{itemize}
+
+\subsection*{Local Functions}
+
+\noindent append: seq of CardT $\times$ CardT $\means$ seq of CardT\\
+\noindent transition: $S := S||C$
+
+%===================================================
+\newpage
+
+\section*{Stack ADT Module}
+
+\subsection*{Template Module}
+
+Stack
+
+\subsection*{Uses}
+
+CardADT for CardT\\
+
+\subsection*{Syntax}
+
+\subsubsection*{Exported Types}
+
+StackT=?
+
+\subsubsection*{Exported Constants}
+
+None
+
+\subsubsection*{Exported Access Programs}
+
+\begin{tabular}{| l | l | l | l |}
+    \hline
+    \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+    \hline
+    StackT & ~ & ~ & ~\\
+    \hline
+    addCard & CardT & ~ & ~\\
+    \hline
+    remCard & ~ & CardT & is\_empty\\
+    \hline
+    peek & ~ & CardT & is\_empty\\
+    \hline
+    size & ~ & $\mathbb{N}$ & ~\\
+    \hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+$c$: seq of CardT\\
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions}
+
+\begin{itemize}
+    \item The constructor StackT is called for each object instance
+    before any other access routine is called for that object. The
+    constuctor cannot be called on an existing object.
+    \item StackT can be considered empty when it is of length 0 or the
+    StackT is of length 1 and peek() returns a CardT with getSuit()=\m{NAS}
+    and getRank()=\m{NAR}.
+\end{itemize}
+
+\subsubsection* {Access Routine Semantics}
+
+StackT():
+\begin{itemize}
+    \item transition: $c := \{\}$
+    \item output: $out := \mathit{self}$
+    \item exception: None
+\end{itemize}
+
+\noindent addCard(C):
+\begin{itemize}
+    \item transition: $c := c||C$
+    \item exception: None
+\end{itemize}
+
+\noindent remCard():
+\begin{itemize}
+    \item transition: $c := c[1:|c|-1]$
+    \item exception: $(|c|=0 \means \m{is\_empty})$
+\end{itemize}
+
+\noindent peek():
+\begin{itemize}
+    \item output: $out := c[0]$
+    \item exception: $(|c|=0 \means \m{is\_empty})$
+\end{itemize}
+
+\noindent size():
+\begin{itemize}
+    \item output: $out := |c|$
+    \item exception: None
+\end{itemize}
+
+%===================================================
+\newpage
+
+\section*{Board ADT Module}
+
+\subsection*{Template Module}
+
+Board
+
+\subsection*{Uses}
+
+CardADT for CardT, SuitT, RankT\\
+DeckADT for DeckT\\
+StackADT for StackT\\
+
+\subsection*{Syntax}
+
+\subsubsection*{Exported Types}
+
+BoardT=?
+
+\subsubsection*{Exported Constants}
+
+None
+
+\subsubsection*{Exported Access Programs}
+
+\begin{tabular}{| l | l | l | l |}
+    \hline
+    \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+    \hline
+    BoardT & ~ & BoardT & ~\\
+    \hline
+    hasWon & ~ & $\mathbb{B}$ & ~\\
+    \hline
+    getStack & $\mathbb{N}$ & StackT & invalid\_index\\
+    \hline
+    getFree & $\mathbb{N}$ & CardT & invalid\_index\\
+    \hline
+    getWin & $\mathbb{N}$ & CardT & invalid\_index\\
+    \hline
+    setStack & $\mathbb{N}$, StackT & ~ & invalid\_index\\
+    \hline
+    setFree & $\mathbb{N}$, CardT & ~ & invalid\_index\\
+    \hline
+    setWin & $\mathbb{N}$, CardT & ~ & invalid\_index\\
+    \hline
+    moveColToCol & $\mathbb{N},\mathbb{N}$ & ~ & invalid\_index, stack\_empty,\\
+    & & & not\_alternating\_colour, not\_decending\_rank\\
+    \hline
+    moveColToFree & $\mathbb{N},\mathbb{N}$ & ~ & invalid\_index, stack\_empty, occupied\_cell\\
+    \hline
+    moveFreeToCol & $\mathbb{N},\mathbb{N}$ & ~ & invalid\_index, is\_empty, unoccupied\_cell, \\
+    & & & not\_alternating\_colour, not\_decending\_rank\\
+    \hline
+    moveColToWin & $\mathbb{N},\mathbb{N}$ & ~ & invalid\_index, is\_empty, not\_same\_suit, \\
+    & & &not\_ascending\_rank\\
+    \hline
+    moveFreeToWin & $\mathbb{N},\mathbb{N}$ & ~ & invalid\_index, unoccupied\_cell, not\_same\_suit,\\
+    & & & not\_ascending\_rank\\
+    \hline
+    isValidMoves & ~ & $\mathbb{B}$ & ~\\
+    \hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+$col$: sequence of StackT\\
+$fre$: sequence of CardT\\
+$fou$: sequence of CardT\\
+$dek$: DeckT\\
+
+\subsubsection* {State Invariant}
+
+\begin{itemize}
+  \item All StackTs within $col$ must have a CardT with getSuit()=\m{NAS}
+  and getRank()=\m{NAR} at the bottom (first added on).
+\end{itemize}
+
+\subsubsection* {Assumptions}
+
+\begin{itemize}
+    \item The constructor BoardT is called for each object instance
+    before any other access routine is called for that object. The
+    constuctor cannot be called on an existing object.
+    \item Unallocated $fre$ locations are to be filled with a CardT with
+    getSuit()=\m{NAS} and getRank()=\m{NAR}.
+\end{itemize}
+
+\subsubsection* {Access Routine Semantics}
+
+BoardT():
+\begin{itemize}
+    \item transition: $col := \forall(c : \mbox{CardT} | c \in dek : col||c)$
+    
+    \hspace{1.8cm} $fre :=$ seq of CardT
+    
+    \hspace{1.8cm} $fou :=$ seq of CardT
+    
+    \hspace{1.8cm} $dek :=$ DeckT()
+    \item output: $out := \mathit{self}$
+    \item exception: None
+\end{itemize}
+
+\noindent hasWon():
+\begin{itemize}
+  \item output: $out := \m{BoardEmpty}(col) \land \forall(c:\m{CardT}|c \in fre : \m{FreeCellEmpty}(c)) \land forall(C:\m{CardT}|C \in fou : \m{FoundationComplete}(C))$
+  \item exception: None
+\end{itemize}
+
+\noindent getStack(i):
+\begin{itemize}
+  \item output: $out := col[i]$
+  \item exception: $(\lnot (0<=i<8) \means \m{invalid\_index})$
+\end{itemize}
+
+\noindent getFree(i):
+\begin{itemize}
+  \item output: $out := fre[i]$
+  \item exception: $(\lnot (0<=i<4) \means \m{invalid\_index})$
+\end{itemize}
+
+\noindent getWin(i):
+\begin{itemize}
+  \item output: $out := fou[i]$
+  \item exception: $(\lnot (0<=i<4) \means \m{invalid\_index})$
+\end{itemize}
+
+\noindent setStack(i,S):
+\begin{itemize}
+  \item transition: $col[i]=S$
+  \item exception: $(\lnot (0<=i<8) \means \m{invalid\_index})$
+\end{itemize}
+
+\noindent getFree(i,C):
+\begin{itemize}
+  \item transition: $fre[i]=C$
+  \item exception: $(\lnot (0<=i<4) \means \m{invalid\_index})$
+\end{itemize}
+
+\noindent getWin(i,C):
+\begin{itemize}
+  \item transition: $fou[i]=C$
+  \item exception: $(\lnot (0<=i<4) \means \m{invalid\_index})$
+\end{itemize}
+
+\noindent moveColToCol(a,b):
+\begin{itemize}
+    \item transition: $col[a], col[b] := col[a].\m{remCard}(), col[b].\m{addCard}(col[a].\m{peek}())$
+    \item exception: $((\lnot \m{ValidIndex}(8,8,a,b) \means \m{invalid\_index}) \lor (\m{StackEmpty}(col[a]) \means \m{stack\_empty}) \lor (\lnot \m{AlternatingColour}(col[a].\m{peek}(),col[b].\m{peek}()) \means \m{not\_alternating\_colour}) \lor (\lnot \m{DecreasingRank}(col[a].\m{peek}(),col[b].\m{peek}()) \means \m{not\_decreasing\_rank}))$
+\end{itemize}
+
+\noindent moveColToFree(a,b):
+\begin{itemize}
+    \item transition: $col[a], fre[b] := col[a].remCard(), fre[b]=col[a].peek()$
+    \item exception: $((\lnot \m{ValidIndex}(8,4,a,b) \means \m{invalid\_index}) \lor (\m{StackEmpty}(col[a]) \means \m{stack\_empty}) \lor (\lnot \m{CellFree}(b) \means \m{occupied\_cell}))$
+\end{itemize}
+
+\noindent moveFreeToCol(a,b):
+\begin{itemize}
+    \item transition: $fre[a], col[b] := fre[a]=\mbox{CardT}(\mbox{NAS,NAR}), col[a].\m{addCard}(fre[a])$
+    \item exception: $((\lnot \m{ValidIndex}(4,8,a,b) \means \m{invalid\_index}) \lor (\m{StackEmpty}(col[b]) \means \m{stack\_empty}) \lor (\m{CellFree}(a) \means \m{occupied\_cell})) \lor (\lnot \m{AlternatingColour}(fre[a],col[b].\m{peek}()) \means \m{not\_alternating\_colour}) \lor (\lnot \m{DecreasingRank}(fre[a],col[b].\m{peek}()) \means \m{not\_decreasing\_rank}))$
+\end{itemize}
+
+\noindent moveColToWin(a,b):
+\begin{itemize}
+    \item transition: $col[a], fou[b] := col[a].\m{remCard}(), fou[b]=col[a].\m{peek}()$
+    \item exception: $((\lnot \m{ValidIndex}(8,4,a,b) \means \m{invalid\_index}) \lor (\m{StackEmpty}(col[a]) \means \m{stack\_empty}) \lor (\lnot \m{SameSuit}(col[a].\m{peek}(),fou[b]) \means \m{not\_same\_suit}) \lor (\lnot \m{IncreasingRank}(fou[b],col[a].\m{peek}()) \means \m{not\_ascending\_rank})$
+\end{itemize}
+
+\noindent moveFreeToWin(a,b):
+\begin{itemize}
+    \item transition: $fre[a], fou[b] := fre[a]=\mbox{CardT}(\mbox{NAS,NAR}), fou[b]=col[a].\m{peek}()$
+    \item exception: $((\lnot \m{ValidIndex}(4,4,a,b) \means \m{invalid\_index}) \lor (\m{CellFree}(a) \means \m{occupied\_cell})) \lor (\lnot \m{SameSuit}(fre[a],fou[b]) \means \m{not\_same\_suit}) \lor (\lnot \m{IncreasingRank}(fou[b],fre[a] \means \m{not\_ascending\_rank})$
+\end{itemize}
+
+\noindent isValidMoves():
+\begin{itemize}
+    \item output $out := \exists(s:\m{StackT}|s \in col: \exists(c:\m{CardT}|c \in fou: \m{isIncreasingRank}(c,s.\m{peek}()) \land \m{SameSuit}(c,s.\m{peek}()))) \lor \exists(c_1:\m{CardT}|c_1 \in fre: \exists(c_2:\m{CardT}|c_2 \in fou: \m{isIncreasingRank}(c_2,c_1) \land \m{SameSuit}(c_1,c_2)))$\\
+    $\lor \exists(s_1:\m{StackT}|s_1 \in col: \exists(s_2:\m{StackT}|s_2 \in col: s_1 \neq s_2 \land (isIncreasingRank(s_1.peek(),s_2.peek()) \lor isDecreasingRank(s_1.peek(),s_2.peek())) \land iAlternatingRank(S_1.peek(),s_2.peek()) \land \lnot isStackEmpty(s_1) \land \lnot isStackEmpty(s_2) ))$\\
+    $\lor \exists(c_1:\m{CardT}|c_1 \in fre: \exists (s_1:\m{StackT}|s_1 \in col: (\m{AlternatingColour}(c_1,s_1.\m{peek}) \land (\m{IncreasingRank}(c_1,s_1.\m{peek}) \lor \m{DecreasingRank}(c_1,s_1.\m{peek})) \land c_1.\m{isValid}()) \lor (\lnot c_1.\m{isValid})\land \lnot \m{isStackEmpty}(s_1) )) $\\
+    \item exception: None
+\end{itemize}
+
+\subsection*{Local Functions}
+
+\noindent ValidIndex: $\mathbb{N}_1\times\mathbb{N}_2\times\mathbb{N}_3\times\mathbb{N}_4\rightarrow\mathbb{B}$\\
+\noindent output: $out := (0<=\mathbb{N}_3<\mathbb{N}_1) \land (0<=\mathbb{N}_4<\mathbb{N}_2)$\\
+
+\noindent AlternatingColour: $\mbox{CardT}_1 \times \mbox{CardT}_2 \rightarrow \mathbb{B}$\\
+\noindent output: $out := (\mbox{CardT}_1.\m{getColour}()=\m{RED} \land \mbox{CardT}_2.\m{getColour}()=\m{BLACK}) \lor (\mbox{CardT}_1.\m{getColour}()=\m{BLACK} \land \mbox{CardT}_2.\m{getColour}()=\m{RED})$
+
+\noindent IncreasingRank: $\mbox{CardT}_1 \times \mbox{CardT}_2 \rightarrow \mathbb{B}$\\ %lower, higher
+\noindent output: $out := \mbox{CardT}_1.\m{getRank}()=\mbox{CardT}_2.\m{getRank}()-1$\\
+
+\noindent DecreasingRank: $\mbox{CardT} \times \mbox{CardT} \rightarrow \mathbb{B}$\\ %higher, lower
+\noindent output: $out := \mbox{CardT}_1.\m{getRank}()=\mbox{CardT}_2.\m{getRank}()+1$\\
+
+\noindent StackEmpty: $\mbox{StackT} \rightarrow \mathbb{B}$\\
+\noindent output: $out := \m{StackT}.\m{size}()=0 \lor (\m{StackT}.\m{size}()=1 \land \lnot \m{StackT.peek.isValid}())$\\
+
+\noindent CellFree: $\mathbb{N} \times \mbox{seq of CardT} \rightarrow \mathbb{B}$\\
+\noindent output: $out := \lnot (\mbox{seq of CardT})[\mathbb{N}].\m{isValid}$\\
+
+\noindent SameSuit: $\mbox{CardT}_1 \times \mbox{CardT}_2 \rightarrow \mathbb{B}$\\
+\noindent output: $out := \mbox{CardT}_1.\m{getSuit}()=\mbox{CardT}_2.\m{getSuit}()$\\
+
+\noindent BoardEmpty: $\mbox{seq of StackT} \rightarrow \mathbb{B}$\\
+\noindent output: $out := \forall(s : \mbox{StackT} | s \in (\mbox{seq of StackT} : \m{StackEmpty}(s))$\\
+
+\noindent FreeCellEmpty: $\mbox{seq of CardT} \rightarrow \mathbb{B}$\\
+\noindent output: $out := \forall(c : \mbox{CardT} | c \in \mbox{seq of CardT} : \lnot c.\m{isValid}())$\\
+
+\noindent FoundationComplete: $\mbox{seq of CardT} \rightarrow \mathbb{B}$\\
+\noindent output: $out := \forall(c : \mbox{CardT} | c \in \mbox{seq of CardT} : c.\m{getRank}()=\m{KING}) \land \forall(s_1 : \mbox{CardT} | s_1 \in \mbox{seq of CardT} : s_1.\m{getSuit} \neq \mbox{NAS} \land \forall(s_2 : \mbox{CardT} | s_2 \in \mbox{seq of CardT} \mbox{\textbackslash} s_1 : s_1.\m{getSuit}() \neq s_2.\m{getSuit}()))$\\
+
+%\noindent <name>: <mathematical input>\\
+%\noindent transition: <spec>
+
+\end{document}
