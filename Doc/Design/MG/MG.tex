@@ -56,7 +56,7 @@
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 Oct 29/18 & 0.1 & Added basic information\\
-Nov 7/18 & 0.15 & Added anticipated changes
+Nov 7/18 & 0.15 & Added anticipated changes\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -118,42 +118,39 @@ other shows the relation between anticipated changes and the modules. Section
 
 \section{Anticipated and Unlikely Changes} \label{SecChange}
 
-This section lists possible changes to the system. According to the likeliness
-of the change, the possible changes are classified into two
-categories. Anticipated changes are listed in Section \ref{SecAchange}, and
-unlikely changes are listed in Section \ref{SecUchange}.
+This section lists possible changes to the system. According to the likeliness of the change, the possible changes are classified into two categories. Anticipated changes are listed in Section \ref{SecAchange}, and unlikely changes are listed in Section \ref{SecUchange}.
 
 \subsection{Anticipated Changes} \label{SecAchange}
 
-Anticipated changes are the source of the information that is to be hidden
-inside the modules. Ideally, changing one of the anticipated changes will only
-require changing the one module that hides the associated decision. The approach
-adapted here is called design for
-change.
+Anticipated changes are the source of the information that is to be hidden inside the modules. Ideally, changing one of the anticipated changes will only require changing the one module that hides the associated decision. The approach adapted here is called design for change.
 
 \begin{description}
-\item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] The specific
-  hardware on which the software is running.
-\item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the
-  initial input data.
-\item ...
+\item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] Staroids must be kept up to date with any new operating systems or updates to the supported internet browsers are released.
+\item[\refstepcounter{acnum} \actheacnum \label{acGameobject}:] Collision detection between all on screen sprites.
+\item[\refstepcounter{acnum} \actheacnum \label{acGameobject}:] Relative speed of all projectiles (both player and alien shot)
+\item[\refstepcounter{acnum} \actheacnum \label{acGameobject}:] Speed, locomotion, size and spawning of the alien
+\item[\refstepcounter{acnum} \actheacnum \label{acGameobject}:] The shape and size of asteroids
+\item[\refstepcounter{acnum} \actheacnum \label{acGamestate}:] Amount of lives given to the player when the game starts.
+\item[\refstepcounter{acnum} \actheacnum \label{acUtilites}:] Enlarging of the playing screen and the scale of all on screen objects.
+\item[\refstepcounter{acnum} \actheacnum \label{acSound}:] Player firing and destruction sounds.
+
 \end{description}
 
 \subsection{Unlikely Changes} \label{SecUchange}
 
-The module design should be as general as possible. However, a general system is
-more complex. Sometimes this complexity is not necessary. Fixing some design
-decisions at the system architecture stage can simplify the software design. If
-these decision should later need to be changed, then many parts of the design
-will potentially need to be modified. Hence, it is not intended that these
-decisions will be changed.
+The module design should be as general as possible. However, a general system is more complex. Sometimes this complexity is not necessary. Fixing some design decisions at the system architecture stage can simplify the software design. If these decision should later need to be changed, then many parts of the design will potentially need to be modified. Hence, it is not intended that these decisions will be changed.
 
 \begin{description}
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices
-  (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucInput}:] There will always be
-  a source of input data external to the software.
-\item ...
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucUtilities}:] The control mapping for the player ship.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucUtilities}:] Support for two players to be active at the same time.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucGameobject}:] Player object support for a cooperative or adversarial game mode.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucGameObject}:] The base game
+  object class that the player asteroid and bullets are based on is not expected
+  to be changed.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucSoundModule}:] The sound module
+  itself is not likely to be changed as all the sounds for game actions have already
+  been defined in it. If a sound is to be changed it doesn't require the module to
+  updated, just the file to be specifically named to replace the old sound.
 \end{description}
 
 \section{Module Hierarchy} \label{SecMH}
@@ -165,7 +162,11 @@ actually be implemented.
 
 \begin{description}
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item ...
+\item [\refstepcounter{mnum} \mthemnum \label{mBHa}:] appendHead Module
+\item [\refstepcounter{mnum} \mthemnum \label{mSDgs}:] GameState Module
+\item [\refstepcounter{mnum} \mthemnum \label{mSDgo}:] GameObject Module
+\item [\refstepcounter{mnum} \mthemnum \label{mBHu}:] Utilities Module
+\item [\refstepcounter{mnum} \mthemnum \label{mSDs}:] Sound Module
 \end{description}
 
 
@@ -176,13 +177,13 @@ actually be implemented.
 \textbf{Level 1} & \textbf{Level 2}\\
 \midrule
 
-{Hardware-Hiding Module} & ~ \\
+{Hardware-Hiding Module} & M1 \\
 \midrule
 
 \multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & ?\\
-& ?\\
-& ?\\
-& ?\\
+& M2 \\
+& M5 \\
+& M6 \\
 & ?\\
 & ?\\
 & ?\\
@@ -190,8 +191,8 @@ actually be implemented.
 \midrule
 
 \multirow{3}{0.3\textwidth}{Software Decision Module} & {?}\\
-& ?\\
-& ?\\
+& M3\\
+& M4\\
 \bottomrule
 
 \end{tabular}
@@ -246,6 +247,13 @@ selected.
 \item[Implemented By:] --
 \end{description}
 
+\subsubsection{Sound Module (\mref{mSDs})}
+\begin{description}
+\item[Secrets:] How sounds are played, how audio files are accessed, and the states of each audio object.
+\item[Services:] Controls a plethora of options for each sound that the game might need including: muting, unmuting, pausing and unpausing, stoping, and checking if the sound is paused.
+\item[Implemented By:] sound.js
+\end{description}
+
 \subsubsection{Input Format Module (\mref{mInput})}
 
 \begin{description}
@@ -255,7 +263,12 @@ selected.
 \item[Implemented By:] [Your Program Name Here]
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{Utilites Module (\mref{mBHu})}
+\begin{description}
+\item[Secrets:]The values of all constants for the game such as max speed ship size ect, and variables to handle user inputs.
+\item[Services:] Funtions to test for if a key is pressed. The game object consisting of score, lives, asteroids ect. As well as functions to
+\item[Implemented By:] Utilities.js
+\end{description}
 
 
 \subsection{Software Decision Module}
@@ -310,17 +323,23 @@ R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
 \textbf{AC} & \textbf{Modules}\\
 \midrule
 \acref{acHardware} & \mref{mHH}\\
-\acref{acInput} & \mref{mInput}\\
-\acref{acParams} & \mref{mParams}\\
-\acref{acVerify} & \mref{mVerify}\\
-\acref{acOutput} & \mref{mOutput}\\
-\acref{acVerifyOut} & \mref{mVerifyOut}\\
-\acref{acODEs} & \mref{mODEs}\\
-\acref{acEnergy} & \mref{mEnergy}\\
-\acref{acControl} & \mref{mControl}\\
-\acref{acSeqDS} & \mref{mSeqDS}\\
-\acref{acSolver} & \mref{mSolver}\\
-\acref{acPlot} & \mref{mPlot}\\
+\acref{acAppend} & \mref{mBHa}\\
+\acref{acGamestate} & \mref{mSDgs}\\
+\acref{acGameobject} & \mref{mSDgo}\\
+\acref{acUtilities} & \mref{mBHu}\\
+\acref{acSound} & \mref{mSDs}\\
+%\acref{acHardware} & \mref{mHH}\\
+%\acref{acInput} & \mref{mBHa}\\
+%\acref{acParams} & \mref{mSDgs}\\
+%\acref{acVerify} & \mref{mSDgo}\\
+%\acref{acOutput} & \mref{mBHu}\\
+%\acref{acVerifyOut} & \mref{mSDs}\\
+%\acref{acODEs} & \mref{mODEs}\\
+%\acref{acEnergy} & \mref{mEnergy}\\
+%\acref{acControl} & \mref{mControl}\\
+%\acref{acSeqDS} & \mref{mSeqDS}\\
+%\acref{acSolver} & \mref{mSolver}\\
+%\acref{acPlot} & \mref{mPlot}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Anticipated Changes and Modules}
