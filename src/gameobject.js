@@ -601,7 +601,7 @@ Alien = function(){
         y: Math.sin(this.x),
         x: 2
       };
-    }
+    };
     /** Vector representing the acceleration of the player */
     this.acc = {
       x: 0,
@@ -645,9 +645,9 @@ Alien = function(){
     this.timeOut2 -=1;
     this.timeOut3 -=1;
     if (this.xOrY){
-      this.vel.x = 5*Math.sin(0.1*this.y);
+      this.vel.x = 6*Math.sin(0.05*this.y);
     }else{
-      this.vel.y = 5*Math.sin(0.1*this.x);
+      this.vel.y = 6*Math.sin(0.05*this.x);
     };
     if (this.timeOut<=0 && this.timeOut2 <= 0){
       this.timeOut = 50;
@@ -703,8 +703,14 @@ Alien = function(){
     this.timeOut3 = 75;
     this.timeOut2 = 200;
     this.timeOut = 50;
-    this.x = Math.round(10 + (Math.random() * CVS_WIDTH - 10));
-    this.y = -50;
+    this.xOrY = Math.random() < 0.5 ? 1 : 0;
+    if (this.xOrY) {
+      this.x = Math.round((Math.random() * CVS_WIDTH));
+      this.y = -50;
+    } else {
+      this.y = Math.round((Math.random() * CVS_HEIGHT));
+      this.x = -50;
+    };
   };
 };
 Alien.prototype = new GameObject();
