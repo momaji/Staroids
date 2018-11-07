@@ -56,6 +56,7 @@
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 Oct 29/18 & 0.1 & Added basic information\\
+Nov 7/18 & 0.15 & Added anticipated changes
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -135,8 +136,7 @@ change.
   hardware on which the software is running.
 \item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the
   initial input data.
-\item[\refstepcounter{acnum} \actheacnum \label{acAsteroid}:] The shapes of the
-  asteroids.
+\item ...
 \end{description}
 
 \subsection{Unlikely Changes} \label{SecUchange}
@@ -153,13 +153,7 @@ decisions will be changed.
   (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucInput}:] There will always be
   a source of input data external to the software.
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucGameObject}:] The base game
-  object class that the player asteroid and bullets are based on is not expected
-  to be changed.
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucSoundModule}:] The sound module
-  itself is not likely to be changed as all the sounds for game actions have already
-  been defined in it. If a sound is to be changed it doesn't require the module to
-  updated, just the file to be specifically named to replace the old sound.
+\item ...
 \end{description}
 
 \section{Module Hierarchy} \label{SecMH}
@@ -171,11 +165,7 @@ actually be implemented.
 
 \begin{description}
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item [\refstepcounter{mnum} \mthemnum \label{mBHa}:] appendHead Module
-\item [\refstepcounter{mnum} \mthemnum \label{mSDgs}:] GameState Module
-\item [\refstepcounter{mnum} \mthemnum \label{mSDgo}:] GameObject Module
-\item [\refstepcounter{mnum} \mthemnum \label{mBHu}:] Utilities Module
-\item [\refstepcounter{mnum} \mthemnum \label{mSDs}:] Sound Module
+\item ...
 \end{description}
 
 
@@ -186,13 +176,13 @@ actually be implemented.
 \textbf{Level 1} & \textbf{Level 2}\\
 \midrule
 
-{Hardware-Hiding Module} & M1 \\
+{Hardware-Hiding Module} & ~ \\
 \midrule
 
 \multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & ?\\
-M2 ?\\
-M5 ?\\
-M6 ?\\
+& ?\\
+& ?\\
+& ?\\
 & ?\\
 & ?\\
 & ?\\
@@ -200,8 +190,8 @@ M6 ?\\
 \midrule
 
 \multirow{3}{0.3\textwidth}{Software Decision Module} & {?}\\
-M3 ?\\
-M4 ?\\
+& ?\\
+& ?\\
 \bottomrule
 
 \end{tabular}
