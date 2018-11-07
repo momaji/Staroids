@@ -708,6 +708,17 @@ Alien = function(){
       this.y = Math.round((Math.random() * CVS_HEIGHT));
       this.x = -50;
     };
+    if (this.xOrY) {
+      this.vel = {
+        x: Math.sin(this.y),
+        y: 2
+      };
+    } else {
+      this.vel = {
+        y: Math.sin(this.x),
+        x: 2
+      };
+    };
   };
 };
 Alien.prototype = new GameObject();
