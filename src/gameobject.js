@@ -574,9 +574,8 @@ Bullet.prototype = new GameObject();
 /** Representation of the alien spaceship
  * @constructor */
 Alien = function(){
-  this.timeOut3 = 75; //What are these???
-  this.timeOut2 = 200;
-  this.timeOut = 50;
+  this.timeSpawn = 200; //time between respawns
+  this.timeOut = 50; //time between bullets
   this.xOrY = true;
 
   this.init = function(ctx){
@@ -613,7 +612,7 @@ Alien = function(){
   };
   /** Draws the alien to the screen */
   this.draw = function(){
-    if(this.timeOut2 <= 0){
+    if(this.timeSpawn <= 0){
       if (this.getActivity()){
         this.ctx.beginPath();
         this.ctx.fillRect(this.x, this.y, 25,25);
@@ -623,10 +622,10 @@ Alien = function(){
   };
   /** Moves the alien around the screen */
   this.move = function(){
-    if (this.timeOut2 <= 0) {
+    if (this.timeSpawn <= 0) {
       this.x += this.vel.x;
       this.y += this.vel.y;
-      if(this.timeOut2 <= -10){
+      if(this.timeSpawn <= -10){
         if (this.x < 0 - this.r){
           this.x = CVS_WIDTH + this.r;
         } else if (this.x > CVS_WIDTH + this.r){
@@ -642,14 +641,13 @@ Alien = function(){
   };
 
   this.action = function(){
-    this.timeOut2 -=1;
-    this.timeOut3 -=1;
+    this.timeSpawn -=1;
     if (this.xOrY){
       this.vel.x = 6*Math.sin(0.05*this.y);
     }else{
       this.vel.y = 6*Math.sin(0.05*this.x);
     };
-    if (this.timeOut<=0 && this.timeOut2 <= 0){
+    if (this.timeOut<=0 && this.timeSpawn <= 0){
       this.timeOut = 50;
       aBull = new AlienBullet();
       aBull.init(this);
@@ -700,8 +698,7 @@ Alien = function(){
   };
 
   this.die = function () {
-    this.timeOut3 = 75;
-    this.timeOut2 = 200;
+    this.timeSpawn = 200;
     this.timeOut = 50;
     this.xOrY = Math.random() < 0.5 ? 1 : 0;
     if (this.xOrY) {
