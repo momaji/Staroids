@@ -57,6 +57,8 @@
 \midrule
 Oct 29/18 & 0.1 & Added basic information\\
 Nov 7/18 & 0.15 & Added anticipated changes\\
+Nov 7/18 & 0.2 & Added some parts of module decomposition\\
+Nov 7/18 & 0.25 & Added unlikely changes\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -126,13 +128,16 @@ Anticipated changes are the source of the information that is to be hidden insid
 
 \begin{description}
 \item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] Staroids must be kept up to date with any new operating systems or updates to the supported internet browsers are released.
+\item[\refstepcounter{acnum} \actheacnum \label{acUtilites}:] Enlarging of the playing screen and the scale of all on screen objects.
 \item[\refstepcounter{acnum} \actheacnum \label{acGameobject}:] Collision detection between all on screen sprites.
 \item[\refstepcounter{acnum} \actheacnum \label{acGameobject}:] Relative speed of all projectiles (both player and alien shot)
 \item[\refstepcounter{acnum} \actheacnum \label{acGameobject}:] Speed, locomotion, size and spawning of the alien
 \item[\refstepcounter{acnum} \actheacnum \label{acGameobject}:] The shape and size of asteroids
 \item[\refstepcounter{acnum} \actheacnum \label{acGamestate}:] Amount of lives given to the player when the game starts.
-\item[\refstepcounter{acnum} \actheacnum \label{acUtilites}:] Enlarging of the playing screen and the scale of all on screen objects.
+
 \item[\refstepcounter{acnum} \actheacnum \label{acSound}:] Player firing and destruction sounds.
+\item[\refstepcounter{ucnum} \uctheucnum \label{acUtilities}:] Support for two players to be active at the same time.
+\item[\refstepcounter{ucnum} \uctheucnum \label{acGameobject}:] Player object support for a cooperative or adversarial game mode.
 
 \end{description}
 
@@ -141,16 +146,11 @@ Anticipated changes are the source of the information that is to be hidden insid
 The module design should be as general as possible. However, a general system is more complex. Sometimes this complexity is not necessary. Fixing some design decisions at the system architecture stage can simplify the software design. If these decision should later need to be changed, then many parts of the design will potentially need to be modified. Hence, it is not intended that these decisions will be changed.
 
 \begin{description}
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucUtilities}:] The control mapping for the player ship.
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucUtilities}:] Support for two players to be active at the same time.
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucGameobject}:] Player object support for a cooperative or adversarial game mode.
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucGameObject}:] The base game
-  object class that the player asteroid and bullets are based on is not expected
-  to be changed.
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucSoundModule}:] The sound module
-  itself is not likely to be changed as all the sounds for game actions have already
-  been defined in it. If a sound is to be changed it doesn't require the module to
-  updated, just the file to be specifically named to replace the old sound.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucUtilities}:] Controls for the player and menu operations.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucSound}:] The sound module's method of playing sounds and controls over existing sounds.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucGameobject}:] The destructive property of the large and medium asteroids into 3 asteroids of one size smaller.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucGamestate}:] The state structure of the core game and how the states transfer into one another.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucGamestate}:] Method of text dislaying to the screen.
 \end{description}
 
 \section{Module Hierarchy} \label{SecMH}
@@ -163,10 +163,10 @@ actually be implemented.
 \begin{description}
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
 \item [\refstepcounter{mnum} \mthemnum \label{mBHa}:] appendHead Module
-\item [\refstepcounter{mnum} \mthemnum \label{mSDgs}:] GameState Module
-\item [\refstepcounter{mnum} \mthemnum \label{mSDgo}:] GameObject Module
 \item [\refstepcounter{mnum} \mthemnum \label{mBHu}:] Utilities Module
 \item [\refstepcounter{mnum} \mthemnum \label{mSDs}:] Sound Module
+\item [\refstepcounter{mnum} \mthemnum \label{mSDgo}:] GameObject Module
+\item [\refstepcounter{mnum} \mthemnum \label{mSDgs}:] GameState Module
 \end{description}
 
 
@@ -184,9 +184,6 @@ actually be implemented.
 & M2 \\
 & M5 \\
 & M6 \\
-& ?\\
-& ?\\
-& ?\\
 & ?\\
 \midrule
 
@@ -265,9 +262,9 @@ selected.
 
 \subsubsection{Utilites Module (\mref{mBHu})}
 \begin{description}
-\item[Secrets:]The values of all constants for the game such as max speed ship size ect, and variables to handle user inputs.
-\item[Services:] Funtions to test for if a key is pressed. The game object consisting of score, lives, asteroids ect. As well as functions to
-\item[Implemented By:] Utilities.js
+\item[Secrets:]The values of all constants for the game such as max speed ship size ect, and variables to handle user inputs of pressed keys.
+\item[Services:] Funtions to test for if a key is pressed. The game object consisting of score, lives, asteroids ect, as well as getters and setters for all game object attributes.
+\item[Implemented By:] utilities.js
 \end{description}
 
 
@@ -284,7 +281,16 @@ selected.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Etc.}
+%\subsubsection{GameObject Module (\mref{mSDgo})}
+%\item[Secrets:] The design decision based on mathematical theorems, physical
+%  facts, or programming considerations. The secrets of this module are
+%  \emph{not} described in the SRS.
+%\item[Services:] Includes data structure and algorithms used in the system that
+%  do not provide direct interaction with the user.
+%  % Changes in these modules are more likely to be motivated by a desire to
+%  % improve performance than by externally imposed changes.
+%\item[Implemented By:] --
+
 
 \section{Traceability Matrix} \label{SecTM}
 
