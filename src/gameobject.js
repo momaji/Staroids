@@ -593,12 +593,12 @@ Alien = function(){
     /* Vector representing the velocity of the player */
     if (this.xOrY) {
       this.vel = {
-        x: Math.random() + 1,
+        x: Math.sin(this.y),
         y: 2
       };
     } else {
       this.vel = {
-        y: Math.random() + 1,
+        y: Math.sin(this.x),
         x: 2
       };
     }
@@ -644,14 +644,10 @@ Alien = function(){
   this.action = function(){
     this.timeOut2 -=1;
     this.timeOut3 -=1;
-    if(this.timeOut3 <= 0){
-      if (this.xOrY){
-        this.vel.x = -this.vel.x;
-        this.timeOut3 = 75;
-      }else{
-        this.vel.y = -this.vel.y;
-        this.timeOut3 = 75;
-      }
+    if (this.xOrY){
+      this.vel.x = 5*Math.sin(0.1*this.y);
+    }else{
+      this.vel.y = 5*Math.sin(0.1*this.x);
     };
     if (this.timeOut<=0 && this.timeOut2 <= 0){
       this.timeOut = 50;
