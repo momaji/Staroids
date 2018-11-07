@@ -135,7 +135,8 @@ change.
   hardware on which the software is running.
 \item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the
   initial input data.
-\item ...
+\item[\refstepcounter{acnum} \actheacnum \label{acAsteroid}:] The shapes of the
+  asteroids.
 \end{description}
 
 \subsection{Unlikely Changes} \label{SecUchange}
@@ -152,7 +153,13 @@ decisions will be changed.
   (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucInput}:] There will always be
   a source of input data external to the software.
-\item ...
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucGameObject}:] The base game
+  object class that the player asteroid and bullets are based on is not expected
+  to be changed.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucSoundModule}:] The sound module
+  itself is not likely to be changed as all the sounds for game actions have already
+  been defined in it. If a sound is to be changed it doesn't require the module to
+  updated, just the file to be specifically named to replace the old sound.
 \end{description}
 
 \section{Module Hierarchy} \label{SecMH}
