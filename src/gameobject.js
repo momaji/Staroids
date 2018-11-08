@@ -577,28 +577,54 @@ Alien = function(){
   this.timeSpawn = ALIEN_SPAWN; //time between respawns
   this.timeOut = 50; //time between bullets
   this.xOrY = true;
+  this.lOrR = true;
 
   this.init = function(ctx){
     /** Draws the bullets onto the screen */
     Alien.prototype.init(ctx,"alien");
     this.xOrY = Math.random() < 0.5 ? true : false;
-    if(this.xOrY){
-      this.x = Math.round((Math.random() * CVS_WIDTH));
-      this.y = -50;
+    this.lOrR = Math.random() < 0.5 ? true : false;
+    if(this.lOrR){
+      if(this.xOrY){
+        this.x = Math.round((Math.random() * CVS_WIDTH));
+        this.y = -50;
+      }else{
+        this.y = Math.round((Math.random() * CVS_HEIGHT));
+        this.x = -50;
+      };
     }else{
-      this.y = Math.round((Math.random() * CVS_HEIGHT));
-      this.x = -50;
+      if (this.xOrY) {
+        this.x = Math.round((Math.random() * CVS_WIDTH));
+        this.y = CVS_HEIGHT + 50;
+      } else {
+        this.y = Math.round((Math.random() * CVS_HEIGHT));
+        this.x = CVS_WIDTH + 50;
+      };
     };
     /* Vector representing the velocity of the player */
-    if (this.xOrY) {
-      this.vel = {
-        x: Math.sin(this.y),
-        y: 2
+    if(this.lOrR){
+      if (this.xOrY) {
+        this.vel = {
+          x: Math.sin(this.y),
+          y: 2
+        };
+      } else {
+        this.vel = {
+          y: Math.sin(this.x),
+          x: 2
+        };
       };
-    } else {
-      this.vel = {
-        y: Math.sin(this.x),
-        x: 2
+    }else{
+      if (this.xOrY) {
+        this.vel = {
+          x: Math.sin(this.y),
+          y: -2
+        };
+      } else {
+        this.vel = {
+          y: Math.sin(this.x),
+          x: -2
+        };
       };
     };
     /** Vector representing the acceleration of the player */
@@ -701,22 +727,48 @@ Alien = function(){
     this.timeSpawn = ALIEN_SPAWN;
     this.timeOut = 50;
     this.xOrY = Math.random() < 0.5 ? 1 : 0;
-    if (this.xOrY) {
-      this.x = Math.round((Math.random() * CVS_WIDTH));
-      this.y = -50;
-    } else {
-      this.y = Math.round((Math.random() * CVS_HEIGHT));
-      this.x = -50;
-    };
-    if (this.xOrY) {
-      this.vel = {
-        x: Math.sin(this.y),
-        y: 2
+    this.lOrR = Math.random() < 0.5 ? true : false;
+    if (this.lOrR) {
+      if (this.xOrY) {
+        this.x = Math.round((Math.random() * CVS_WIDTH));
+        this.y = -50;
+      } else {
+        this.y = Math.round((Math.random() * CVS_HEIGHT));
+        this.x = -50;
       };
     } else {
-      this.vel = {
-        y: Math.sin(this.x),
-        x: 2
+      if (this.xOrY) {
+        this.x = Math.round((Math.random() * CVS_WIDTH));
+        this.y = CVS_HEIGHT + 50;
+      } else {
+        this.y = Math.round((Math.random() * CVS_HEIGHT));
+        this.x = CVS_WIDTH + 50;
+      };
+    };
+    /* Vector representing the velocity of the player */
+    if (this.lOrR) {
+      if (this.xOrY) {
+        this.vel = {
+          x: Math.sin(this.y),
+          y: 2
+        };
+      } else {
+        this.vel = {
+          y: Math.sin(this.x),
+          x: 2
+        };
+      };
+    } else {
+      if (this.xOrY) {
+        this.vel = {
+          x: Math.sin(this.y),
+          y: -2
+        };
+      } else {
+        this.vel = {
+          y: Math.sin(this.x),
+          x: -2
+        };
       };
     };
   };
