@@ -30,11 +30,29 @@
 \newcommand{\m}[1]{\mbox{#1}}
 
 \title{Staroids, Module Interface Specification}
-\author{Jason Nagy}
+\author{Team 20, Staroids
+  \\ Moziah San Vicente, 400091284, sanvicem
+  \\ Eoin Lynagh, 400067675, lynaghe
+  \\ Jason Nagy, 400055130, nagyj2
+}
+
+
 
 \begin{document}
 
 \maketitle
+
+\begin{table}[bp]
+\caption{\bf Revision History}
+\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
+\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+\midrule
+Nov 06/18 & 0.1 & Added basic information to template\\
+Nov 07/18 & 0.2 & Added Head module specification\\
+Nov 08/18 & 0.3 & Added all module specifications\\
+\bottomrule
+\end{tabularx}
+\end{table}
 
 The following is a series of MISes for the modules that comprise the Staroids game
 
@@ -153,8 +171,8 @@ emph & $String, \mathbb{Z}, \mathbb{Z}$ &  & ~\\
 
 \subsubsection*{State Variables}
 
-$cvs$=Screen %ASK
-$fnt$=Font %ASK
+$cvs$: Screen %ASK
+$fnt$: Font %ASK
 
 \subsubsection*{State Invariant}
 
@@ -180,8 +198,60 @@ emph($Str,x,y$):
     \item exception: None
 \end{itemize}
 
-
 \newpage %Game
+
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+Game &  & ~\\
+\hline
+reduceCounter & $String, \mathbb{Z}, \mathbb{Z}$ &  & ~\\
+\hline
+resetMute &  &  & ~\\
+\hline
+resetPause &  &  & ~\\
+\hline
+drawLives &  &  & ~\\
+\hline
+addScore & $\mathbb{Z}$ &  & ~\\
+\hline
+addSprites & OBJECT &  & ~\\
+\hline
+subLives & $\mathbb{Z}$ &  & ~\\
+\hline
+subSprites & OBJECT &  & ~\\
+\hline
+\end{tabular}
+
+\subsection*{Semantics}
+
+\subsubsection*{State Variables}
+
+$score$: $\mathbb{N}$
+$lives$: $\mathbb{N}$
+$sprites$: sequence of OBJECT
+$muteSound$: $\mathbb{N}$
+$pauseGame$: $\mathbb{N}$
+
+\subsubsection*{State Invariant}
+
+None
+
+\subsubsection*{Assumptions}
+
+\begin{itemize}
+\end{itemize}
+
+None
+
+\subsubsection*{Access Routine Semantics}
+
+Game():
+\begin{itemize}
+    \item transition: $score = 0 \land lives = 3 \land sprites = seq. of \mbox{OBJECT} $
+    \item exception: None
+\end{itemize}
 
 %==================================================
 \newpage
@@ -243,70 +313,76 @@ Sound: Audio object from file
 
 Sound():
 \begin{itemize}
-  \item transition: muted := true
+  \item transition: $muted := true$
   %ask about the Audio objects
 \end{itemize}
 
 play():
 \begin{itemize}
-  \item
+  \item input: $in := x \in \mbox{Sound}$
+  \item transition: $!in.muted: in.play()$
 \end{itemize}
 
-DeckT():
+isPlay():
 \begin{itemize}
-    \item transition: $d := \forall (s : \mbox{SuitT} | s \in \mbox{SuitT} : \forall (r : \mbox{RankT} | r \in \mbox{RankT} : \mbox{append}(d,\mbox{CardT}(s,r)))$
-    \item output: $out := \mathit{self}$
-    \item exception: None
+  \item input: $in := x \in \mbox{Sound}$
+  \item output: $out := !x.paused()$
 \end{itemize}
 
-\noindent draw():
+pause():
 \begin{itemize}
-    %\item transition: $s := s $\textbackslash$ output$
-    \item output : $out := \exists(c : \mbox{CardT} | c \in d : c)$
-    \item exception: $(|s| = 0 \means \mbox{is\_empty})$
+  \item input: $in := x \in \mbox{Sound}$
+  \item transition: $in.paused := true$
 \end{itemize}
 
-\noindent remCard():
+unpause():
 \begin{itemize}
-  \item transition: $s := s $\textbackslash$ draw()$
-  \item exception: $(|s| = 0 \means \mbox{is\_empty})$
+  \item input: $in := x \in \mbox{Sound}$
+  \item transition: $in.paused := !true$
 \end{itemize}
 
-\noindent shuffle():
+stop():
 \begin{itemize}
-    \item transition: $d := \forall (s : \mbox{SuitT} | s \in \mbox{SuitT} : \forall (r : \mbox{RankT} | r \in \mbox{RankT} : \mbox{append}(d,\mbox{CardT}(s,r)))$
-    \item exception: None
+  \item input: $in := x \in \mbox{Sound}$
+  \item transition: $in.paused := true && this.currentTime := 0$
 \end{itemize}
 
-\noindent size():
+mute():
 \begin{itemize}
-    \item output $out := |d|$
-    \item exception: None
+  \item input: $in := x \in \mbox{Sound}$
+  \item transition: $in.muted := true$
 \end{itemize}
 
-\subsection*{Local Functions}
+unmute():
+\begin{itemize}
+  \item input: $in := x \in \mbox{Sound}$
+  \item transition: $in.muted := !true$
+\end{itemize}
 
-\noindent append: seq of CardT $\times$ CardT $\means$ seq of CardT\\
-\noindent transition: $S := S||C$
+toggle():
+\begin{itemize}
+  \item input: $in := x \in \mbox{Sound}$
+  \item transition: $in.muted := !in.muted$
+\end{itemize}
 
 %===================================================
 \newpage
 
-\section*{Stack ADT Module}
+\section*{GameObject Module}
 
 \subsection*{Template Module}
 
-Stack
+GameObject
 
 \subsection*{Uses}
 
-CardADT for CardT\\
+N/A\\
 
 \subsection*{Syntax}
 
 \subsubsection*{Exported Types}
 
-StackT=?
+GameObject, Player, Alien
 
 \subsubsection*{Exported Constants}
 
@@ -571,6 +647,18 @@ BoardT():
 \end{itemize}
 
 \subsection*{Local Functions}
+
+\noindent screenShow: $String\times\{\mbox{NORMAL},\mbox{EMPHASIS}\}$
+\noindent output: $out := $ %ASK
+
+
+%QUESTIONS GO HERE
+
+% How to deal with: Drawing to screen, printing
+% Can a 'refer to JSDoc Documentation' be used for simple getters and setters
+
+
+
 
 \noindent ValidIndex: $\mathbb{N}_1\times\mathbb{N}_2\times\mathbb{N}_3\times\mathbb{N}_4\rightarrow\mathbb{B}$\\
 \noindent output: $out := (0<=\mathbb{N}_3<\mathbb{N}_1) \land (0<=\mathbb{N}_4<\mathbb{N}_2)$\\
