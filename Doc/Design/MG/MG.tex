@@ -73,7 +73,7 @@ Nov 7/18 & 0.4 & Removed unnessesary sections\\
 
 \section{Introduction}
 
-Decomposing a system into modules is a commonly accepted approach to developing software.  A module is a work assignment for a programmer or programming team~\citep{ParnasEtAl1984}.  We advocate a decomposition based on the principle of information hiding~\citep{Parnas1972a}.  This principle supports design for change, because the ``secrets'' that each module hides represent likely future changes.  Design for change is valuable in SC, where modifications are frequent, especially during initial development as the solution space is explored.
+Staroids is decomposed into many modules, as is the commonly accepted approach to developing software. A module is a work assignment for a programmer or programming team~\citep{ParnasEtAl1984}. We advocate a decomposition based on the principle of information hiding~\citep{Parnas1972a}. This principle supports design for change, because the ``secrets'' that each module hides represent likely future changes. Staroids is developed with the knowledge that modifications are frequent and is developed to best support these modifications in future.
 
 Our design follows the rules layed out by \citet{ParnasEtAl1984}, as follows:
 \begin{itemize}
@@ -82,7 +82,7 @@ Our design follows the rules layed out by \citet{ParnasEtAl1984}, as follows:
 \item Any other program that requires information stored in a module's data structures must obtain it by calling access programs belonging to that module.
 \end{itemize}
 
-After completing the first stage of the design, the Software Requirements Specification (SRS), the Module Guide (MG) is developed~\citep{ParnasEtAl1984}. The MG specifies the modular structure of the system and is intended to allow both designers and maintainers to easily identify the parts of the software.  The potential readers of this document are as follows:
+After completing the first stage of Staroids, the Software Requirements Specification (SRS), the Module Guide (MG) were developed. The MG specifies the modular structure of the system and is intended to allow both designers and maintainers to easily identify the parts of the software.  The potential readers of this document are as follows:
 
 \begin{itemize}
 \item New project members: This document can be a guide for a new project member to easily understand the overall structure and quickly find the relevant modules they are searching for.
