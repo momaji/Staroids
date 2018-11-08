@@ -70,6 +70,7 @@ KILLABLE=\{True,False\}\\
 MAX_ASTEROIDS=2\\
 TEST=\{True,False\}\\
 KeyCode=\{UP,DOWN,RIGHT,LEFT,SPACE,M,P,R\}\\
+EPOCH=1\\
 Key=?\\
 Text=?\\
 Game=?\\
@@ -117,25 +118,19 @@ Key():
 
 \noindent isDown(e):
 \begin{itemize}
-    \item output: $e \in d \Rightarrow true \lor $
+    \item output: $e \in d \Rightarrow true \land e \notin d \Rightarrow false$
     \item exception: None
 \end{itemize}
 
-\noindent getRank():
+\noindent onKeydown(e):
 \begin{itemize}
-    \item output: $out := r$
+    \item transition: $d[e] = EPOCH$
     \item exception: None
 \end{itemize}
 
-\noindent isValid():
+\noindent onKeyup(e):
 \begin{itemize}
-    \item output: $out := suit=\m{NAS} \land rank=\m{NAR}$
-    \item exception: None
-\end{itemize}
-
-\noindent getColour():
-\begin{itemize}
-    \item output: $out := r=(\m{SPADES} \lor \m{CLUBS}) \means \m{BLACK} | r=(\m{HEARTS} \lor \m{DIAMONDS}) \means \m{RED} | r=(\m{NAS}) \means \m{NAC}$
+    \item output: $out := d[e]$
     \item exception: None
 \end{itemize}
 
@@ -146,15 +141,11 @@ Key():
 \hline
 \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
 \hline
-CardT & SuitT, RankT & CardT & ~\\
+Text & Screen, Font & Text & ~\\
 \hline
-getSuit & ~ & SuitT & ~\\
+norm & $String, \mathbb{Z}, \mathbb{Z}$ &  & ~\\
 \hline
-getRank & ~ & RankT & ~\\
-\hline
-isValid & ~ & $\mathbb{B}$ & ~\\
-\hline
-getColour & ~ & ColourT & ~\\
+emph & $String, \mathbb{Z}, \mathbb{Z}$ &  & ~\\
 \hline
 \end{tabular}
 
@@ -162,19 +153,30 @@ getColour & ~ & ColourT & ~\\
 
 \subsubsection*{State Variables}
 
+$cvs$=Screen %ASK
+$fnt$=Font %ASK
+
 \subsubsection*{State Invariant}
+
+None
 
 \subsubsection*{Assumptions}
 
 \begin{itemize}
+  \item Before the Text object is used, the initialization function must be run first.
 \end{itemize}
 
 \subsubsection*{Access Routine Semantics}
 
-<Method>(<Input>):
+norm($Str,x,y$):
 \begin{itemize}
-    \item transition: <Internal effect>
-    \item output: <Output>
+    \item transition: $cvs[x][y]:=screenShow(Str,\mbox{NORMAL})$
+    \item exception: None
+\end{itemize}
+
+emph($Str,x,y$):
+\begin{itemize}
+    \item transition: $cvs[x][y]:=screenShow(Str,\mbox{EMPHASIS})$
     \item exception: None
 \end{itemize}
 
@@ -200,13 +202,21 @@ AUDIO for Sound\\
     \hline
     Sound & ~ & Sound & ~\\
     \hline
-    play & Sound & ~ & stack\_empty\\
+    play & Sound & ~ & ~\\
     \hline
-    draw & ~ & CardT & stack\_empty\\
+    isPlay & Sound & Boolean & ~\\
     \hline
-    shuffle & ~ & ~ & ~\\
+    pause & Sound & ~ & ~\\
     \hline
-    size & & $\mathbb{N}$ & ~\\
+    unpause & Sound & ~ & ~\\
+    \hline
+    stop & Sound & ~ & ~\\
+    \hline
+    mute & ~ & ~ & ~\\
+    \hline
+    unmute & ~ & ~ & ~\\
+    \hline
+    toggle & ~ & ~ & ~\\
     \hline
 \end{tabular}
 
@@ -214,25 +224,33 @@ AUDIO for Sound\\
 
 \subsubsection* {State Variables}
 
-$d$: sequence of CardT
+%maybe the sounds
+Sound: Audio object from file
 
 \subsubsection* {State Invariant}
 
-\begin{itemize}
-  \item The deck will never have duplicate cards.
-  \item The max amount of cards a DeckT may have is 52 cards where
-  there is 4 sets of 13 cards (Ace to King for all four suits).
-\end{itemize}
+%ask about state invariant of sounnd
 
 \subsubsection* {Assumptions}
 
 \begin{itemize}
-    \item The constructor DeckT is called for each object instance before
-    any other access routine is called for that object. The constuctor
-    cannot be called on an existing object.
+    \item The constructor is called before other accesses
+    \item The sound files are in the correct directory for the projectiles
+    \item the sound files have the same name as expected.
 \end{itemize}
 
 \subsubsection* {Access Routine Semantics}
+
+Sound():
+\begin{itemize}
+  \item transition: muted := true
+  %ask about the Audio objects
+\end{itemize}
+
+play():
+\begin{itemize}
+  \item
+\end{itemize}
 
 DeckT():
 \begin{itemize}

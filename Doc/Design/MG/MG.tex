@@ -156,14 +156,14 @@ actually be implemented.
 \midrule
 
 \multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & \\
-& M2 \\
+& M3 \\
+& M4 \\
 & M5 \\
 & M6 \\
 \midrule
 
 \multirow{3}{0.3\textwidth}{Software Decision Module} & \\
-& M3\\
-& M4\\
+& M2 \\
 \bottomrule
 
 \end{tabular}
@@ -221,11 +221,18 @@ Modules of Staroids are decomposed according to the principle of ``information h
 \item[Implemented By:] utilities.js
 \end{description}
 
-\subsubsection{Head Module (\mref{mBHu})}
+\subsubsection{GameObject Module (\mref{mSDgo})}
 \begin{description}
-\item[Secrets:]All data shown on the screen will be pulled from this file.
-\item[Services:] Combines all scripts together so they are able to access each others methods.
-\item[Implemented By:] head.js
+\item[Secrets:] Contains base game object, along with all other secondary objects which inheret from it. This includes all the attributes specific to each object.
+\item[Services:] Getters and setters for all game objects, draw functions to put them to the canvas, and interaction functions between objects such as collisions.
+\item[Implemented By:] gameobject.js
+\end{description}
+
+\subsubsection{GameState Module (\mref{mSDgs})}
+\begin{description}
+\item[Secrets:] Containts state machine for the game as well as the main running loop of game.
+\item[Services:] Sets game objects to desired values based on states, as well as updates the game though the main loop as time elapses and user inputs are sent in through the event listeners defined in this module. This module however does not process the inputs, only listens for them and then alerts the utilites module to process them into variables which can then be recognized.
+\item[Implemented By:] gamestate.js
 \end{description}
 
 
@@ -242,19 +249,13 @@ Modules of Staroids are decomposed according to the principle of ``information h
 %\item[Implemented By:] --
 %\end{description}
 
-\subsubsection{GameObject Module (\mref{mSDgo})}
+\subsubsection{Head Module (\mref{mBHu})}
 \begin{description}
-\item[Secrets:] Contains base game object, along with all other secondary objects which inheret from it. This includes all the attributes specific to each object.
-\item[Services:] Getters and setters for all game objects, draw functions to put them to the canvas, and interaction functions between objects such as collisions.
-\item[Implemented By:] gameobject.js
+\item[Secrets:]All data shown on the screen will be pulled from this file.
+\item[Services:] Combines all scripts together so they are able to access each others methods.
+\item[Implemented By:] head.js
 \end{description}
 
-\subsubsection{GameState Module (\mref{mSDgs})}
-\begin{description}
-\item[Secrets:] Containts state machine for the game as well as the main running loop of game.
-\item[Services:] Sets game objects to desired values based on states, as well as updates the game though the main loop as time elapses and user inputs are sent in through the event listeners defined in this module. This module however does not process the inputs, only listens for them and then alerts the utilites module to process them into variables which can then be recognized.
-\item[Implemented By:] gamestate.js
-\end{description}
 
 \section{Traceability Matrix} \label{SecTM}
 
