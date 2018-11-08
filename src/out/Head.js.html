@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: sound.js</title>
+    <title>JSDoc: Source: Head.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: sound.js</h1>
+    <h1 class="page-title">Source: Head.js</h1>
 
     
 
@@ -26,60 +26,20 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>
-/** Sound effect manager
- * @constructor */
-var Sound = {
-  /** Sound effect for a bullet being fired by the player */
-  LASER: new Audio("laser.wav"),
-  /** Sound effect for the death of a player, asteroid or alien */
-  EXPLOSION: new Audio("explosion.wav"),
-  /** Sound effect of the player applying brakes */
-  AIRBRAKE: new Audio("brake.wav"),
+            <pre class="prettyprint source linenums"><code>window.onload = dynamicallyLoadScript("utilities.js")
+window.onload = dynamicallyLoadScript("sound.js")
+window.onload = dynamicallyLoadScript("gameobject.js")
+window.onload = dynamicallyLoadScript("gamestate.js")
 
-  muted: true,
-  /** Plays a specific inputted sound. The sound must be in the format 'Sound.[SOUND]'
-   * @param sound The sound that will play */
-  play: function(sound){
-      if (!this.muted){
-          sound.play();
-      }
-  },
-  /** Returns if a sound is playing
-   * @param sound - The Audio object this applies to
-   * @return {Boolean} Returns whether a sound is playing or not */
-  isPlay: function(sound){
-      return !sound.paused;
-  },
-  /** Pauses a sound
-   * @param sound The sound to pause */
-  pause: function(sound){
-      sound.paused = true;
-  },
-  /** Unpauses a sound
-   * @param sound The sound to unpause */
-  unpause: function(sound){
-      sound.paused = false;
-  },
-  /** Stops a currently playing sound
-   * @param sound The sound to stop */
-  stop: function(sound){
-      sound.pause();
-      sound.currentTime = 0;
-  },
-  /** Mutes the sound manager */
-  mute: function(){
-      this.muted = true;
-  },
-  /** Unmutes the sound manager */
-  unmute: function(){
-      this.muted = false;
-  },
-  /** Toggles the mute status of the sound manager */
-  toggle: function(){
-      this.muted = !this.muted;
-  }
-};
+/** Loads multiple JavaScript files into a large virtual JavaScript file. Allows for the modules to exist within seperate files and then get put together. */
+function dynamicallyLoadScript(url) {
+  // Taken from the following link
+  //https://stackoverflow.com/questions/950087/how-do-i-include-a-javascript-file-in-another-javascript-file
+  var script = document.createElement("script");  // sake a script DOM node
+  script.src = url;  // set its src to the provided URL
+
+  document.head.appendChild(script);  // add it to the end of the head section of the page (could change 'head' to 'body' to add it to the end of the body section instead)
+}
 </code></pre>
         </article>
     </section>
