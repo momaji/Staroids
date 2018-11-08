@@ -61,6 +61,7 @@ Nov 7/18 & 0.15 & Added anticipated changes\\
 Nov 7/18 & 0.2 & Added some parts of module decomposition\\
 Nov 7/18 & 0.25 & Added unlikely changes and module breakdown\\
 Nov 7/18 & 0.3 & Added tracability matrix\\
+Nov 7/18 & 0.35 & Completed tracability matricies\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -122,7 +123,7 @@ other shows the relation between anticipated changes and the modules. Section
 
 \section{Anticipated and Unlikely Changes} \label{SecChange}
 
-This section lists possible changes to the system. According to the likeliness of the change, the possible changes are classified into two categories. Anticipated changes are listed in Section \ref{SecAchange}, and unlikely changes are listed in Section \ref{SecUchange}.
+This section lists possible changes Staroids. There are two categories for changes based on the likeliness of the change. Anticipated changes are listed in Section \ref{SecAchange}, and unlikely changes are listed in Section \ref{SecUchange}. Anticipated changes are planned or probable in the forseeable future of Staroids and unlikely changes are changes that are not planned
 
 \subsection{Anticipated Changes} \label{SecAchange}
 
@@ -130,8 +131,8 @@ Anticipated changes are the source of the information that is to be hidden insid
 
 \begin{description}
 \item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] Staroids must be kept up to date with any new operating systems or updates to the supported internet browsers are released.
-\item[\refstepcounter{acnum} \actheacnum \label{acUtilites}:] Enlarging of the playing screen and the scale of all on screen objects.
-\item[\refstepcounter{acnum} \actheacnum \label{acUtilites}:] Support for two players to be active at the same time.
+\item[\refstepcounter{acnum} \actheacnum \label{acUtilities}:] Enlarging of the playing screen and the scale of all on screen objects.
+\item[\refstepcounter{acnum} \actheacnum \label{acUtilities}:] Support for two players to be active at the same time.
 \item[\refstepcounter{acnum} \actheacnum \label{acSound}:] Player firing and destruction sounds.
 \item[\refstepcounter{acnum} \actheacnum \label{acGameobject}:] Collision detection between all on screen sprites.
 \item[\refstepcounter{acnum} \actheacnum \label{acGameobject}:] Relative speed of all projectiles (both player and alien shot)
@@ -224,12 +225,17 @@ selected.
 \subsection{Hardware Hiding Modules (\mref{mHH})}
 
 \begin{description}
-\item[Secrets:]The data structure and algorithm used to implement the virtual
-  hardware.
-\item[Services:]Serves as a virtual hardware used by the rest of the
+\item[Secrets:]%put what was here before
+\item[Services:] Serves as a virtual hardware used by the rest of the
   system. This module provides the interface between the hardware and the
   software. So, the system can use it to display outputs or to accept inputs.
 \item[Implemented By:] OS
+\end{description}
+
+\begin{description}
+\item[Secrets:]How the game handles user keyboard input, how the canvas is outlined.
+\item[Services:] Loads scripts onto canvas, therefore giving the user a visual reference for the game to then decide how they would like to interact with it.
+\item[Implemented By:] index.HTML
 \end{description}
 
 \subsection{Behaviour-Hiding Module}
@@ -251,16 +257,7 @@ selected.
 \item[Implemented By:] sound.js
 \end{description}
 
-\subsubsection{Input Format Module (\mref{mInput})}
-
-\begin{description}
-\item[Secrets:]The format and structure of the input data.
-\item[Services:]Converts the input data into the data structure used by the
-  input parameters module.
-\item[Implemented By:] [Your Program Name Here]
-\end{description}
-
-\subsubsection{Utilites Module (\mref{mBHu})}
+\subsubsection{Utilities Module (\mref{mBHu})}
 \begin{description}
 \item[Secrets:]The values of all constants for the game such as max speed ship size ect, and variables to handle user inputs of pressed keys.
 \item[Services:] Funtions to test for if a key is pressed. The game object consisting of score, lives, asteroids ect, as well as getters and setters for all game object attributes.
@@ -283,21 +280,14 @@ selected.
 
 \subsubsection{GameObject Module (\mref{mSDgo})}
 \begin{description}
-\item[Secrets:] The design decision based on mathematical theorems, physical
-  facts, or programming considerations. The secrets of this module are
-  \emph{not} described in the SRS.
-\item[Services:] Includes data structure and algorithms used in the system that
-  do not provide direct interaction with the user.
-   Changes in these modules are more likely to be motivated by a desire to
-   improve performance than by externally imposed changes.
-\item[Implemented By:] --
+\item[Secrets:] Contains base game object, along with all other secondary objects which inheret from it. This includes all the attributes specific to each object.
+\item[Services:] Getters and setters for all game objects, draw functions to put them to the canvas, and interaction functions between objects such as collisions.
+\item[Implemented By:] GameObject.js
 \end{description}
 
 \subsubsection{GameState Module (\mref{mSDgs})}
 \begin{description}
-\item[Secrets:] The design decision based on mathematical theorems, physical
-  facts, or programming considerations. The secrets of this module are
-  \emph{not} described in the SRS.
+\item[Secrets:] StateMachine for the game
 \item[Services:] Includes data structure and algorithms used in the system that
   do not provide direct interaction with the user.
    Changes in these modules are more likely to be motivated by a desire to
@@ -307,8 +297,7 @@ selected.
 
 \section{Traceability Matrix} \label{SecTM}
 
-This section shows two traceability matrices: between the modules and the
-requirements and between the modules and the anticipated changes.
+Below shows the traceability matrices for Staroids. These track which requirement is fulfilled by which module and which modules would need to be changed for each anticipated change.
 
 % the table should use mref, the requirements should be named, use something
 % like fref
@@ -329,21 +318,21 @@ R5 & \mref{mSDgs}\\
 R6 & \mref{mSDgs}\\
 R7 & \mref{mSDgs}, \mref{mSDgo}, \mref{mBHu}\\
 R8 & \mref{mSDgo}, \mref{mBHu}\\
-R9 & \mref{mVerifyOut}\\
-R10 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}\\
-R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
-R12 & \\
-R13 & \\
-R14 & \\
-R15 & \\
-R16 & \\
-R17 & \\
-R18 & \\
-R19 & \\
-R20 & \\
-R21 & \\
-R22 & \\
-R23 & \\
+R9 & \mref{mSDgo}\\
+R10 & \mref{mSDgo}\\
+R11 & \mref{mSDgo}, \mref{mSDgs}\\
+R12 & \mref{mSDgo}\\
+R13 & \mref{mSDgo}\\
+R14 & \mref{mSDgo}\\
+R15 & \mref{mSDgo}\\
+R16 & \mref{mSDgs}\\
+R17 & \mref{mSDgo}\\
+R18 & \mref{mSDgo}\\
+R19 & \mref{mSDgo}, \mref{mSDgo}, \mref{mBHs}\\
+R20 & \mref{mSDgo}, \mref{mSDgo}, \mref{mBHs}\\
+R21 & \mref{mSDgo}, \mref{mSDgo}, \mref{mBHs}\\
+R22 & \mref{mSDgo}, \mref{mSDgo}, \mref{mBHs}\\
+R23 & \mref{mSDgo}, \mref{mBHs}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Requirements and Modules}
@@ -356,8 +345,8 @@ R23 & \\
 \toprule
 \textbf{AC} & \textbf{Modules}\\
 \midrule
-\acref{acUtilites} & \mref{mBHu}\\
-\acref{acUtilites} & \mref{mBHu}\\
+\acref{acUtilities} & \mref{mBHu}\\
+\acref{acUtilities} & \mref{mBHu}\\
 \acref{acSound} & \mref{mBHs}\\
 \acref{acGameobject} & \mref{mSDgo}\\
 \acref{acGameobject} & \mref{mSDgo}\\
@@ -386,7 +375,7 @@ because they use modules from the lower levels.
 
 \begin{figure}[H]
 \centering
-%\includegraphics[width=0.7\textwidth]{UsesHierarchy.png}
+\includegraphics[width=0.7\textwidth]{UsesHierarchy.png}
 \caption{Use hierarchy among modules}
 \label{FigUH}
 \end{figure}
