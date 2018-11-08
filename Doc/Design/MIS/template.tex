@@ -135,25 +135,13 @@ CardT($S,R$):
 %==================================================
 \newpage
 
-\section*{Deck ADT Module}
-
-\subsection*{Template Module}
-
-DeckT
+\section*{Sound Module}
 
 \subsection*{Uses}
 
-CardADT for CardT, SuitT, RankT\\
+AUDIO for Sound\\
 
 \subsection*{Syntax}
-
-\subsubsection*{Exported Types}
-
-DeckT=?
-
-\subsubsection*{Exported Constants}
-
-None
 
 \subsubsection*{Exported Access Programs}
 
@@ -161,9 +149,9 @@ None
     \hline
     \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
     \hline
-    DeckT & ~ & DeckT & ~\\
+    Sound & ~ & Sound & ~\\
     \hline
-    remCard & ~ & ~ & stack\_empty\\
+    play & Sound & ~ & stack\_empty\\
     \hline
     draw & ~ & CardT & stack\_empty\\
     \hline
