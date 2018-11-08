@@ -574,7 +574,7 @@ Bullet.prototype = new GameObject();
 /** Representation of the alien spaceship
  * @constructor */
 Alien = function(){
-  this.timeSpawn = 200; //time between respawns
+  this.timeSpawn = ALIEN_SPAWN; //time between respawns
   this.timeOut = 50; //time between bullets
   this.xOrY = true;
 
@@ -645,7 +645,7 @@ Alien = function(){
     if (this.xOrY){
       this.vel.x = 6*Math.sin(0.05*this.y);
     }else{
-      this.vel.y = 6*Math.sin(0.05*this.x);
+      this.vel.y = 6*Math.sin(0.05*this.x); //7 * 0.05 workish
     };
     if (this.timeOut<=0 && this.timeSpawn <= 0){
       this.timeOut = 50;
@@ -698,7 +698,7 @@ Alien = function(){
   };
 
   this.die = function () {
-    this.timeSpawn = 200;
+    this.timeSpawn = ALIEN_SPAWN;
     this.timeOut = 50;
     this.xOrY = Math.random() < 0.5 ? 1 : 0;
     if (this.xOrY) {
