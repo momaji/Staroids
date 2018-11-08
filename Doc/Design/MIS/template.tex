@@ -55,13 +55,92 @@ N/A
 
 \subsubsection*{Exported Types}
 
-SuitT=\{NAS, SPADES, CLUBS, HEARTS, DIAMONDS\}\\
-RankT=\{NAR, ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, \\
-EIGHT, NINE, TEN, JACK, QUEEN, KING\}\\
-ColourT=\{NAC,RED,BLACK\}\\
-CardT=?\\
+FPS=30\\
+SHIP_SIZE=30\\
+TURN_SPEED=180\\
+SHIP_THRUST=0.2\\
+SHIP_BREAK=0.98\\
+MIN_SPEED=0.1\\
+MAX_SPEED=20\\
+MAX_ACC=2\\
+CVS_WIDTH=780\\
+CVS_HEIGHT=620\\
+BULLET_EXTRA=5\\
+KILLABLE=\{True,False\}\\
+MAX_ASTEROIDS=2\\
+TEST=\{True,False\}\\
+KeyCode=\{UP,DOWN,RIGHT,LEFT,SPACE,M,P,R\}\\
+Key=?\\
+Text=?\\
+Game=?\\
 
 \subsubsection*{Exported Access Programs}
+
+\begin{tabular}{| l | l | l | l |} %Key object
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+Key &  & Key & ~\\
+\hline
+isDown & KeyCode & $\mathbb{N}$ & ~\\
+\hline
+onKeydown & KeyCode & $\mathbb{N}$ & ~\\
+\hline
+onKeyup & KeyCode &  & ~\\
+\hline
+\end{tabular}
+
+\subsection*{Semantics}
+
+\subsubsection*{State Variables}
+
+$d$: sequence of $\mathbb{N}$\\
+
+\subsubsection*{State Invariant}
+
+$\forall (c : \mathbb{N} | c \in d : c \gt 0)$
+
+\subsubsection*{Assumptions}
+
+\begin{itemize}
+    \item Only known keys (as defined by KeyCode) will be put into the Key object as events to be processed.
+\end{itemize}
+
+\subsubsection*{Access Routine Semantics}
+
+Key():
+\begin{itemize}
+    \item transition: $d :=$ seq of KeyCode
+    \item output: $out := \mathit{self}$
+    \item exception: None
+\end{itemize}
+
+\noindent isDown(e):
+\begin{itemize}
+    \item output: $e \in d \Rightarrow true \lor $
+    \item exception: None
+\end{itemize}
+
+\noindent getRank():
+\begin{itemize}
+    \item output: $out := r$
+    \item exception: None
+\end{itemize}
+
+\noindent isValid():
+\begin{itemize}
+    \item output: $out := suit=\m{NAS} \land rank=\m{NAR}$
+    \item exception: None
+\end{itemize}
+
+\noindent getColour():
+\begin{itemize}
+    \item output: $out := r=(\m{SPADES} \lor \m{CLUBS}) \means \m{BLACK} | r=(\m{HEARTS} \lor \m{DIAMONDS}) \means \m{RED} | r=(\m{NAS}) \means \m{NAC}$
+    \item exception: None
+\end{itemize}
+
+
+\newpage %Text Object
 
 \begin{tabular}{| l | l | l | l |}
 \hline
@@ -83,54 +162,24 @@ getColour & ~ & ColourT & ~\\
 
 \subsubsection*{State Variables}
 
-$s$: SuitT\\
-$r$: RankT\\
-
 \subsubsection*{State Invariant}
-
-None
 
 \subsubsection*{Assumptions}
 
 \begin{itemize}
-    \item The constructor CardT is called for
-    each object instance before any other access routine is called
-    for that object. The constuctor cannot be called on an existing
-    object.
 \end{itemize}
 
 \subsubsection*{Access Routine Semantics}
 
-CardT($S,R$):
+<Method>(<Input>):
 \begin{itemize}
-    \item transition: $s, r := S, R$
-    \item output: $out := \mathit{self}$
+    \item transition: <Internal effect>
+    \item output: <Output>
     \item exception: None
 \end{itemize}
 
-\noindent getSuit():
-\begin{itemize}
-    \item output: $out := s$
-    \item exception: None
-\end{itemize}
 
-\noindent getRank():
-\begin{itemize}
-    \item output: $out := r$
-    \item exception: None
-\end{itemize}
-
-\noindent isValid():
-\begin{itemize}
-    \item output: $out := suit=\m{NAS} \land rank=\m{NAR}$
-    \item exception: None
-\end{itemize}
-
-\noindent getColour():
-\begin{itemize}
-    \item output: $out := r=(\m{SPADES} \lor \m{CLUBS}) \means \m{BLACK} | r=(\m{HEARTS} \lor \m{DIAMONDS}) \means \m{RED} | r=(\m{NAS}) \means \m{NAC}$
-    \item exception: None
-\end{itemize}
+\newpage %Game
 
 %==================================================
 \newpage
@@ -425,11 +474,11 @@ $dek$: DeckT\\
 BoardT():
 \begin{itemize}
     \item transition: $col := \forall(c : \mbox{CardT} | c \in dek : col||c)$
-    
+
     \hspace{1.8cm} $fre :=$ seq of CardT
-    
+
     \hspace{1.8cm} $fou :=$ seq of CardT
-    
+
     \hspace{1.8cm} $dek :=$ DeckT()
     \item output: $out := \mathit{self}$
     \item exception: None
