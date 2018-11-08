@@ -62,6 +62,7 @@ Nov 7/18 & 0.2 & Added some parts of module decomposition\\
 Nov 7/18 & 0.25 & Added unlikely changes and module breakdown\\
 Nov 7/18 & 0.3 & Added tracability matrix\\
 Nov 7/18 & 0.35 & Completed tracability matricies\\
+Nov 7/18 & 0.4 & Removed unnessesary sections\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -203,19 +204,17 @@ The design of Staroids is intended to satisfy all requirements established in th
 
 \section{Module Decomposition} \label{SecMD}
 
-Modules of Staroids are decomposed according to the principle of ``information hiding'' proposed by \citet{ParnasEtAl1984}. The \emph{Secrets} field in a module decomposition is a brief statement of the design decision hidden by the module. The \emph{Services} field specifies \emph{what} the module will do without documenting \emph{how} to do it. For each module, a suggestion for the implementing software is given under the \emph{Implemented By} title. If the entry is \emph{OS}, this means that the module is provided by the operating system or by standard programming language libraries.  Also indicate if the module will be implemented specifically for the software.
-
-Only the leaf modules in the hierarchy have to be implemented. If a dash (\emph{--}) is shown, this means that the module is not a leaf and will not have to be implemented. Whether or not this module is implemented depends on the programming language selected.
+Modules of Staroids are decomposed according to the principle of ``information hiding'' proposed by \citet{ParnasEtAl1984}. The \emph{Secrets} field in a module decomposition is a brief statement of the design decision hidden by the module. The \emph{Services} field specifies \emph{what} the module will do without documenting \emph{how} to do it. For each module, a suggestion for the implementing software is given under the \emph{Implemented By} title. If the entry is \emph{OS}, this means that the module is provided by the operating system or by standard JavaScript libraries.
 
 \subsection{Hardware Hiding Modules (\mref{mHH})}
 
-\begin{description}
-\item[Secrets:]%put what was here before
-\item[Services:] Serves as a virtual hardware used by the rest of the
-  system. This module provides the interface between the hardware and the
-  software. So, the system can use it to display outputs or to accept inputs.
-\item[Implemented By:] OS
-\end{description}
+%\begin{description}
+%\item[Secrets:]%put what was here before
+%\item[Services:] Serves as a virtual hardware used by the rest of the
+%  system. This module provides the interface between the hardware and the
+%  software. So, the system can use it to display outputs or to accept inputs.
+%\item[Implemented By:] OS
+%\end{description}
 
 \begin{description}
 \item[Secrets:]How the game handles user keyboard input, how the canvas is outlined.
@@ -225,15 +224,15 @@ Only the leaf modules in the hierarchy have to be implemented. If a dash (\emph{
 
 \subsection{Behaviour-Hiding Module}
 
-\begin{description}
-\item[Secrets:]The contents of the required behaviours.
-\item[Services:]Includes programs that provide externally visible behaviour of
-  the system as specified in the software requirements specification (SRS)
-  documents. This module serves as a communication layer between the
-  hardware-hiding module and the software decision module. The programs in this
-  module will need to change if there are changes in the SRS.
-\item[Implemented By:] --
-\end{description}
+%\begin{description}
+%\item[Secrets:]The contents of the required behaviours.
+%\item[Services:]Includes programs that provide externally visible behaviour of
+%  the system as specified in the software requirements specification (SRS)
+%  documents. This module serves as a communication layer between the
+%  hardware-hiding module and the software decision module. The programs in this
+%  module will need to change if there are changes in the SRS.
+%\item[Implemented By:] --
+%\end{description}
 
 \subsubsection{Sound Module (\mref{mBHs})}
 \begin{description}
@@ -252,23 +251,23 @@ Only the leaf modules in the hierarchy have to be implemented. If a dash (\emph{
 \subsubsection{Head Module (\mref{mBHu})}
 \begin{description}
 \item[Secrets:]All data shown on the screen will be pulled from this file.
-\item[Services:] combines all scripts together so the
+\item[Services:] Combines all scripts together so they are able to access each others methods.
 \item[Implemented By:] head.js
 \end{description}
 
 
 \subsection{Software Decision Module}
 
-\begin{description}
-\item[Secrets:] The design decision based on mathematical theorems, physical
-  facts, or programming considerations. The secrets of this module are
-  \emph{not} described in the SRS.
-\item[Services:] Includes data structure and algorithms used in the system that
-  do not provide direct interaction with the user.
-   Changes in these modules are more likely to be motivated by a desire to
-   improve performance than by externally imposed changes.
-\item[Implemented By:] --
-\end{description}
+%\begin{description}
+%\item[Secrets:] The design decision based on mathematical theorems, physical
+%  facts, or programming considerations. The secrets of this module are
+%  \emph{not} described in the SRS.
+%\item[Services:] Includes data structure and algorithms used in the system that
+%  do not provide direct interaction with the user.
+%   Changes in these modules are more likely to be motivated by a desire to
+%   improve performance than by externally imposed changes.
+%\item[Implemented By:] --
+%\end{description}
 
 \subsubsection{GameObject Module (\mref{mSDgo})}
 \begin{description}
@@ -279,8 +278,8 @@ Only the leaf modules in the hierarchy have to be implemented. If a dash (\emph{
 
 \subsubsection{GameState Module (\mref{mSDgs})}
 \begin{description}
-\item[Secrets:] Containts state machine for the game as well as the main loosfsfsfsf.
-\item[Services:] Sets game objects to desired values based on states, as well as updates the game though the main loop as time elapses and user inputs are sent in through the event listeners defined in this module. This module however does not process the inputs, only listens for them and then alerts the utilites module to process them into variables which can then be recognized  them.
+\item[Secrets:] Containts state machine for the game as well as the main running loop of game.
+\item[Services:] Sets game objects to desired values based on states, as well as updates the game though the main loop as time elapses and user inputs are sent in through the event listeners defined in this module. This module however does not process the inputs, only listens for them and then alerts the utilites module to process them into variables which can then be recognized.
 \item[Implemented By:] gamestate.js
 \end{description}
 
@@ -351,16 +350,9 @@ R23 & \mref{mSDgo}, \mref{mBHs}\\
 
 \section{Use Hierarchy Between Modules} \label{SecUse}
 
-In this section, the uses hierarchy between modules is
-provided. \citet{Parnas1978} said of two programs A and B that A {\em uses} B if
-correct execution of B may be necessary for A to complete the task described in
-its specification. That is, A {\em uses} B if there exist situations in which
-the correct functioning of A depends upon the availability of a correct
-implementation of B.  Figure \ref{FigUH} illustrates the use relation between
-the modules. It can be seen that the graph is a directed acyclic graph
-(DAG). Each level of the hierarchy offers a testable and usable subset of the
-system, and modules in the higher level of the hierarchy are essentially simpler
-because they use modules from the lower levels.
+In this section, the uses hierarchy between all Staroids modules is provided. \citet{Parnas1978} said of two programs A and B that A {\em uses} B if correct execution of B may be necessary for A to complete the task described in its specification. That is, A {\em uses} B if there exist situations in which the correct functioning of A depends upon the availability of a correct implementation of B.  Figure \ref{FigUH} illustrates the use relation between the modules.
+
+% It can be seen that the graph is a directed acyclic graph (DAG). Each level of the hierarchy offers a testable and usable subset of the system, and modules in the higher level of the hierarchy are essentially simpler because they use modules from the lower levels.
 
 \begin{figure}[H]
 \centering
