@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Gantt Chart" company="" webLink="http://" view-date="2018-09-30" view-index="1" gantt-divider-location="300" resource-divider-location="418" version="2.8.9" locale="en_CA">
+<?xml version="1.0" encoding="UTF-8"?><project name="Gantt Chart" company="" webLink="http://" view-date="2018-09-30" view-index="0" gantt-divider-location="300" resource-divider-location="418" version="2.8.9" locale="en_CA">
     <description/>
     <view zooming-state="default:6" id="gantt-chart">
         <field id="tpd3" name="Name" width="158" order="0"/>
@@ -80,15 +80,15 @@
         <task id="18" name="Becoming Familiar with our Chosen Coding Style" color="#0033ff" meeting="false" start="2018-10-05" duration="2" complete="0" thirdDate="2018-10-03" thirdDate-constraint="0" expand="true"/>
         <task id="19" name="Refresher of JavaScript Language" color="#0033ff" meeting="false" start="2018-10-05" duration="4" complete="0" thirdDate="2018-10-05" thirdDate-constraint="0" expand="true"/>
         <task id="15" name="Development of Source Code First Draft" color="#0033ff" meeting="false" start="2018-10-06" duration="36" complete="0" thirdDate="2018-10-08" thirdDate-constraint="0" expand="true">
-            <task id="210" name="canvas environment and index.html created" meeting="false" start="2018-10-06" duration="1" complete="0" expand="true"/>
+            <task id="210" name="canvas environment and index.html created" color="#8cb6ce" meeting="false" start="2018-10-06" duration="1" complete="0" thirdDate="2018-10-06" thirdDate-constraint="0" expand="true"/>
             <task id="200" name="Player ship created" meeting="false" start="2018-10-06" duration="4" complete="0" expand="true"/>
-            <task id="201" name="bullet for ship created" meeting="false" start="2018-10-10" duration="3" complete="0" expand="true"/>
-            <task id="212" name="pregame, pause states created" meeting="false" start="2018-10-12" duration="3" complete="0" expand="true"/>
-            <task id="211" name="asteroasteroids created ids created" meeting="false" start="2018-10-16" duration="5" complete="0" expand="true"/>
-            <task id="213" name="endgame state creted" meeting="false" start="2018-10-20" duration="4" complete="0" expand="true"/>
-            <task id="214" name="mute added" meeting="false" start="2018-10-23" duration="2" complete="0" expand="true"/>
-            <task id="215" name="on screen pop ups" meeting="false" start="2018-10-24" duration="7" complete="0" expand="true"/>
-            <task id="216" name="alien created" meeting="false" start="2018-11-04" duration="7" complete="0" expand="true"/>
+            <task id="201" name="bullet for ship created" color="#8cb6ce" meeting="false" start="2018-10-10" duration="3" complete="0" thirdDate="2018-10-10" thirdDate-constraint="0" expand="true"/>
+            <task id="212" name="pregame, pause states created" color="#8cb6ce" meeting="false" start="2018-10-12" duration="3" complete="0" thirdDate="2018-10-12" thirdDate-constraint="0" expand="true"/>
+            <task id="211" name="asteroasteroids created ids created" color="#8cb6ce" meeting="false" start="2018-10-16" duration="5" complete="0" thirdDate="2018-10-16" thirdDate-constraint="0" expand="true"/>
+            <task id="213" name="endgame state creted" color="#8cb6ce" meeting="false" start="2018-10-20" duration="4" complete="0" thirdDate="2018-10-20" thirdDate-constraint="0" expand="true"/>
+            <task id="214" name="mute added" color="#8cb6ce" meeting="false" start="2018-10-23" duration="2" complete="0" thirdDate="2018-10-23" thirdDate-constraint="0" expand="true"/>
+            <task id="215" name="on screen pop ups" color="#8cb6ce" meeting="false" start="2018-10-25" duration="7" complete="0" thirdDate="2018-10-25" thirdDate-constraint="0" expand="true"/>
+            <task id="216" name="alien created" color="#8cb6ce" meeting="false" start="2018-11-04" duration="7" complete="0" thirdDate="2018-11-04" thirdDate-constraint="0" expand="true"/>
         </task>
         <task id="204" name="Modularization of code" color="#000000" meeting="false" start="2018-10-18" duration="3" complete="0" thirdDate="2018-10-18" thirdDate-constraint="0" expand="true">
             <task id="205" name="utilities module" meeting="false" start="2018-10-18" duration="3" complete="0" expand="true"/>
@@ -152,10 +152,12 @@
         <allocation task-id="19" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="20.0"/>
         <allocation task-id="183" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="20.0"/>
         <allocation task-id="193" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="10.0"/>
-        <allocation task-id="204" resource-id="0" function="SoftwareDevelopment:2" responsible="false" load="25.0"/>
-        <allocation task-id="24" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="33.0"/>
+        <allocation task-id="24" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="20.0"/>
         <allocation task-id="17" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="40.0"/>
         <allocation task-id="186" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="50.0"/>
+        <allocation task-id="204" resource-id="0" function="SoftwareDevelopment:2" responsible="false" load="10.0"/>
+        <allocation task-id="210" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="1.0"/>
+        <allocation task-id="201" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="3.0"/>
         <allocation task-id="3" resource-id="1" function="SoftwareDevelopment:2" responsible="false" load="33.3"/>
         <allocation task-id="7" resource-id="1" function="SoftwareDevelopment:2" responsible="false" load="33.3"/>
         <allocation task-id="11" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="10.0"/>
@@ -170,10 +172,13 @@
         <allocation task-id="15" resource-id="1" function="SoftwareDevelopment:2" responsible="false" load="30.0"/>
         <allocation task-id="18" resource-id="1" function="SoftwareDevelopment:2" responsible="false" load="10.0"/>
         <allocation task-id="19" resource-id="1" function="SoftwareDevelopment:2" responsible="false" load="20.0"/>
-        <allocation task-id="204" resource-id="1" function="SoftwareDevelopment:2" responsible="false" load="25.0"/>
-        <allocation task-id="24" resource-id="1" function="SoftwareDevelopment:2" responsible="false" load="33.0"/>
+        <allocation task-id="204" resource-id="1" function="SoftwareDevelopment:2" responsible="false" load="10.0"/>
+        <allocation task-id="24" resource-id="1" function="SoftwareDevelopment:2" responsible="false" load="20.0"/>
         <allocation task-id="196" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="20.0"/>
         <allocation task-id="192" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="30.0"/>
+        <allocation task-id="201" resource-id="1" function="SoftwareDevelopment:2" responsible="false" load="15.0"/>
+        <allocation task-id="211" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="15.0"/>
+        <allocation task-id="216" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="15.0"/>
         <allocation task-id="3" resource-id="2" function="Default:1" responsible="true" load="33.3"/>
         <allocation task-id="7" resource-id="2" function="Default:1" responsible="false" load="33.3"/>
         <allocation task-id="12" resource-id="2" function="Default:1" responsible="true" load="10.0"/>
@@ -190,9 +195,14 @@
         <allocation task-id="18" resource-id="2" function="Default:1" responsible="false" load="10.0"/>
         <allocation task-id="19" resource-id="2" function="Default:1" responsible="false" load="10.0"/>
         <allocation task-id="187" resource-id="2" function="Default:1" responsible="true" load="20.0"/>
-        <allocation task-id="204" resource-id="2" function="Default:1" responsible="true" load="50.0"/>
-        <allocation task-id="24" resource-id="2" function="Default:1" responsible="false" load="33.0"/>
+        <allocation task-id="204" resource-id="2" function="Default:1" responsible="true" load="30.0"/>
+        <allocation task-id="24" resource-id="2" function="Default:1" responsible="false" load="20.0"/>
         <allocation task-id="194" resource-id="2" function="Default:1" responsible="true" load="30.0"/>
+        <allocation task-id="210" resource-id="2" function="Default:1" responsible="false" load="2.0"/>
+        <allocation task-id="212" resource-id="2" function="Default:1" responsible="true" load="23.0"/>
+        <allocation task-id="213" resource-id="2" function="Default:1" responsible="true" load="2.0"/>
+        <allocation task-id="214" resource-id="2" function="Default:1" responsible="true" load="3.0"/>
+        <allocation task-id="215" resource-id="2" function="Default:1" responsible="true" load="5.0"/>
     </allocations>
     <vacations/>
     <previous/>
