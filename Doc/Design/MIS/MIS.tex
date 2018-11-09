@@ -57,7 +57,7 @@ Nov 06/18 & 0.1 & Added basic information to template\\
 Nov 07/18 & 0.2 & Added Head module specification\\
 Nov 08/18 & 0.3 & Added all module specifications\\
 Nov 09/18 & 0.35 & Tidied up\\
-Nov 09/18 & 0.5 & Finished Sound, Utilites, Head and Game State MIS\\
+Nov 09/18 & 0.5 & Finished Sound, Utilities, Head and Game State MIS\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -78,7 +78,6 @@ Utilities
 CVS from Browser (Playing screen)\\
 CTX from CVS (Screen coordinate system)\\
 FONTSTYLE from Browser (Available fonts for printing)\\
-
 
 \subsection*{Syntax}
 
@@ -220,14 +219,6 @@ emph($Str,x,y$):
 \hline
 Game &  & ~\\
 \hline
-reduceCounter & $String, \mathbb{Z}, \mathbb{Z}$ &  & ~\\
-\hline
-resetMute &  &  & ~\\
-\hline
-resetPause &  &  & ~\\
-\hline
-drawLives &  &  & ~\\
-\hline
 addScore & $\mathbb{Z}$ &  & ~\\
 \hline
 addSprites & OBJECT &  & ~\\
@@ -291,6 +282,14 @@ setText & TEXT &  & ~\\
 setSound & SOUND &  & ~\\
 \hline
 setPaused & $\mathbb{B}$ &  & ~\\
+\hline
+reduceCounter & $String, \mathbb{Z}, \mathbb{Z}$ &  & ~\\
+\hline
+resetMute &  &  & ~\\
+\hline
+resetPause &  &  & ~\\
+\hline
+drawLives &  &  & ~\\
 \hline
 \end{tabular}
 
@@ -523,13 +522,13 @@ resetPause():
 
 drawLives():
 \begin{itemize}
-    \item transition: $ \forall (i:\mathbb{N} | i < lives : drawTriangle(i*15)) $
+    \item transition: Draws $lives$ amount of triangular ships to the top left corner of screen to represent player amount of lives left.
     \item exception: None
 \end{itemize}
 
 addScore(amount):
 \begin{itemize}
-    \item transition: $ score + amount $
+    \item transition: $ score = score + amount $
     \item exception: None
 \end{itemize}
 
@@ -541,7 +540,7 @@ addSprite(obj):
 
 subLives(obj):
 \begin{itemize}
-    \item transition: $ lives - 1 $
+    \item transition: $ lives = lives - 1 $
     \item exception: None
 \end{itemize}
 
@@ -558,7 +557,13 @@ subSprite(obj):
 
 \subsection*{Uses}
 
-AUDIO for Sound\\
+AUDIO from .wav sound files\\
+Within the AUDIO class, there are specific sounds:\\
+\begin{itemize}
+  \item LASER for shooting projectiles\\
+  \item BRAKE for the player ship braking\\
+  \item EXPLOSION for the destruction\\
+\end{itemize}
 
 \subsection*{Syntax}
 
@@ -568,17 +573,17 @@ AUDIO for Sound\\
     \hline
     \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
     \hline
-    Sound & ~ & Sound & ~\\
+    Sound & ~ & AUDIO & ~\\
     \hline
-    play & Sound & ~ & ~\\
+    play & AUDIO & ~ & ~\\
     \hline
-    isPlay & Sound & Boolean & ~\\
+    isPlay & AUDIO & $\mathbb{B}$ & ~\\
     \hline
-    pause & Sound & ~ & ~\\
+    pause & AUDIO & ~ & ~\\
     \hline
-    unpause & Sound & ~ & ~\\
+    unpause & AUDIO & ~ & ~\\
     \hline
-    stop & Sound & ~ & ~\\
+    stop & AUDIO & ~ & ~\\
     \hline
     mute & ~ & ~ & ~\\
     \hline
@@ -592,84 +597,82 @@ AUDIO for Sound\\
 
 \subsubsection* {State Variables}
 
-%maybe the sounds
-Sound: Audio object from file
+$sounds$ = $\{LASER,BRAKE,EXPLOSION\}$
+$muted$ = $\mathbb{B}$
 
 \subsubsection* {State Invariant}
 
 None
-%ask about state invariant of sounnd
 
 \subsubsection* {Assumptions}
 
 \begin{itemize}
     \item The constructor is called before other accesses
     \item The sound files are in the correct directory for the projectiles
-    \item the sound files have the same name as expected.
+    \item The sound files have the same name as expected.
 \end{itemize}
 
 \subsubsection* {Access Routine Semantics}
 
 Sound():
 \begin{itemize}
-  \item transition: $muted := true$
+  \item transition: $muted := false$
   \item exception: None
   %ask about the Audio objects
 \end{itemize}
 
-\noindent play():
+\noindent play(x):
 \begin{itemize}
-  \item input: $in := x \in \mbox{Sound}$
-  \item transition: $!in.muted: in.play()$
+  \item input: $x \in \mbox{sound}$
+  \item transition: $\lnot muted \Rightarrow Play(x)$
   \item exception: None
 \end{itemize}
 
-\noindent isPlay():
+\noindent isPlay(x):
 \begin{itemize}
-  \item input: $in := x \in \mbox{Sound}$
-  \item output: $out := !in.paused()$
+  \item input: $x \in \mbox{sound}$
+  \item output: Boolean to whether sound x is playing or not
   \item exception: None
 \end{itemize}
 
-\noindent pause():
+\noindent pause(x):
 \begin{itemize}
-  \item input: $in := x \in \mbox{Sound}$
-  \item transition: $in.paused := true$
+  \item input: $x \in \mbox{sound}$
+  \item transition: $pauseSound(x)$
   \item exception: None
 \end{itemize}
 
-\noindent unpause():
+\noindent unpause(x):
 \begin{itemize}
-  \item input: $in := x \in \mbox{Sound}$
-  \item transition: $in.paused := !true$
+  \item input: $x \in \mbox{sound}$
+  \item transition: $unpauseSound(x)$
   \item exception: None
 \end{itemize}
 
-\noindent stop():
+\noindent stop(x):
 \begin{itemize}
-  \item input: $in := x \in \mbox{Sound}$
-  \item transition: $in.paused := true \land this.currentTime := 0$
+  \item input: $x \in \mbox{sound}$
+  \item transition: $stopSound(x)$
   \item exception: None
 \end{itemize}
 
-\noindent mute():
+\noindent mute(x):
 \begin{itemize}
-  \item input: $in := x \in \mbox{Sound}$
-  \item transition: $in.muted := true$
+  \item input: $x \in \mbox{sound}$
+  \item transition: $muted := true$
   \item exception: None
 \end{itemize}
 
-\noindent unmute():
+\noindent unmute(x):
 \begin{itemize}
-  \item input: $in := x \in \mbox{Sound}$
-  \item transition: $in.muted := !true$
+  \item input: $x \in \mbox{Sound}$
+  \item transition: $muted := false$
   \item exception: None
 \end{itemize}
 
 \noindent toggle():
 \begin{itemize}
-  \item input: $in := x \in \mbox{Sound}$
-  \item transition: $in.muted := !in.muted$
+  \item transition: $muted = true \Rightarrow muted := false \lor muted = false \Rightarrow muted := true$
   \item exception: None
 \end{itemize}
 
@@ -680,7 +683,13 @@ Sound():
 
 \subsection*{Uses}
 
-utilities.js, sound.js, gameobject.js, gamestate.js\\
+FILE from modules (Takes the source file):
+\begin{itemize}
+  \item Utilities\\
+  \item Sound\\
+  \item GameObject\\
+  \item GameState\\
+\end{itemize}
 
 \subsubsection*{Exported Constants}
 
@@ -692,7 +701,7 @@ None
     \hline
     \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
     \hline
-    dynamicallyLoadScript & any & ~ & ~\\
+    dynamicallyLoadScript & FILE & ~ & ~\\
     \hline
 
 \end{tabular}
@@ -715,10 +724,10 @@ None
 
 \subsubsection* {Access Routine Semantics}
 
-dynamicallyLoadScript():
+dynamicallyLoadScript(x):
 \begin{itemize}
-    \item input: $in := x \in \{"utilities.js","sound.js","gameobject.js","gamestate.js"\}$
-    \item transition: $c := \{\}$
+    \item input: $x \in \mbox{FILE}$
+    \item transition: Appends $x$ to the current file
     \item output: $out := Head$
     \item exception: None
 \end{itemize}
@@ -735,7 +744,10 @@ GameObject
 
 \subsection*{Uses}
 
-for all draw function in GameObject, the object is just being drawn to the html canvas reffered to as CVS, using a '2d' context reffered to as CTX.
+CVS from Browser (Playing screen)\\
+CTX from CVS (Screen coordinate system)\\
+Utilities\\
+Sound\\
 
 \subsection*{Syntax}
 
@@ -884,6 +896,8 @@ setActivity(activity):
     \item exception: None
 \end{itemize}
 
+%===================================================
+\newpage
 
 \begin{tabular}{| l | l | l | l |}
     \hline
@@ -901,11 +915,19 @@ setActivity(activity):
     \hline
     interact & KeyCode & ~ & ~\\
     \hline
-    brake & ~ & ~ & ~\\
+    move & ~ & ~ & ~\\
     \hline
-    brake & ~ & ~ & ~\\
+    draw & ~ & ~ & ~\\
     \hline
-    brake & ~ & ~ & ~\\
+    action & ~ & ~ & ~\\
+    \hline
+    collide & ~ & ~ & ~\\
+    \hline
+    collideOffshoot & ~ & ~ & ~\\
+    \hline
+    die & ~ & ~ & ~\\
+    \hline
+    reset & ~ & ~ & ~\\
     \hline
 \end{tabular}
 
@@ -923,37 +945,10 @@ None
 
 Player():
 \begin{itemize}
-    \item transition: $ fire, thrust, turn, airbrake, bulletCountDown vel, acc, r = false, false, false, \mbox{FPS}/2, (0,0), (0,0), \mbox{SHIP\_SIZE/2}$
+    \item inheret: GameObject $\Rightarrow$ All state variables and methods
+    \item transition: $ fire, thrust, turn, airbrake, bulletCountDown vel(x,y), acc(x,y), r = false, false, false, \mbox{FPS}/2, (0,0), (0,0), \mbox{SHIP\_SIZE/2}$
     \item output: $out := Player$
     \item exception: None
-\end{itemize}
-
-\noindent fire():
-\begin{itemize}
-  \item input: $in := spascebar \in \mbox{Sound}$
-  \item transition: $in.paused := true \land this.currentTime := 0$
-  \item exception: None
-\end{itemize}
-
-\noindent thrust():
-\begin{itemize}
-  \item input: $in := x \in \mbox{Sound}$
-  \item transition: $in.paused := true \land this.currentTime := 0$
-  \item exception: None
-\end{itemize}
-
-\noindent turn():
-\begin{itemize}
-  \item input: $in := x \in \mbox{Sound}$
-  \item transition: $in.paused := true \land this.currentTime := 0$
-  \item exception: None
-\end{itemize}
-
-\noindent brake():
-\begin{itemize}
-  \item input: $in := x \in \mbox{Sound}$
-  \item transition: $up, spa := true \land this.currentTime := 0$
-  \item exception: None
 \end{itemize}
 
 \noindent interact():
@@ -962,6 +957,57 @@ Player():
   \item transition: $up, space, left, right, down := thrust = true, fire = true, turn = left, turn = right, airbrake = true$
   \item exception: None
 \end{itemize}
+
+\noindent move():
+\begin{itemize}
+  \item input: $thrust, turn := true \lor false, left \lor right$
+  \item transition: $thrust = true \Rightarrow acc.x += \mbox{SHIP\_THRUST} * cos(a)/\mbox{FPS} \land acc.y += \mbox{SHIP\_THRUST} * sin(a)/\mbox{FPS} \land vel.x += acc.x \land vel.y+= acc.y, thrust = false \Rightarrow \mbox{DO NOTHING}, turn = right \Rightarrow rot = -\mbox{TURN\_SPEED}/180*\mbox{PI}/\mbox{FPS}, turn = left \Rightarrow rot =  \mbox{TURN\_SPEED}/180*\mbox{PI}/\mbox{FPS}, turn \lnot (right \lor left) \Rightarrow rot = 0,   space, left, right, down := thrust = true, fire = true, turn = left, turn = right, airbrake = true$
+  \item exception: $vel.x >= \mbox{MAX\_SPEED} \Rightarrow \mbox{DO NOT TRANSITION THRUST AND DECREMENT VELOCITY UNTIL IT IS BELOW MAX SPEED}, vel.y >= max \Rightarrow \mbox{DO NOT TRANSITION THRUST AND DECREMENT VELOCITY UNTIL IT IS BELOW MAX SPEED}$
+\end{itemize}
+
+\noindent draw():
+\begin{itemize}
+  \item input: Player
+  \item transition: draws shape of player ship onto canvas including a thruster image if the ship is being thrusted.
+  \item exception: None
+\end{itemize}
+
+\noindent action():
+\begin{itemize}
+  \item input: fire and bullet countdown
+  \item transition: if fire is set to true then a new bullet object is created the bullet sound is played and the and the bullet countdown is set to FPS/1.25. The bullet is also added to the sprite array, and the player object is passed through to the bullet in order for it to get its releative velocity and location from.
+  \item exception: None
+\end{itemize}
+
+\noindent collide():
+\begin{itemize}
+  \item input: none
+  \item transition: Checks the spritearray from Game in utilities module to see if any asteroid, alien, or alienBullet objects are overlapping areas with the player and if so will kill the player.
+  \item exception: None
+\end{itemize}
+
+\noindent collideOffshoot():
+\begin{itemize}
+  \item input: none
+  \item transition:
+  \item exception: None
+\end{itemize}
+
+\noindent die():
+\begin{itemize}
+  \item input: Player
+  \item transition: draws shape of player ship onto canvas including a thruster image if the ship is being thrusted.
+  \item exception: None
+\end{itemize}
+
+\noindent reset():
+\begin{itemize}
+  \item input: Player
+  \item transition: draws shape of player ship onto canvas including a thruster image if the ship is being thrusted.
+  \item exception: None
+\end{itemize}
+
+
 
 
 
@@ -987,17 +1033,31 @@ None
 
 Bullet(p):
 \begin{itemize}
-    \item transition: $ timeOut, vel, x, y, r, velx, vely = 200, {}, getX(p) + 4/3 * getR(p) * cos(getHeading(p)), getY(p) - 4/3 * getR(p) * sin(getHeading(p)), 1, getVelX(p) + \mbox{BULLET\_EXTRA} * cos(getHeading(p)), getVelY(p) + \mbox{BULLET\_EXTRA} * -sin(getHeading(p)) $
+    \item inheret: GameObject $\Rightarrow$ All state variables and methods
+    \item transition: $ timeOut, vel, x, y, r, velx, vely = 200, \{\}, getX(p) + 4/3 * getR(p) * cos(getHeading(p)), getY(p) - 4/3 * getR(p) * sin(getHeading(p)), 1, getVelX(p) + \mbox{BULLET\_EXTRA} * cos(getHeading(p)), getVelY(p) + \mbox{BULLET\_EXTRA} * -sin(getHeading(p)) $
     \item output: $out := Bullet$
     \item exception: None
 \end{itemize}
 
+\newpage
 
 \begin{tabular}{| l | l | l | l |}
     \hline
     \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
     \hline
-    Alien & ~ & Alien & ~\\
+    Alien & CTX & Alien & ~\\
+    \hline
+    draw & ~ & ~ & ~\\
+    \hline
+    move & ~ & ~ & ~\\
+    \hline
+    action & ~ & ~ & ~\\
+    \hline
+    collide & ~ & ~ & ~\\
+    \hline
+    collideOffshoot & ~ & ~ & ~\\
+    \hline
+    die & ~ & ~ & ~\\
     \hline
 \end{tabular}
 
@@ -1005,7 +1065,12 @@ Bullet(p):
 
 \subsubsection* {State Variables}
 
-None
+All GameObject state variables
+$timeSpawn$: $\mathbb{N}$
+$timeOut$: $\mathbb{N}$
+$xOrY$: $\mathbb{B}$
+$lOrR$: $\mathbb{B}$
+$acc$: sequence of $\mathbb{N}$
 
 \subsubsection* {State Invariant}
 
@@ -1013,11 +1078,53 @@ None
 
 \subsubsection* {Assumptions}
 
+\begin{itemize}
+  \item The constructor is called before any other Alien method is called.
+\end{itemize}
+
 Alien():
 \begin{itemize}
-    \item transition: $ timeSpawn, timeOut, xOrY, lOrR, acc, r = \mbox{ALIEN\_SPAWN}, 50, true, true, (0,0), 12.5 $
-    \item output: $out := Alien$
-    \item exception: None
+  \item inheret: GameObject $\Rightarrow$ All state variables and methods
+  \item transition: $ timeSpawn, timeOut, xOrY, lOrR, acc, r = \mbox{ALIEN\_SPAWN}, 50, true, true, (0,0), 12.5 $\\
+  \item output: $out := Alien$
+  \item exception: None
+\end{itemize}
+
+draw():
+\begin{itemize}
+  \item transition: If $visible = true$, it draws a square at $(x,y)$ every frame to $ctx$.
+  \item exception: None
+\end{itemize}
+
+move():
+\begin{itemize}
+  \item transition: $vel$ is added to $x$ and $y$. This moves the Alien on the screen.
+  \item exception: None
+\end{itemize}
+
+action():
+\begin{itemize}
+  \item transition: The alien counts down until another AlienBullet is fired. $vel$ is also adjusted to create a sinodial path for the Alien to move through.
+  \item exception: None
+\end{itemize}
+
+collide():
+\begin{itemize}
+  \item transition: Detects if a PLAYER, BULLET, or ASTEROID is within $r$ pixels of the alien. If so, the alien executes die()
+  \item exception: None
+\end{itemize}
+
+collideOffshoot(x):
+\begin{itemize}
+  \item input: $x$ = sequence of OBJECT
+  \item transition: Detects if a PLAYER, BULLET, or ASTEROID is within $r$ pixels of the alien. If so, the alien executes die(). If any object has children, collideOffshoot() is called again with those children as x
+  \item exception: None
+\end{itemize}
+
+die():
+\begin{itemize}
+  \item transition: Makes the Alien invisible and randomizes its location on $cvs$. $timeSpawn$ is reset to ALIEN\_SPAWN, $timeOut$ to 50, $xOrY$ and $lOrR$ to 1 or 0 and true or false randomly, respectfully.
+  \item exception: None
 \end{itemize}
 
 \begin{tabular}{| l | l | l | l |}
@@ -1042,11 +1149,12 @@ None
 
 AlienBullet(a):
 \begin{itemize}
+    \item inheret: GameObject $\Rightarrow$ All state variables and methods
     \item transition: $ timeOut, vel, x, y, r, velx, vely = 200, {}, getX(a), getY(a), 2, getVelX(a) + \mbox{BULLET\_EXTRA} * cos(getHeading(a)), getVelY(a) + \mbox{BULLET\_EXTRA} * -sin(getHeading(a)) $
     \item output: $out := AlienBullet$
     \item exception: None
 \end{itemize}
-
+\newpage
 \begin{tabular}{| l | l | l | l |}
     \hline
     \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
@@ -1057,9 +1165,18 @@ AlienBullet(a):
 
 \subsection* {Semantics}
 
+\subsubsection* {Uses}
+
+The JavaScript Math library for random, round and other functions.
+
 \subsubsection* {State Variables}
 
-None
+$x$:
+$y$:
+$scale$:
+$vel$:
+$acc$:
+$children$:
 
 \subsubsection* {State Invariant}
 
@@ -1069,16 +1186,35 @@ None
 
 Asteroid():
 \begin{itemize}
-    \item transition: $ x, y, scale, r, children, vel, velx, vely = 0, 0, scale, 5*scale, [], {}, \pm random(0,1)*3, \pm random(0,1)*3$
+    \item inheret: GameObject $\Rightarrow$ All state variables and methods
+    \item input: $ctx = CTX, scale \in \mathbb{Z}$
+    \item transition: $ x, y, scale, r, children, vel, velx, vely = random(0...CVS\_WIDTH), random(0...CVS\_HEIGHT),
+    scale,
+    5*scale,
+    [],
+    random(-1...1) * 3,
+    random(-1...1) * 3$
     \item output: $out := Asteroid$
     \item exception: None
+\end{itemize}
+
+draw():
+\begin{itemize}
+  \item transition: If $visible = true$, it draws a circle at $(x,y)$ every frame to $ctx$. If $visible = false$, it draws all asteroids in $children$
+\end{itemize}
+
+move():
+\begin{itemize}
+  \item transition: this.x := this.x + this.vel.x \land this.y := this.y + this.vel.y
+  \item transition2: $(this.x < 0 \Rightarrow this.x = CVS_WIDTH) \lor (this.y < 0 \Rightarrow this.y = CVS_HEIGHT) \lor (this.x > CVS_WIDTH \Rightarrow this.x = 0) \lor (this.y > CVS_HEIGHT \Rightarrow this.y = 0)$
+  \item
 \end{itemize}
 
 %===================================================
 
 \newpage
 
-\section*{Game State Module}
+\section*{GameState Module}
 
 \subsection*{Uses}
 
@@ -1160,7 +1296,22 @@ togglePause():
 \noindent output: $out := $
 
 \noindent drawShape: $String\times\mathbb{R}\times\mathbb{R}\Rightarrow$
-\noindent
+\noindent transition: displays specifed shape at specified position
+
+\noindent Play: $AUDIO$
+\noindent transition: Plays specified AUDIO audio file
+
+\noindent pauseSound: $AUDIO$
+\noindent transition: Pauses specified AUDIO audio file
+
+\noindent unpauseSound: $AUDIO$
+\noindent transition: Unpauses specified AUDIO audio file
+
+\noindent stopSound: $AUDIO$
+\noindent transition: Stops specified AUDIO audio file is it was playing
+
+
+
 \noindent drawTriangle: $ \mathbb{N} \Rightarrow $
 \noindent output: $out := $
 
