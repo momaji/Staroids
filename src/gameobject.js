@@ -112,9 +112,6 @@ GameObject = function(){
   /** Access the velocity
     * @return The sprite velocity, containing x and y components */
   this.getVel = function(){return this.vel;};
-  /** Access the acceleration
-    * @return The sprite acceleration, containing both x and y components */
-  this.getAcc = function(){return this.acc;};
   /** Access the screen context
     * @return The sprite's screen context */
   this.getCtx = function(){return this.ctx;};
@@ -129,26 +126,9 @@ GameObject = function(){
   /** Set the y coordinate
     * @param {Integer} y The sprite y coordinate */
   this.setY = function(y){this.y = y;};
-  /** Set the sprite's heading
-    * @param {Integer} a The sprite heading in radians */
-  this.setHeading = function(a){this.a = a;};
   /** Sets if the sprite is active or not
     * @param {Boolean} activity Whether the sprite is active or not */
   this.setActivity = function(activity){this.visible = activity;};
-  /** Set the sprite radius
-    * @param {Integer} r The sprite's radius */
-  this.setRadius = function(r){this.r = r};
-  /** Set the velocity
-    * @param {Integer} ix The x component
-    * @param {Integer} iy The y component */
-  this.setVel = function(ix,iy){this.vel = {x:ix,y:iy};};
-  /** Set the acceleration
-    * @param {Integer} ix The x component
-    * @param {Integer} iy The y component */
-  this.setAcc = function(ix,iy){this.acc = {x:ix,y:iy};;};
-  /** Set the screen context
-    * @param ctx The sprite's screen context */
-  this.setCtx = function(ctx){this.ctx=ctx;};
 };
 
 
