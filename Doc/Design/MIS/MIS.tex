@@ -57,6 +57,7 @@ Nov 06/18 & 0.1 & Added basic information to template\\
 Nov 07/18 & 0.2 & Added Head module specification\\
 Nov 08/18 & 0.3 & Added all module specifications\\
 Nov 09/18 & 0.35 & Tidied up\\
+Nov 09/18 & 0.5 & Finished Sound, Utilites, Head and Game State MIS\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -74,7 +75,10 @@ Utilities
 
 \subsection*{Uses}
 
-N/A
+CVS from Browser (Playing screen)\\
+CTX from CVS (Screen coordinate system)\\
+FONTSTYLE from Browser (Available fonts for printing)\\
+
 
 \subsection*{Syntax}
 
@@ -150,7 +154,7 @@ Key():
 
 \noindent onKeydown(e):
 \begin{itemize}
-    \item transition: $d[e] = EPOCH$
+    \item transition: $d[e] = \mbox{EPOCH}$
     \item exception: None
 \end{itemize}
 
@@ -169,7 +173,7 @@ Key():
 \hline
 \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
 \hline
-Text & Screen, Font & Text & ~\\
+TEXT & CTX, FONTSTYLE & TEXT & ~\\
 \hline
 norm & $String, \mathbb{Z}, \mathbb{Z}$ &  & ~\\
 \hline
@@ -181,8 +185,8 @@ emph & $String, \mathbb{Z}, \mathbb{Z}$ &  & ~\\
 
 \subsubsection*{State Variables}
 
-$cvs$: Screen %ASK
-$fnt$: Font %ASK
+$cvs$: CTX %ASK
+$fnt$: FONTSTYLE %ASK
 
 \subsubsection*{State Invariant}
 
@@ -198,13 +202,13 @@ None
 
 norm($Str,x,y$):
 \begin{itemize}
-    \item transition: $cvs[x][y]=screenShow(Str,\mbox{NORMAL})$
+    \item transition: Displays $Str$ to $cvs$ at location $(x,y)$ in standard font.
     \item exception: None
 \end{itemize}
 
 emph($Str,x,y$):
 \begin{itemize}
-    \item transition: $cvs[x][y]=screenShow(Str,\mbox{EMPHASIS})$
+    \item transition: Displays $Str$ to $cvs$ at location $(x,y)$ in emphasized font.
     \item exception: None
 \end{itemize}
 
@@ -232,17 +236,84 @@ subLives & $\mathbb{Z}$ &  & ~\\
 \hline
 subSprites & OBJECT &  & ~\\
 \hline
+getScore &  & $\mathbb{N}$  & ~\\
+\hline
+getLives &  & $\mathbb{N}$  & ~\\
+\hline
+getLevel &  & $\mathbb{N}$  & ~\\
+\hline
+getAsteroids &  & $\mathbb{N}$  & ~\\
+\hline
+getWidth &  & $\mathbb{N}$  & ~\\
+\hline
+getHeight &  & $\mathbb{N}$  & ~\\
+\hline
+getCvs &  & CVS  & ~\\
+\hline
+getCtx &  & CTX  & ~\\
+\hline
+getSprites &  & sequence of OBJECT  & ~\\
+\hline
+getPlayer &  & PLAYER  & ~\\
+\hline
+getAlien &  & ALIEN  & ~\\
+\hline
+getText &  & TEXT  & ~\\
+\hline
+getSound &  & SOUND  & ~\\
+\hline
+getPaused &  & $\mathbb{B}$  & ~\\
+\hline
+setScore & $\mathbb{N}$ &  & ~\\
+\hline
+setLives & $\mathbb{N}$ &  & ~\\
+\hline
+setLevel & $\mathbb{N}$ &  & ~\\
+\hline
+setAsteroids & $\mathbb{N}$ &  & ~\\
+\hline
+setWidth & $\mathbb{N}$ &  & ~\\
+\hline
+setHeight & $\mathbb{N}$ &  & ~\\
+\hline
+setCvs & CVS &  & ~\\
+\hline
+setCtx & CTX &  & ~\\
+\hline
+setSprites & sequence of OBJECT &  & ~\\
+\hline
+setPlayer & PLAYER &  & ~\\
+\hline
+setAlien & ALIEN &  & ~\\
+\hline
+setText & TEXT &  & ~\\
+\hline
+setSound & SOUND &  & ~\\
+\hline
+setPaused & $\mathbb{B}$ &  & ~\\
+\hline
 \end{tabular}
 
 \subsection*{Semantics}
 
 \subsubsection*{State Variables}
 
-$score$: $\mathbb{N}$
-$lives$: $\mathbb{N}$
-$sprites$: sequence of OBJECT
-$muteSound$: $\mathbb{N}$
-$pauseGame$: $\mathbb{N}$
+$score$: $\mathbb{N}$\\
+$lives$: $\mathbb{N}$\\
+$level$: $\mathbb{N}$\\
+$asteroids$: $\mathbb{N}$\\
+$width$: $\mathbb{N}$\\
+$height$: $\mathbb{N}$\\
+$cvs$: CVS\\
+$ctx$: CTX\\
+$sprites$: sequence of OBJECT\\
+$player$: PLAYER\\
+$alien$: ALIEN\\
+$text$: TEXT\\
+$sound$: SOUND\\
+$paused$: $\mathbb{B}$\\
+$muteSound$: $\mathbb{N}$\\
+$pauseGame$: $\mathbb{N}$\\
 
 \subsubsection*{State Invariant}
 
@@ -261,6 +332,174 @@ None
 Game():
 \begin{itemize}
     \item transition: $score = 0 \land lives = 3 \land sprites = seq. of \mbox{OBJECT} \land muteSound = FPS \land pauseGame = FPS$
+    \item exception: None
+\end{itemize}
+
+getScore():
+\begin{itemize}
+    \item output: $out := score$
+    \item exception: None
+\end{itemize}
+
+getLives():
+\begin{itemize}
+    \item output: $out := lives$
+    \item exception: None
+\end{itemize}
+
+getLevel():
+\begin{itemize}
+    \item output: $out := level$
+    \item exception: None
+\end{itemize}
+
+getAsteroids():
+\begin{itemize}
+    \item output: $out := asteroids$
+    \item exception: None
+\end{itemize}
+
+getWidth():
+\begin{itemize}
+    \item output: $out := width$
+    \item exception: None
+\end{itemize}
+
+getHeight():
+\begin{itemize}
+    \item output: $out := height$
+    \item exception: None
+\end{itemize}
+
+getCvs():
+\begin{itemize}
+    \item output: $out := cvs$
+    \item exception: None
+\end{itemize}
+
+getCtx():
+\begin{itemize}
+    \item output: $out := ctx$
+    \item exception: None
+\end{itemize}
+
+getSprites():
+\begin{itemize}
+    \item output: $out := sprites$
+    \item exception: None
+\end{itemize}
+
+getPlayer():
+\begin{itemize}
+    \item output: $out := player$
+    \item exception: None
+\end{itemize}
+
+getAlien():
+\begin{itemize}
+    \item output: $out := alien$
+    \item exception: None
+\end{itemize}
+
+getText():
+\begin{itemize}
+    \item output: $out := text$
+    \item exception: None
+\end{itemize}
+
+getSound():
+\begin{itemize}
+    \item output: $out := sound$
+    \item exception: None
+\end{itemize}
+
+getPaused():
+\begin{itemize}
+    \item output: $out := paused$
+    \item exception: None
+\end{itemize}
+
+setScore(s):
+\begin{itemize}
+    \item transition: $score = s$
+    \item exception: None
+\end{itemize}
+
+setLives(l):
+\begin{itemize}
+    \item transition: $lives = l$
+    \item exception: None
+\end{itemize}
+
+setLevel(l):
+\begin{itemize}
+    \item transition: $level = l$
+    \item exception: None
+\end{itemize}
+
+setAsteroids(a):
+\begin{itemize}
+    \item transition: $asteroids = a$
+    \item exception: None
+\end{itemize}
+
+setWidth(w):
+\begin{itemize}
+    \item transition: $width = w$
+    \item exception: None
+\end{itemize}
+
+getHeight(h):
+\begin{itemize}
+    \item transition: $height = h$
+    \item exception: None
+\end{itemize}
+
+setCvs(c):
+\begin{itemize}
+    \item transition: $cvs = c$
+    \item exception: None
+\end{itemize}
+
+setCtx(c):
+\begin{itemize}
+    \item transition: $cyx = c$
+    \item exception: None
+\end{itemize}
+
+setSprites(s):
+\begin{itemize}
+    \item transition: $sprites = s$
+    \item exception: None
+\end{itemize}
+
+setPlayer(p):
+\begin{itemize}
+    \item transition: $player = p$
+    \item exception: None
+\end{itemize}
+
+setAlien():
+\begin{itemize}
+    \item transition: $alien = a$
+    \item exception: None
+\end{itemize}
+
+setText(t):
+\begin{itemize}
+    \item transition: $text = t$
+    \item exception: None
+\end{itemize}
+
+setSound(s):
+\begin{itemize}
+    \item transition: $sound = s$
+    \item exception: None
+\end{itemize}
+
+setPaused(b):
+\begin{itemize}
+    \item transition: $paused = b$
     \item exception: None
 \end{itemize}
 
@@ -496,7 +735,7 @@ GameObject
 
 \subsection*{Uses}
 
-N/A
+for all draw function in GameObject, the object is just being drawn to the html canvas reffered to as CVS, using a '2d' context reffered to as CTX.
 
 \subsection*{Syntax}
 
@@ -521,42 +760,130 @@ None
     \hline
     GameObject & ~ & GameObject & ~\\
     \hline
-    update & ~ & ~ & ~\\
+    getX & ~ & $\mathbb{Z}$ & ~\\
     \hline
-    activate & ~ & ~ & ~\\
+    getY & ~ & $\mathbb{Z}$ & ~\\
     \hline
-    deactivate & ~ & ~ & ~\\
+    getHeading & ~ & $\mathbb{R}$ & ~\\
     \hline
-    die & ~ & ~ & ~\\
+    getActivity & ~ & $\mathbb{B}$ & ~\\
     \hline
-    interact & ~ & ~ & ~\\
+    getRadius & ~ & $\mathbb{Z}$ & ~\\
     \hline
-    move & ~ & ~ & ~\\
+    getVel & ~ & $\mathbb{R}$ & ~\\
     \hline
-    action & ~ & ~ & ~\\
+    getCtx & ~ & CTX & ~\\
     \hline
-    draw & ~ & ~ & ~\\
+    getName & ~ & String & ~\\
     \hline
-    reset & ~ & ~ & ~\\
+    setX & $\mathbb{Z}$ & ~ & ~\\
     \hline
-    pass & ~ & ~ & ~\\
+    setY & $\mathbb{Z}$ & ~ & ~\\
     \hline
-    collide & ~ & ~ & ~\\
-    \hline
-    update & ~ & ~ & ~\\
-    \hline
-    collide & ~ & ~ & ~\\
-    \hline
-    collide & ~ & ~ & ~\\
+    setActivity & $\mathbb{B}$ & ~ & ~\\
     \hline
 \end{tabular}
 
-GameObject():
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+$name$: String\\
+$x$: $\mathbb{R}$\\
+$y$: $\mathbb{R}$\\
+$rot$: $\mathbb{R}$\\
+$a$: $\mathbb{R}$\\
+$r$: $\mathbb{N}$\\
+$visible$: $\mathbb{B}$\\
+$vel$: sequence of $\mathbb{R}$\\
+$acc$: sequence of $\mathbb{R}$\\
+$ctx$: CTX\\
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions}
+
+GameObject(name):
 \begin{itemize}
-    \item transition: $name, x, y, rot, a, visible, vel, acc, r = \mbox{name, 0, 0, 0, 0, false, (0,0), (0,0), 0}$
+    \item transition: $name, x, y, rot, a, visible, vel, acc, r, ctx = \mbox{name}, 0, 0, 0, 0, false, (0,0), (0,0), 0, \mbox{CTX}$
     \item output: $out := GameObject$
     \item exception: None
 \end{itemize}
+
+getX():
+\begin{itemize}
+    \item output: $out := x$
+    \item exception: None
+\end{itemize}
+
+getY():
+\begin{itemize}
+    \item output: $out := y$
+    \item exception: None
+\end{itemize}
+
+getHeading():
+\begin{itemize}
+    \item output: $out := a$
+    \item exception: None
+\end{itemize}
+
+getActivity():
+\begin{itemize}
+    \item output: $out := visible$
+    \item exception: None
+\end{itemize}
+
+getRadius():
+\begin{itemize}
+    \item output: $out := r$
+    \item exception: None
+\end{itemize}
+
+getVel():
+\begin{itemize}
+    \item output: $out := vel$
+    \item exception: None
+\end{itemize}
+
+getAcc():
+\begin{itemize}
+    \item output: $out := acc$
+    \item exception: None
+\end{itemize}
+
+getCtx():
+\begin{itemize}
+    \item output: $out := ctx$
+    \item exception: None
+\end{itemize}
+
+getName():
+\begin{itemize}
+    \item output: $out := name$
+    \item exception: None
+\end{itemize}
+
+setX(x):
+\begin{itemize}
+    \item input: $in := x \in \mathbb{Z}$
+    \item exception: None
+\end{itemize}
+
+setY(y):
+\begin{itemize}
+    \item input: $in := x \in \mathbb{Z}$
+    \item exception: None
+\end{itemize}
+
+setActivity(activity):
+\begin{itemize}
+    \item input: $in := x \in \mathbb{B}$
+    \item exception: None
+\end{itemize}
+
 
 \begin{tabular}{| l | l | l | l |}
     \hline
@@ -572,7 +899,27 @@ GameObject():
     \hline
     brake & ~ & ~ & ~\\
     \hline
+    interact & KeyCode & ~ & ~\\
+    \hline
+    brake & ~ & ~ & ~\\
+    \hline
+    brake & ~ & ~ & ~\\
+    \hline
+    brake & ~ & ~ & ~\\
+    \hline
 \end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+None
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions}
 
 Player():
 \begin{itemize}
@@ -581,6 +928,43 @@ Player():
     \item exception: None
 \end{itemize}
 
+\noindent fire():
+\begin{itemize}
+  \item input: $in := spascebar \in \mbox{Sound}$
+  \item transition: $in.paused := true \land this.currentTime := 0$
+  \item exception: None
+\end{itemize}
+
+\noindent thrust():
+\begin{itemize}
+  \item input: $in := x \in \mbox{Sound}$
+  \item transition: $in.paused := true \land this.currentTime := 0$
+  \item exception: None
+\end{itemize}
+
+\noindent turn():
+\begin{itemize}
+  \item input: $in := x \in \mbox{Sound}$
+  \item transition: $in.paused := true \land this.currentTime := 0$
+  \item exception: None
+\end{itemize}
+
+\noindent brake():
+\begin{itemize}
+  \item input: $in := x \in \mbox{Sound}$
+  \item transition: $up, spa := true \land this.currentTime := 0$
+  \item exception: None
+\end{itemize}
+
+\noindent interact():
+\begin{itemize}
+  \item input: $in := up \lor space \lor left \lor right \lor down \in \mbox{KeyCode}$
+  \item transition: $up, space, left, right, down := thrust = true, fire = true, turn = left, turn = right, airbrake = true$
+  \item exception: None
+\end{itemize}
+
+
+
 \begin{tabular}{| l | l | l | l |}
     \hline
     \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
@@ -588,6 +972,18 @@ Player():
     Bullet & Player & Bullet & ~\\
     \hline
 \end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+None
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions}
 
 Bullet(p):
 \begin{itemize}
@@ -605,6 +1001,18 @@ Bullet(p):
     \hline
 \end{tabular}
 
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+None
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions}
+
 Alien():
 \begin{itemize}
     \item transition: $ timeSpawn, timeOut, xOrY, lOrR, acc, r = \mbox{ALIEN\_SPAWN}, 50, true, true, (0,0), 12.5 $
@@ -620,9 +1028,21 @@ Alien():
     \hline
 \end{tabular}
 
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+None
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions}
+
 AlienBullet(a):
 \begin{itemize}
-    \item transition: $ timeOut, vel, x, y, r, velx, vely = 200, {}, getX(a) + 4/3 * getR(a) * cos(getHeading(a)), getY(a) - 4/3 * getR(a) * sin(getHeading(a)), 1, getVelX(a) + \mbox{BULLET\_EXTRA} * cos(getHeading(a)), getVelY(a) + \mbox{BULLET\_EXTRA} * -sin(getHeading(a)) $
+    \item transition: $ timeOut, vel, x, y, r, velx, vely = 200, {}, getX(a), getY(a), 2, getVelX(a) + \mbox{BULLET\_EXTRA} * cos(getHeading(a)), getVelY(a) + \mbox{BULLET\_EXTRA} * -sin(getHeading(a)) $
     \item output: $out := AlienBullet$
     \item exception: None
 \end{itemize}
@@ -634,6 +1054,18 @@ AlienBullet(a):
     Asteroid & ~ & Asteroid & ~\\
     \hline
 \end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+None
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions}
 
 Asteroid():
 \begin{itemize}
@@ -710,10 +1142,10 @@ isSafe(obj,sprites){
 \end{itemize}
 }
 
-checkCollision(obj,other,r)
+checkCollision(a,b,c)
 \begin{itemize}
-  \item input: $obj \in \mbox{GameObject}, other \in \mbox{GameObject}, obj \in \mathbb{Z}$
-
+  \item input: $a \in \mbox{GameObject}, b \in \mbox{GameObject}, c \in \mathbb{Z}$
+  \item output: $out := (pyth(|a.getX() - b.getX()|, |a.getX() - b.getX()|) < c)$
 \end{itemize}
 
 togglePause():
@@ -725,8 +1157,10 @@ togglePause():
 \subsection*{Local Functions}
 
 \noindent screenShow: $String\times\{\mbox{NORMAL},\mbox{EMPHASIS}\Rightarrow?\}$
-\noindent output: $out := $ %ASK
+\noindent output: $out := $
 
+\noindent drawShape: $String\times\mathbb{R}\times\mathbb{R}\Rightarrow$
+\noindent
 \noindent drawTriangle: $ \mathbb{N} \Rightarrow $
 \noindent output: $out := $
 
