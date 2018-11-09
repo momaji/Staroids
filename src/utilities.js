@@ -239,9 +239,6 @@ Game = {
   /** Sets the game's current level
    * @param {Integer} lvl */
   setLevel: function(lvl){ this.level=lvl;},
-  /** Sets the game's max large asteroid count
-   * @param {Integer} ast The new asteroid count */
-  setAsteroids: function(ast){ this.asteroids=ast;},
   /** Sets the game's currently active sprite array
    * @param {Array} sprites The new active sprite array */
   setSprites: function(sprites){ this.sprites=sprites;},
@@ -274,9 +271,6 @@ Game = {
   /** Increases the game's current score
    * @param {Integer} amount The amount to increase the score by */
   addScore: function (amount){ this.score+=amount;},
-  /** Increases the game's live count
-   * @param {Integer} amount The amount to increase lives by */
-  addLives: function (amount){ this.lives+=amount;},
   /** Increases the game's asteroid count
    * @param {Integer} amount The amount to increase the asteroid count by */
   addAsteroids: function (amount){ this.asteroids+=amount;},
@@ -285,9 +279,6 @@ Game = {
   addSprites: function(sprite){ this.getSprites().push(sprite);},
 
   //Remove-ers
-  /** Decreases the game's current score
-   * @param {Integer} amount The amount to decrease the score by */
-  subScore: function (amount){ this.score-=amount;},
   /** Decrease the game's live count
    * @param {Integer} amount The amount to decrease lives by */
   subLives: function (amount){ this.lives-=amount;},
