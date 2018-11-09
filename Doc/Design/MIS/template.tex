@@ -42,8 +42,6 @@
   \\ Jason Nagy, 400055130, nagyj2
 }
 
-
-
 \begin{document}
 
 \maketitle
@@ -249,8 +247,9 @@ None
 
 \subsubsection*{Assumptions}
 
-\begin{itemize}
-\end{itemize}
+%\begin{itemize}
+%
+%\end{itemize}
 
 None
 
@@ -407,7 +406,7 @@ Sound():
 \noindent stop():
 \begin{itemize}
   \item input: $in := x \in \mbox{Sound}$
-  \item transition: $in.paused := true && this.currentTime := 0$
+  \item transition: $in.paused := true \land this.currentTime := 0$
   \item exception: None
 \end{itemize}
 
@@ -579,7 +578,7 @@ Player():
 
 Bullet():
 \begin{itemize}
-    \item transition: $ vel, x, y, r, velx, vely, , thrust, turn, airbrake, bulletCountDown vel, acc, r = \mbox{false, false, false, FPS/2, (0,0), (0,0), SHIP_SIZE/2 }$
+    \item transition: $ timeOut, vel, x, y, r, velx, vely = \mbox{false, false, false, FPS/2, (0,0), (0,0), SHIP_SIZE/2 }$
     \item output: $out := Player$
     \item exception: None
 \end{itemize}
@@ -800,8 +799,8 @@ $state \neq stateSave$
 
 None
 
-\begin{itemize}
-\end{itemize}
+%\begin{itemize}
+%\end{itemize}
 
 \subsubsection* {Access Routine Semantics}
 
