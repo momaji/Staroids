@@ -27,7 +27,7 @@ const MAX_ASTEROIDS = 2;
 /** Staroids experimental features toggle */
 const TEST=false;
 /** Alien Spawn time */
-const ALIEN_SPAWN=200;
+const ALIEN_SPAWN=700;
 
 /** Debugging script that allows for HTML output under the canvas (to up to five p HTML elements)
  * @param select The id of the output p HTML element
