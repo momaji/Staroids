@@ -56,6 +56,7 @@
 Nov 06/18 & 0.1 & Added basic information to template\\
 Nov 07/18 & 0.2 & Added Head module specification\\
 Nov 08/18 & 0.3 & Added all module specifications\\
+Nov 09/18 & 0.35 & Tidied up\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -80,20 +81,20 @@ N/A
 \subsubsection*{Exported Types}
 
 FPS=30\\
-SHIP_SIZE=30\\
-TURN_SPEED=180\\
-SHIP_THRUST=0.2\\
-SHIP_BREAK=0.98\\
-MIN_SPEED=0.1\\
-MAX_SPEED=20\\
-MAX_ACC=2\\
-CVS_WIDTH=780\\
-CVS_HEIGHT=620\\
-BULLET_EXTRA=5\\
+SHIP\_SIZE=30\\
+TURN\_SPEED=180\\
+SHIP\_THRUST=0.2\\
+SHIP\_BREAK=0.98\\
+MIN\_SPEED=0.1\\
+MAX\_SPEED=20\\
+MAX\_ACC=2\\
+CVS\_WIDTH=780\\
+CVS\_HEIGHT=620\\
+BULLET\_EXTRA=5\\
 KILLABLE=\{True,False\}\\
-MAX_ASTEROIDS=2\\
+MAX\_ASTEROIDS=2\\
 TEST=\{True,False\}\\
-ALIEN_SPAWN=700\\
+ALIEN\_SPAWN=700\\
 KeyCode=\{UP,DOWN,RIGHT,LEFT,SPACE,M,P,R\}\\
 EPOCH=1\\
 Key=?\\
@@ -124,7 +125,7 @@ $d$: sequence of $\mathbb{N}$\\
 
 \subsubsection*{State Invariant}
 
-$\forall (c : \mathbb{N} | c \in d : c \gt 0)$
+$\forall (c : \mathbb{N} | c \in d : c > 0)$
 
 \subsubsection*{Assumptions}
 
@@ -501,7 +502,12 @@ N/A
 
 \subsubsection*{Exported Types}
 
-GameObject, Player, Bullet, Alien, AlienBullet, Asteroid
+GameObject=?
+Player=?
+Bullet=?
+Alien=?
+AlienBullet=?
+Asteroid=?
 
 \subsubsection*{Exported Constants}
 
@@ -511,37 +517,38 @@ None
 
 \begin{tabular}{| l | l | l | l |}
     \hline
-    \textbf{Routine name} & \textbf{In} & \textbf{Out} &   \hline
-      GameObject & ~ & GameObject & ~\\
-      \hline
-      update & ~ & ~ & ~\\
-      \hline
-      activate & ~ & ~ & ~\\
-      \hline
-      deactivate & ~ & ~ & ~\\
-      \hline
-      die & ~ & ~ & ~\\
-      \hline
-      interact & ~ & ~ & ~\\
-      \hline
-      move & ~ & ~ & ~\\
-      \hline
-      action & ~ & ~ & ~\\
-      \hline
-      draw & ~ & ~ & ~\\
-      \hline
-      reset & ~ & ~ & ~\\
-      \hline
-      pass & ~ & ~ & ~\\
-      \hline
-      collide & ~ & ~ & ~\\
-      \hline
-      update & ~ & ~ & ~\\
-      \hline
-      collide & ~ & ~ & ~\\
-      \hline
-      collide & ~ & ~ & ~\\
-      \hline
+    \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+    \hline
+    GameObject & ~ & GameObject & ~\\
+    \hline
+    update & ~ & ~ & ~\\
+    \hline
+    activate & ~ & ~ & ~\\
+    \hline
+    deactivate & ~ & ~ & ~\\
+    \hline
+    die & ~ & ~ & ~\\
+    \hline
+    interact & ~ & ~ & ~\\
+    \hline
+    move & ~ & ~ & ~\\
+    \hline
+    action & ~ & ~ & ~\\
+    \hline
+    draw & ~ & ~ & ~\\
+    \hline
+    reset & ~ & ~ & ~\\
+    \hline
+    pass & ~ & ~ & ~\\
+    \hline
+    collide & ~ & ~ & ~\\
+    \hline
+    update & ~ & ~ & ~\\
+    \hline
+    collide & ~ & ~ & ~\\
+    \hline
+    collide & ~ & ~ & ~\\
+    \hline
 \end{tabular}
 
 GameObject():
@@ -551,37 +558,40 @@ GameObject():
     \item exception: None
 \end{itemize}
 
-
-
 \begin{tabular}{| l | l | l | l |}
     \hline
-    \textbf{Routine name} & \textbf{In} & \textbf{Out} &   \hline
-      Player & ~ & Player & ~\\
-      fire & ~ & Bullet & ~\\
-      thrust & ~ & ~ & ~\\
-      turn & ~ & ~ & ~\\
-      brake & ~ & ~ & ~\\
-
-      \hline
+    \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+    \hline
+    Player & ~ & Player & ~\\
+    \hline
+    fire & ~ & Bullet & ~\\
+    \hline
+    thrust & ~ & ~ & ~\\
+    \hline
+    turn & ~ & ~ & ~\\
+    \hline
+    brake & ~ & ~ & ~\\
+    \hline
 \end{tabular}
 
 Player():
 \begin{itemize}
-    \item transition: $ fire, thrust, turn, airbrake, bulletCountDown vel, acc, r = \mbox{false, false, false, FPS/2, (0,0), (0,0), SHIP_SIZE/2 }$
+    \item transition: $ fire, thrust, turn, airbrake, bulletCountDown vel, acc, r = false, false, false, \mbox{FPS}/2, (0,0), (0,0), \mbox{SHIP\_SIZE/2}$
     \item output: $out := Player$
     \item exception: None
 \end{itemize}
 
 \begin{tabular}{| l | l | l | l |}
     \hline
-    \textbf{Routine name} & \textbf{In} & \textbf{Out} &   \hline
-      Bullet & ~ & Bullet & ~\\
-      \hline
+    \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+    \hline
+    Bullet & Player & Bullet & ~\\
+    \hline
 \end{tabular}
 
-Bullet():
+Bullet(p):
 \begin{itemize}
-    \item transition: $ timeOut, vel, x, y, r, velx, vely = \mbox{200, {}, Player.x + 4/3 * Player.r * cos(Bullet.a), Player.Y - 4/3 * Player.r * sin(Bullet.a), 1, Player.Vel.x + BULLET_EXTRA * cos(Bullet.a), Player.Vel.y + BULLET_EXTRA * -sin(Bullet.a) }$
+    \item transition: $ timeOut, vel, x, y, r, velx, vely = 200, {}, getX(p) + 4/3 * getR(p) * cos(getHeading(p)), getY(p) - 4/3 * getR(p) * sin(getHeading(p)), 1, getVelX(p) + \mbox{BULLET\_EXTRA} * cos(getHeading(p)), getVelY(p) + \mbox{BULLET\_EXTRA} * -sin(getHeading(p)) $
     \item output: $out := Bullet$
     \item exception: None
 \end{itemize}
@@ -589,169 +599,46 @@ Bullet():
 
 \begin{tabular}{| l | l | l | l |}
     \hline
-    \textbf{Routine name} & \textbf{In} & \textbf{Out} &   \hline
-      Alien & ~ & Alien & ~\\
-      \hline
+    \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+    \hline
+    Alien & ~ & Alien & ~\\
+    \hline
 \end{tabular}
 
 Alien():
 \begin{itemize}
-    \item transition: $ timeSpawn, timeOut, xOrY, lOrR, acc, r = \mbox{ALIEN_SPAWN, 50, true, true, (0,0), 12.5 }$
+    \item transition: $ timeSpawn, timeOut, xOrY, lOrR, acc, r = \mbox{ALIEN\_SPAWN}, 50, true, true, (0,0), 12.5 $
     \item output: $out := Alien$
     \item exception: None
 \end{itemize}
 
 \begin{tabular}{| l | l | l | l |}
     \hline
-    \textbf{Routine name} & \textbf{In} & \textbf{Out} &   \hline
-      AlienBullet & ~ & AlienBullet & ~\\
-      \hline
+    \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+    \hline
+    AlienBullet & ~ & AlienBullet & ~\\
+    \hline
 \end{tabular}
 
-AlienBullet():
+AlienBullet(a):
 \begin{itemize}
-    \item transition: $ timeOut, vel, x, y, r, velx, vely = \mbox{200, {}, Player.x + 4/3 * Player.r * cos(Bullet.a), Player.Y - 4/3 * Player.r * sin(Bullet.a), 1, Player.Vel.x + BULLET_EXTRA * cos(Bullet.a), Player.Vel.y + BULLET_EXTRA * -sin(Bullet.a) }$
+    \item transition: $ timeOut, vel, x, y, r, velx, vely = 200, {}, getX(a) + 4/3 * getR(a) * cos(getHeading(a)), getY(a) - 4/3 * getR(a) * sin(getHeading(a)), 1, getVelX(a) + \mbox{BULLET\_EXTRA} * cos(getHeading(a)), getVelY(a) + \mbox{BULLET\_EXTRA} * -sin(getHeading(a)) $
     \item output: $out := AlienBullet$
     \item exception: None
 \end{itemize}
 
 \begin{tabular}{| l | l | l | l |}
     \hline
-    \textbf{Routine name} & \textbf{In} & \textbf{Out} &   \hline
-      Asteroid & ~ & Asteroid & ~\\
-      \hline
+    \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+    \hline
+    Asteroid & ~ & Asteroid & ~\\
+    \hline
 \end{tabular}
 
 Asteroid():
 \begin{itemize}
-    \item transition: $ x, y, scale, r, children, vel, velx, vely = \mbox{ round(random(0,1)*CVS_WIDTH), round(random(0,1)*CVS_HEIGHT), scale, 5*scale, [], {}, +/-random(0,1)*3, +/-random(0,1)*3 }$
+    \item transition: $ x, y, scale, r, children, vel, velx, vely = 0, 0, scale, 5*scale, [], {}, \pm random(0,1)*3, \pm random(0,1)*3$
     \item output: $out := Asteroid$
-    \item exception: None
-\end{itemize}
-
-%local function cvs width
-
-
-
-
-\subsection* {Semantics}
-
-\subsubsection* {State Variables}
-
-$col$: sequence of StackT\\
-$fre$: sequence of CardT\\
-$fou$: sequence of CardT\\
-$dek$: DeckT\\
-
-\subsubsection* {State Invariant}
-
-\begin{itemize}
-  \item All StackTs within $col$ must have a CardT with getSuit()=\m{NAS}
-  and getRank()=\m{NAR} at the bottom (first added on).
-\end{itemize}
-
-\subsubsection* {Assumptions}
-
-\begin{itemize}
-    \item The constructor BoardT is called for each object instance
-    before any other access routine is called for that object. The
-    constuctor cannot be called on an existing object.
-    \item Unallocated $fre$ locations are to be filled with a CardT with
-    getSuit()=\m{NAS} and getRank()=\m{NAR}.
-\end{itemize}
-
-\subsubsection* {Access Routine Semantics}
-
-BoardT():
-\begin{itemize}
-    \item transition: $col := \forall(c : \mbox{CardT} | c \in dek : col||c)$
-
-    \hspace{1.8cm} $fre :=$ seq of CardT
-
-    \hspace{1.8cm} $fou :=$ seq of CardT
-
-    \hspace{1.8cm} $dek :=$ DeckT()
-    \item output: $out := \mathit{self}$
-    \item exception: None
-\end{itemize}
-
-\noindent hasWon():
-\begin{itemize}
-  \item output: $out := \m{BoardEmpty}(col) \land \forall(c:\m{CardT}|c \in fre : \m{FreeCellEmpty}(c)) \land forall(C:\m{CardT}|C \in fou : \m{FoundationComplete}(C))$
-  \item exception: None
-\end{itemize}
-
-\noindent getStack(i):
-\begin{itemize}
-  \item output: $out := col[i]$
-  \item exception: $(\lnot (0<=i<8) \means \m{invalid\_index})$
-\end{itemize}
-
-\noindent getFree(i):
-\begin{itemize}
-  \item output: $out := fre[i]$
-  \item exception: $(\lnot (0<=i<4) \means \m{invalid\_index})$
-\end{itemize}
-
-\noindent getWin(i):
-\begin{itemize}
-  \item output: $out := fou[i]$
-  \item exception: $(\lnot (0<=i<4) \means \m{invalid\_index})$
-\end{itemize}
-
-\noindent setStack(i,S):
-\begin{itemize}
-  \item transition: $col[i]=S$
-  \item exception: $(\lnot (0<=i<8) \means \m{invalid\_index})$
-\end{itemize}
-
-\noindent getFree(i,C):
-\begin{itemize}
-  \item transition: $fre[i]=C$
-  \item exception: $(\lnot (0<=i<4) \means \m{invalid\_index})$
-\end{itemize}
-
-\noindent getWin(i,C):
-\begin{itemize}
-  \item transition: $fou[i]=C$
-  \item exception: $(\lnot (0<=i<4) \means \m{invalid\_index})$
-\end{itemize}
-
-\noindent moveColToCol(a,b):
-\begin{itemize}
-    \item transition: $col[a], col[b] := col[a].\m{remCard}(), col[b].\m{addCard}(col[a].\m{peek}())$
-    \item exception: $((\lnot \m{ValidIndex}(8,8,a,b) \means \m{invalid\_index}) \lor (\m{StackEmpty}(col[a]) \means \m{stack\_empty}) \lor (\lnot \m{AlternatingColour}(col[a].\m{peek}(),col[b].\m{peek}()) \means \m{not\_alternating\_colour}) \lor (\lnot \m{DecreasingRank}(col[a].\m{peek}(),col[b].\m{peek}()) \means \m{not\_decreasing\_rank}))$
-\end{itemize}
-
-\noindent moveColToFree(a,b):
-\begin{itemize}
-    \item transition: $col[a], fre[b] := col[a].remCard(), fre[b]=col[a].peek()$
-    \item exception: $((\lnot \m{ValidIndex}(8,4,a,b) \means \m{invalid\_index}) \lor (\m{StackEmpty}(col[a]) \means \m{stack\_empty}) \lor (\lnot \m{CellFree}(b) \means \m{occupied\_cell}))$
-\end{itemize}
-
-\noindent moveFreeToCol(a,b):
-\begin{itemize}
-    \item transition: $fre[a], col[b] := fre[a]=\mbox{CardT}(\mbox{NAS,NAR}), col[a].\m{addCard}(fre[a])$
-    \item exception: $((\lnot \m{ValidIndex}(4,8,a,b) \means \m{invalid\_index}) \lor (\m{StackEmpty}(col[b]) \means \m{stack\_empty}) \lor (\m{CellFree}(a) \means \m{occupied\_cell})) \lor (\lnot \m{AlternatingColour}(fre[a],col[b].\m{peek}()) \means \m{not\_alternating\_colour}) \lor (\lnot \m{DecreasingRank}(fre[a],col[b].\m{peek}()) \means \m{not\_decreasing\_rank}))$
-\end{itemize}
-
-\noindent moveColToWin(a,b):
-\begin{itemize}
-    \item transition: $col[a], fou[b] := col[a].\m{remCard}(), fou[b]=col[a].\m{peek}()$
-    \item exception: $((\lnot \m{ValidIndex}(8,4,a,b) \means \m{invalid\_index}) \lor (\m{StackEmpty}(col[a]) \means \m{stack\_empty}) \lor (\lnot \m{SameSuit}(col[a].\m{peek}(),fou[b]) \means \m{not\_same\_suit}) \lor (\lnot \m{IncreasingRank}(fou[b],col[a].\m{peek}()) \means \m{not\_ascending\_rank})$
-\end{itemize}
-
-\noindent moveFreeToWin(a,b):
-\begin{itemize}
-    \item transition: $fre[a], fou[b] := fre[a]=\mbox{CardT}(\mbox{NAS,NAR}), fou[b]=col[a].\m{peek}()$
-    \item exception: $((\lnot \m{ValidIndex}(4,4,a,b) \means \m{invalid\_index}) \lor (\m{CellFree}(a) \means \m{occupied\_cell})) \lor (\lnot \m{SameSuit}(fre[a],fou[b]) \means \m{not\_same\_suit}) \lor (\lnot \m{IncreasingRank}(fou[b],fre[a] \means \m{not\_ascending\_rank})$
-\end{itemize}
-
-\noindent isValidMoves():
-\begin{itemize}
-    \item output $out := \exists(s:\m{StackT}|s \in col: \exists(c:\m{CardT}|c \in fou: \m{isIncreasingRank}(c,s.\m{peek}()) \land \m{SameSuit}(c,s.\m{peek}()))) \lor \exists(c_1:\m{CardT}|c_1 \in fre: \exists(c_2:\m{CardT}|c_2 \in fou: \m{isIncreasingRank}(c_2,c_1) \land \m{SameSuit}(c_1,c_2)))$\\
-    $\lor \exists(s_1:\m{StackT}|s_1 \in col: \exists(s_2:\m{StackT}|s_2 \in col: s_1 \neq s_2 \land (isIncreasingRank(s_1.peek(),s_2.peek()) \lor isDecreasingRank(s_1.peek(),s_2.peek())) \land iAlternatingRank(S_1.peek(),s_2.peek()) \land \lnot isStackEmpty(s_1) \land \lnot isStackEmpty(s_2) ))$\\
-    $\lor \exists(c_1:\m{CardT}|c_1 \in fre: \exists (s_1:\m{StackT}|s_1 \in col: (\m{AlternatingColour}(c_1,s_1.\m{peek}) \land (\m{IncreasingRank}(c_1,s_1.\m{peek}) \lor \m{DecreasingRank}(c_1,s_1.\m{peek})) \land c_1.\m{isValid}()) \lor (\lnot c_1.\m{isValid})\land \lnot \m{isStackEmpty}(s_1) )) $\\
     \item exception: None
 \end{itemize}
 
@@ -780,7 +667,7 @@ StateMachine=?\\
     \hline
     isSafe & OBJECT, seq. of OBJECT & ~ & ~\\
     \hline
-    generateAsteroids & $x \in \Z$ & ~ & ~ \\
+    generateAsteroids & $x \in \mathbb{Z}$ & ~ & ~ \\
     \hline
     checkCollision & GameObject, GameObject, GameObject & ~ & ~ \\
     \hline
@@ -825,7 +712,7 @@ isSafe(obj,sprites){
 
 checkCollision(obj,other,r)
 \begin{itemize}
-  \item input: $obj \in \mbox{GameObject}, other \in \mbox{GameObject}, obj \in \Z$
+  \item input: $obj \in \mbox{GameObject}, other \in \mbox{GameObject}, obj \in \mathbb{Z}$
 
 \end{itemize}
 
