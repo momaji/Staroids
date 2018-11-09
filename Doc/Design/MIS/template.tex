@@ -1,5 +1,11 @@
 \documentclass[12pt]{article}
 
+%============================
+%============================
+% This document was created by all members of the Staroids team equally
+%============================
+%============================
+
 \usepackage{graphicx}
 \usepackage{paralist}
 \usepackage{amsfonts}
@@ -87,6 +93,7 @@ BULLET_EXTRA=5\\
 KILLABLE=\{True,False\}\\
 MAX_ASTEROIDS=2\\
 TEST=\{True,False\}\\
+ALIEN_SPAWN=700\\
 KeyCode=\{UP,DOWN,RIGHT,LEFT,SPACE,M,P,R\}\\
 EPOCH=1\\
 Key=?\\
@@ -130,7 +137,7 @@ $\forall (c : \mathbb{N} | c \in d : c \gt 0)$
 Key():
 \begin{itemize}
     \item transition: $d :=$ seq of KeyCode
-    \item output: $out := \mathit{self}$
+    \item output: $out := Key$
     \item exception: None
 \end{itemize}
 
@@ -154,6 +161,8 @@ Key():
 
 
 \newpage %Text Object
+
+\subsubsection*{Exported Access Programs}
 
 \begin{tabular}{| l | l | l | l |}
 \hline
@@ -188,13 +197,13 @@ None
 
 norm($Str,x,y$):
 \begin{itemize}
-    \item transition: $cvs[x][y]:=screenShow(Str,\mbox{NORMAL})$
+    \item transition: $cvs[x][y]=screenShow(Str,\mbox{NORMAL})$
     \item exception: None
 \end{itemize}
 
 emph($Str,x,y$):
 \begin{itemize}
-    \item transition: $cvs[x][y]:=screenShow(Str,\mbox{EMPHASIS})$
+    \item transition: $cvs[x][y]=screenShow(Str,\mbox{EMPHASIS})$
     \item exception: None
 \end{itemize}
 
@@ -249,7 +258,55 @@ None
 
 Game():
 \begin{itemize}
-    \item transition: $score = 0 \land lives = 3 \land sprites = seq. of \mbox{OBJECT} $
+    \item transition: $score = 0 \land lives = 3 \land sprites = seq. of \mbox{OBJECT} \land muteSound = FPS \land pauseGame = FPS$
+    \item exception: None
+\end{itemize}
+
+reduceCounter():
+\begin{itemize}
+    \item transition: $ muteSound := muteSound - 1 \land pauseGame := pauseGame - 1 $
+    \item exception: None
+\end{itemize}
+
+resetMute():
+\begin{itemize}
+    \item transition: $ muteSound = FPS $
+    \item exception: None
+\end{itemize}
+
+resetPause():
+\begin{itemize}
+    \item transition: $ pauseGame = FPS $
+    \item exception: None
+\end{itemize}
+
+drawLives():
+\begin{itemize}
+    \item transition: $ \forall (i:\mathbb{N} | i < lives : drawTriangle(i*15)) $
+    \item exception: None
+\end{itemize}
+
+addScore(amount):
+\begin{itemize}
+    \item transition: $ score + amount $
+    \item exception: None
+\end{itemize}
+
+addSprite(obj):
+\begin{itemize}
+    \item transition: $ sprites = sprites || obj $
+    \item exception: None
+\end{itemize}
+
+subLives(obj):
+\begin{itemize}
+    \item transition: $ lives - 1 $
+    \item exception: None
+\end{itemize}
+
+subSprite(obj):
+\begin{itemize}
+    \item transition: $ sprites = sprites \setminus obj $
     \item exception: None
 \end{itemize}
 
@@ -299,6 +356,7 @@ Sound: Audio object from file
 
 \subsubsection* {State Invariant}
 
+None
 %ask about state invariant of sounnd
 
 \subsubsection* {Assumptions}
@@ -314,56 +372,116 @@ Sound: Audio object from file
 Sound():
 \begin{itemize}
   \item transition: $muted := true$
+  \item exception: None
   %ask about the Audio objects
 \end{itemize}
 
-play():
+\noindent play():
 \begin{itemize}
   \item input: $in := x \in \mbox{Sound}$
   \item transition: $!in.muted: in.play()$
+  \item exception: None
 \end{itemize}
 
-isPlay():
+\noindent isPlay():
 \begin{itemize}
   \item input: $in := x \in \mbox{Sound}$
-  \item output: $out := !x.paused()$
+  \item output: $out := !in.paused()$
+  \item exception: None
 \end{itemize}
 
-pause():
+\noindent pause():
 \begin{itemize}
   \item input: $in := x \in \mbox{Sound}$
   \item transition: $in.paused := true$
+  \item exception: None
 \end{itemize}
 
-unpause():
+\noindent unpause():
 \begin{itemize}
   \item input: $in := x \in \mbox{Sound}$
   \item transition: $in.paused := !true$
+  \item exception: None
 \end{itemize}
 
-stop():
+\noindent stop():
 \begin{itemize}
   \item input: $in := x \in \mbox{Sound}$
   \item transition: $in.paused := true && this.currentTime := 0$
+  \item exception: None
 \end{itemize}
 
-mute():
+\noindent mute():
 \begin{itemize}
   \item input: $in := x \in \mbox{Sound}$
   \item transition: $in.muted := true$
+  \item exception: None
 \end{itemize}
 
-unmute():
+\noindent unmute():
 \begin{itemize}
   \item input: $in := x \in \mbox{Sound}$
   \item transition: $in.muted := !true$
+  \item exception: None
 \end{itemize}
 
-toggle():
+\noindent toggle():
 \begin{itemize}
   \item input: $in := x \in \mbox{Sound}$
   \item transition: $in.muted := !in.muted$
+  \item exception: None
 \end{itemize}
+
+%===================================================
+\newpage
+
+\section*{Head Module}
+
+\subsection*{Uses}
+
+utilities.js, sound.js, gameobject.js, gamestate.js\\
+
+\subsubsection*{Exported Constants}
+
+None
+
+\subsubsection*{Exported Access Programs}
+
+\begin{tabular}{| l | l | l | l |}
+    \hline
+    \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+    \hline
+    dynamicallyLoadScript & any & ~ & ~\\
+    \hline
+
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+None
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions}
+
+\begin{itemize}
+    \item The files are named the same way that the module expects
+\end{itemize}
+
+\subsubsection* {Access Routine Semantics}
+
+dynamicallyLoadScript():
+\begin{itemize}
+    \item input: $in := x \in \{"utilities.js","sound.js","gameobject.js","gamestate.js"\}$
+    \item transition: $c := \{\}$
+    \item output: $out := Head$
+    \item exception: None
+\end{itemize}
+
 
 %===================================================
 \newpage
@@ -376,13 +494,13 @@ GameObject
 
 \subsection*{Uses}
 
-N/A\\
+N/A
 
 \subsection*{Syntax}
 
 \subsubsection*{Exported Types}
 
-GameObject, Player, Alien
+GameObject, Player, Bullet, Alien, AlienBullet, Asteroid
 
 \subsubsection*{Exported Constants}
 
@@ -392,138 +510,125 @@ None
 
 \begin{tabular}{| l | l | l | l |}
     \hline
-    \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
-    \hline
-    StackT & ~ & ~ & ~\\
-    \hline
-    addCard & CardT & ~ & ~\\
-    \hline
-    remCard & ~ & CardT & is\_empty\\
-    \hline
-    peek & ~ & CardT & is\_empty\\
-    \hline
-    size & ~ & $\mathbb{N}$ & ~\\
-    \hline
+    \textbf{Routine name} & \textbf{In} & \textbf{Out} &   \hline
+      GameObject & ~ & GameObject & ~\\
+      \hline
+      update & ~ & ~ & ~\\
+      \hline
+      activate & ~ & ~ & ~\\
+      \hline
+      deactivate & ~ & ~ & ~\\
+      \hline
+      die & ~ & ~ & ~\\
+      \hline
+      interact & ~ & ~ & ~\\
+      \hline
+      move & ~ & ~ & ~\\
+      \hline
+      action & ~ & ~ & ~\\
+      \hline
+      draw & ~ & ~ & ~\\
+      \hline
+      reset & ~ & ~ & ~\\
+      \hline
+      pass & ~ & ~ & ~\\
+      \hline
+      collide & ~ & ~ & ~\\
+      \hline
+      update & ~ & ~ & ~\\
+      \hline
+      collide & ~ & ~ & ~\\
+      \hline
+      collide & ~ & ~ & ~\\
+      \hline
 \end{tabular}
 
-\subsection* {Semantics}
-
-\subsubsection* {State Variables}
-
-$c$: seq of CardT\\
-
-\subsubsection* {State Invariant}
-
-None
-
-\subsubsection* {Assumptions}
-
+GameObject():
 \begin{itemize}
-    \item The constructor StackT is called for each object instance
-    before any other access routine is called for that object. The
-    constuctor cannot be called on an existing object.
-    \item StackT can be considered empty when it is of length 0 or the
-    StackT is of length 1 and peek() returns a CardT with getSuit()=\m{NAS}
-    and getRank()=\m{NAR}.
-\end{itemize}
-
-\subsubsection* {Access Routine Semantics}
-
-StackT():
-\begin{itemize}
-    \item transition: $c := \{\}$
-    \item output: $out := \mathit{self}$
+    \item transition: $state = \mbox{start}$
+    \item output: $out := GameObject$
     \item exception: None
 \end{itemize}
 
-\noindent addCard(C):
-\begin{itemize}
-    \item transition: $c := c||C$
-    \item exception: None
-\end{itemize}
 
-\noindent remCard():
-\begin{itemize}
-    \item transition: $c := c[1:|c|-1]$
-    \item exception: $(|c|=0 \means \m{is\_empty})$
-\end{itemize}
-
-\noindent peek():
-\begin{itemize}
-    \item output: $out := c[0]$
-    \item exception: $(|c|=0 \means \m{is\_empty})$
-\end{itemize}
-
-\noindent size():
-\begin{itemize}
-    \item output: $out := |c|$
-    \item exception: None
-\end{itemize}
-
-%===================================================
-\newpage
-
-\section*{Board ADT Module}
-
-\subsection*{Template Module}
-
-Board
-
-\subsection*{Uses}
-
-CardADT for CardT, SuitT, RankT\\
-DeckADT for DeckT\\
-StackADT for StackT\\
-
-\subsection*{Syntax}
-
-\subsubsection*{Exported Types}
-
-BoardT=?
-
-\subsubsection*{Exported Constants}
-
-None
-
-\subsubsection*{Exported Access Programs}
 
 \begin{tabular}{| l | l | l | l |}
     \hline
-    \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
-    \hline
-    BoardT & ~ & BoardT & ~\\
-    \hline
-    hasWon & ~ & $\mathbb{B}$ & ~\\
-    \hline
-    getStack & $\mathbb{N}$ & StackT & invalid\_index\\
-    \hline
-    getFree & $\mathbb{N}$ & CardT & invalid\_index\\
-    \hline
-    getWin & $\mathbb{N}$ & CardT & invalid\_index\\
-    \hline
-    setStack & $\mathbb{N}$, StackT & ~ & invalid\_index\\
-    \hline
-    setFree & $\mathbb{N}$, CardT & ~ & invalid\_index\\
-    \hline
-    setWin & $\mathbb{N}$, CardT & ~ & invalid\_index\\
-    \hline
-    moveColToCol & $\mathbb{N},\mathbb{N}$ & ~ & invalid\_index, stack\_empty,\\
-    & & & not\_alternating\_colour, not\_decending\_rank\\
-    \hline
-    moveColToFree & $\mathbb{N},\mathbb{N}$ & ~ & invalid\_index, stack\_empty, occupied\_cell\\
-    \hline
-    moveFreeToCol & $\mathbb{N},\mathbb{N}$ & ~ & invalid\_index, is\_empty, unoccupied\_cell, \\
-    & & & not\_alternating\_colour, not\_decending\_rank\\
-    \hline
-    moveColToWin & $\mathbb{N},\mathbb{N}$ & ~ & invalid\_index, is\_empty, not\_same\_suit, \\
-    & & &not\_ascending\_rank\\
-    \hline
-    moveFreeToWin & $\mathbb{N},\mathbb{N}$ & ~ & invalid\_index, unoccupied\_cell, not\_same\_suit,\\
-    & & & not\_ascending\_rank\\
-    \hline
-    isValidMoves & ~ & $\mathbb{B}$ & ~\\
-    \hline
+    \textbf{Routine name} & \textbf{In} & \textbf{Out} &   \hline
+      Player & ~ & Player & ~\\
+      fire & ~ & Player & ~\\
+      thrust
+      turn
+
+      \hline
 \end{tabular}
+
+Player():
+\begin{itemize}
+    \item transition: $ fire, thrust, turn, airbrake, bulletCountDown vel, acc, r = \mbox{false, false, false, FPS/2, (0,0), (0,0), SHIP_SIZE/2 }$
+    \item output: $out := Player$
+    \item exception: None
+\end{itemize}
+
+\begin{tabular}{| l | l | l | l |}
+    \hline
+    \textbf{Routine name} & \textbf{In} & \textbf{Out} &   \hline
+      Bullet & ~ & Bullet & ~\\
+      \hline
+\end{tabular}
+
+Bullet():
+\begin{itemize}
+    \item transition: $ vel, x, y, r, velx, vely, , thrust, turn, airbrake, bulletCountDown vel, acc, r = \mbox{false, false, false, FPS/2, (0,0), (0,0), SHIP_SIZE/2 }$
+    \item output: $out := Player$
+    \item exception: None
+\end{itemize}
+
+
+\begin{tabular}{| l | l | l | l |}
+    \hline
+    \textbf{Routine name} & \textbf{In} & \textbf{Out} &   \hline
+      Alien & ~ & Alien & ~\\
+      \hline
+\end{tabular}
+
+Alien():
+\begin{itemize}
+    \item transition: $ fire, thrust, turn, airbrake, bulletCountDown vel, acc, r = \mbox{false, false, false, FPS/2, (0,0), (0,0), SHIP_SIZE/2 }$
+    \item output: $out := Player$
+    \item exception: None
+\end{itemize}
+
+\begin{tabular}{| l | l | l | l |}
+    \hline
+    \textbf{Routine name} & \textbf{In} & \textbf{Out} &   \hline
+      AlienBullet & ~ & AlienBullet & ~\\
+      \hline
+\end{tabular}
+
+AlienBullet():
+\begin{itemize}
+    \item transition: $ fire, thrust, turn, airbrake, bulletCountDown vel, acc, r = \mbox{false, false, false, FPS/2, (0,0), (0,0), SHIP_SIZE/2 }$
+    \item output: $out := Player$
+    \item exception: None
+\end{itemize}
+
+\begin{tabular}{| l | l | l | l |}
+    \hline
+    \textbf{Routine name} & \textbf{In} & \textbf{Out} &   \hline
+      Asteroid & ~ & Asteroid & ~\\
+      \hline
+\end{tabular}
+
+Asteroid():
+\begin{itemize}
+    \item transition: $ fire, thrust, turn, airbrake, bulletCountDown vel, acc, r = \mbox{false, false, false, FPS/2, (0,0), (0,0), SHIP_SIZE/2 }$
+    \item output: $out := Player$
+    \item exception: None
+\end{itemize}
+
+
+
 
 \subsection* {Semantics}
 
@@ -646,51 +751,109 @@ BoardT():
     \item exception: None
 \end{itemize}
 
+%===================================================
+
+\newpage
+
+\section*{Game State Module}
+
+\subsection*{Uses}
+
+utilities.js, gameobject.js, head.js\\
+
+\subsubsection*{Exported Constants}
+
+STATE=\{START,PREGAME,LOAD,PLAYING,POSTGAME,PAUSE,RELOAD\}\\
+StateMachine=?\\
+
+\subsubsection*{Exported Access Programs}
+
+\begin{tabular}{| l | l | l | l |}
+    \hline
+    \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+    \hline
+    StateMachine &  & ~ & ~\\
+    \hline
+    isSafe & OBJECT, seq. of OBJECT & ~ & ~\\
+    \hline
+    generateAsteroids & $x \in \Z$ & ~ & ~ \\
+    \hline
+    checkCollision & GameObject, GameObject, GameObject & ~ & ~ \\
+    \hline
+    togglePause & ~ & ~ & ~ \\
+    \hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+$state$: String
+$stateSave$: String
+$paused$: $\mathbb{B}$
+
+\subsubsection* {State Invariant}
+
+$state \neq stateSave$
+
+\subsubsection* {Assumptions}
+
+None
+
+\begin{itemize}
+\end{itemize}
+
+\subsubsection* {Access Routine Semantics}
+
+StateMachine():
+\begin{itemize}
+    \item transition: $state = \mbox{start}$
+    \item output: $out := StateMachine$
+    \item exception: None
+\end{itemize}
+
+isSafe(obj,sprites){
+\begin{itemize}
+  \item input: $in := object, in := sprites$
+  \item return: $d := \forall s \in sprites: (getName(s) = "asteroid" \land getActivity(s) = false \land \exists c \in getChildren(s): \lnot isSafe(c): false) \lor (getName(s) = "asteroid" \land getActivity(s) = true: checkCollision(obj, s, 50): false) \lor (getName(s) \in \{"alien, "alienBullet"\} \land getActivity(s) = true \land checkCollision(obj,s,50): false)$
+\end{itemize}
+}
+
+checkCollision(obj,other,r)
+\begin{itemize}
+  \item input: $obj \in \mbox{GameObject}, other \in \mbox{GameObject}, obj \in \Z$
+
+\end{itemize}
+
+togglePause():
+\begin{itemize}
+    \item transition: $ pause \Rightarrow (stateSave = state \land state = \mbox{PAUSE}) \lor \lnot pause \Rightarrow (state = stateSave) $
+    \item exception: None
+\end{itemize}
+
 \subsection*{Local Functions}
 
-\noindent screenShow: $String\times\{\mbox{NORMAL},\mbox{EMPHASIS}\}$
+\noindent screenShow: $String\times\{\mbox{NORMAL},\mbox{EMPHASIS}\Rightarrow?\}$
 \noindent output: $out := $ %ASK
+
+\noindent drawTriangle: $ \mathbb{N} \Rightarrow $
+\noindent output: $out := $
+
+\noindent getName: $ \mbox{OBJECT} \Rightarrow $
+\noindent output: $out := $
+
+\noindent getActivity: $ \mbox{OBJECT} \Rightarrow $
+\noindent output: $out := $
+
+\noindent getChildren: $ \mbox{OBJECT} \Rightarrow $
+\noindent output: $out := $
+
+
 
 
 %QUESTIONS GO HERE
 
 % How to deal with: Drawing to screen, printing
 % Can a 'refer to JSDoc Documentation' be used for simple getters and setters
-
-
-
-
-\noindent ValidIndex: $\mathbb{N}_1\times\mathbb{N}_2\times\mathbb{N}_3\times\mathbb{N}_4\rightarrow\mathbb{B}$\\
-\noindent output: $out := (0<=\mathbb{N}_3<\mathbb{N}_1) \land (0<=\mathbb{N}_4<\mathbb{N}_2)$\\
-
-\noindent AlternatingColour: $\mbox{CardT}_1 \times \mbox{CardT}_2 \rightarrow \mathbb{B}$\\
-\noindent output: $out := (\mbox{CardT}_1.\m{getColour}()=\m{RED} \land \mbox{CardT}_2.\m{getColour}()=\m{BLACK}) \lor (\mbox{CardT}_1.\m{getColour}()=\m{BLACK} \land \mbox{CardT}_2.\m{getColour}()=\m{RED})$
-
-\noindent IncreasingRank: $\mbox{CardT}_1 \times \mbox{CardT}_2 \rightarrow \mathbb{B}$\\ %lower, higher
-\noindent output: $out := \mbox{CardT}_1.\m{getRank}()=\mbox{CardT}_2.\m{getRank}()-1$\\
-
-\noindent DecreasingRank: $\mbox{CardT} \times \mbox{CardT} \rightarrow \mathbb{B}$\\ %higher, lower
-\noindent output: $out := \mbox{CardT}_1.\m{getRank}()=\mbox{CardT}_2.\m{getRank}()+1$\\
-
-\noindent StackEmpty: $\mbox{StackT} \rightarrow \mathbb{B}$\\
-\noindent output: $out := \m{StackT}.\m{size}()=0 \lor (\m{StackT}.\m{size}()=1 \land \lnot \m{StackT.peek.isValid}())$\\
-
-\noindent CellFree: $\mathbb{N} \times \mbox{seq of CardT} \rightarrow \mathbb{B}$\\
-\noindent output: $out := \lnot (\mbox{seq of CardT})[\mathbb{N}].\m{isValid}$\\
-
-\noindent SameSuit: $\mbox{CardT}_1 \times \mbox{CardT}_2 \rightarrow \mathbb{B}$\\
-\noindent output: $out := \mbox{CardT}_1.\m{getSuit}()=\mbox{CardT}_2.\m{getSuit}()$\\
-
-\noindent BoardEmpty: $\mbox{seq of StackT} \rightarrow \mathbb{B}$\\
-\noindent output: $out := \forall(s : \mbox{StackT} | s \in (\mbox{seq of StackT} : \m{StackEmpty}(s))$\\
-
-\noindent FreeCellEmpty: $\mbox{seq of CardT} \rightarrow \mathbb{B}$\\
-\noindent output: $out := \forall(c : \mbox{CardT} | c \in \mbox{seq of CardT} : \lnot c.\m{isValid}())$\\
-
-\noindent FoundationComplete: $\mbox{seq of CardT} \rightarrow \mathbb{B}$\\
-\noindent output: $out := \forall(c : \mbox{CardT} | c \in \mbox{seq of CardT} : c.\m{getRank}()=\m{KING}) \land \forall(s_1 : \mbox{CardT} | s_1 \in \mbox{seq of CardT} : s_1.\m{getSuit} \neq \mbox{NAS} \land \forall(s_2 : \mbox{CardT} | s_2 \in \mbox{seq of CardT} \mbox{\textbackslash} s_1 : s_1.\m{getSuit}() \neq s_2.\m{getSuit}()))$\\
-
-%\noindent <name>: <mathematical input>\\
-%\noindent transition: <spec>
 
 \end{document}
