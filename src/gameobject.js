@@ -782,7 +782,7 @@ AlienBullet = function () {
   /** Amount of frames a bullet can exist for */
   this.timeOut = 100;
   /** Initializes all bullet internal variables
-   * @param {GameObject} from the context of the bullets parent (player) */
+   * @param {GameObject} from the context of the bullets parent (alien) */
   this.init = function (from) {
     AlienBullet.prototype.init(from.ctx, "alienBullet");
 
