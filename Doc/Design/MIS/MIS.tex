@@ -905,19 +905,11 @@ setActivity(activity):
     \hline
     Player & ~ & Player & ~\\
     \hline
-    fire & ~ & Bullet & ~\\
-    \hline
-    thrust & ~ & ~ & ~\\
-    \hline
-    turn & ~ & ~ & ~\\
-    \hline
-    brake & ~ & ~ & ~\\
-    \hline
     interact & KeyCode & ~ & ~\\
     \hline
     move & ~ & ~ & ~\\
     \hline
-    draw & ~ & ~ & ~\\
+    draw & ~ & CVS & ~\\
     \hline
     action & ~ & ~ & ~\\
     \hline
@@ -989,21 +981,21 @@ Player():
 \noindent collideOffshoot():
 \begin{itemize}
   \item input: none
-  \item transition: describes
+  \item transition: Same as collide but recursively goes through the asteroids children to check them as well.
   \item exception: None
 \end{itemize}
 
 \noindent die():
 \begin{itemize}
-  \item input: Player
-  \item transition: draws shape of player ship onto canvas including a thruster image if the ship is being thrusted.
+  \item input: none
+  \item transition: when player dies due to collision the game lives are decremented by one, the player is deactivated and the vel and acc in both the x and y directions are set back to zero.
   \item exception: None
 \end{itemize}
 
 \noindent reset():
 \begin{itemize}
-  \item input: Player
-  \item transition: draws shape of player ship onto canvas including a thruster image if the ship is being thrusted.
+  \item input: none
+  \item transition: resets player flags back to original values: fire = false, thrust = false, turn = false, bulletCountdown -= 1, airbrake = false.
   \item exception: None
 \end{itemize}
 
