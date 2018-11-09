@@ -546,7 +546,7 @@ None
 
 GameObject():
 \begin{itemize}
-    \item transition: $state = \mbox{start}$
+    \item transition: $name, x, y, rot, a, visible, vel, acc, r = \mbox{name, 0, 0, 0, 0, false, (0,0), (0,0), 0}$
     \item output: $out := GameObject$
     \item exception: None
 \end{itemize}
@@ -557,9 +557,10 @@ GameObject():
     \hline
     \textbf{Routine name} & \textbf{In} & \textbf{Out} &   \hline
       Player & ~ & Player & ~\\
-      fire & ~ & Player & ~\\
-      thrust
-      turn
+      fire & ~ & Bullet & ~\\
+      thrust & ~ & ~ & ~\\
+      turn & ~ & ~ & ~\\
+      brake & ~ & ~ & ~\\
 
       \hline
 \end{tabular}
@@ -580,8 +581,8 @@ Player():
 
 Bullet():
 \begin{itemize}
-    \item transition: $ timeOut, vel, x, y, r, velx, vely = \mbox{false, false, false, FPS/2, (0,0), (0,0), SHIP_SIZE/2 }$
-    \item output: $out := Player$
+    \item transition: $ timeOut, vel, x, y, r, velx, vely = \mbox{200, {}, Player.x + 4/3 * Player.r * cos(Bullet.a), Player.Y - 4/3 * Player.r * sin(Bullet.a), 1, Player.Vel.x + BULLET_EXTRA * cos(Bullet.a), Player.Vel.y + BULLET_EXTRA * -sin(Bullet.a) }$
+    \item output: $out := Bullet$
     \item exception: None
 \end{itemize}
 
@@ -595,8 +596,8 @@ Bullet():
 
 Alien():
 \begin{itemize}
-    \item transition: $ fire, thrust, turn, airbrake, bulletCountDown vel, acc, r = \mbox{false, false, false, FPS/2, (0,0), (0,0), SHIP_SIZE/2 }$
-    \item output: $out := Player$
+    \item transition: $ timeSpawn, timeOut, xOrY, lOrR, acc, r = \mbox{ALIEN_SPAWN, 50, true, true, (0,0), 12.5 }$
+    \item output: $out := Alien$
     \item exception: None
 \end{itemize}
 
@@ -609,8 +610,8 @@ Alien():
 
 AlienBullet():
 \begin{itemize}
-    \item transition: $ fire, thrust, turn, airbrake, bulletCountDown vel, acc, r = \mbox{false, false, false, FPS/2, (0,0), (0,0), SHIP_SIZE/2 }$
-    \item output: $out := Player$
+    \item transition: $ timeOut, vel, x, y, r, velx, vely = \mbox{200, {}, Player.x + 4/3 * Player.r * cos(Bullet.a), Player.Y - 4/3 * Player.r * sin(Bullet.a), 1, Player.Vel.x + BULLET_EXTRA * cos(Bullet.a), Player.Vel.y + BULLET_EXTRA * -sin(Bullet.a) }$
+    \item output: $out := AlienBullet$
     \item exception: None
 \end{itemize}
 
@@ -623,10 +624,12 @@ AlienBullet():
 
 Asteroid():
 \begin{itemize}
-    \item transition: $ fire, thrust, turn, airbrake, bulletCountDown vel, acc, r = \mbox{false, false, false, FPS/2, (0,0), (0,0), SHIP_SIZE/2 }$
-    \item output: $out := Player$
+    \item transition: $ x, y, scale, r, children, vel, velx, vely = \mbox{ round(random(0,1)*CVS_WIDTH), round(random(0,1)*CVS_HEIGHT), scale, 5*scale, [], {}, +/-random(0,1)*3, +/-random(0,1)*3 }$
+    \item output: $out := Asteroid$
     \item exception: None
 \end{itemize}
+
+%local function cvs width
 
 
 
