@@ -806,12 +806,14 @@ None
 $name$: String\\
 $x$: $\mathbb{R}$\\
 $y$: $\mathbb{R}$\\
+$velX$: $\mathbb{R}$\\
+$velY$: $\mathbb{R}$\\
+$accX$: $\mathbb{R}$\\
+$accY$: $\mathbb{R}$\\
 $rot$: $\mathbb{R}$\\
 $a$: $\mathbb{R}$\\
 $r$: $\mathbb{N}$\\
 $visible$: $\mathbb{B}$\\
-$vel$: sequence of $\mathbb{R}$\\
-$acc$: sequence of $\mathbb{R}$\\
 $ctx$: CTX\\
 
 \subsubsection* {State Invariant}
@@ -819,6 +821,10 @@ $ctx$: CTX\\
 None
 
 \subsubsection* {Assumptions}
+
+\begin{itemize}
+  \item The constructor is called before any other GameObject method is called.
+\end{itemize}
 
 GameObject(name):
 \begin{itemize}
@@ -916,7 +922,7 @@ GameObject(name):
     \hline
     interact & KeyCode & ~ & ~\\
     \hline
-    move & ~ & ~ & ~\\
+    move & ~ & ~ & exclusion\\
     \hline
     draw & ~ & CVS & ~\\
     \hline
@@ -936,18 +942,25 @@ GameObject(name):
 
 \subsubsection* {State Variables}
 
+All GameObject state variables
 $thrust$: $\mathbb{B}$\\
 $fire$: $\mathbb{B}$\\
 $turn$: String\\
 $airbrake$: $\mathbb{B}$\\
-$accX$: $\mathbb{R}$
-$accY$: $\mathbb{R}$
+$bulletCountdown$: $\mathbb{Z}$
 
 \subsubsection* {State Invariant}
 
 None
 
 \subsubsection* {Assumptions}
+
+\begin{itemize}
+  \item The constructor is called before any other Player method is called.
+\end{itemize}
+
+\subsubsection*{Uses}
+GameObject
 
 Player():
 \begin{itemize}
@@ -967,8 +980,9 @@ Player():
 \noindent move():
 \begin{itemize}
   \item input: $thrust, turn := true \lor false, left \lor right$
-  \item transition: $thrust = true \Rightarrow accX += \mbox{SHIP\_THRUST} * cos(a)/\mbox{FPS} \land acc.y += \mbox{SHIP\_THRUST} * sin(a)/\mbox{FPS} \land vel.x += acc.x \land vel.y+= acc.y, thrust = false \Rightarrow \mbox{DO NOTHING}, turn = right \Rightarrow rot = -\mbox{TURN\_SPEED}/180*\mbox{PI}/\mbox{FPS}, turn = left \Rightarrow rot =  \mbox{TURN\_SPEED}/180*\mbox{PI}/\mbox{FPS}, turn \lnot (right \lor left) \Rightarrow rot = 0,   space, left, right, down := thrust = true, fire = true, turn = left, turn = right, airbrake = true$
+  \item transition: $thrust = true \Rightarrow accX += \mbox{SHIP\_THRUST} * cos(a)/\mbox{FPS} \land accY += \mbox{SHIP\_THRUST} * sin(a)/\mbox{FPS} \land velX += accX \land velY += accY, thrust = false \Rightarrow \mbox{DO NOTHING}, turn = right \Rightarrow rot = -\mbox{TURN\_SPEED}/180*\mbox{PI}/\mbox{FPS}, turn = left \Rightarrow rot =  \mbox{TURN\_SPEED}/180*\mbox{PI}/\mbox{FPS}, turn \lnot (right \lor left) \Rightarrow rot = 0,   space, left, right, down := thrust = true, fire = true, turn = left, turn = right, airbrake = true$
   \item exception: $vel.x >= \mbox{MAX\_SPEED} \Rightarrow \mbox{DO NOT TRANSITION THRUST AND DECREMENT VELOCITY UNTIL IT IS BELOW MAX SPEED}, vel.y >= max \Rightarrow \mbox{DO NOT TRANSITION THRUST AND DECREMENT VELOCITY UNTIL IT IS BELOW MAX SPEED}$
+  \item exclusion: $(x < 0 \Rightarrow x = CVS\_WIDTH) \lor (y < 0 \Rightarrow y = CVS\_HEIGHT) \lor (x > CVS\_WIDTH \Rightarrow x = 0) \lor (y > CVS\_HEIGHT \Rightarrow y = 0)$
 \end{itemize}
 
 \noindent draw():
@@ -1009,7 +1023,7 @@ Player():
 \noindent reset():
 \begin{itemize}
   \item input: none
-  \item transition: resets player flags back to original values: fire = false, thrust = false, turn = false, bulletCountdown -= 1, airbrake = false.
+  \item transition: $fire, thrust, turn, airbrake, bulletCountdown := false, false, false, false, bulletCountdown - 1$
   \item exception: None
 \end{itemize}
 
@@ -1023,17 +1037,17 @@ Player():
     \hline
     action & ~ & ~ & ~\\
     \hline
-    move & ~ & ~ & ~\\
+    move & ~ & ~ & exclusion\\
     \hline
     draw & ~ & ~ & ~\\
     \hline
     collide & ~ & ~ & ~\\
     \hline
-    collideOffshoot & astChildren & ~ & ~\\
+    collideOffshoot & seq of OBJECT & ~ & ~\\
     \hline
-    getTimeout & ~ & timeout & ~\\
+    getTimeout & ~ & $\mathbb{Z}$ & ~\\
     \hline
-    setTimeout & life & ~ & ~\\
+    setTimeout & $\mathbb{Z}$ & ~ & ~\\
     \hline
     
 \end{tabular}
@@ -1042,7 +1056,8 @@ Player():
 
 \subsubsection* {State Variables}
 
-None
+All GameObject state variables\\
+$timeOut$: $\mathbb{Z}$\\
 
 \subsubsection* {State Invariant}
 
@@ -1050,45 +1065,53 @@ None
 
 \subsubsection* {Assumptions}
 
+\begin{itemize}
+  \item The constructor is called before any other Bullet method is called.
+\end{itemize}
+
+\subsubsection*{Uses}
+GameObject
+
 Bullet(p):
 \begin{itemize}
-    \item inheret: GameObject $\Rightarrow$ All state variables and methods
-    \item transition: $timeOut, vel, x, y, r, velx, vely = 200, \{\}, getX(p) + 4/3 * getR(p) * cos(getHeading(p)), getY(p) - 4/3 * getR(p) * sin(getHeading(p)), 1, getVelX(p) + \mbox{BULLET\_EXTRA} * cos(getHeading(p)), getVelY(p) + \mbox{BULLET\_EXTRA} * -sin(getHeading(p)) $
+    \item inherit: GameObject $\Rightarrow$ All state variables and methods
+    \item transition: $timeOut, x, y, r, velX, velY = 200, p.getX + 4/3 * p.getR * cos(p.getHeading, p.getY - 4/3 * p.getR * sin(p.getHeading, 1, p.velX + \mbox{BULLET\_EXTRA} * cos(p.getHeading, p.velY + \mbox{BULLET\_EXTRA} * -sin(p.getHeading) $
     \item output: $out := Bullet$
     \item exception: None
 \end{itemize}
 
 \noindent action():
 \begin{itemize}
-    \item transition: $if timeOut <=0 \Rightarrow this.deactivate() \land Game.subSprites(this) else timeOut := timeOut - 1$
+    \item transition: $timeOut <=0 \Rightarrow this.deactivate \land Game.subSprites(this) \land timeOut > 0 timeOut  - 1$
 \end{itemize}
 
 \noindent move()
 \begin{itemize}
-    \item transition: $this.x := this.x + this.vel.x \land this.y := this.y + this.vel.y$
-    \item transition2: $(this.x < 0 \Rightarrow this.x = CVS\_WIDTH) \lor (this.y < 0 \Rightarrow this.y = CVS\_HEIGHT) \lor (this.x > CVS\_WIDTH \Rightarrow this.x = 0) \lor (this.y > CVS\_HEIGHT \Rightarrow this.y = 0)$
+    \item transition: $x := x + velX \land y := y + velY$
+    \item exclusion: $(x < 0 \Rightarrow x = CVS\_WIDTH) \lor (y < 0 \Rightarrow y = CVS\_HEIGHT) \lor (x > CVS\_WIDTH \Rightarrow x = 0) \lor (y > CVS\_HEIGHT \Rightarrow y = 0)$
 \end{itemize}
 
 \noindent draw():
 \begin{itemize}
-    \item transition: if the sprite is active, it draws a circle with radius 1 at the x and y location of the bullet.
+    \item transition: If the sprite is active, it draws a circle with radius 1 at the x and y location of the bullet.
 \end{itemize}
 
 \noindent collide():
 \begin{itemize}
-    \item transition: if both the sprite its colliding with and itself are active, then if they collide, and the other object is an alien or asteroid, it destroys the asteroid/alien and the bullet then increases score.
+    \item transition: If both the sprite its colliding with and itself are active, then if they collide, and the other object is an alien or asteroid, it destroys the asteroid/alien and the bullet then increases score.
 \end{itemize}
 
 \noindent collideOffshoot():
 \begin{itemize}
-    \item transition: recursive version of collide for checking that its not colliding with asteroid children.
+    \item transition: Recursive version of collide for checking that its not colliding with asteroid children.
 \end{itemize}
 \newpage
 
 \noindent die():
 \begin{itemize}
-    \item transition: $this.deactivate()$
+    \item transition: $deactivate$
 \end{itemize}
+
 \noindent getTimeout():
 \begin{itemize}
     \item output = $out := this.timeOut$
@@ -1096,8 +1119,8 @@ Bullet(p):
 
 \noindent setTimeout(life):
 \begin{itemize}
-    \item input = $in := life \in \mathbb{Z}$
-    \item transition: $this.timeOut := life$
+    \item input = $life \in \mathbb{Z}$
+    \item transition: $timeOut := life$
 \end{itemize}
 
 \newpage
@@ -1110,7 +1133,7 @@ Bullet(p):
     \hline
     draw & ~ & ~ & ~\\
     \hline
-    move & ~ & ~ & ~\\
+    move & ~ & ~ & exclusion\\
     \hline
     action & ~ & ~ & ~\\
     \hline
@@ -1126,12 +1149,12 @@ Bullet(p):
 
 \subsubsection* {State Variables}
 
-All GameObject state variables
-$timeSpawn$: $\mathbb{N}$
-$timeOut$: $\mathbb{N}$
-$xOrY$: $\mathbb{B}$
-$lOrR$: $\mathbb{B}$
-$acc$: sequence of $\mathbb{N}$
+All GameObject state variables\\
+$timeSpawn$: $\mathbb{N}$\\
+$timeOut$: $\mathbb{N}$\\
+$xOrY$: $\mathbb{B}$\\
+$lOrR$: $\mathbb{B}$\\
+$acc$: sequence of $\mathbb{N}$\\
 
 \subsubsection* {State Invariant}
 
@@ -1143,9 +1166,12 @@ None
   \item The constructor is called before any other Alien method is called.
 \end{itemize}
 
+\subsubsection*{Uses}
+GameObject
+
 Alien():
 \begin{itemize}
-  \item inheret: GameObject $\Rightarrow$ All state variables and methods
+  \item inherit: GameObject $\Rightarrow$ All state variables and methods
   \item transition: $ timeSpawn, timeOut, xOrY, lOrR, acc, r = \mbox{ALIEN\_SPAWN}, 50, true, true, (0,0), 12.5 $\\
   \item output: $out := Alien$
   \item exception: None
@@ -1160,7 +1186,7 @@ Alien():
 \noindent move():
 \begin{itemize}
   \item transition: $vel$ is added to $x$ and $y$. This moves the Alien on the screen.
-  \item exception: None
+  \item exclusion: $(x < 0 \Rightarrow x = CVS\_WIDTH) \lor (y < 0 \Rightarrow y = CVS\_HEIGHT) \lor (x > CVS\_WIDTH \Rightarrow x = 0) \lor (y > CVS\_HEIGHT \Rightarrow y = 0)$
 \end{itemize}
 
 \noindent action():
@@ -1198,7 +1224,7 @@ Alien():
     \hline
     action & ~ & ~ & ~\\
     \hline
-    move & ~ & ~ & ~\\
+    move & ~ & ~ & exclusion\\
     \hline
     draw & ~ & ~ & ~\\
     \hline
@@ -1218,7 +1244,8 @@ Alien():
 
 \subsubsection* {State Variables}
 
-None
+All GameObject state variables\\
+$timeOut$: $\mathbb{Z}$\\
 
 \subsubsection* {State Invariant}
 
@@ -1226,9 +1253,16 @@ None
 
 \subsubsection* {Assumptions}
 
+\begin{itemize}
+  \item The constructor is called before any other AlienBullet method is called.
+\end{itemize}
+
+\subsubsection*{Uses}
+GameObject
+
 AlienBullet(a):
 \begin{itemize}
-    \item inheret: GameObject $\Rightarrow$ All state variables and methods
+    \item inherit: GameObject $\Rightarrow$ All state variables and methods
     \item transition: $ timeOut, vel, x, y, r, velx, vely = 200, {}, getX(a), getY(a), 2, random(-3..3), number so that |velX|^2 + |velY|^2 = 3$
     \item output: $out := AlienBullet$
     \item exception: None
@@ -1236,13 +1270,13 @@ AlienBullet(a):
 
 \noindent action():
 \begin{itemize}
-    \item transition: $if timeOut <=0 \Rightarrow this.deactivate() \land Game.subSprites(this) else timeOut := timeOut - 1$
+    \item transition: $timeOut <=0 \Rightarrow deactivate() \land Game.subSprites(this) \land timeOut > 0 \Rightarrow timeOut := timeOut - 1$
 \end{itemize}
 
 \noindent move()
 \begin{itemize}
-    \item transition: $this.x := this.x + this.vel.x \land this.y := this.y + this.vel.y$
-    \item transition2: $(this.x < 0 \Rightarrow this.x = CVS\_WIDTH) \lor (this.y < 0 \Rightarrow this.y = CVS\_HEIGHT) \lor (this.x > CVS\_WIDTH \Rightarrow this.x = 0) \lor (this.y > CVS_HEIGHT \Rightarrow this.y = 0)$
+    \item transition: $x := x + velX \land y := y + velY$
+    \item exclusion: $(x < 0 \Rightarrow x = CVS\_WIDTH) \lor (y < 0 \Rightarrow y = CVS\_HEIGHT) \lor (x > CVS\_WIDTH \Rightarrow x = 0) \lor (y > CVS\_HEIGHT \Rightarrow y = 0)$
 \end{itemize}
 
 \noindent draw():
@@ -1262,18 +1296,18 @@ AlienBullet(a):
 
 \noindent die():
 \begin{itemize}
-    \item transition: $this.deactivate()$
+    \item transition: $deactivate$
 \end{itemize}
 
 \noindent getTimeout():
 \begin{itemize}
-    \item output = $out := this.timeOut$
+    \item output = $out := timeOut$
 \end{itemize}
 
 \noindent setTimeout(life):
 \begin{itemize}
-    \item input = $in := life \in \mathbb{Z}$
-    \item transition: $this.timeOut := life$
+    \item input = $life \in \mathbb{Z}$
+    \item transition: $timeOut := life$
 \end{itemize}
 
 \newpage
@@ -1286,7 +1320,7 @@ AlienBullet(a):
     \hline
     Draw & ~ & CVS & ~\\
     \hline
-    move & ~ & ~ & ~\\
+    move & ~ & ~ & exclusion\\
     \hline
     action & ~ & ~ & ~\\
     \hline
@@ -1310,18 +1344,11 @@ AlienBullet(a):
 
 \subsection* {Semantics}
 
-\subsubsection* {Uses}
-
-The JavaScript Math library for random, round and other functions.
-
 \subsubsection* {State Variables}
 
-$x$:
-$y$:
-$scale$:
-$vel$:
-$acc$:
-$children$:
+All GameObject state variables
+$scale$: $mathbb{N}$\\
+$children$: sequence of Asteroid\\
 
 \subsubsection* {State Invariant}
 
@@ -1329,13 +1356,20 @@ None
 
 \subsubsection* {Assumptions}
 
-Asteroid():
+\begin{itemize}
+  \item The constructor is called before any other Alien method is called.
+\end{itemize}
+
+\subsubsection*{Uses}
+
+The JavaScript Math library for random, round and other functions.\\
+GameObject\\
+
+Asteroid(c,s):
 \begin{itemize}
     \item inherit: GameObject $\Rightarrow$ All state variables and methods
-    \item input: $ctx = CTX, scale \in \mathbb{Z}$
-    \item transition: $ x, y, scale, r, children, vel, velx, vely = random(0...CVS\_WIDTH), random(0...CVS\_HEIGHT), scale, 5*scale, [],
-    random(-1...1) * 3,
-    random(-1...1) * 3$
+    \item input: $c \in \mbox{CTX}, s \in \mathbb{Z}$
+    \item transition: $ x, y, scale, r, children, velX, velY = random(0...CVS\_WIDTH), random(0...CVS\_HEIGHT), scale, 5*scale, [], random(-1...1) * 3, random(-1...1) * 3$
     \item output: $out := Asteroid$
     \item exception: None
 \end{itemize}
@@ -1347,8 +1381,8 @@ Asteroid():
 
 \noindent move():
 \begin{itemize}
-  \item transition: $this.x := this.x + this.vel.x \land this.y := this.y + this.vel.y$
-  \item transition2: $(this.x < 0 \Rightarrow this.x = CVS\_WIDTH) \lor (this.y < 0 \Rightarrow this.y = CVS\_HEIGHT) \lor (this.x > CVS\_WIDTH \Rightarrow this.x = 0) \lor (this.y > CVS\_HEIGHT \Rightarrow this.y = 0)$
+  \item transition: $x := x + velX \land y := y + velY$
+  \item exclusion: $(x < 0 \Rightarrow x = CVS\_WIDTH) \lor (y < 0 \Rightarrow y = CVS\_HEIGHT) \lor (x > CVS\_WIDTH \Rightarrow x = 0) \lor (y > CVS\_HEIGHT \Rightarrow y = 0)$
 \end{itemize}
 
 \noindent action():
