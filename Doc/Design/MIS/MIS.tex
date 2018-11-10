@@ -59,6 +59,8 @@ Nov 08/18 & 0.3 & Added all module specifications\\
 Nov 09/18 & 0.35 & Tidied up\\
 Nov 09/18 & 0.5 & Finished Sound, Utilities, Head and Game State MIS\\
 Nov 09/18 & 0.6 & Fixed formatting\\
+Nov 09/18 & 1.0 & Added all functions, state variables, state invariants, and defintions. Completed rough draft of MIS\\
+Nov 09/18 & 1.1 & Fixed Spelling and Grammar\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -559,7 +561,7 @@ Game():
 \subsection*{Uses}
 
 AUDIO from .wav sound files\\
-Within the AUDIO class, there are specific sounds:\\
+Within the AUDIO class, there are specific sounds\\
 \begin{itemize}
   \item LASER for shooting projectiles\\
   \item BRAKE for the player ship braking\\
@@ -995,14 +997,14 @@ Player():
 \noindent action():
 \begin{itemize}
   \item input: fire and bullet countdown
-  \item transition: if fire is set to true then a new bullet object is created the bullet sound is played and the and the bullet countdown is set to FPS/1.25. The bullet is also added to the sprite array, and the player object is passed through to the bullet in order for it to get its releative velocity and location from.
+  \item transition: if fire is set to true then a new bullet object is created the bullet sound is played and the and the bullet countdown is set to FPS/1.25. The bullet is also added to the sprite array, and the player object is passed through to the bullet in order for it to get its relative velocity and location from.
   \item exception: None
 \end{itemize}
 
 \noindent collide():
 \begin{itemize}
   \item input: none
-  \item transition: Checks the spritearray from Game in utilities module to see if any asteroid, alien, or alienBullet objects are overlapping areas with the player and if so will kill the player.
+  \item transition: Checks the sprite array from Game in utilities module to see if any asteroid, alien, or alienBullet objects are overlapping areas with the player and if so it will kill the player.
   \item exception: None
 \end{itemize}
 
@@ -1191,7 +1193,7 @@ Alien():
 
 \noindent action():
 \begin{itemize}
-  \item transition: The alien counts down until another AlienBullet is fired. $vel$ is also adjusted to create a sinodial path for the Alien to move through.
+  \item transition: The alien counts down until another AlienBullet is fired. $vel$ is also adjusted to create a sinusoidal path for the Alien to move through.
   \item exception: None
 \end{itemize}
 
@@ -1377,60 +1379,71 @@ Asteroid(c,s):
 \noindent draw():
 \begin{itemize}
   \item transition: If $visible = true$, it draws a circle at $(x,y)$ every frame to $ctx$. If $visible = false$, it draws all asteroids in $children$
+  \item exception: None
 \end{itemize}
 
 \noindent move():
 \begin{itemize}
   \item transition: $x := x + velX \land y := y + velY$
   \item exclusion: $(x < 0 \Rightarrow x = CVS\_WIDTH) \lor (y < 0 \Rightarrow y = CVS\_HEIGHT) \lor (x > CVS\_WIDTH \Rightarrow x = 0) \lor (y > CVS\_HEIGHT \Rightarrow y = 0)$
+  \item exception: None
 \end{itemize}
 
 \noindent action():
 \begin{itemize}
-    \item transition: for testing, it checks if keys are being pressed each frame, and if they are, asteroids are destroyed, corresponding to the test key.
+    \item transition: For testing, it checks if keys are being pressed each frame, and if they are, asteroids are destroyed, corresponding to the test key.
+    \item exception: None
 \end{itemize}
 
 \noindent die():
 \begin{itemize}
-    \item transition: calls the deactivate function, then if the asteroid is not small it creates 3 new smaller asteroids, and places them at its center.
+    \item transition: Calls the deactivate function, then if the asteroid is not small it creates 3 new smaller asteroids, and places them at its center.
+    \item exception: None
 \end{itemize}
 
 \noindent pass():
 \begin{itemize}
-    \item transition: updates all of the asteroids children, if they have all been destroyed then it removes the children from the game.
+    \item transition: Updates all of the asteroids' children, if they have all been destroyed then it removes the children from the game.
+    \item exception: None
 \end{itemize}
 
 \noindent isDead():
 \begin{itemize}
-    \item output: false if the asteroid is visible or has children left, or true if the asteroid has no children left or are all dead.
+    \item output: False if the asteroid is visible or has children left, or true if the asteroid has no children left or are all dead.
+    \item exception: None
 \end{itemize}
 
 \noindent getChildren():
 \begin{itemize}
-    \item output = $out := this.children$
+    \item output = $out := children$
+    \item exception: None
 \end{itemize}
 
 \noindent getScale():
 \begin{itemize}
     \item output = $out := this.scale$
+    \item exception: None
 \end{itemize}
 
 \noindent setChildren(children):
 \begin{itemize}
     \item input = $in = children \in GameObject[]$
     \item transition = $this.children := children$
+    \item exception: None
 \end{itemize}
 
 \noindent setScale(scale):
 \begin{itemize}
     \item input = $in = scale \in \mathbb{Z}$
     \item transition = $this.scale := scale$
+    \item exception: None
 \end{itemize}
 
 \noindent add(children):
 \begin{itemize}
     \item input = $in = children \in GameObject$
     \item transition = $this.children \Vert children$
+    \item exception: None
 \end{itemize}
 
 
@@ -1498,14 +1511,16 @@ StateMachine():
 \noindent isSafe(obj,sprites){
 \begin{itemize}
   \item input: $in := object, in := sprites$
-  \item return: $d := \forall s \in sprites: (getName(s) = "asteroid" \land getActivity(s) = false \land \exists c \in getChildren(s): \lnot isSafe(c): false) \lor (getName(s) = "asteroid" \land getActivity(s) = true: checkCollision(obj, s, 50): false) \lor (getName(s) \in \{"alien, "alienBullet"\} \land getActivity(s) = true \land checkCollision(obj,s,50): false)$
+  \item return: $d := \forall s \in sprites: (\mbox{getName}(s) = "asteroid" \land \mbox{getActivity}(s) = false \land \exists c \in \mbox{getChildren}(s): \lnot \mbox{isSafe}(c): false) \lor (\mbox{getName}(s) = "asteroid" \land \mbox{getActivity}(s) = true: \mbox{checkCollision}(obj, s, 50): false) \lor (\mbox{getName}(s) \in \{"alien, "alienBullet"\} \land \mbox{getActivity}(s) = true \land \mbox{checkCollision}(obj,s,50): false)$
+  \item exception: None
 \end{itemize}
 }
 
 \noindent checkCollision(a,b,c)
 \begin{itemize}
   \item input: $a \in \mbox{GameObject}, b \in \mbox{GameObject}, c \in \mathbb{Z}$
-  \item output: $out := (pyth(|a.getX() - b.getX()|, |a.getX() - b.getX()|) < c)$
+  \item output: $out := (pyth(|a.getX - b.getX|, |a.getX - b.getX|) < c)$
+  \item exception: None
 \end{itemize}
 
 \noindent togglePause():
