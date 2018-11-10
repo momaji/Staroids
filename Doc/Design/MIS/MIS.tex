@@ -58,6 +58,7 @@ Nov 07/18 & 0.2 & Added Head module specification\\
 Nov 08/18 & 0.3 & Added all module specifications\\
 Nov 09/18 & 0.35 & Tidied up\\
 Nov 09/18 & 0.5 & Finished Sound, Utilities, Head and Game State MIS\\
+Nov 09/18 & 0.6 & Fixed formatting\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -159,7 +160,7 @@ Key():
 
 \noindent onKeyup(e):
 \begin{itemize}
-    \item output: $out := d[e]$
+    \item transition: $d := d \setminus d[e]$
     \item exception: None
 \end{itemize}
 
@@ -174,9 +175,9 @@ Key():
 \hline
 TEXT & CTX, FONTSTYLE & TEXT & ~\\
 \hline
-norm & $String, \mathbb{Z}, \mathbb{Z}$ &  & ~\\
+norm & String$, \mathbb{Z}, \mathbb{Z}$ &  & ~\\
 \hline
-emph & $String, \mathbb{Z}, \mathbb{Z}$ &  & ~\\
+emph & String$, \mathbb{Z}, \mathbb{Z}$ &  & ~\\
 \hline
 \end{tabular}
 
@@ -184,8 +185,8 @@ emph & $String, \mathbb{Z}, \mathbb{Z}$ &  & ~\\
 
 \subsubsection*{State Variables}
 
-$cvs$: CTX %ASK
-$fnt$: FONTSTYLE %ASK
+$cvs$: CTX\\
+$fnt$: FONTSTYLE\\
 
 \subsubsection*{State Invariant}
 
@@ -205,7 +206,7 @@ norm($Str,x,y$):
     \item exception: None
 \end{itemize}
 
-emph($Str,x,y$):
+\noindent emph($Str,x,y$):
 \begin{itemize}
     \item transition: Displays $Str$ to $cvs$ at location $(x,y)$ in emphasized font.
     \item exception: None
@@ -330,221 +331,221 @@ None
 
 Game():
 \begin{itemize}
-    \item transition: $score = 0 \land lives = 3 \land sprites = seq. of \mbox{OBJECT} \land muteSound = FPS \land pauseGame = FPS$
+    \item transition: $score = 0 \land lives = 3 \land level = 0 \land asteroids = 2 \land width = 780 \land height = 620 \land cvs = \mbox{CVS} \land ctx = \mbox{CTX} \land paused = false \land sprites = \mbox{seq. of OBJECT} \land muteSound = FPS \land pauseGame = FPS$
     \item exception: None
 \end{itemize}
 
-getScore():
+\noindent getScore():
 \begin{itemize}
     \item output: $out := score$
     \item exception: None
 \end{itemize}
 
-getLives():
+\noindent getLives():
 \begin{itemize}
     \item output: $out := lives$
     \item exception: None
 \end{itemize}
 
-getLevel():
+\noindent getLevel():
 \begin{itemize}
     \item output: $out := level$
     \item exception: None
 \end{itemize}
 
-getAsteroids():
+\noindent getAsteroids():
 \begin{itemize}
     \item output: $out := asteroids$
     \item exception: None
 \end{itemize}
 
-getWidth():
+\noindent getWidth():
 \begin{itemize}
     \item output: $out := width$
     \item exception: None
 \end{itemize}
 
-getHeight():
+\indent getHeight():
 \begin{itemize}
     \item output: $out := height$
     \item exception: None
 \end{itemize}
 
-getCvs():
+\noindent getCvs():
 \begin{itemize}
     \item output: $out := cvs$
     \item exception: None
 \end{itemize}
 
-getCtx():
+\noindent getCtx():
 \begin{itemize}
     \item output: $out := ctx$
     \item exception: None
 \end{itemize}
 
-getSprites():
+\noindent getSprites():
 \begin{itemize}
     \item output: $out := sprites$
     \item exception: None
 \end{itemize}
 
-getPlayer():
+\noindent getPlayer():
 \begin{itemize}
     \item output: $out := player$
     \item exception: None
 \end{itemize}
 
-getAlien():
+\noindent getAlien():
 \begin{itemize}
     \item output: $out := alien$
     \item exception: None
 \end{itemize}
 
-getText():
+\noindent getText():
 \begin{itemize}
     \item output: $out := text$
     \item exception: None
 \end{itemize}
 
-getSound():
+\noindent getSound():
 \begin{itemize}
     \item output: $out := sound$
     \item exception: None
 \end{itemize}
 
-getPaused():
+\noindent getPaused():
 \begin{itemize}
     \item output: $out := paused$
     \item exception: None
 \end{itemize}
 
-setScore(s):
+\noindent setScore(s):
 \begin{itemize}
     \item transition: $score = s$
     \item exception: None
 \end{itemize}
 
-setLives(l):
+\noindent setLives(l):
 \begin{itemize}
     \item transition: $lives = l$
     \item exception: None
 \end{itemize}
 
-setLevel(l):
+\noindent setLevel(l):
 \begin{itemize}
     \item transition: $level = l$
     \item exception: None
 \end{itemize}
 
-setAsteroids(a):
+\noindent setAsteroids(a):
 \begin{itemize}
     \item transition: $asteroids = a$
     \item exception: None
 \end{itemize}
 
-setWidth(w):
+\noindent setWidth(w):
 \begin{itemize}
     \item transition: $width = w$
     \item exception: None
 \end{itemize}
 
-getHeight(h):
+\noindent getHeight(h):
 \begin{itemize}
     \item transition: $height = h$
     \item exception: None
 \end{itemize}
 
-setCvs(c):
+\noindent setCvs(c):
 \begin{itemize}
     \item transition: $cvs = c$
     \item exception: None
 \end{itemize}
 
-setCtx(c):
+\noindent setCtx(c):
 \begin{itemize}
     \item transition: $cyx = c$
     \item exception: None
 \end{itemize}
 
-setSprites(s):
+\noindent setSprites(s):
 \begin{itemize}
     \item transition: $sprites = s$
     \item exception: None
 \end{itemize}
 
-setPlayer(p):
+\noindent setPlayer(p):
 \begin{itemize}
     \item transition: $player = p$
     \item exception: None
 \end{itemize}
 
-setAlien():
+\noindent setAlien():
 \begin{itemize}
     \item transition: $alien = a$
     \item exception: None
 \end{itemize}
 
-setText(t):
+\noindent setText(t):
 \begin{itemize}
     \item transition: $text = t$
     \item exception: None
 \end{itemize}
 
-setSound(s):
+\noindent setSound(s):
 \begin{itemize}
     \item transition: $sound = s$
     \item exception: None
 \end{itemize}
 
-setPaused(b):
+\noindent setPaused(b):
 \begin{itemize}
     \item transition: $paused = b$
     \item exception: None
 \end{itemize}
 
-reduceCounter():
+\noindent reduceCounter():
 \begin{itemize}
     \item transition: $ muteSound := muteSound - 1 \land pauseGame := pauseGame - 1 $
     \item exception: None
 \end{itemize}
 
-resetMute():
+\noindent resetMute():
 \begin{itemize}
     \item transition: $ muteSound = FPS $
     \item exception: None
 \end{itemize}
 
-resetPause():
+\noindent resetPause():
 \begin{itemize}
     \item transition: $ pauseGame = FPS $
     \item exception: None
 \end{itemize}
 
-drawLives():
+\noindent drawLives():
 \begin{itemize}
     \item transition: Draws $lives$ amount of triangular ships to the top left corner of screen to represent player amount of lives left.
     \item exception: None
 \end{itemize}
 
-addScore(amount):
+\noindent addScore(amount):
 \begin{itemize}
     \item transition: $ score = score + amount $
     \item exception: None
 \end{itemize}
 
-addSprite(obj):
+\noindent addSprite(obj):
 \begin{itemize}
     \item transition: $ sprites = sprites || obj $
     \item exception: None
 \end{itemize}
 
-subLives(obj):
+\noindent subLives(obj):
 \begin{itemize}
     \item transition: $ lives = lives - 1 $
     \item exception: None
 \end{itemize}
 
-subSprite(obj):
+\noindent subSprite(obj):
 \begin{itemize}
     \item transition: $ sprites = sprites \setminus obj $
     \item exception: None
@@ -614,7 +615,7 @@ None
 
 \subsubsection* {Access Routine Semantics}
 
-Sound():
+\noindent Sound():
 \begin{itemize}
   \item transition: $muted := false$
   \item exception: None
@@ -724,7 +725,7 @@ None
 
 \subsubsection* {Access Routine Semantics}
 
-dynamicallyLoadScript(x):
+\noindent dynamicallyLoadScript(x):
 \begin{itemize}
     \item input: $x \in \mbox{FILE}$
     \item transition: Appends $x$ to the current file
@@ -794,6 +795,8 @@ None
     \hline
     setActivity & $\mathbb{B}$ & ~ & ~\\
     \hline
+    update & ~ & ~ & ~\\
+    \hline
 \end{tabular}
 
 \subsection* {Semantics}
@@ -824,75 +827,81 @@ GameObject(name):
     \item exception: None
 \end{itemize}
 
-getX():
+\noindent getX():
 \begin{itemize}
     \item output: $out := x$
     \item exception: None
 \end{itemize}
 
-getY():
+\noindent getY():
 \begin{itemize}
     \item output: $out := y$
     \item exception: None
 \end{itemize}
 
-getHeading():
+\noindent getHeading():
 \begin{itemize}
     \item output: $out := a$
     \item exception: None
 \end{itemize}
 
-getActivity():
+\noindent getActivity():
 \begin{itemize}
     \item output: $out := visible$
     \item exception: None
 \end{itemize}
 
-getRadius():
+\noindent getRadius():
 \begin{itemize}
     \item output: $out := r$
     \item exception: None
 \end{itemize}
 
-getVel():
+\noindent getVel():
 \begin{itemize}
     \item output: $out := vel$
     \item exception: None
 \end{itemize}
 
-getAcc():
+\noindent getAcc():
 \begin{itemize}
     \item output: $out := acc$
     \item exception: None
 \end{itemize}
 
-getCtx():
+\noindent getCtx():
 \begin{itemize}
     \item output: $out := ctx$
     \item exception: None
 \end{itemize}
 
-getName():
+\noindent getName():
 \begin{itemize}
     \item output: $out := name$
     \item exception: None
 \end{itemize}
 
-setX(x):
+\noindent setX(x):
 \begin{itemize}
     \item input: $in := x \in \mathbb{Z}$
     \item exception: None
 \end{itemize}
 
-setY(y):
+\noindent setY(y):
 \begin{itemize}
     \item input: $in := x \in \mathbb{Z}$
     \item exception: None
 \end{itemize}
 
-setActivity(activity):
+\noindent setActivity(activity):
 \begin{itemize}
     \item input: $in := x \in \mathbb{B}$
+    \item exception: None
+\end{itemize}
+
+\noindent update():
+\begin{itemize}
+    \item transition: Runs the object's update function. This includes the draw, action, reset, move, collide and interact. This is run by all inherit classes and not the base GameObject class.
     \item exception: None
 \end{itemize}
 
@@ -927,7 +936,12 @@ setActivity(activity):
 
 \subsubsection* {State Variables}
 
-None
+$thrust$: $\mathbb{B}$\\
+$fire$: $\mathbb{B}$\\
+$turn$: String\\
+$airbrake$: $\mathbb{B}$\\
+$accX$: $\mathbb{R}$
+$accY$: $\mathbb{R}$
 
 \subsubsection* {State Invariant}
 
@@ -937,23 +951,23 @@ None
 
 Player():
 \begin{itemize}
-    \item inheret: GameObject $\Rightarrow$ All state variables and methods
+    \item inherit: GameObject $\Rightarrow$ All state variables and methods
     \item transition: $ fire, thrust, turn, airbrake, bulletCountDown vel(x,y), acc(x,y), r = false, false, false, \mbox{FPS}/2, (0,0), (0,0), \mbox{SHIP\_SIZE/2}$
     \item output: $out := Player$
     \item exception: None
 \end{itemize}
 
-\noindent interact():
+\noindent interact(e):
 \begin{itemize}
-  \item input: $in := up \lor space \lor left \lor right \lor down \in \mbox{KeyCode}$
-  \item transition: $up, space, left, right, down := thrust = true, fire = true, turn = left, turn = right, airbrake = true$
+  \item input: $e \in \mbox{KeyCode}$
+  \item transition: $e = \mbox{UP} \Rightarrow thrust = true \land e = \mbox{SPACE} \Rightarrow fire = true \land e = \mbox{LEFT} \Rightarrow turn = \mbox{left} \land e = \mbox{RIGHT} \Rightarrow turn = \mbox{right} \land e = \mbox{DOWN} \Rightarrow airbrake = true$
   \item exception: None
 \end{itemize}
 
 \noindent move():
 \begin{itemize}
   \item input: $thrust, turn := true \lor false, left \lor right$
-  \item transition: $thrust = true \Rightarrow acc.x += \mbox{SHIP\_THRUST} * cos(a)/\mbox{FPS} \land acc.y += \mbox{SHIP\_THRUST} * sin(a)/\mbox{FPS} \land vel.x += acc.x \land vel.y+= acc.y, thrust = false \Rightarrow \mbox{DO NOTHING}, turn = right \Rightarrow rot = -\mbox{TURN\_SPEED}/180*\mbox{PI}/\mbox{FPS}, turn = left \Rightarrow rot =  \mbox{TURN\_SPEED}/180*\mbox{PI}/\mbox{FPS}, turn \lnot (right \lor left) \Rightarrow rot = 0,   space, left, right, down := thrust = true, fire = true, turn = left, turn = right, airbrake = true$
+  \item transition: $thrust = true \Rightarrow accX += \mbox{SHIP\_THRUST} * cos(a)/\mbox{FPS} \land acc.y += \mbox{SHIP\_THRUST} * sin(a)/\mbox{FPS} \land vel.x += acc.x \land vel.y+= acc.y, thrust = false \Rightarrow \mbox{DO NOTHING}, turn = right \Rightarrow rot = -\mbox{TURN\_SPEED}/180*\mbox{PI}/\mbox{FPS}, turn = left \Rightarrow rot =  \mbox{TURN\_SPEED}/180*\mbox{PI}/\mbox{FPS}, turn \lnot (right \lor left) \Rightarrow rot = 0,   space, left, right, down := thrust = true, fire = true, turn = left, turn = right, airbrake = true$
   \item exception: $vel.x >= \mbox{MAX\_SPEED} \Rightarrow \mbox{DO NOT TRANSITION THRUST AND DECREMENT VELOCITY UNTIL IT IS BELOW MAX SPEED}, vel.y >= max \Rightarrow \mbox{DO NOT TRANSITION THRUST AND DECREMENT VELOCITY UNTIL IT IS BELOW MAX SPEED}$
 \end{itemize}
 
@@ -999,7 +1013,7 @@ Player():
   \item exception: None
 \end{itemize}
 
-\newpage   
+\newpage
 
 \begin{tabular}{| l | l | l | l |}
     \hline
@@ -1007,6 +1021,21 @@ Player():
     \hline
     Bullet & Player & Bullet & ~\\
     \hline
+    action & ~ & ~ & ~\\
+    \hline
+    move & ~ & ~ & ~\\
+    \hline
+    draw & ~ & ~ & ~\\
+    \hline
+    collide & ~ & ~ & ~\\
+    \hline
+    collideOffshoot & astChildren & ~ & ~\\
+    \hline
+    getTimeout & ~ & timeout & ~\\
+    \hline
+    setTimeout & life & ~ & ~\\
+    \hline
+    
 \end{tabular}
 
 \subsection* {Semantics}
@@ -1029,49 +1058,49 @@ Bullet(p):
     \item exception: None
 \end{itemize}
 
-action():
+\noindent action():
 \begin{itemize}
     \item transition: $if timeOut <=0 \Rightarrow this.deactivate() \land Game.subSprites(this) else timeOut := timeOut - 1$
 \end{itemize}
 
-move()
+\noindent move()
 \begin{itemize}
     \item transition: $this.x := this.x + this.vel.x \land this.y := this.y + this.vel.y$
     \item transition2: $(this.x < 0 \Rightarrow this.x = CVS\_WIDTH) \lor (this.y < 0 \Rightarrow this.y = CVS\_HEIGHT) \lor (this.x > CVS\_WIDTH \Rightarrow this.x = 0) \lor (this.y > CVS\_HEIGHT \Rightarrow this.y = 0)$
 \end{itemize}
 
-draw():
+\noindent draw():
 \begin{itemize}
     \item transition: if the sprite is active, it draws a circle with radius 1 at the x and y location of the bullet.
 \end{itemize}
 
-collide():
+\noindent collide():
 \begin{itemize}
     \item transition: if both the sprite its colliding with and itself are active, then if they collide, and the other object is an alien or asteroid, it destroys the asteroid/alien and the bullet then increases score.
 \end{itemize}
 
-collideOffshoot():
+\noindent collideOffshoot():
 \begin{itemize}
     \item transition: recursive version of collide for checking that its not colliding with asteroid children.
 \end{itemize}
 \newpage
 
-die():
+\noindent die():
 \begin{itemize}
     \item transition: $this.deactivate()$
 \end{itemize}
-getTimeout():
+\noindent getTimeout():
 \begin{itemize}
     \item output = $out := this.timeOut$
 \end{itemize}
 
-setTimeout(life):
+\noindent setTimeout(life):
 \begin{itemize}
     \item input = $in := life \in \mathbb{Z}$
     \item transition: $this.timeOut := life$
 \end{itemize}
 
-\newpage 
+\newpage
 
 \begin{tabular}{| l | l | l | l |}
     \hline
@@ -1122,38 +1151,38 @@ Alien():
   \item exception: None
 \end{itemize}
 
-draw():
+\noindent draw():
 \begin{itemize}
   \item transition: If $visible = true$, it draws a square at $(x,y)$ every frame to $ctx$.
   \item exception: None
 \end{itemize}
 
-move():
+\noindent move():
 \begin{itemize}
   \item transition: $vel$ is added to $x$ and $y$. This moves the Alien on the screen.
   \item exception: None
 \end{itemize}
 
-action():
+\noindent action():
 \begin{itemize}
   \item transition: The alien counts down until another AlienBullet is fired. $vel$ is also adjusted to create a sinodial path for the Alien to move through.
   \item exception: None
 \end{itemize}
 
-collide():
+\noindent collide():
 \begin{itemize}
   \item transition: Detects if a PLAYER, BULLET, or ASTEROID is within $r$ pixels of the alien. If so, the alien executes die()
   \item exception: None
 \end{itemize}
 
-collideOffshoot(x):
+\noindent collideOffshoot(x):
 \begin{itemize}
   \item input: $x$ = sequence of OBJECT
   \item transition: Detects if a PLAYER, BULLET, or ASTEROID is within $r$ pixels of the alien. If so, the alien executes die(). If any object has children, collideOffshoot() is called again with those children as x
   \item exception: None
 \end{itemize}
 
-die():
+\noindent die():
 \begin{itemize}
   \item transition: Makes the Alien invisible and randomizes its location on $cvs$. $timeSpawn$ is reset to ALIEN\_SPAWN, $timeOut$ to 50, $xOrY$ and $lOrR$ to 1 or 0 and true or false randomly, respectfully.
   \item exception: None
@@ -1166,6 +1195,22 @@ die():
     \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
     \hline
     AlienBullet & ~ & AlienBullet & ~\\
+    \hline
+    action & ~ & ~ & ~\\
+    \hline
+    move & ~ & ~ & ~\\
+    \hline
+    draw & ~ & ~ & ~\\
+    \hline
+    collide & ~ & ~ & ~\\
+    \hline
+    collideOffshoot & astChildren & ~ & ~\\
+    \hline
+    die & ~ & ~ & ~\\
+    \hline
+    getTimeout & ~ & timeout & ~\\
+    \hline
+    setTimeout & life & ~ & ~\\
     \hline
 \end{tabular}
 
@@ -1189,42 +1234,43 @@ AlienBullet(a):
     \item exception: None
 \end{itemize}
 
-action():
+\noindent action():
 \begin{itemize}
     \item transition: $if timeOut <=0 \Rightarrow this.deactivate() \land Game.subSprites(this) else timeOut := timeOut - 1$
 \end{itemize}
 
-move()
+\noindent move()
 \begin{itemize}
     \item transition: $this.x := this.x + this.vel.x \land this.y := this.y + this.vel.y$
     \item transition2: $(this.x < 0 \Rightarrow this.x = CVS\_WIDTH) \lor (this.y < 0 \Rightarrow this.y = CVS\_HEIGHT) \lor (this.x > CVS\_WIDTH \Rightarrow this.x = 0) \lor (this.y > CVS_HEIGHT \Rightarrow this.y = 0)$
 \end{itemize}
 
-draw():
+\noindent draw():
 \begin{itemize}
     \item transition: if the sprite is active, it draws a red circle with radius 2 at the x and y location of the bullet.
 \end{itemize}
 
-collide():
+\noindent collide():
 \begin{itemize}
     \item transition: if both the sprite its colliding with and itself are active, then if they collide, and the other object is a player or asteroid, it destroys the player/asteroid and the bullet.
 \end{itemize}
 
-collideOffshoot():
+\noindent collideOffshoot():
 \begin{itemize}
     \item transition: recursive version of collide for checking that its not colliding with asteroid children.
 \end{itemize}
 
-die():
+\noindent die():
 \begin{itemize}
     \item transition: $this.deactivate()$
 \end{itemize}
-getTimeout():
+
+\noindent getTimeout():
 \begin{itemize}
     \item output = $out := this.timeOut$
 \end{itemize}
 
-setTimeout(life):
+\noindent setTimeout(life):
 \begin{itemize}
     \item input = $in := life \in \mathbb{Z}$
     \item transition: $this.timeOut := life$
@@ -1237,6 +1283,28 @@ setTimeout(life):
     \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
     \hline
     Asteroid & ~ & Asteroid & ~\\
+    \hline
+    Draw & ~ & CVS & ~\\
+    \hline
+    move & ~ & ~ & ~\\
+    \hline
+    action & ~ & ~ & ~\\
+    \hline
+    die & ~ & Asteroid & ~\\
+    \hline
+    pass & ~ & Asteroid & ~\\
+    \hline
+    isDead & ~ & $\mathbb{B}$ & ~\\
+    \hline
+    getChildren & ~ & Asteroid & ~\\
+    \hline
+    getScale & ~ & $\mathbb{N}$ & ~\\
+    \hline
+    setChildren & children & ~ & ~\\
+    \hline
+    setScale & scale & ~ & ~\\
+    \hline
+    add & children & ~ & ~\\
     \hline
 \end{tabular}
 
@@ -1263,7 +1331,7 @@ None
 
 Asteroid():
 \begin{itemize}
-    \item inheret: GameObject $\Rightarrow$ All state variables and methods
+    \item inherit: GameObject $\Rightarrow$ All state variables and methods
     \item input: $ctx = CTX, scale \in \mathbb{Z}$
     \item transition: $ x, y, scale, r, children, vel, velx, vely = random(0...CVS\_WIDTH), random(0...CVS\_HEIGHT), scale, 5*scale, [],
     random(-1...1) * 3,
@@ -1272,60 +1340,60 @@ Asteroid():
     \item exception: None
 \end{itemize}
 
-draw():
+\noindent draw():
 \begin{itemize}
   \item transition: If $visible = true$, it draws a circle at $(x,y)$ every frame to $ctx$. If $visible = false$, it draws all asteroids in $children$
 \end{itemize}
 
-move():
+\noindent move():
 \begin{itemize}
   \item transition: $this.x := this.x + this.vel.x \land this.y := this.y + this.vel.y$
   \item transition2: $(this.x < 0 \Rightarrow this.x = CVS\_WIDTH) \lor (this.y < 0 \Rightarrow this.y = CVS\_HEIGHT) \lor (this.x > CVS\_WIDTH \Rightarrow this.x = 0) \lor (this.y > CVS\_HEIGHT \Rightarrow this.y = 0)$
 \end{itemize}
 
-action():
+\noindent action():
 \begin{itemize}
     \item transition: for testing, it checks if keys are being pressed each frame, and if they are, asteroids are destroyed, corresponding to the test key.
 \end{itemize}
 
-die():
+\noindent die():
 \begin{itemize}
     \item transition: calls the deactivate function, then if the asteroid is not small it creates 3 new smaller asteroids, and places them at its center.
 \end{itemize}
 
-pass():
+\noindent pass():
 \begin{itemize}
-    \item transition: updates all of the asteroids children, if they have all been destroyed then it removes the children from the game. 
+    \item transition: updates all of the asteroids children, if they have all been destroyed then it removes the children from the game.
 \end{itemize}
 
-isDead():
+\noindent isDead():
 \begin{itemize}
     \item output: false if the asteroid is visible or has children left, or true if the asteroid has no children left or are all dead.
 \end{itemize}
 
-getChildren():
+\noindent getChildren():
 \begin{itemize}
     \item output = $out := this.children$
 \end{itemize}
 
-getScale():
+\noindent getScale():
 \begin{itemize}
     \item output = $out := this.scale$
 \end{itemize}
 
-setChildren(children):
+\noindent setChildren(children):
 \begin{itemize}
     \item input = $in = children \in GameObject[]$
     \item transition = $this.children := children$
 \end{itemize}
 
-setScale(scale):
+\noindent setScale(scale):
 \begin{itemize}
     \item input = $in = scale \in \mathbb{Z}$
     \item transition = $this.scale := scale$
 \end{itemize}
 
-add(children):
+\noindent add(children):
 \begin{itemize}
     \item input = $in = children \in GameObject$
     \item transition = $this.children \Vert children$
@@ -1393,20 +1461,20 @@ StateMachine():
     \item exception: None
 \end{itemize}
 
-isSafe(obj,sprites){
+\noindent isSafe(obj,sprites){
 \begin{itemize}
   \item input: $in := object, in := sprites$
   \item return: $d := \forall s \in sprites: (getName(s) = "asteroid" \land getActivity(s) = false \land \exists c \in getChildren(s): \lnot isSafe(c): false) \lor (getName(s) = "asteroid" \land getActivity(s) = true: checkCollision(obj, s, 50): false) \lor (getName(s) \in \{"alien, "alienBullet"\} \land getActivity(s) = true \land checkCollision(obj,s,50): false)$
 \end{itemize}
 }
 
-checkCollision(a,b,c)
+\noindent checkCollision(a,b,c)
 \begin{itemize}
   \item input: $a \in \mbox{GameObject}, b \in \mbox{GameObject}, c \in \mathbb{Z}$
   \item output: $out := (pyth(|a.getX() - b.getX()|, |a.getX() - b.getX()|) < c)$
 \end{itemize}
 
-togglePause():
+\noindent togglePause():
 \begin{itemize}
     \item transition: $ pause \Rightarrow (stateSave = state \land state = \mbox{PAUSE}) \lor \lnot pause \Rightarrow (state = stateSave) $
     \item exception: None
