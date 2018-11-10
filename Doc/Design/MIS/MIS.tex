@@ -1056,6 +1056,10 @@ collideOffshoot():
 \end{itemize}
 \newpage
 
+die():
+\begin{itemize}
+    \item transition: $this.deactivate()$
+\end{itemize}
 getTimeout():
 \begin{itemize}
     \item output = $out := this.timeOut$
@@ -1180,11 +1184,54 @@ None
 AlienBullet(a):
 \begin{itemize}
     \item inheret: GameObject $\Rightarrow$ All state variables and methods
-    \item transition: $ timeOut, vel, x, y, r, velx, vely = 200, {}, getX(a), getY(a), 2, getVelX(a) + \mbox{BULLET\_EXTRA} * cos(getHeading(a)), getVelY(a) + \mbox{BULLET\_EXTRA} * -sin(getHeading(a)) $
+    \item transition: $ timeOut, vel, x, y, r, velx, vely = 200, {}, getX(a), getY(a), 2, random(-3..3), number so that |velX|^2 + |velY|^2 = 3$
     \item output: $out := AlienBullet$
     \item exception: None
 \end{itemize}
+
+action():
+\begin{itemize}
+    \item transition: $if timeOut <=0 \Rightarrow this.deactivate() \land Game.subSprites(this) else timeOut := timeOut - 1$
+\end{itemize}
+
+move()
+\begin{itemize}
+    \item transition: $this.x := this.x + this.vel.x \land this.y := this.y + this.vel.y$
+    \item transition2: $(this.x < 0 \Rightarrow this.x = CVS_WIDTH) \lor (this.y < 0 \Rightarrow this.y = CVS_HEIGHT) \lor (this.x > CVS_WIDTH \Rightarrow this.x = 0) \lor (this.y > CVS_HEIGHT \Rightarrow this.y = 0)$
+\end{itemize}
+
+draw():
+\begin{itemize}
+    \item transition: if the sprite is active, it draws a red circle with radius 2 at the x and y location of the bullet.
+\end{itemize}
+
+collide():
+\begin{itemize}
+    \item transition: if both the sprite its colliding with and itself are active, then if they collide, and the other object is a player or asteroid, it destroys the player/asteroid and the bullet.
+\end{itemize}
+
+collideOffshoot():
+\begin{itemize}
+    \item transition: recursive version of collide for checking that its not colliding with asteroid children.
+\end{itemize}
+
+die():
+\begin{itemize}
+    \item transition: $this.deactivate()$
+\end{itemize}
+getTimeout():
+\begin{itemize}
+    \item output = $out := this.timeOut$
+\end{itemize}
+
+setTimeout(life):
+\begin{itemize}
+    \item input = $in := life \in \mathbb{Z}$
+    \item transition: $this.timeOut := life$
+\end{itemize}
+
 \newpage
+
 \begin{tabular}{| l | l | l | l |}
     \hline
     \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
