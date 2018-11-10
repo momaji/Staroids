@@ -1024,12 +1024,50 @@ None
 Bullet(p):
 \begin{itemize}
     \item inheret: GameObject $\Rightarrow$ All state variables and methods
-    \item transition: $ timeOut, vel, x, y, r, velx, vely = 200, \{\}, getX(p) + 4/3 * getR(p) * cos(getHeading(p)), getY(p) - 4/3 * getR(p) * sin(getHeading(p)), 1, getVelX(p) + \mbox{BULLET\_EXTRA} * cos(getHeading(p)), getVelY(p) + \mbox{BULLET\_EXTRA} * -sin(getHeading(p)) $
+    \item transition: $timeOut, vel, x, y, r, velx, vely = 200, \{\}, getX(p) + 4/3 * getR(p) * cos(getHeading(p)), getY(p) - 4/3 * getR(p) * sin(getHeading(p)), 1, getVelX(p) + \mbox{BULLET\_EXTRA} * cos(getHeading(p)), getVelY(p) + \mbox{BULLET\_EXTRA} * -sin(getHeading(p)) $
     \item output: $out := Bullet$
     \item exception: None
 \end{itemize}
 
+action():
+\begin{itemize}
+    \item transition: if timeOut <=0 \Rightarrow this.deactivate() && Game.subSprites(this) else timeOut := timeOut - 1
+\end{itemize}
+
+move()
+\begin{itemize}
+    \item transition: $this.x := this.x + this.vel.x \land this.y := this.y + this.vel.y$
+    \item transition2: $(this.x < 0 \Rightarrow this.x = CVS_WIDTH) \lor (this.y < 0 \Rightarrow this.y = CVS_HEIGHT) \lor (this.x > CVS_WIDTH \Rightarrow this.x = 0) \lor (this.y > CVS_HEIGHT \Rightarrow this.y = 0)$
+\end{itemize}
+
+draw():
+\begin{itemize}
+    \item transition: if the sprite is active, it draws a circle with radius 1 at the x and y location of the bullet.
+\end{itemize}
+
+collide():
+\begin{itemize}
+    \item transition: if both the sprite its colliding with and itself are active, then if they collide, and the other object is an alien or asteroid, it destroys the asteroid/alien and the bullet then increases score.
+\end{itemize}
+
+collideOffshoot():
+\begin{itemize}
+    \item transition: recursive version of collide for checking that its not colliding with asteroid children.
+\end{itemize}
 \newpage
+
+getTimeout():
+\begin{itemize}
+    \item output = $out := this.timeOut$
+\end{itemize}
+
+setTimeout(life):
+\begin{itemize}
+    \item input = $in := life \in \mathbb{Z}$
+    \item transition: $this.timeOut := life$
+\end{itemize}
+
+\newpage 
 
 \begin{tabular}{| l | l | l | l |}
     \hline
