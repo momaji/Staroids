@@ -76,7 +76,7 @@ Nov 7/18 & 0.41 & Instantiation of text and formatting\\
 
 %In the deliverable template for the Module Guide, the introduction section gives an overview of module decomposition and why it is important.
 
-%In your document,  do not copy this text...
+%In your document, do not copy this text...
 
 %For the introduction section give a brief overview of the project and scope, followed by the purpose of the module guide document  and what it entails. You are certainly welcome to use the given text in your document, as long as you paraphrase it, and cite it.
 
@@ -103,7 +103,7 @@ Nov 7/18 & 0.41 & Instantiation of text and formatting\\
 
 \section{Anticipated and Unlikely Changes} \label{SecChange}
 
-This section lists possible changes Staroids. There are two categories for changes based on the likeliness of the change. Anticipated changes are listed in Section \ref{SecAchange}, and unlikely changes are listed in Section \ref{SecUchange}. Anticipated changes are planned or probable in the forseeable future of Staroids and unlikely changes are changes that are not planned or forseen for the life of Staroids.
+This section lists possible changes Staroids. There are two categories for changes based on the likeliness of the change. Anticipated changes are listed in Section \ref{SecAchange}, and unlikely changes are listed in Section \ref{SecUchange}. Anticipated changes are planned or probable in the foreseeable future of Staroids and unlikely changes are changes that are not planned for the life of Staroids.
 
 \subsection{Anticipated Changes} \label{SecAchange}
 
@@ -122,7 +122,7 @@ Anticipated changes are the source of the information that is to be hidden insid
 
 \subsection{Unlikely Changes} \label{SecUchange}
 
-Certain elements of Staroids are designed in a way that avoids unessesary complexity and as a result, would be less likely to require alteration. Other elements of Staroids are complex and are standard throughout the source code, so alteration of that element would require the editing of many module. Hence, it is not intended that these decisions will be changed.
+Certain elements of Staroids are designed in a way that avoids unnescessary complexity and as a result, would be less likely to require alteration. Other elements of Staroids are complex and are standard throughout the source code, so alteration of that element would require the editing of many module. Hence, it is not intended that these decisions will be changed.
 
 \begin{description}
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucUtilities}:] Controls for the player and menu operations.
@@ -131,7 +131,7 @@ Certain elements of Staroids are designed in a way that avoids unessesary comple
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucGameobject}:] The destructive property of the large and medium asteroids into 3 asteroids of one size smaller.
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucGamestate}:] The state structure of the core game.
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucGamestate}:] How the states transfer into one another.
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucGamestate}:] Method of text dislaying to the screen.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucGamestate}:] Method of text displaying to the screen.
 \end{description}
 
 \section{Module Hierarchy} \label{SecMH}
@@ -179,7 +179,7 @@ actually be implemented.
 
 \section{Connection Between Requirements and Design} \label{SecConnection}
 
-The design of Staroids is intended to satisfy all requirements established in the SRS. This lead to Staroids being separated into seperate modules that contain contain related information. The connection between requirements and modules is listed in Table \ref{TblRT}.
+The design of Staroids is intended to satisfy all requirements established in the SRS. This leads to Staroids being separated into separate modules that contain related information. The connection between requirements and modules is listed in Table \ref{TblRT}.
 
 \section{Module Decomposition} \label{SecMD}
 
@@ -216,28 +216,28 @@ Modules of Staroids are decomposed according to the principle of ``information h
 \subsubsection{Sound Module (\mref{mBHs})}
 \begin{description}
 \item[Secrets:] How sounds are played, how audio files are accessed, and the states of each audio object.
-\item[Services:] Controls a plethora of options for each sound that the game might need including: muting, unmuting, pausing and unpausing, stoping, and checking if the sound is paused.
+\item[Services:] Controls a plethora of options for each sound that the game might need including: muting, unmuting, pausing and unpausing, stopping, and checking if the sound is paused.
 \item[Implemented By:] sound.js
 \end{description}
 
 \subsubsection{Utilities Module (\mref{mBHu})}
 \begin{description}
 \item[Secrets:]The values of all constants for the game, and variables to handle user inputs of pressed keys.
-\item[Services:] Funtions to test for if a key is pressed. The game object handles score, lives, asteroids, as well as getters and setters for all game object attributes.
+\item[Services:] Functions to test for if a key is pressed. The game object handles score, lives, asteroids, as well as getters and setters for all game object attributes.
 \item[Implemented By:] utilities.js
 \end{description}
 
 \subsubsection{GameObject Module (\mref{mSDgo})}
 \begin{description}
-\item[Secrets:] Contains base game object, along with all other secondary objects which inheret from it. This includes all the attributes specific to each object.
+\item[Secrets:] Contains base game object, along with all other secondary objects which inherit from it. This includes all the attributes specific to each object.
 \item[Services:] Getters and setters for all game objects, draw functions to put them to the canvas, and interaction functions between objects such as collisions.
 \item[Implemented By:] gameobject.js
 \end{description}
 
 \subsubsection{GameState Module (\mref{mSDgs})}
 \begin{description}
-\item[Secrets:] Containts state machine for the game as well as the main running loop of game.
-\item[Services:] Sets game objects to desired values based on states, as well as updates the game though the main loop as time elapses and user inputs are sent in through the event listeners defined in this module. This module however does not process the inputs, only listens for them and then alerts the utilites module to process them into variables which can then be recognized.
+\item[Secrets:] Contains state machine for the game as well as the main running loop of game.
+\item[Services:] Sets game objects to desired values based on states, as well as updates the game though the main loop as time elapses and user inputs are sent in through the event listeners defined in this module. This module however does not process the inputs, only listens for them and then alerts the utilities module to process them into variables which can then be recognized.
 \item[Implemented By:] gamestate.js
 \end{description}
 
