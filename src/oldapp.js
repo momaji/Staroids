@@ -1,4 +1,3 @@
-
 /** The current frames per second @const */
 const FPS = 30;
 /** The ship size in pixels @const */
@@ -27,45 +26,6 @@ const KILLABLE = true;
 const MAX_ASTEROIDS = 2;
 /** Staroids experimental features toggle */
 const TEST=false;
-
-
-/* @constructor */
-var Key = {
- pressed: {},
-
- LEFT: 37,
- UP: 38,
- RIGHT: 39,
- DOWN:40,
- SPACE: 32,
- M: 77,
- P: 80,
- R: 82,
- ONE: 49,
- TWO: 50,
- THREE: 51,
-
- /** Returns if a specified key is pressed down or not
-  * @param keyCode The JavaScript key code to check */
- isDown: function(keyCode){
-   return this.pressed[keyCode];
- },
-
- /** Used by event handler to update the pressed keys
-  * @param event The event that needs to be handled */
- onKeydown: function(event){
-   this.pressed[event.keyCode]=(new Date).getTime();
- },
-
- /** Used by event handler to uodate released keys
-  * @param event Released key */
- onKeyup: function(event){
-   delete this.pressed[event.keyCode];
- }
-};
-
-
-
 
 
 
@@ -141,9 +101,7 @@ GameObject = function(){
   */
   this.place = function(x,y){this.setX(x);this.setY(y);};
   /**
-   *
-   */
-  /* Activates sprites by toggling visibility on
+  * Activates sprites by toggling visibility on
   */
   this.activate = function(){this.setActivity(true);};
   /**
@@ -460,9 +418,9 @@ Player = function(){
       bull = new Bullet(); //Create and initialize new bullet
       bull.init(this);
       Game.addSprites(bull);
-      /*if (!Game.getSound().muted){ //If not muted, play the sound
+      if (!Game.getSound().muted){ //If not muted, play the sound
           Game.getSound().play(Sound.LASER);
-      }*/
+      }
 
       if (TEST){
           this.vel.x += SHIP_THRUST * -Math.cos(this.a);
@@ -720,7 +678,7 @@ Asteroid = function(){
 
   };
   /** Draws the asteroid to the screen */
-  /*this.draw = function(){
+  this.draw = function(){
     if (this.visible){ //if alive...
 
       this.ctx.beginPath(); //draw self
@@ -733,7 +691,7 @@ Asteroid = function(){
       }
     }
 
-  };*/
+  };
   /** Moves the asteroid */
   this.move = function(){
     this.x += this.vel.x;
@@ -754,9 +712,9 @@ Asteroid = function(){
   this.action = function(){
 
     //Debug options to destroy all asteroid of a certain size
-    //if (Key.isDown(Key.ONE) && this.scale==1)   this.die();
-    //if (Key.isDown(Key.TWO) && this.scale==2)   this.die();
-    //if (Key.isDown(Key.THREE) && this.scale==3) this.die();
+    if (Key.isDown(Key.ONE) && this.scale==1)   this.die();
+    if (Key.isDown(Key.TWO) && this.scale==2)   this.die();
+    if (Key.isDown(Key.THREE) && this.scale==3) this.die();
 
   };
   /** Effect of an asteroid getting destroyed */
@@ -838,264 +796,6 @@ Asteroid.prototype = new GameObject();
 module.exports = {GameObject, Player, Bullet, Asteroid}
 
 
-/* Main game function */
-main_game = function () {
-
-  /* Execute startup code */
-  StateMachine.execute();
-
-  /** Requests a new frame */
-  window.requestAnimFrame = (function () {
-    return  window.requestAnimationFrame       ||
-            window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame    ||
-            window.oRequestAnimationFrame      ||
-            window.msRequestAnimationFrame     ||
-            function (callback, element) {
-              window.setTimeout(callback, 1000 / 60);
-            };
-  })();
-
-  /** The global game update */
-  var update = function(){
-    /* Used for specific loop invariants or "run once" type of code */
-    StateMachine.execute();
-
-    Game.reduceCounter();
-    if (Key.isDown(Key.M) && Game.counter.muteSound<=0){
-        Game.getSound().toggle();
-        Game.resetMute(); //Reset counter. Prevents from a single button press to change button several times. Essentially a lockout
-    }
-    if (Key.isDown(Key.P) && Game.counter.pauseGame<=0){
-        StateMachine.togglePause();
-        Game.resetPause();
-    }
-  };
-
-  /** Main game loop */
-  var mainLoop = function () {
-    Game.getCtx().clearRect(0, 0, Game.getWidth(), Game.getHeight());
-
-    update();
-
-    if (Game.getSound().muted == true){
-      Game.text.emph("M",CVS_WIDTH-40,35);
-    }
-    if (StateMachine.getState()=="pause"){
-      Game.text.emph("P",CVS_WIDTH-70,35);
-    }
-    Game.drawLives();
-
-    requestAnimFrame(mainLoop,Game.getCvs());
-  }
-
-  /* Main game loop that allows the game to run */
-  mainLoop();
-};
-
-
-/** A object that contains all variables related to the operation of the Staroids game
- * @constructor */
-Game = {
-  /** Current game score */
-  score: 0,
-  /** Current game player lives */
-  lives: 0,
-  /** Current player level */
-  level: 0,
-  /** How many large (scale 3) asteroids equivalent are on the screen */
-  asteroids: 0,
-  /** Width of the canvas
-   * @const */
-  canvasWidth: CVS_WIDTH,
-  /** Height of the canvas
-   * @const */
-  canvasHeight: CVS_HEIGHT,
-  /** The canvas in which the game is displayed upon
-   * @const */
-  cvs: null,
-  /** The canvas context
-   * @const */
-  ctx: null,
-  /** All active objects in the game */
-  sprites: [],
-  /** The current player */
-  player: null,
-  /** The next alien to spawn */
-  alien: null,
-  /** Holds a text object that displays text to the same canvas that the game is running
-   * @const */
-  text: null,
-  /** The sound manager for the current game
-   * @const */
-  sound: null,
-  /** A container to hold all countdowns to when a particular button can be pressed */
-  counter: {
-      /** Countdown to when the game can be muted */
-      muteSound: FPS,
-      /** Countdown to when the game can be paused */
-      pauseGame: FPS
-  },
-  /** The current paused state */
-  paused: false,
-
-  /** Decrements the game's counters every frame */
-  reduceCounter: function(){
-      this.counter.muteSound -= 1;
-      this.counter.pauseGame -= 1;
-  },
-  resetMute: function(){
-    this.counter.muteSound = FPS;
-  },
-  resetPause: function(){
-    this.counter.pauseGame = FPS;
-  },
-
-  drawLives: function(){
-    offset = 0;
-    angle = Math.PI/2;
-    for (var i = 0; i < this.getLives(); i+=1){
-      this.ctx.strokeStyle = "black";
-      this.ctx.lineWidth = SHIP_SIZE / 20;
-      this.ctx.beginPath();
-
-      this.ctx.moveTo(// nose of the ship
-        10+offset*15 +  5 * (Math.cos(angle)) * 4/3,
-        15 -            5 * (Math.sin(angle)) * 4/3
-      );
-      this.ctx.lineTo( //rear left of ship
-        10+offset*15 -  5 * (2/3*Math.cos(angle) + 2/3*Math.sin(angle)),
-        15 +            5 * (2/3*Math.sin(angle) - 2/3*Math.cos(angle))
-      );
-      this.ctx.lineTo( //rear right of ship
-        10+offset*15 -  5 * (2/3*Math.cos(angle) - 2/3*Math.sin(angle)),
-        15 +            5 * (2/3*Math.sin(angle) + 2/3*Math.cos(angle))
-      );
-
-      this.ctx.closePath();
-      this.ctx.stroke();
-      offset+=1
-    }
-  },
-
-
-    //Getters
-    /** Accesses the game's score
-     * @return {Integer} The game's score */
-    getScore: function(){return this.score;},
-    /** Accesses the player's lives
-     * @return {Integer} The player's life count */
-    getLives: function(){return this.lives;},
-    /** Accesses the game's current level
-     * @return {Integer} The current level */
-    getLevel: function(){return this.level;},
-    /** Accesses the game's current amount of large asteroids
-     * @return {Integer} The amount of asteroids */
-    getAsteroids: function(){return this.asteroids;},
-    /** Accesses the game canvas' width
-     * @return {Integer} The canvas' width */
-    getWidth: function(){return this.canvasWidth;},
-    /** Accesses the game canvas' height
-     * @return {Integer} The canvas' height */
-    getHeight: function(){return this.canvasHeight;},
-    /** Accesses the game's canvas
-     * @return The canvas the game is being played on */
-    getCvs: function(){return this.cvs;},
-    /** Accesses the game's context
-     * @return The game's context */
-    getCtx: function(){return this.ctx;},
-    /** Accesses the game's current sprites
-     * @return {Array} The sprites currently in the game */
-    getSprites: function(){return this.sprites;},
-    /** Accesses the game's player
-     * @return A pointer to the current player */
-    getPlayer: function(){return this.player;},
-    /** Accesses the game's enemy alien
-     * @return A pointer to the current alien */
-    getAlien: function(){return this.alien;},
-    /** Accesses the game's text placer
-     * @return A pointer to the current text generator */
-    getText: function(){return this.text;},
-    /** Accesses the game's sound manager
-     * @return A pointer to the current sound manager */
-    getSound: function(){return this.sound;},
-    /** Accesses the game's paused state
-     * @return {Boolean} The current paused state */
-    getPaused: function(){return this.paused;},
-
-    //Setters
-    /** Sets the game's score
-     * @param {Integer} score The score to set the game to */
-    setScore: function(score){ this.score=score;},
-    /** Sets the game's life count
-     * @param {Integer} life The new life count */
-    setLives: function(life){ this.lives=life;},
-    /** Sets the game's current level
-     * @param {Integer} lvl */
-    setLevel: function(lvl){ this.level=lvl;},
-    /** Sets the game's max large asteroid count
-     * @param {Integer} ast The new asteroid count */
-    setAsteroids: function(ast){ this.asteroids=ast;},
-    /** Sets the game's currently active sprite array
-     * @param {Array} sprites The new active sprite array */
-    setSprites: function(sprites){ this.sprites=sprites;},
-    /** Sets the game canvas' width
-     * @param {Integer} width The canvas' width */
-    setWidth: function(width){ this.canvasWidth=width;},
-    /** Sets the game canvas' height
-     * @param {Integer} height The canvas' height */
-    setHeight: function(height){ this.canvasHeight=height;},
-    /** Sets the game's canvas
-     * @param cvs The game canvas */
-    setCvs: function(cvs){ this.cvs=cvs;},
-    /** Sets the game's context
-     * @param ctx The context to set */
-    setCtx: function(ctx){ this.ctx=ctx;},
-    /** Sets the game's player pointer
-     * @param player The new player instance */
-    setPlayer: function(player){ this.player=player;},
-    /** Sets the game's alien reference
-     * @param alien The new alien object */
-    setAlien: function(alien){ this.alien=alien;},
-    /** Sets the game's text generator
-     * @param text The text generator*/
-    setText: function(text){ this.text=text;},
-    /** Sets the game's sound manager
-     * @param sound The sound manager */
-    setSound: function(sound){ this.sound=sound;},
-
-    //Append-ers
-    /** Increases the game's current score
-     * @param {Integer} amount The amount to increase the score by */
-    addScore: function (amount){ this.score+=amount;},
-    /** Increases the game's live count
-     * @param {Integer} amount The amount to increase lives by */
-    addLives: function (amount){ this.lives+=amount;},
-    /** Increases the game's asteroid count
-     * @param {Integer} amount The amount to increase the asteroid count by */
-    addAsteroids: function (amount){ this.asteroids+=amount;},
-    /** Adds a sprite to the current active sprites
-     * @param sprite The sprite to append */
-    addSprites: function(sprite){ this.getSprites().push(sprite);},
-
-    //Remove-ers
-    /** Decreases the game's current score
-     * @param {Integer} amount The amount to decrease the score by */
-    subScore: function (amount){ this.score-=amount;},
-    /** Decrease the game's live count
-     * @param {Integer} amount The amount to decrease lives by */
-    subLives: function (amount){ this.lives-=amount;},
-    /** Decreases the game's asteroid count
-     * @param {Integer} amount The amount to decrease the asteroid count by */
-    subAsteroids: function (amount){ this.asteroids-=amount;},
-    /** Removes a currently active sprite
-     * @param sprite The sprite to remove */
-    subSprites: function(sprite){ this.getSprites().remove(sprite);}
-}
-
-/** State Machine
- * @constructor
- * @details State Machine of the game containing the Major four game states (Pregame, Playing, Pause & End) as well as some minor things*/
 StateMachine = {
   /**
    * Spawns Asteroids and adds to game's sprite list
@@ -1117,7 +817,7 @@ StateMachine = {
   isSafe: function(object,sprites){
     for (var i =0; i < sprites.length; i+=1){
       other = sprites[i];
-      if(other.getName() == "asteroid"){
+      if(other.name == "asteroid"){
         if (other.getActivity()==false){
           if (!this.isSafe(object,other.getChildren())){
             return false;
@@ -1127,11 +827,8 @@ StateMachine = {
             return false;
           }
         }
-      }else if (other.getName()=="alien" || other.getName()=="alienBullet"){
-        if (other.getActivity()==true && this.checkCollision(object,other,50)){
-          return false;
-        }
-        t  = 0;
+      }else if (other.name=="alien" || other.name=="alienbullet"){
+        var t = 0;
       }
     }
     return true;
@@ -1165,19 +862,19 @@ StateMachine = {
   /** Initiates game canvas, sounds, sprite, and objects before the game begins for the pregame state */
   start:  function(){
     /* The game canvas */
-    Game.setCvs(1);
+    Game.setCvs($("#canvas"));
     /* Retrieves the canvas context */
-    Game.setCtx('2d');
-    Game.setWidth(780);
-    Game.setHeight(620);
+    Game.setCtx(Game.getCvs()[0].getContext("2d"));
+    Game.setWidth(Game.getCvs().width());
+    Game.setHeight(Game.getCvs().height());
 
     /* How the game prints to the screen */
-    Game.setText(1);
-    //Game.getText().init(Game.getCtx(),"30px Arial");
+    Game.setText(new Text());
+    Game.getText().init(Game.getCtx(),"30px Arial");
 
     /* How the game plays sounds */
-    //Game.setSound(Sound);
-  //  Game.getSound().unmute();
+    Game.setSound(Sound);
+    Game.getSound().unmute();
 
     Game.setSprites([]);
     this.generateAsteroids(MAX_ASTEROIDS);
@@ -1190,7 +887,7 @@ StateMachine = {
       Game.getSprites()[i].update();
     }
 
-    //Game.getText().emph("Press Space To Start",20,100);
+    Game.getText().emph("Press Space To Start",20,100);
     if (Key.isDown(Key.SPACE)){
       this.state="load";
     }
@@ -1266,13 +963,6 @@ StateMachine = {
    * @details Preserves all the sprites in their current state */
   pause: function(){
     for (var i = 0; i < Game.getSprites().length; i++){
-      object = Game.getSprites()[i];
-      printOut(1,this.stateSave);
-      if (this.stateSave=="postgame" && object.getName()=="player"){
-        printOut(1,"Skipped");
-        Game.getText().emph("Press 'R' to Restart",20,100);
-        continue
-      }
       Game.getSprites()[i].draw();
     }
   },
@@ -1295,13 +985,13 @@ StateMachine = {
 }
 
 /* Main game function */
-maingame = function () {
+main_game = function () {
 
   /* Execute startup code */
   StateMachine.execute();
 
   /** Requests a new frame */
-  /*window.requestAnimFrame = (function () {
+  window.requestAnimFrame = (function () {
     return  window.requestAnimationFrame       ||
             window.webkitRequestAnimationFrame ||
             window.mozRequestAnimationFrame    ||
@@ -1310,7 +1000,7 @@ maingame = function () {
             function (callback, element) {
               window.setTimeout(callback, 1000 / 60);
             };
-  })();*/
+  })();
 
   /** The global game update */
   var update = function(){
@@ -1326,33 +1016,27 @@ maingame = function () {
         StateMachine.togglePause();
         Game.resetPause();
     }
-
-    Game.drawLives(); //Draw lives in all states. If lives is zero, it will show nothing and therefore wont matter
   };
 
   /** Main game loop */
   var mainLoop = function () {
-    //Game.getCtx().clearRect(0, 0, Game.getWidth(), Game.getHeight());
+    Game.getCtx().clearRect(0, 0, Game.getWidth(), Game.getHeight());
 
     update();
 
-    /*if (Game.getSound().muted == true){
+    if (Game.getSound().muted == true){
       Game.text.emph("M",CVS_WIDTH-40,35);
-    }*/
+    }
     if (StateMachine.getState()=="pause"){
       Game.text.emph("P",CVS_WIDTH-70,35);
     }
-    if (StateMachine.getState()!="pregame"){
-      Game.text.emph(Game.getScore(),5,45);
-    }
+    Game.drawLives();
 
-    //requestAnimFrame(mainLoop,Game.getCvs());
+    requestAnimFrame(mainLoop,Game.getCvs());
   }
 
   /* Main game loop that allows the game to run */
   mainLoop();
 };
-
-maingame();
 
 module.export = {StateMachine, main_game}
