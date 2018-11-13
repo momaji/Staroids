@@ -1,7 +1,11 @@
 /* Initailizes the program to listen to when keys are pressed down during game operation.*/
-window.addEventListener('keyup', function(event) { Key.onKeyup(event); }, false);
+window.addEventListener('keyup', function (event) {
+  Key.onKeyup(event);
+}, false);
 /* Initailizes the program to listen to when keys are released during game operation.*/
-window.addEventListener('keydown', function(event) { Key.onKeydown(event); }, false);
+window.addEventListener('keydown', function (event) {
+  Key.onKeydown(event);
+}, false);
 
 /** State Machine
  * @constructor
@@ -11,10 +15,10 @@ StateMachine = {
    * Spawns Asteroids and adds to game's sprite list
    * @param {integer} num The number of asteroids to be spawned
    */
-  generateAsteroids: function(num){
-    for (var i = 0; i<num; i+=1){
+  generateAsteroids: function (num) {
+    for (var i = 0; i < num; i += 1) {
       ast = new Asteroid();
-      ast.init(Game.getCtx(),3);
+      ast.init(Game.getCtx(), 3);
       Game.addSprites(ast);
       Game.addAsteroids(1);
     }
@@ -24,56 +28,56 @@ StateMachine = {
    * @param object Determines if the area around object is safe
    * @param sprites An array containing GameObjects to check and see if they would make the aread around the object unsafe
    */
-  isSafe: function(object,sprites){
-    for (var i =0; i < sprites.length; i+=1){
+  isSafe: function (object, sprites) {
+    for (var i = 0; i < sprites.length; i += 1) {
       other = sprites[i];
-      if(other.getName() == "asteroid"){
-        if (other.getActivity()==false){
-          if (!this.isSafe(object,other.getChildren())){
+      if (other.getName() == "asteroid") {
+        if (other.getActivity() == false) {
+          if (!this.isSafe(object, other.getChildren())) {
             return false;
           }
-        }else{
-          if(this.checkCollision(object,other,50)){
+        } else {
+          if (this.checkCollision(object, other, 50)) {
             return false;
           }
         }
-      }else if (other.getName()=="alien" || other.getName()=="alienBullet"){
-        if (other.getActivity()==true && this.checkCollision(object,other,50)){
+      } else if (other.getName() == "alien" || other.getName() == "alienBullet") {
+        if (other.getActivity() == true && this.checkCollision(object, other, 50)) {
           return false;
         }
-        t  = 0;
+        t = 0;
       }
     }
     return true;
   },
 
   /** Checks if two objects are within collision distance
-  * @param {GameObject} a first GameObject
-  * @param {GameObject} b second GameObject
-  * @param {GameObject} c The distance to determine if a collision happens or not
-  * @return {boolean} if the objects are within distance c of each other
-  */
-  checkCollision: function(a, b, c){
-    return (pyth(Math.abs(a.getX()-b.getX()), Math.abs(a.getY()-b.getY())) < c)
+   * @param {GameObject} a first GameObject
+   * @param {GameObject} b second GameObject
+   * @param {GameObject} c The distance to determine if a collision happens or not
+   * @return {boolean} if the objects are within distance c of each other
+   */
+  checkCollision: function (a, b, c) {
+    return (pyth(Math.abs(a.getX() - b.getX()), Math.abs(a.getY() - b.getY())) < c)
   },
 
   /** Saves Current game state if pause mode/game state is activated */
-  togglePause: function(){
-    if (this.state != "pause"){
+  togglePause: function () {
+    if (this.state != "pause") {
       this.stateSave = this.state;
       this.state = "pause";
 
-      if (Key.isDown(Key.UP)){
+      if (Key.isDown(Key.UP)) {
         Game.getPlayer().callThrust();
       }
 
-    }else{
+    } else {
       this.state = this.stateSave;
       this.stateSave = null;
     }
   },
   /** Initiates game canvas, sounds, sprite, and objects before the game begins for the pregame state */
-  start:  function(){
+  start: function () {
     /* The game canvas */
     Game.setCvs($("#canvas"));
     /* Retrieves the canvas context */
@@ -83,7 +87,7 @@ StateMachine = {
 
     /* How the game prints to the screen */
     Game.setText(new Text());
-    Game.getText().init(Game.getCtx(),"30px Arial");
+    Game.getText().init(Game.getCtx(), "30px Arial");
 
     /* How the game plays sounds */
     Game.setSound(Sound);
@@ -92,68 +96,68 @@ StateMachine = {
     Game.setSprites([]);
     this.generateAsteroids(MAX_ASTEROIDS);
 
-    this.state="pregame";
+    this.state = "pregame";
   },
   /** Pregame state for the staroids game, loads all the sprites onto the screen */
-  pregame: function(){
-    for (var i = 0; i < Game.getSprites().length; i++){
+  pregame: function () {
+    for (var i = 0; i < Game.getSprites().length; i++) {
       Game.getSprites()[i].update();
     }
 
-    Game.getText().emph("Press Space To Start",20,100);
-    if (Key.isDown(Key.SPACE)){
-      this.state="load";
+    Game.getText().emph("Press Space To Start", 20, 100);
+    if (Key.isDown(Key.SPACE)) {
+      this.state = "load";
     }
   },
   /** @brief Transition from pre-game to playing states.
    * @details Resets the game lives, score, level. Generates the player ship and asteroids */
-  load: function(){
+  load: function () {
     Game.setScore(0);
     Game.setLives(3);
     Game.setLevel(0);
 
     //Spawn asteroids
-      //Append asteroids to Game.sprites
+    //Append asteroids to Game.sprites
 
     //Spawn ship
-      //Ensure player doesnt spawn on an asteroid
+    //Ensure player doesnt spawn on an asteroid
     Game.setPlayer(new Player());
     Game.getPlayer().init(Game.getCtx());
     Game.addSprites(Game.getPlayer());
-    Game.getPlayer().place(100,100);
+    Game.getPlayer().place(100, 100);
 
     Game.setAlien(new Alien());
     Game.getAlien().init(Game.getCtx());
     Game.addSprites(Game.getAlien());
 
     //Prepare Alien
-      //Hook alien reference to Game.alien
-      //Append asteroids to Game.sprites
+    //Hook alien reference to Game.alien
+    //Append asteroids to Game.sprites
 
-    this.state="playing";
+    this.state = "playing";
   },
   /** @brief Playing state for the Staroids game
    * @details Updates all sprites and checks for the game over status. Handles the generation of new asteroids at the end of each level (or wave) */
-  playing: function(){
-    if(Game.getLives() <= 0){
+  playing: function () {
+    if (Game.getLives() <= 0) {
       Game.setLives(0);
     }
-    for (var i = 0; i < Game.getSprites().length; i++){
+    for (var i = 0; i < Game.getSprites().length; i++) {
       Game.getSprites()[i].update();
     }
 
-    if (Game.getAsteroids() == 0){
-      Game.setLevel(Game.getLevel()+1);
+    if (Game.getAsteroids() == 0) {
+      Game.setLevel(Game.getLevel() + 1);
       this.generateAsteroids(MAX_ASTEROIDS + Game.getLevel() * 2);
     }
 
-    if (Game.getPlayer().getActivity()==false){
-      if (Game.getLives()<=0){
+    if (Game.getPlayer().getActivity() == false) {
+      if (Game.getLives() <= 0) {
         this.state = "postgame";
-      }else{
+      } else {
 
-        Game.getPlayer().place(100,100)
-        if (this.isSafe( Game.getPlayer(), Game.getSprites() )){
+        Game.getPlayer().place(100, 100)
+        if (this.isSafe(Game.getPlayer(), Game.getSprites())) {
           Game.getPlayer().setActivity(true)
         }
 
@@ -162,25 +166,25 @@ StateMachine = {
   },
   /** @brief Post-game state for the Staroids game
    * @details Post-game screen for when the player dies and is out of lives. Displays the reset key */
-  postgame: function(){
-    for (var i = 0; i < Game.getSprites().length; i++){
+  postgame: function () {
+    for (var i = 0; i < Game.getSprites().length; i++) {
       Game.getSprites()[i].update();
     }
 
-    Game.getText().emph("Press 'R' to Restart",20,100);
-    if (Key.isDown(Key.R)){
-      this.state="reload";
+    Game.getText().emph("Press 'R' to Restart", 20, 100);
+    if (Key.isDown(Key.R)) {
+      this.state = "reload";
     }
   },
   /** @brief Pause state for the Staroids game
    * @details Preserves all the sprites in their current state */
-  pause: function(){
-    for (var i = 0; i < Game.getSprites().length; i++){
+  pause: function () {
+    for (var i = 0; i < Game.getSprites().length; i++) {
       object = Game.getSprites()[i];
-      printOut(1,this.stateSave);
-      if (this.stateSave=="postgame" && object.getName()=="player"){
-        printOut(1,"Skipped");
-        Game.getText().emph("Press 'R' to Restart",20,100);
+      printOut(1, this.stateSave);
+      if (this.stateSave == "postgame" && object.getName() == "player") {
+        printOut(1, "Skipped");
+        Game.getText().emph("Press 'R' to Restart", 20, 100);
         continue
       }
       Game.getSprites()[i].draw();
@@ -188,7 +192,7 @@ StateMachine = {
   },
   /** @brief Transitions the game from the postgame state back to the load state
    * @details Removes all game sprites, then re-generates all the asteroids and then finally resets back to the load state */
-  reload: function(){
+  reload: function () {
     Game.setSprites([]);
 
     this.generateAsteroids(MAX_ASTEROIDS);
@@ -196,12 +200,16 @@ StateMachine = {
     this.state = "load";
   },
   /** Runs the code for the current state */
-  execute: function(){this[this.state]();},
+  execute: function () {
+    this[this.state]();
+  },
   /** Initializes start function when game begins */
   state: "start",
   /** Used to save the last state entered (for pausing) */
   stateSave: null,
-  getState: function(){return this.state}
+  getState: function () {
+    return this.state
+  }
 }
 
 /* Main game function */
@@ -212,29 +220,29 @@ $(function () {
 
   /** Requests a new frame */
   window.requestAnimFrame = (function () {
-    return  window.requestAnimationFrame       ||
-            window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame    ||
-            window.oRequestAnimationFrame      ||
-            window.msRequestAnimationFrame     ||
-            function (callback, element) {
-              window.setTimeout(callback, 1000 / 60);
-            };
+    return window.requestAnimationFrame ||
+      window.webkitRequestAnimationFrame ||
+      window.mozRequestAnimationFrame ||
+      window.oRequestAnimationFrame ||
+      window.msRequestAnimationFrame ||
+      function (callback, element) {
+        window.setTimeout(callback, 1000 / 60);
+      };
   })();
 
   /** The global game update */
-  var update = function(){
+  var update = function () {
     /* Used for specific loop invariants or "run once" type of code */
     StateMachine.execute();
 
     Game.reduceCounter();
-    if (Key.isDown(Key.M) && Game.counter.muteSound<=0){
-        Game.getSound().toggle();
-        Game.resetMute(); //Reset counter. Prevents from a single button press to change button several times. Essentially a lockout
+    if (Key.isDown(Key.M) && Game.counter.muteSound <= 0) {
+      Game.getSound().toggle();
+      Game.resetMute(); //Reset counter. Prevents from a single button press to change button several times. Essentially a lockout
     }
-    if (Key.isDown(Key.P) && Game.counter.pauseGame<=0){
-        StateMachine.togglePause();
-        Game.resetPause();
+    if (Key.isDown(Key.P) && Game.counter.pauseGame <= 0) {
+      StateMachine.togglePause();
+      Game.resetPause();
     }
 
     Game.drawLives(); //Draw lives in all states. If lives is zero, it will show nothing and therefore wont matter
@@ -246,17 +254,17 @@ $(function () {
 
     update();
 
-    if (Game.getSound().muted == true){
-      Game.text.emph("M",CVS_WIDTH-40,35);
+    if (Game.getSound().muted == true) {
+      Game.text.emph("M", CVS_WIDTH - 40, 35);
     }
-    if (StateMachine.getState()=="pause"){
-      Game.text.emph("P",CVS_WIDTH-70,35);
+    if (StateMachine.getState() == "pause") {
+      Game.text.emph("P", CVS_WIDTH - 70, 35);
     }
-    if (StateMachine.getState()!="pregame"){
-      Game.text.emph(Game.getScore(),5,45);
+    if (StateMachine.getState() != "pregame") {
+      Game.text.emph(Game.getScore(), 5, 45);
     }
 
-    requestAnimFrame(mainLoop,Game.getCvs());
+    requestAnimFrame(mainLoop, Game.getCvs());
   }
 
   /* Main game loop that allows the game to run */
