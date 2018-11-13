@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>Asteroids by Mo</title>
 </head>
+
 <body>
 	<canvas id="canvas" width="500" height="500" style="border: 1px solid black;"> </canvas>
 	<script>
@@ -22,34 +24,38 @@
 
 		var Key = {
 			//  Key.isDown(Key.UP); "undefined" if up and pressed duration if down
-		  pressed: {},
+			pressed: {},
 
-		  LEFT: 37,
-		  UP: 38,
-		  RIGHT: 39,
-		  DOWN: 40,
-		  SPACE: 32,
+			LEFT: 37,
+			UP: 38,
+			RIGHT: 39,
+			DOWN: 40,
+			SPACE: 32,
 
-		  isDown: function(keyCode){
-		    return this.pressed[keyCode];
-		  },
+			isDown: function (keyCode) {
+				return this.pressed[keyCode];
+			},
 
-		  onKeydown: function(event){
-		    this.pressed[event.keyCode]=(new Date).getTime();
-		  },
+			onKeydown: function (event) {
+				this.pressed[event.keyCode] = (new Date).getTime();
+			},
 
-		  onKeyup: function(event){
-		    delete this.pressed[event.keyCode];
-		  }
+			onKeyup: function (event) {
+				delete this.pressed[event.keyCode];
+			}
 		};
 
-		window.addEventListener('keyup', function(event) { Key.onKeyup(event); }, false);
-		window.addEventListener('keydown', function(event) { Key.onKeydown(event); }, false);
+		window.addEventListener('keyup', function (event) {
+			Key.onKeyup(event);
+		}, false);
+		window.addEventListener('keydown', function (event) {
+			Key.onKeydown(event);
+		}, false);
 
-		Player = function(){
-			this.x=300;
-			this.y=300;
-			this.r=SHIP_SIZE/2;
+		Player = function () {
+			this.x = 300;
+			this.y = 300;
+			this.r = SHIP_SIZE / 2;
 			this.vel = {
 				x: 0,
 				y: 0,
@@ -58,16 +64,16 @@
 				x: 0,
 				y: 0
 			};
-			this.a = 90/180 * Math.PI;
+			this.a = 90 / 180 * Math.PI;
 			this.rot = 0;
 
-			this.fire=false;
+			this.fire = false;
 
-			this.init = function(ctx){
-				this.ctx=ctx;
+			this.init = function (ctx) {
+				this.ctx = ctx;
 			};
 
-			this.draw = function(){
+			this.draw = function () {
 				if (Key.isDown(Key.UP)) {
 					//draw the thruster
 					this.ctx.strokeStyle = "yellow";
@@ -75,19 +81,19 @@
 					this.ctx.lineWidth = SHIP_SIZE / 10;
 					this.ctx.beginPath();
 
-					this.ctx.moveTo(// rear left of the ship
-						this.x - this.r * (2/3*Math.cos(this.a) + 0.5*Math.sin(this.a)),
-						this.y + this.r * (2/3*Math.sin(this.a) - 0.5*Math.cos(this.a))
+					this.ctx.moveTo( // rear left of the ship
+						this.x - this.r * (2 / 3 * Math.cos(this.a) + 0.5 * Math.sin(this.a)),
+						this.y + this.r * (2 / 3 * Math.sin(this.a) - 0.5 * Math.cos(this.a))
 					);
 
 					this.ctx.lineTo( //rear centre behind the ship behind
-						this.x - this.r * 6/3*Math.cos(this.a),
-						this.y + this.r * 6/3*Math.sin(this.a)
+						this.x - this.r * 6 / 3 * Math.cos(this.a),
+						this.y + this.r * 6 / 3 * Math.sin(this.a)
 					);
 
 					this.ctx.lineTo( //rear right of ship
-						this.x - this.r * (2/3*Math.cos(this.a) - 0.5*Math.sin(this.a)),
-						this.y + this.r * (2/3*Math.sin(this.a) + 0.5*Math.cos(this.a))
+						this.x - this.r * (2 / 3 * Math.cos(this.a) - 0.5 * Math.sin(this.a)),
+						this.y + this.r * (2 / 3 * Math.sin(this.a) + 0.5 * Math.cos(this.a))
 					);
 
 					this.ctx.closePath();
@@ -100,19 +106,19 @@
 				this.ctx.strokeStyle = "white";
 				this.ctx.lineWidth = SHIP_SIZE / 20;
 				this.ctx.beginPath();
-				this.ctx.moveTo(// nose of the ship
-					this.x + 4/3 * this.r * Math.cos(this.a),
-					this.y - 4/3 * this.r * Math.sin(this.a)
+				this.ctx.moveTo( // nose of the ship
+					this.x + 4 / 3 * this.r * Math.cos(this.a),
+					this.y - 4 / 3 * this.r * Math.sin(this.a)
 				);
 
 				this.ctx.lineTo( //rear left of ship
-					this.x - this.r * (2/3*Math.cos(this.a) + Math.sin(this.a)),
-					this.y + this.r * (2/3*Math.sin(this.a) - Math.cos(this.a))
+					this.x - this.r * (2 / 3 * Math.cos(this.a) + Math.sin(this.a)),
+					this.y + this.r * (2 / 3 * Math.sin(this.a) - Math.cos(this.a))
 				);
 
 				this.ctx.lineTo( //rear right of ship
-					this.x - this.r * (2/3*Math.cos(this.a) - Math.sin(this.a)),
-					this.y + this.r * (2/3*Math.sin(this.a) + Math.cos(this.a))
+					this.x - this.r * (2 / 3 * Math.cos(this.a) - Math.sin(this.a)),
+					this.y + this.r * (2 / 3 * Math.sin(this.a) + Math.cos(this.a))
 				);
 
 				this.ctx.closePath();
@@ -125,24 +131,24 @@
 
 			};
 
-			this.update = function(){
+			this.update = function () {
 				//requestAnimationFrame(draw);
 				//If thrusting, adjust speed
 				if (Key.isDown(Key.UP)) {
 
-					if (Math.abs(this.acc.x) < MAX_ACC){
-						this.acc.x += SHIP_THRUST * Math.cos(this.a)/FPS;
-					}else{
+					if (Math.abs(this.acc.x) < MAX_ACC) {
+						this.acc.x += SHIP_THRUST * Math.cos(this.a) / FPS;
+					} else {
 						this.acc.x += 0;
 					}
 
-					if (Math.abs(this.acc.y) < MAX_ACC){
-						this.acc.y += SHIP_THRUST * Math.sin(this.a)/FPS;
-					}else{
+					if (Math.abs(this.acc.y) < MAX_ACC) {
+						this.acc.y += SHIP_THRUST * Math.sin(this.a) / FPS;
+					} else {
 						this.acc.y += 0;
 					}
 
-				}else {
+				} else {
 					this.acc.x = 0;
 					this.acc.y = 0;
 				}
@@ -155,15 +161,15 @@
 				// 	this.vel.y -= this.acc.y
 				// }
 
-				if (Math.abs(this.vel.x) < MAX_SPEED){
+				if (Math.abs(this.vel.x) < MAX_SPEED) {
 					this.vel.x += this.acc.x;
-				}else{
+				} else {
 					this.vel.x = 3;
 				}
 
-				if (Math.abs(this.vel.y) < MAX_SPEED){
+				if (Math.abs(this.vel.y) < MAX_SPEED) {
 					this.vel.y -= this.acc.y;
-				}else{
+				} else {
 					this.vel.y += 3;
 				}
 
@@ -173,17 +179,16 @@
 				this.x += this.vel.x;
 				this.y += this.vel.y;
 
-				if (Key.isDown(Key.RIGHT)){
-					this.rot = -TURN_SPEED/180*Math.PI/FPS
+				if (Key.isDown(Key.RIGHT)) {
+					this.rot = -TURN_SPEED / 180 * Math.PI / FPS
+				} else {
+					this.rot = 0;
 				}
-				else{
-					this.rot=0;
-				}
-				if (Key.isDown(Key.LEFT)){
-					this.rot = TURN_SPEED/180*Math.PI/FPS
+				if (Key.isDown(Key.LEFT)) {
+					this.rot = TURN_SPEED / 180 * Math.PI / FPS
 				}
 
-				if (Key.isDown(Key.SPACE)){
+				if (Key.isDown(Key.SPACE)) {
 					bull = new Bullet();
 					bull.init(player);
 					bulletList.push(bull);
@@ -193,58 +198,58 @@
 				this.a += this.rot;
 
 				//Handle screen edge TODO: fix cvs
-				if (this.x < 0 - this.r){
+				if (this.x < 0 - this.r) {
 					this.x = cvs.width + this.r;
-				} else if (this.x > cvs.width + this.r){
+				} else if (this.x > cvs.width + this.r) {
 					this.x = 0 - this.r;
 				}
-				if (this.y < 0 - this.r){
+				if (this.y < 0 - this.r) {
 					this.y = cvs.height + this.r;
-				} else if (this.y > cvs.height + this.r){
+				} else if (this.y > cvs.height + this.r) {
 					this.y = 0 - this.r;
 				}
 
 				this.draw();
 			};
 
-		  /*this.init("player");
-		  this.collidesWith = ["asteroid", "alien", "alienbullet"];
-		  this.bulletCountDown = 60; //Countdown until a bullet can be fired
-		  this.interact = function(){}; //detects for input and adjusts state as necessary*/
+			/*this.init("player");
+			this.collidesWith = ["asteroid", "alien", "alienbullet"];
+			this.bulletCountDown = 60; //Countdown until a bullet can be fired
+			this.interact = function(){}; //detects for input and adjusts state as necessary*/
 		};
 
-		Bullet = function(){
-		  this.x=0;
-			this.y=0;
-			this.rot=0;
-			this.base=0;
-			this.extraVel={
+		Bullet = function () {
+			this.x = 0;
+			this.y = 0;
+			this.rot = 0;
+			this.base = 0;
+			this.extraVel = {
 				x: 10,
 				y: 10
 			};
 
-			this.draw = function(){
-				this.ctx.arc(this.x, this.y, 5, 0, 2*Math.PI);
+			this.draw = function () {
+				this.ctx.arc(this.x, this.y, 5, 0, 2 * Math.PI);
 				this.ctx.stroke();
 			};
 
-			this.update = function(){
-				this.x += (this.extraVel.x + this.base.x) * Math.cos(this.rot)/FPS;
-				this.y += (this.extraVel.y + this.base.y) * Math.sin(this.rot)/FPS;
+			this.update = function () {
+				this.x += (this.extraVel.x + this.base.x) * Math.cos(this.rot) / FPS;
+				this.y += (this.extraVel.y + this.base.y) * Math.sin(this.rot) / FPS;
 				this.draw();
 			};
 
-			this.init = function(ship){
-				this.x=ship.x;
-				this.y=ship.y;
-				this.rot=ship.a;
-				this.base=ship.vel;
-				this.ctx=ship.ctx;
+			this.init = function (ship) {
+				this.x = ship.x;
+				this.y = ship.y;
+				this.rot = ship.a;
+				this.base = ship.vel;
+				this.ctx = ship.ctx;
 
-				if (this.base.x < 0){
+				if (this.base.x < 0) {
 					this.extraVel.x *= -2;
 				}
-				if (this.base.y < 0){
+				if (this.base.y < 0) {
 					this.extraVel.y *= -2;
 				}
 			};
@@ -257,12 +262,12 @@
 		// document.addEventListener("keydown", keyDown);
 		// document.addEventListener("keyup", keyUp);
 
-		bulletList=[];
+		bulletList = [];
 		player = new Player();
 		player.init(ctx);
 
 		//set up the game loop
-		setInterval(update, 1000/FPS);
+		setInterval(update, 1000 / FPS);
 
 		// function keyDown(ev){
 		// 	switch(ev.keyCode){
@@ -305,24 +310,24 @@
 		// 	}
 		// }
 
-		function update(){
+		function update() {
 			//draw space
 			ctx.fillStyle = "black";
-			ctx.fillRect(0,0,cvs.width, cvs.height);
+			ctx.fillRect(0, 0, cvs.width, cvs.height);
 
 			player.update();
 
-			for (var i=0; i < bulletList.length; i++){
+			for (var i = 0; i < bulletList.length; i++) {
 				bulletList[i].update();
 			}
 
 			// document.getElementById("output1").innerHTML=player.x; //bulletList.length;
 			// document.getElementById("output2").innerHTML=player.y;
-			document.getElementById("output3").innerHTML=Math.round(player.vel.x); //bulletList.length;
-			document.getElementById("output4").innerHTML=Math.round(player.vel.y);
-			document.getElementById("output5").innerHTML=Math.round(player.acc.x); //bulletList.length;
-			document.getElementById("output6").innerHTML=Math.round(player.acc.y);
-}
+			document.getElementById("output3").innerHTML = Math.round(player.vel.x); //bulletList.length;
+			document.getElementById("output4").innerHTML = Math.round(player.vel.y);
+			document.getElementById("output5").innerHTML = Math.round(player.acc.x); //bulletList.length;
+			document.getElementById("output6").innerHTML = Math.round(player.acc.y);
+		}
 	</script>
 	<p>
 		<text id="output1"></text>
@@ -334,4 +339,5 @@
 	</p>
 
 </body>
+
 </html>
