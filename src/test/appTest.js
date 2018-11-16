@@ -21,7 +21,9 @@ describe('Staroids tests', function(){
       assert.equal(Game.Statemachine.state(), 'start');
     });
 
-    it('spacebar doesnt work in pause mode');
+    it('spacebar doesnt work in pause mode', function(){
+      assert.equal(Game.canvasHeight, CVS_HEIGHT);
+    });
 
     it('lives of player', function(){
       assert.equal(Game.getLives(), 3);
