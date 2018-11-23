@@ -3,7 +3,7 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
-\hypersetup{
+\hypersetup {
     colorlinks,
     citecolor=black,
     filecolor=black,
@@ -38,8 +38,8 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+2018-11-23 1 & 0.0 & Added personal info to document\\
+2018-11-23 1 & 0.1 & Functional requrements, \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -48,18 +48,120 @@ Date 2 & 1.1 & Notes\\
 
 \pagenumbering{arabic}
 
-This document ...
+This document is meant to show \\
 
 \section{Functional Requirements Evaluation}
+\subsection{Functional Requirements}
+\begin{enumerate}
+  \item Run on Google Chrome, Mozilla Firefox, Microsoft Edge and Apple Safari browsers.
+  \item The game shall contain pre-game, playing, post-game, and paused states.
+  \item When initially ran, the pre-game screen shall show first.
+  \item On the pre-game screen, if the play button is pressed, the playing screen shall show.
+  \item On the press of the pause button during playing, the pause state shall show.
+  \item On the press of the pause button while paused, the playing state shall appear again.
+  \item The playing screen shall always display the player character, score and lives.
+  \item Every time the player character is hit by an enemy, the lives count shall decrease by one.
+  \item When the fire button is pressed, the player character will fire a projectile.
+  \item If a projectile hits an enemy, the enemy will be removed, that enemy's death action will occur and the score will be incremented.
+  \item If zero lives remain and the player character is hit, the game shall enter the post game screen.
+  \item After a set amount of time, an enemy character shall appear. He shall shoot at the player character.
+  \item If a large asteroid is hit, it will separate into 3 medium asteroids and the score shall be incremented.
+  \item If a medium asteroid is hit, it will separate into 3 small asteroids and the score shall be incremented.
+  \item If a small asteroid is hit, it will be removed and the score shall be incremented.
+  \item No player character can spawn if there is an asteroid near by.
+  \item Bullets must be removed after a set amount of time on screen
+  \item Projectiles move relative to player speeds.
+  \item If the game is not muted the game will play a sound when the user fires.
+  \item If the game is not muted the game will play a sound when the alien fires.
+  \item If the game is not muted the game will play a sound when the user loses a life.
+  \item If the game is not muted the game will play a sound when an asteroid is destroyed.
+  \item If the game is muted no sound will play.
+\end{enumerate}
+\subsection{Evaluation}
+\subsubsection{Requirement 1}
+Run on Google Chrome, Mozilla Firefox, Microsoft Edge and Apple Safari browsers.\\
+...\\
+\subsubsection{Requirement 2}
+The game shall contain pre-game, playing, post-game, and paused states.\\
+...\\
+\subsubsection{Requirement 3}
+The game shall contain pre-game, playing, post-game, and paused states.\\
+...\\
+\subsubsection{Requirement 4}
+The game shall contain pre-game, playing, post-game, and paused states.\\
+...\\
+\subsubsection{Requirement 5}
+The game shall contain pre-game, playing, post-game, and paused states.\\
+...\\
+\subsubsection{Requirement 6}
+The game shall contain pre-game, playing, post-game, and paused states.\\
+...\\
+\subsubsection{Requirement 7}
+The game shall contain pre-game, playing, post-game, and paused states.\\
+...\\
+\subsubsection{Requirement 8}
+The game shall contain pre-game, playing, post-game, and paused states.\\
+...\\
+\subsubsection{Requirement 9}
+The game shall contain pre-game, playing, post-game, and paused states.\\
+...\\
+\subsubsection{Requirement 10}
+The game shall contain pre-game, playing, post-game, and paused states.\\
+...\\
+\subsubsection{Requirement 11}
+Run on Google Chrome, Mozilla Firefox, Microsoft Edge and Apple Safari browsers.\\
+...\\
+\subsubsection{Requirement 12}
+The game shall contain pre-game, playing, post-game, and paused states.\\
+...\\
+\subsubsection{Requirement 13}
+The game shall contain pre-game, playing, post-game, and paused states.\\
+...\\
+\subsubsection{Requirement 14}
+The game shall contain pre-game, playing, post-game, and paused states.\\
+...\\
+\subsubsection{Requirement 15}
+The game shall contain pre-game, playing, post-game, and paused states.\\
+...\\
+\subsubsection{Requirement 16}
+The game shall contain pre-game, playing, post-game, and paused states.\\
+...\\
+\subsubsection{Requirement 17}
+The game shall contain pre-game, playing, post-game, and paused states.\\
+...\\
+\subsubsection{Requirement 18}
+The game shall contain pre-game, playing, post-game, and paused states.\\
+...\\
+\subsubsection{Requirement 19}
+The game shall contain pre-game, playing, post-game, and paused states.\\
+...\\
+\subsubsection{Requirement 20}
+The game shall contain pre-game, playing, post-game, and paused states.\\
+...\\
+\subsubsection{Requirement 21}
+The game shall contain pre-game, playing, post-game, and paused states.\\
+...\\
+\subsubsection{Requirement 22}
+The game shall contain pre-game, playing, post-game, and paused states.\\
+...\\
+\subsubsection{Requirement 23}
+The game shall contain pre-game, playing, post-game, and paused states.\\
+...\\
+
+
 
 \section{Nonfunctional Requirements Evaluation}
 
 \subsection{Usability}
-		
+
 \subsection{Performance}
 
 \subsection{etc.}
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> 85b4a33bb7a63a5ab0f3d991c9822d17359f3faf
 \section{Comparison to Existing Implementation}
 
 This section will not be appropriate for every project.
@@ -69,12 +171,19 @@ This section will not be appropriate for every project.
 \section{Changes Due to Testing}
 
 \section{Automated Testing}
-		
+In
+
 \section{Trace to Requirements}
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> 85b4a33bb7a63a5ab0f3d991c9822d17359f3faf
 \section{Trace to Modules}
 
 \section{Code Coverage Metrics}
+No formal code coverage software was used for this project based on the decision made by the team to move away from automated testing as explained above and rely strictly on manual. However throughout the development of this project specifically during the MIS portion the team went through all individual functions, variables, objects and methods for this program either documented them and what they do/how they are used or deleted them if they were not used. This was how we manually made sure that all of the code in our game ictly to manual tests, the
+
 
 \bibliographystyle{plainnat}
 
