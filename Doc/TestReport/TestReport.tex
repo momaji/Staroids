@@ -58,39 +58,25 @@ Nov 23 & 0.35 & \\
 This document is meant to show \\
 
 \section{Functional Requirements Evaluation}
-\subsection{Tests}
-\begin{itemize}
-  \item{Loading into pre-game\\}
-  \item{Starting game\\}
-  \item{Prohibit game start on pause\\}
-  \item{Permitting pause\\}
-  \item{Displaying player information above all\\}
-  \item{Player firing and alien destruction\\}
-  \item{Asteroid collision with player\\}
-  \item{Asteroid separation\\}
-  \item{Witholding player spawn\\}
-  \item{Post-game\\}
-\end{itemize}
-\subsection{Evaluation}
-\subsubsection{Loading into pre-game}
+\subsection{Loading into pre-game}
+To test this functional requirement, we must verify that the game always starts in pre-game state. This can e verified by manual code inspection, as upon startup, the code has no option but to begin in the pre-game phase. To see this, look at the "start" function in Staroids/src/gamestate.js. It sets the state to "pregame" on start, which cannot be avoided.
+\subsection{Starting game}
+To test this functional requirement, we must verify that for all Staroids game in the "pregame" state, they will be moved from the pregame state to the playing state within one second after pressing the spacebar. This can be verifed by code inspection as well as manual testing. The game is monitoring for the space input 30 times per second, so it cannot miss a human input. The pregame state is also restrictive to what states can be reached from the pregame state, so it has to move into the playing state within a second. This has also been the subject of extensive testing by many people, and all empirical evidence points to this behaviour occuring consistently.
+\subsection{Prohibit game start on pause}
 ...\\
-\subsubsection{Starting game}
+\subsection{Permitting pause}
 ...\\
-\subsubsection{Prohibit game start on pause}
+\subsection{Displaying player information above all}
 ...\\
-\subsubsection{Permitting pause}
+\subsection{Player firing and alien destruction}
 ...\\
-\subsubsection{Displaying player information above all}
+\subsection{Asteroid collision with player}
 ...\\
-\subsubsection{Player firing and alien destruction}
+\subsection{Asteroid separation}
 ...\\
-\subsubsection{Asteroid collision with player}
+\subsection{Witholding player spawn}
 ...\\
-\subsubsection{Asteroid separation}
-...\\
-\subsubsection{Witholding player spawn}
-...\\
-\subsubsection{Post-game}
+\subsection{Post-game}
 ...\\
 
 %=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-%
@@ -101,14 +87,16 @@ This document is meant to show \\
 
 \subsection{Usability}
 
-\subsubsection{Player test}
+\subsection{Player test}
 To test usability, playability and feel of the game, the Staroids team recruited ten outside people to play Staroids and give feedback. Several questions were asked of the test players, particularly about the feel of the game and how it played. The most common feedback we recieved related to the alien and the appearance of the ship. The alien was annoying and not a challenge to the play testers, so his spawn chance and times were reduced and he was made easier to hit. When the testers faced the new alien, there were much fewer complaints about him. The second large complaint from testers was the appearance of the ship. The ship, alien and asteroids used to be all white filled shapes with a black border. Testers often could not tell the direction the ship was facing, or even which object was their ship. To fix this, the ship was made narrower which helped show the front of the ship and the player ship and alien were made into solid black shapes so they are visible at a glance. The alien bullets and player bullets were more differentiated due to feedback as well.\\
 
-\subsubsection{Browser test}
-To test Staroids, the Staroids team used all major browsers for development and testing in an effort to notice Staroids bugs and issues that were specific to one browser. None were found.
+\subsection{Browser test}
+To test Staroids, the Staroids team used all major browsers for development and testing in an effort to notice Staroids bugs and issues that were specific to one browser. None were found.\\
 
 \subsection{Informational}
-%Player information
+
+\subsubsection{State Change}
+The Staroids state transitions are programmed into the game, so through code inspection and testing, all state transitions were tested. An error involving the game starting while paused was found through this test.
 
 \subsection{Internal}
 %JSDoc Documentation Inspection
@@ -123,7 +111,7 @@ This section will not be appropriate for every project.
 \section{Unit Testing}
 
 \section{Changes Due to Testing}
-So far there have been a couple of major changes due to testing: the alien movement, player movement, game sounds and player colour. The alien changes came about during testing when it found that the alien was moving in the pattern desired (sine wave) but the amplitude was too small, and did not give the player enough time to get out of the way. This lea so it was adjusted to make it's speed lower as well as its amplitude higher so it covered a larger path. The next change that followed was desirable pattern accros the screen in that of a sine wave,
+So far there have been a couple of major changes due to testing: the alien movement, player movement, player colour and alien bullet. The alien changes came about during testing when it found that the alien was moving in the pattern desired (sine wave) but the amplitude was too small, and did not give the player enough time to get out of the way. This lead  to the changes of the aliens speed (slower) as well as its amplitude (higher) so it covered a larger path. The next change was player movement and this change simply involved limiting the players speed, due to the fact that during testing it was found to be volatile to the gameplay by just allowing the player to go unlimitedly fast. The max speed that was settled on was based on a trial and error method to get it to a speed that seemed natural to all team members. The last change was a change to the actual player ships appearance. This change was made based on third party testing that envolved people with no prior experience playing the game, and it was relayed back that the players ship color being changed to a different colour than the background would be helpful by making it easer to see. Another thing that was brough up during this was changing the ships shape slighly from an equilateral triangle to a isosceles so that the head of the ship would be easier to identify. The final change made due to testing was that of the alien bullet, this was another third party test and the feedback given lead the team to changing the alien bullet to look  different from the player bullet, based on the confusion relayed by this tester.
 
 \section{Automated Testing}
 In
@@ -138,6 +126,6 @@ No formal code coverage software was used for this project based on the decision
 
 \bibliographystyle{plainnat}
 
-%\bibliography{SRS}%
+\bibliography{SRS}
 
 \end{document}
