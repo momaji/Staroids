@@ -737,7 +737,7 @@ Alien = function () {
         var ast = Game.getSprites()[i];
 
         if (ast.getActivity()) { //...And it is visible...
-          if (KILLABLE && pyth(Math.abs(this.x + 12.5 - ast.x), Math.abs(this.y + 12.5 - ast.y)) < this.r + ast.r) { //...and invincibility is off and are in collision range
+          if (pyth(Math.abs(this.x + 12.5 - ast.x), Math.abs(this.y + 12.5 - ast.y)) < this.r + ast.r) { //...and invincibility is off and are in collision range
             this.die(); //Kill self
             ast.die(); //Kill asteroid
             if (ast.getName() == "bullet") {
@@ -757,7 +757,7 @@ Alien = function () {
     for (var i = 0; i < astChildren.length; i += 1) {
       var ast = astChildren[i];
       if (ast.getActivity()) {
-        if (KILLABLE && pyth(Math.abs(this.getX() - ast.getX()), Math.abs(this.getY() - ast.getY())) < this.getRadius() + ast.getRadius()) {
+        if (pyth(Math.abs(this.getX() - ast.getX()), Math.abs(this.getY() - ast.getY())) < this.getRadius() + ast.getRadius()) {
           this.die();
           ast.die();
           //Game.setPlayer(null);
@@ -1022,6 +1022,7 @@ Asteroid = function () {
   /** Effect of an asteroid getting destroyed */
   this.die = function () {
     this.deactivate(); //Deactivate self
+    Game.getSound().play(Sound.ASTEROIDDEATH); //Play death sound
     if (this.scale > 1) { //if the asteroid is NOT small
       for (var i = 0; i < 3; i += 1) {
         ast = new Asteroid(); //generate 3 new asteroids of a smaller size and append them to the asteroid shildren array

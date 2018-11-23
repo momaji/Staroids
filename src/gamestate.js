@@ -263,6 +263,9 @@ $(function () {
     if (StateMachine.getState() != "pregame") {
       Game.text.emph(Game.getScore(), 5, 45);
     }
+    
+    if (Key.isDown(Key.I)){KILLABLE=false;}
+    if (Key.isDown(Key.K)){KILLABLE=true;}
 
     requestAnimFrame(mainLoop, Game.getCvs());
   }

@@ -21,7 +21,7 @@ const CVS_HEIGHT = 620;
 /** Extra velocity added to a player bullet to make it faster than the ship at firing */
 const BULLET_EXTRA = 5;
 /** Player and Alien invulnerability */
-const KILLABLE = true;
+KILLABLE = true;
 /** Starting amount of asteroids */
 const MAX_ASTEROIDS = 2;
 /** Staroids experimental features toggle */
@@ -49,6 +49,8 @@ var Key = {
   M: 77,
   P: 80,
   R: 82,
+  I: 73,
+  K: 75,
   ONE: 49,
   TWO: 50,
   THREE: 51,

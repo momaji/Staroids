@@ -7,6 +7,8 @@ var Sound = {
     EXPLOSION: new Audio("explosion.wav"),
     /** Sound effect of the player applying brakes */
     AIRBRAKE: new Audio("brake.wav"),
+    /** Sound effect of the destruction of an asteroid */
+    ASTEROIDDEATH: new Audio("break.wav"),
 
     muted: true,
     /** Plays a specific inputted sound. The sound must be in the format 'Sound.[SOUND]'
