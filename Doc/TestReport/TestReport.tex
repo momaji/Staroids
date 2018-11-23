@@ -1,5 +1,8 @@
 \documentclass[12pt, titlepage]{article}
 
+\usepackage{enumitem}
+\setitemize{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt}
+
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
@@ -22,7 +25,7 @@
 
 \date{\today}
 
-\input{../Comments}
+% \input{../Comments} %
 
 \begin{document}
 
@@ -38,8 +41,12 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-2018-11-23 1 & 0.0 & Added personal info to document\\
-2018-11-23 1 & 0.1 & Functional requrements, \\
+Nov 23 & 0.1 & Added personal info to document\\
+Nov 23 & 0.15 & Code coverage, Automated testing, Changes due to testing\\
+Nov 23 & 0.2 & Added usability requirement results\\
+Nov 23 & 0.25 & \\
+Nov 23 & 0.3 & \\
+Nov 23 & 0.35 & \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -51,112 +58,64 @@
 This document is meant to show \\
 
 \section{Functional Requirements Evaluation}
-\subsection{Functional Requirements}
-\begin{enumerate}
-  \item Run on Google Chrome, Mozilla Firefox, Microsoft Edge and Apple Safari browsers.
-  \item The game shall contain pre-game, playing, post-game, and paused states.
-  \item When initially ran, the pre-game screen shall show first.
-  \item On the pre-game screen, if the play button is pressed, the playing screen shall show.
-  \item On the press of the pause button during playing, the pause state shall show.
-  \item On the press of the pause button while paused, the playing state shall appear again.
-  \item The playing screen shall always display the player character, score and lives.
-  \item Every time the player character is hit by an enemy, the lives count shall decrease by one.
-  \item When the fire button is pressed, the player character will fire a projectile.
-  \item If a projectile hits an enemy, the enemy will be removed, that enemy's death action will occur and the score will be incremented.
-  \item If zero lives remain and the player character is hit, the game shall enter the post game screen.
-  \item After a set amount of time, an enemy character shall appear. He shall shoot at the player character.
-  \item If a large asteroid is hit, it will separate into 3 medium asteroids and the score shall be incremented.
-  \item If a medium asteroid is hit, it will separate into 3 small asteroids and the score shall be incremented.
-  \item If a small asteroid is hit, it will be removed and the score shall be incremented.
-  \item No player character can spawn if there is an asteroid near by.
-  \item Bullets must be removed after a set amount of time on screen
-  \item Projectiles move relative to player speeds.
-  \item If the game is not muted the game will play a sound when the user fires.
-  \item If the game is not muted the game will play a sound when the alien fires.
-  \item If the game is not muted the game will play a sound when the user loses a life.
-  \item If the game is not muted the game will play a sound when an asteroid is destroyed.
-  \item If the game is muted no sound will play.
-\end{enumerate}
+\subsection{Tests}
+\begin{itemize}
+  \item{Loading into pre-game\\}
+  \item{Starting game\\}
+  \item{Prohibit game start on pause\\}
+  \item{Permitting pause\\}
+  \item{Displaying player information above all\\}
+  \item{Player firing and alien destruction\\}
+  \item{Asteroid collision with player\\}
+  \item{Asteroid separation\\}
+  \item{Witholding player spawn\\}
+  \item{Post-game\\}
+\end{itemize}
 \subsection{Evaluation}
-\subsubsection{Requirement 1}
-Run on Google Chrome, Mozilla Firefox, Microsoft Edge and Apple Safari browsers.\\
+\subsubsection{Loading into pre-game}
 ...\\
-\subsubsection{Requirement 2}
-The game shall contain pre-game, playing, post-game, and paused states.\\
+\subsubsection{Starting game}
 ...\\
-\subsubsection{Requirement 3}
-The game shall contain pre-game, playing, post-game, and paused states.\\
+\subsubsection{Prohibit game start on pause}
 ...\\
-\subsubsection{Requirement 4}
-The game shall contain pre-game, playing, post-game, and paused states.\\
+\subsubsection{Permitting pause}
 ...\\
-\subsubsection{Requirement 5}
-The game shall contain pre-game, playing, post-game, and paused states.\\
+\subsubsection{Displaying player information above all}
 ...\\
-\subsubsection{Requirement 6}
-The game shall contain pre-game, playing, post-game, and paused states.\\
+\subsubsection{Player firing and alien destruction}
 ...\\
-\subsubsection{Requirement 7}
-The game shall contain pre-game, playing, post-game, and paused states.\\
+\subsubsection{Asteroid collision with player}
 ...\\
-\subsubsection{Requirement 8}
-The game shall contain pre-game, playing, post-game, and paused states.\\
+\subsubsection{Asteroid separation}
+Every time the player character is hit by an enemy, the lives count shall decrease by one.\\
 ...\\
-\subsubsection{Requirement 9}
-The game shall contain pre-game, playing, post-game, and paused states.\\
+\subsubsection{Witholding player spawn}
 ...\\
-\subsubsection{Requirement 10}
-The game shall contain pre-game, playing, post-game, and paused states.\\
-...\\
-\subsubsection{Requirement 11}
-Run on Google Chrome, Mozilla Firefox, Microsoft Edge and Apple Safari browsers.\\
-...\\
-\subsubsection{Requirement 12}
-The game shall contain pre-game, playing, post-game, and paused states.\\
-...\\
-\subsubsection{Requirement 13}
-The game shall contain pre-game, playing, post-game, and paused states.\\
-...\\
-\subsubsection{Requirement 14}
-The game shall contain pre-game, playing, post-game, and paused states.\\
-...\\
-\subsubsection{Requirement 15}
-The game shall contain pre-game, playing, post-game, and paused states.\\
-...\\
-\subsubsection{Requirement 16}
-The game shall contain pre-game, playing, post-game, and paused states.\\
-...\\
-\subsubsection{Requirement 17}
-The game shall contain pre-game, playing, post-game, and paused states.\\
-...\\
-\subsubsection{Requirement 18}
-The game shall contain pre-game, playing, post-game, and paused states.\\
-...\\
-\subsubsection{Requirement 19}
-The game shall contain pre-game, playing, post-game, and paused states.\\
-...\\
-\subsubsection{Requirement 20}
-The game shall contain pre-game, playing, post-game, and paused states.\\
-...\\
-\subsubsection{Requirement 21}
-The game shall contain pre-game, playing, post-game, and paused states.\\
-...\\
-\subsubsection{Requirement 22}
-The game shall contain pre-game, playing, post-game, and paused states.\\
-...\\
-\subsubsection{Requirement 23}
-The game shall contain pre-game, playing, post-game, and paused states.\\
+\subsubsection{Post-game}
 ...\\
 
+%=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-%
 
+%=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-%
 
 \section{Nonfunctional Requirements Evaluation}
 
 \subsection{Usability}
 
-\subsection{Performance}
+\subsubsection{Player test}
+To test usability, playability and feel of the game, the Staroids team recruited ten outside people to play Staroids and give feedback. Several questions were asked of the test players, particularly about the feel of the game and how it played. The most common feedback we recieved related to the alien and the appearance of the ship. The alien was annoying and not a challenge to the play testers, so his spawn chance and times were reduced and he was made easier to hit. When the testers faced the new alien, there were much fewer complaints about him. The second large complaint from testers was the appearance of the ship. The ship, alien and asteroids used to be all white filled shapes with a black border. Testers often could not tell the direction the ship was facing, or even which object was their ship. To fix this, the ship was made narrower which helped show the front of the ship and the player ship and alien were made into solid black shapes so they are visible at a glance. The alien bullets and player bullets were more differentiated due to feedback as well.\\
 
-\subsection{etc.}
+\subsubsection{Browser test}
+To test Staroids, the Staroids team used all major browsers for development and testing in an effort to notice Staroids bugs and issues that were specific to one browser. None were found.
+
+\subsection{Informational}
+%Player information
+
+\subsection{Internal}
+%JSDoc Documentation Inspection
+%JSDoc Documentation Compilation
+%Complicated Function Documentation Inspection
+
 
 \section{Comparison to Existing Implementation}
 
@@ -165,6 +124,7 @@ This section will not be appropriate for every project.
 \section{Unit Testing}
 
 \section{Changes Due to Testing}
+So far there have been a couple of major changes due to testing: the alien movement, player movement, game sounds and player colour. The alien changes came about when during testing  alien was moving in the pattern desired (sine wave) but the amplitude was too small, and did not give the player enough time to get out of the way, so it was adjusted to make it's speed lower as well as its amplitude higher so it covered a larger path. The next change that followed was desirable pattern accros the screen in that of a sine wave,
 
 \section{Automated Testing}
 In
@@ -174,7 +134,7 @@ In
 \section{Trace to Modules}
 
 \section{Code Coverage Metrics}
-No formal code coverage software was used for this project based on the decision made by the team to move away from automated testing as explained above and rely strictly on manual. However throughout the development of this project specifically during the MIS portion the team went through all individual functions, variables, objects and methods for this program either documented them and what they do/how they are used or deleted them if they were not used. This was how we manually made sure that all of the code in our game ictly to manual tests, the
+No formal code coverage software was used for this project based on the decision made by the team to move away from automated testing as explained above and rely strictly on manual. However throughout the development of this project specifically during the MIS portion the team went through all individual functions, variables, objects and methods for this program and either documented them and what they do/how they are used or deleted them if they were not used. This has helped increase the percentage of code covered in during testing, as well as an easy way to just run throguh the description of the documented objects and functions to manually see if they are covered in our tests.
 
 
 \bibliographystyle{plainnat}
