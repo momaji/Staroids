@@ -2,6 +2,7 @@
 
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{xcolor}
 \usepackage{hyperref}
 \hypersetup{
     colorlinks,
@@ -48,6 +49,7 @@ Oct 25 & 1.5 & Added Unit Testing Plan and all subsections\\
 Oct 25 & 1.55 & Added PoC tests\\
 Oct 26 & 1.6 & Reviewed all sections for spelling and finished up unfinished ones\\
 Oct 26 & 1.65 & Added Test Plan\\
+Nov 23 & 2.0 & Removed automated testing references\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -149,7 +151,7 @@ How test will be performed: On game start, the game should be in the pre-game st
 
 \item{Starting game\\}
 
-Type: Functional dynamic manual
+Type: Functional dynamic manual test
 
 Initial State: Pre-game state
 
@@ -161,7 +163,7 @@ How test will be performed: Once the pre-game screen is loaded, the spacebar reg
 
 \item{Prohibit game start on pause\\}
 
-Type: Functional dynamic automatic test
+Type: Functional dynamic \textcolor{blue}{manual} test
 
 Initial State: Pre-game state
 
@@ -169,7 +171,7 @@ Input: Pause button and spacebar pressed
 
 Output: Paused state
 
-How test will be performed: In the pre-game state, the pause button is registered as pressed and then the game enters the paused state. The paused state will prohibit progression from the pre-game state to the playing state when the spacebar is pressed. Upon registering the spacebar again, the game shall return to the pre-game state.
+How test will be performed: In the pre-game state, \textcolor{blue}{the game will be paused and then the start game button will be pressed}. The paused state will prohibit progression from the pre-game state to the playing state when the spacebar is pressed. \textcolor{blue}{Upon unpausing, the game shall go back to the pre-game state.}
 
 \end{enumerate}
 
@@ -179,7 +181,7 @@ How test will be performed: In the pre-game state, the pause button is registere
 
 \item{Permitting pause\\}
 
-Type: Functional dynamic automatic test
+Type: Functional dynamic \textcolor{blue}{manual} test
 
 Initial State: Playing State
 
@@ -187,7 +189,7 @@ Input: Pause button pressed
 
 Output: Paused state
 
-How test will be performed: When the spacebar is registered as depressed, the game shall enter the paused state. Upon registering the spacebar again, the game shall return to the playing state.
+How test will be performed: When the spacebar is \textcolor{blue}{pressed}, the game shall enter the paused state. Upon \textcolor{blue}{pressing} the spacebar again, the game shall return to the playing state.
 
 \item{Displaying player information above all\\}
 
@@ -203,7 +205,7 @@ How test will be performed: For the player information to be displayed above all
 
 \item{Player firing and alien destruction\\}
 
-Type: Functional dynamic automatic test
+Type: Functional dynamic \textcolor{blue}{manual} test
 
 Initial State: Playing State
 
@@ -211,11 +213,11 @@ Input: Player object, alien object, and fire button pressed
 
 Output: Bullet generation, bullet movement, alien destruction
 
-How test will be performed: By placing the player and alien opposite of each other, the spacebar should generate a bullet that originates from the tip of the player ship. This bullet should then proceed forward and impact the alien. The bullet speed is derrived from the player ship speed plus a constant. The alien death should trigger, which can set a detectable flag. The bullet must only move in one direction.
+How test will be performed: \textcolor{blue}{The player is maneuvered to face a alien and upon pressing the spacebar, a bullet shall originate from the forward tip of the ship and proceed towards the alien.} The bullet speed is derrived from the player ship speed plus a constant. \textcolor{blue}{When hit,} the alien death \textcolor{blue}{action} should trigger, \textcolor{blue}{which is visibly evident from the setting of the alien's death flag.}
 
 \item{Asteroid collision with player\\}
 
-Type: Functional dynamic automatic test
+Type: Functional dynamic \textcolor{blue}{manual} test
 
 Initial State: Playing State
 
@@ -223,23 +225,23 @@ Input: Player object and asteroid object
 
 Output: Player loss of life, player location reset, asteroid destruction, asteroid separation, Post-game state (if number of lives == 0)
 
-How test will be performed: Set up the game to have a player facing a single asteroid moving towards the player. When the asteroid collides with the player, both the player and asteroid trigger their death functions, setting flags to register their deaths. On player death, the lives count is decresed which can be compared to the initial value. The asteroid child array will also increase which can once again be compared to the initial value.
+How test will be performed: \textcolor{blue}{The player is maneuvered to come into contact with an asteroid.} When the asteroid collides with the player, both the player and asteroid trigger their death functions, setting flags to register their deaths. On player death, the lives count is decresed which can be compared to the initial value. The asteroid child array will also increase which can once again be compared to the initial value.
 
 \item{Asteroid separation\\}
 
-Type: Functional dynamic automatic test
+Type: Functional dynamic \textcolor{blue}{manual} test
 
 Initial State: Playing State
 
-Input: Asteroid object
+Input: Player and Asteroid object
 
 Output: Production of child asteroids
 
-How test will be performed: Starting with a large asteroid, a signal is sent to the asteroid to trigger its death response. The asteroid itself should become disabled and should spawn 3 children asteroids. By transmitting another signal, those children asteroids should disable themselves and then create 3 of their own children. One last signal is used to destroy those children. They should not produce any children. The original large asteroid object should detect that all of its children are dead and those children's children are dead. The asteroid should broadcast that it has been completely destroyed.
+How test will be performed: \textcolor{blue}{Starting with a large asteroid and a player, the player shoots a bullet at the asteroid. Upon the asteroid getting hit, the} asteroid itself should become disabled and should spawn 3 children asteroids. By \textcolor{blue}{shooting the children, those child asteroids get disabled and spawn another set of children. Once this last set of children is destroyed, the large astroid object will count as dead (since the main object and all sub-objects are dead) and this will decrement the alive asteroid counter.}
 
 \item{Witholding player spawn\\}
 
-Type: Functional dynamic automatic test
+Type: Functional dynamic \textcolor{blue}{manual} test
 
 Initial State: Pre-game state
 
@@ -247,7 +249,7 @@ Input: Spacebar pressed
 
 Output: Delayed player spawning
 
-How test will be performed: When the player changes from the pre-game state to the playing state, the player shall not spawn if an asteroid is within 100 pixels. If there is, the game shall wait for the asteroid to pass and then spawn the player
+How test will be performed: When the player changes from the pre-game state to the playing state, the player should not spawn if an asteroid is within 100 pixels. If there is, the game shall wait for the asteroid to pass and then spawn the player
 
 \end{enumerate}
 
