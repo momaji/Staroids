@@ -3,3 +3,14 @@
 *.gz
 *.log
 *.out
+*.lof
+*.lot
+*.toc
+*.synctex
+*.synctex(busy)
+*.bbl
+*.blg
+*.fdb
+*.fdb_latexmk
+*.fls
+*.dvi
