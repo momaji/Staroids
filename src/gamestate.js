@@ -129,16 +129,21 @@ StateMachine = {
     Game.setAlien(new Alien());
     Game.getAlien().init(Game.getCtx());
     Game.addSprites(Game.getAlien());
-
-    //Prepare Alien
-    //Hook alien reference to Game.alien
-    //Append asteroids to Game.sprites
+    
+    extraLives = 0;
 
     this.state = "playing";
   },
   /** @brief Playing state for the Staroids game
    * @details Updates all sprites and checks for the game over status. Handles the generation of new asteroids at the end of each level (or wave) */
   playing: function () {
+    addLives = Game.getScore()/1000;
+    printOut(1,addLives)
+    if (addLives>extraLives){
+      Game.setLives(Game.getLives() + 1);
+      extraLives += 1;
+    }
+    
     if (Game.getLives() <= 0) {
       Game.setLives(0);
     }
@@ -148,6 +153,7 @@ StateMachine = {
 
     if (Game.getAsteroids() == 0) {
       Game.setLevel(Game.getLevel() + 1);
+      Game.setLives(Game.getLives() + 1);
       this.generateAsteroids(MAX_ASTEROIDS + Game.getLevel() * 2);
     }
 
@@ -181,9 +187,7 @@ StateMachine = {
   pause: function () {
     for (var i = 0; i < Game.getSprites().length; i++) {
       object = Game.getSprites()[i];
-      printOut(1, this.stateSave);
       if (this.stateSave == "postgame" && object.getName() == "player") {
-        printOut(1, "Skipped");
         Game.getText().emph("Press 'R' to Restart", 20, 100);
         continue
       }
@@ -259,6 +263,7 @@ $(function () {
     }
     if (StateMachine.getState() == "pause") {
       Game.text.emph("P", CVS_WIDTH - 70, 35);
+      Game.text.norm("Press 'P' to resume", 5, 80);
     }
     if (StateMachine.getState() != "pregame") {
       Game.text.emph(Game.getScore(), 5, 45);
