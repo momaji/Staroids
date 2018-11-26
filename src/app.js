@@ -926,7 +926,7 @@ main_game = function () {
   StateMachine.execute();
 
   /** Requests a new frame */
-  window.requestAnimFrame = (function () {
+  /*window.requestAnimFrame = (function () {
     return window.requestAnimationFrame ||
       window.webkitRequestAnimationFrame ||
       window.mozRequestAnimationFrame ||
@@ -935,7 +935,7 @@ main_game = function () {
       function (callback, element) {
         window.setTimeout(callback, 1000 / 60);
       };
-  })();
+  })();*/
 
   /** The global game update */
   var update = function () {
@@ -955,11 +955,11 @@ main_game = function () {
 
   /** Main game loop */
   var mainLoop = function () {
-    Game.getCtx().clearRect(0, 0, Game.getWidth(), Game.getHeight());
+    //Game.getCtx().clearRect(0, 0, Game.getWidth(), Game.getHeight());
 
     update();
 
-    if (Game.getSound().muted == true) {
+    /*if (Game.getSound().muted == true) {
       Game.text.emph("M", CVS_WIDTH - 40, 35);
     }
     if (StateMachine.getState() == "pause") {
@@ -967,12 +967,14 @@ main_game = function () {
     }
     Game.drawLives();
 
-    requestAnimFrame(mainLoop, Game.getCvs());
+    requestAnimFrame(mainLoop, Game.getCvs());*/
   }
 
   /* Main game loop that allows the game to run */
   mainLoop();
 };
+
+module.exports = {main_game}
 
 
 /** A object that contains all variables related to the operation of the Staroids game
@@ -1448,6 +1450,8 @@ StateMachine = {
     return this.state
   }
 }
+
+module.exports = {StateMachine}
 
 /* Main game function */
 maingame = function () {

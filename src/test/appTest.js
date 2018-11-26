@@ -8,24 +8,25 @@ Player1.vel.x=5;
 Asteroid1 = new app.Asteroid();
 Asteroid1.init(1,1);*/
 //Asteroid1.die();
-
-
+//mainLoop();
+main_game();
+StateMachine.execute();
 //Tests
 describe('Staroids tests', function(){
-  describe( 'pregame state tests', function(){
-    it('on game open this is the first state', function(){
-      assert.equal(Game.player.vel.x, 0);
+  describe( 'Object tests', function(){
+    it('Player object created', function(){
+      assert.equal(Player.vel, 0);
     });
 
-    it('spacebar moves this to playing state', function(){
+    it('Player object created', function(){
       assert.equal(Game.Statemachine.state(), 'start');
     });
 
-    it('spacebar doesnt work in pause mode', function(){
-      assert.equal(Game.canvasHeight, CVS_HEIGHT);
+    it('Alien object created', function(){
+      assert.equal(Game.player.bulletCountDown, 15);
     });
 
-    it('lives of player', function(){
+    it('Asteroid object created', function(){
       assert.equal(Game.getLives(), 3);
     });
   });
