@@ -1,8 +1,9 @@
 \documentclass[12pt, titlepage]{article}
-
+%!TeX spellcheck = en-US,en-DE
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{xcolor}
+\usepackage{ulem}
 \usepackage{hyperref}
 \hypersetup{
     colorlinks,
@@ -50,6 +51,8 @@ Oct 25 & 1.55 & Added PoC tests\\
 Oct 26 & 1.6 & Reviewed all sections for spelling and finished up unfinished ones\\
 Oct 26 & 1.65 & Added Test Plan\\
 Nov 23 & 2.0 & Removed automated testing references\\
+Nov 26 & 2.1 & Reviewed for spelling again\\
+Nov 26 & 2.2 & Changed automated testing Approach\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -61,10 +64,10 @@ Nov 23 & 2.0 & Removed automated testing references\\
 \section{General Information}
 
 \subsection{Purpose}
-This document is designed to show the detailed test plan for the Staroids game. This will include a description of the testing, validation, and verification procedures that will be implemented. All the tests in this document have been created before the final implementation has been completed or tests have actually occured, so it will be the guide followed during the testing phase of the project.
+This document is designed to show the detailed test plan for the Staroids game. This will include a description of the testing, validation, and verification procedures that will be implemented. All the tests in this document have been created before the final implementation has been completed or \sout{tests} \textcolor{red}{testing} has actually occured, so it will be the guide followed during the testing phase of the project.
 
 \subsection{Scope}
-The scope of the test plan is to provides a basis for testing the functionality of this re-implementation of asteroids. The objective of the Test Plan is to prove all the functional and non functional requirements listed in the SRS document.
+The scope of the test plan is to provide\sout{s} a basis for testing the functionality of this re-implementation of asteroids. The objective of the Test Plan is to prove all the functional and non functional requirements listed in the SRS document.
 
 \subsection{Acronyms, Abbreviations, and Symbols}
 
@@ -89,11 +92,11 @@ SRS & Software Requirements Specification\\
 \toprule
 \textbf{Term} & \textbf{Definition}\\
 \midrule
-Functional Testing & Input-Output type of testing apporach known Input, expected Output\\
+Functional Testing & Input-Output type of testing apporach known input, expected output\\
 Static Testing & Just looking at code, no actual execution\\
 Dynamic Testing & Testing that requries code execution\\
 Structural Testing & A whitebox type of testing approach, cases are derived from internal structure of the software\\
-Automated Testing & Testing is handeled by the testing framework (Mocha and Chai) (testing done by software)\\
+Automated Testing & Testing is handeled by the testing framework \sout{(Mocha and Chai) (testing done by software)}\\
 Manual Testing & Manual individually written test cases (testing done by people)\\
 Stress Test & Testing the limits of a system, usually refers to amounts of data the system can handle\\
 \bottomrule
@@ -107,7 +110,7 @@ This Test Plan's main goal is to inform on how Staroids will be tested for corre
 \section{Plan}
 
 \subsection{Software Description}
-Staroids is a recreation of the HTML-5 Asteroids project created by Doug McInnes, it itself is a recreation of the Asteroids arcade game. It allows the user to pilot a space ship through a rectangular piece of space with wrapping edges. Cohabiting with the space ship, there are several asteroids and an alien. These entities are considered hostile to the space ship and will damage it if they come into contact. The space ship and alien can defend themselves from any hostiles by firing at them with a laser bullet. This will damage anything (except the shooter) that the bullet comes into contact with. Staroids allows the user to have 3 lives and keeps a running score for the current game that is based off of how many asteroids and aliens have been destroyed.
+Staroids is a recreation of the HTML-5 Asteroids project created by Doug McInnes, \textcolor{red}{which} \sout{it} itself is a recreation of the Asteroids arcade game. It allows the user to pilot a space ship through a rectangular piece of space with wrapping edges. Cohabiting with the space ship, there are several asteroids and an alien. These entities are considered hostile to the space ship and will damage it if they come into contact. The space ship and alien can defend themselves from any hostiles by firing at them with a laser bullet. This will damage anything (except the shooter) that the bullet comes into contact with. Staroids allows the user to have 3 lives and keeps a running score for the current game that is based off of how many asteroids and aliens have been destroyed.
 
 \subsection{Test Team}
 The test team for this project consists of the following members who are each responsible for writing and executing tests for modules later to be specified:\\
@@ -116,7 +119,8 @@ The test team for this project consists of the following members who are each re
 - Jason Nagy\\
 
 \subsection{Automated Testing Approach}
-Automated tests are to be used for all game situations where the situation result is expected to be the same for each one. Since the result is always true, these tests can be quickly run after every Staroids edit to ensure that no game functionalities have been broken by the edits. These tests are not done automatically at game load for several reasons. Firstly, if there is an assertation error, it would be meaningless to the user and there would be no action done on the user's part. Additionally there would be time added to the startup with no benefit to the user. Therefore, all major versions of Staroids will run through the test cases before they are pushed as a final Staroids build.
+\sout{Automated tests are to be used for all game situations where the situation result is expected to be the same for each one. Since the result is always true, these tests can be quickly run after every Staroids edit to ensure that no game functionalities have been broken by the edits. These tests are not done automatically at game load for several reasons. Firstly, if there is an assertation error, it would be meaningless to the user and there would be no action done on the user's part. Additionally there would be time added to the startup with no benefit to the user. Therefore, all major versions of Staroids will run through the test cases before they are pushed as a final Staroids build.}
+\textcolor{red}{Automated testing will not be used to prove the correctness and validate the Staroids project. It has instead been decided to take a strictly manual approach for various reasons including but not limited to: lack of canvas environment testing framework support, Since it is a video game you are testing for feel and continuity mostly, and user interaction being such an integral part of the project so this should also be thoguht of in how it is tested.}
 
 \subsection{Testing Tools}
 The tools that will be used for testing are Mocha \& Chai and JSCover. Mocha \& Chai is the unit testing framework and assertion library that will be used to facilitate our test cases outlined in this document. This will be created once consisting of all unit tests, and then can be re-run automatically after each major revision of the software in turn automateing Staroids unit testing. JSCover is the codecoverage tool that will be used to check how much of the Staroids game code is being executed when we the test suite is being run. The only other things that may be considered as "testing tools" could be the internet browsers that the team are going to test the game on: Safari, Edge, Firefox and Chrome.
