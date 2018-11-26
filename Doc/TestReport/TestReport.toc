@@ -19,7 +19,7 @@
 \contentsline {section}{\numberline {3}Comparison to Existing Implementation}{3}{section.3}
 \contentsline {section}{\numberline {4}Unit Testing}{4}{section.4}
 \contentsline {section}{\numberline {5}Changes Due to Testing}{4}{section.5}
-\contentsline {section}{\numberline {6}Automated Testing}{4}{section.6}
+\contentsline {section}{\numberline {6}Automated Testing}{5}{section.6}
 \contentsline {section}{\numberline {7}Trace to Requirements}{5}{section.7}
 \contentsline {section}{\numberline {8}Trace to Modules}{5}{section.8}
 \contentsline {section}{\numberline {9}Code Coverage Metrics}{5}{section.9}
