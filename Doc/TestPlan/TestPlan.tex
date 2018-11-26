@@ -51,8 +51,9 @@ Oct 25 & 1.55 & Added PoC tests\\
 Oct 26 & 1.6 & Reviewed all sections for spelling and finished up unfinished ones\\
 Oct 26 & 1.65 & Added Test Plan\\
 Nov 23 & 2.0 & Removed automated testing references\\
-Nov 26 & 2.1 & Reviewed for spelling again\\
+Nov 26 & 2.1 & Spell checked up to testing tools section\\
 Nov 26 & 2.2 & Changed automated testing Approach\\
+Nov 26 & 2.3 & Changed testing tools section\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -120,10 +121,11 @@ The test team for this project consists of the following members who are each re
 
 \subsection{Automated Testing Approach}
 \sout{Automated tests are to be used for all game situations where the situation result is expected to be the same for each one. Since the result is always true, these tests can be quickly run after every Staroids edit to ensure that no game functionalities have been broken by the edits. These tests are not done automatically at game load for several reasons. Firstly, if there is an assertation error, it would be meaningless to the user and there would be no action done on the user's part. Additionally there would be time added to the startup with no benefit to the user. Therefore, all major versions of Staroids will run through the test cases before they are pushed as a final Staroids build.}
-\textcolor{red}{Automated testing will not be used to prove the correctness and validate the Staroids project. It has instead been decided to take a strictly manual approach for various reasons including but not limited to: lack of canvas environment testing framework support, Since it is a video game you are testing for feel and continuity mostly, and user interaction being such an integral part of the project so this should also be thoguht of in how it is tested.}
+\textcolor{red}{Automated testing will not be used to prove the correctness and validate the Staroids project. It has instead been decided to take a strictly manual approach for various reasons including but not limited to: Lack of canvas environment testing framework support. The fact that since it is a video game it is being testing for feel and continuity mostly. As well as user interaction being such an integral part of the project so this should also be represented in how it is tested.}
 
 \subsection{Testing Tools}
-The tools that will be used for testing are Mocha \& Chai and JSCover. Mocha \& Chai is the unit testing framework and assertion library that will be used to facilitate our test cases outlined in this document. This will be created once consisting of all unit tests, and then can be re-run automatically after each major revision of the software in turn automateing Staroids unit testing. JSCover is the codecoverage tool that will be used to check how much of the Staroids game code is being executed when we the test suite is being run. The only other things that may be considered as "testing tools" could be the internet browsers that the team are going to test the game on: Safari, Edge, Firefox and Chrome.
+\sout{The tools that will be used for testing are Mocha \& Chai and JSCover. Mocha \& Chai is the unit testing framework and assertion library that will be used to facilitate our test cases outlined in this document. This will be created once consisting of all unit tests, and then can be re-run automatically after each major revision of the software in turn automateing Staroids unit testing. JSCover is the codecoverage tool that will be used to check how much of the Staroids game code is being executed when we the test suite is being run. The only other things that may be considered as "testing tools" could be the internet browsers that the team are going to test the game on: Safari, Edge, Firefox and Chrome.}
+\textcolor{red}{Since the team is using a manual testing approach for this project, there will be no testing tools used other than the web browsrs the game will be run on. Team members and third part individuals will be responsible for most of the test execution.}
 
 \subsection{Testing Schedule}
 
