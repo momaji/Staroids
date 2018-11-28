@@ -45,7 +45,7 @@ Nov 23 & 0.1 & Added personal info to document\\
 Nov 23 & 0.15 & Code coverage, Automated testing, Changes due to testing\\
 Nov 23 & 0.2 & Added usability requirement results\\
 Nov 25 & 0.25 & Comparison to existing Implementation\\
-Nov 23 & 0.3 & \\
+Nov 28 & 0.3 & Finished functional requirements\\
 Nov 23 & 0.35 & \\
 \bottomrule
 \end{tabularx}
@@ -63,19 +63,19 @@ To test this functional requirement, we must verify that the game always starts 
 \subsection{Starting game}
 To test this functional requirement, we must verify that for all Staroids game in the "pregame" state, they will be moved from the pregame state to the playing state within one second after pressing the spacebar. This can be verifed by code inspection as well as manual testing. The game is monitoring for the space input 30 times per second, so it cannot miss a human input. The pregame state is also restrictive to what states can be reached from the pregame state, so it has to move into the playing state within a second. This has also been the subject of extensive testing by many people, and all empirical evidence points to this behaviour occuring consistently.
 \subsection{Prohibit game start on pause}
-...\\
+To test this functional requirement, we must verify that when the game is paused, all game functions must stop, all inputs must not be accepted (except unpause) and all game variables must be preserved. To test this, we can use a combination of code inspection, to verify that the paused state does not allow certain inputs and that it pauses the game state. This can also be verified by the teams testing, which shows that this behvaiour is consistent as well.
 \subsection{Permitting pause}
-...\\
+To test this functional requirement, we must verify that the game will accept the pause input while the game is in a playing state. This can be verfied by code inspection and manual bug testing. We can inspect the code to make sure that when the game is in the running, nothing will obstruct the input or the game from changing state to paused. To test this, we tested how the game would respond to a series of pause commands during different times during the game execution, and from this testing, it seems like the pause commands works regardless of other situations.
 \subsection{Displaying player information above all}
-...\\
+To test this functional requirement we must verify that the game always displays accurate user information, as well as verfying that the player info is drawn above all over graphicalm objects. To do this, we can use code inspection and manual testing. The code itself shows that the game info is displayed above all, as it drawn on top of all asteroids, players and bullets. Manual testing also confirms that this is held, as obeservation has shown that all objects are drawn under the player information.
 \subsection{Player firing and alien destruction}
 ...\\
 \subsection{Asteroid collision with player}
-...\\
+
 \subsection{Asteroid separation}
 ...\\
 \subsection{Witholding player spawn}
-...\\
+To test this functional requirement, we must verify that the player will not respawn if their is an adversary within 100 pixels of the spawn point. This can be verfied by code inspection as well as manual testing. The code itself uses a modifed version of the collison to test for this, so as that has been extensively tested, we know that the functionality is okay, so to test the logic, the team inspected the code, and made sure that all flags are correct and placed in the right spots.
 \subsection{Post-game}
 ...\\
 
