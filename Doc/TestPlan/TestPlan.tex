@@ -93,11 +93,11 @@ SRS & Software Requirements Specification\\
 \toprule
 \textbf{Term} & \textbf{Definition}\\
 \midrule
-Functional Testing & Input-Output type of testing apporach known input, expected output\\
+Functional Testing & Input-Output type of testing approach known input, expected output\\
 Static Testing & Just looking at code, no actual execution\\
-Dynamic Testing & Testing that requries code execution\\
+Dynamic Testing & Testing that requires code execution\\
 Structural Testing & A whitebox type of testing approach, cases are derived from internal structure of the software\\
-Automated Testing & Testing is handeled by the testing framework \sout{(Mocha and Chai) (testing done by software)}\\
+Automated Testing & Testing is handled by the testing framework \sout{(Mocha and Chai) (testing done by software)}\\
 Manual Testing & Manual individually written test cases (testing done by people)\\
 Stress Test & Testing the limits of a system, usually refers to amounts of data the system can handle\\
 \bottomrule
@@ -120,12 +120,12 @@ The test team for this project consists of the following members who are each re
 - Jason Nagy\\
 
 \subsection{Automated Testing Approach}
-\sout{Automated tests are to be used for all game situations where the situation result is expected to be the same for each one. Since the result is always true, these tests can be quickly run after every Staroids edit to ensure that no game functionalities have been broken by the edits. These tests are not done automatically at game load for several reasons. Firstly, if there is an assertation error, it would be meaningless to the user and there would be no action done on the user's part. Additionally there would be time added to the startup with no benefit to the user. Therefore, all major versions of Staroids will run through the test cases before they are pushed as a final Staroids build.}
+\sout{Automated tests are to be used for all game situations where the situation result is expected to be the same for each one. Since the result is always true, these tests can be quickly run after every Staroids edit to ensure that no game functionalities have been broken by the edits. These tests are not done automatically at game load for several reasons. Firstly, if there is an assertion error, it would be meaningless to the user and there would be no action done on the user's part. Additionally there would be time added to the startup with no benefit to the user. Therefore, all major versions of Staroids will run through the test cases before they are pushed as a final Staroids build.}
 \textcolor{red}{Automated testing will not be used to prove the correctness and validate the Staroids project. It has instead been decided to take a strictly manual approach for various reasons including but not limited to: Lack of canvas environment testing framework support. The fact that since it is a video game it is being testing for feel and continuity mostly. As well as user interaction being such an integral part of the project so this should also be represented in how it is tested.}
 
 \subsection{Testing Tools}
-\sout{The tools that will be used for testing are Mocha \& Chai and JSCover. Mocha \& Chai is the unit testing framework and assertion library that will be used to facilitate our test cases outlined in this document. This will be created once consisting of all unit tests, and then can be re-run automatically after each major revision of the software in turn automateing Staroids unit testing. JSCover is the codecoverage tool that will be used to check how much of the Staroids game code is being executed when we the test suite is being run. The only other things that may be considered as "testing tools" could be the internet browsers that the team are going to test the game on: Safari, Edge, Firefox and Chrome.}
-\textcolor{red}{Since the team is using a manual testing approach for this project, there will be no testing tools used other than the web browsrs the game will be run on. Team members and third part individuals will be responsible for most of the test execution.}
+\sout{The tools that will be used for testing are Mocha \& Chai and JSCover. Mocha \& Chai is the unit testing framework and assertion library that will be used to facilitate our test cases outlined in this document. This will be created once consisting of all unit tests, and then can be re-run automatically after each major revision of the software in turn automating Staroids unit testing. JSCover is the code coverage tool that will be used to check how much of the Staroids game code is being executed when we the test suite is being run. The only other things that may be considered as "testing tools" could be the internet browsers that the team are going to test the game on: Safari, Edge, Firefox and Chrome.}
+\textcolor{red}{Since the team is using a manual testing approach for this project, there will be no testing tools used other than the web browsers the game will be run on. Team members and third part individuals will be responsible for most of the test execution.}
 
 \subsection{Testing Schedule}
 
@@ -153,7 +153,7 @@ Input: Opening file
 
 Output: In pre-game state
 
-How test will be performed: On game start, the game should be in the pre-game state. This can be acomplished by an assertation as part of the game set-up that states that the current game state is the pre-game.
+How test will be performed: On game start, the game should be in the pre-game state. This can be accomplished by an assertion as part of the game set-up that states that the current game state is the pre-game.
 
 \item{Starting game\\}
 
@@ -177,7 +177,7 @@ Input: Pause button and spacebar pressed
 
 Output: Paused state
 
-How test will be performed: In the pre-game state, \textcolor{red}{the game will be paused and then the start game button will be pressed}. The paused state will prohibit progression from the pre-game state to the playing state when the spacebar is pressed. \textcolor{red}{Upon unpausing, the game shall go back to the pre-game state.}
+How test will be performed: In the pre-game state, \textcolor{red}{the game will be paused and then the start game button will be pressed}. The paused state will prohibit progression from the pre-game state to the playing state when the spacebar is pressed. \textcolor{red}{Upon un-pausing, the game shall go back to the pre-game state.}
 
 \end{enumerate}
 
@@ -219,7 +219,7 @@ Input: Player object, alien object, and fire button pressed
 
 Output: Bullet generation, bullet movement, alien destruction
 
-How test will be performed: \textcolor{red}{The player is maneuvered to face a alien and upon pressing the spacebar, a bullet shall originate from the forward tip of the ship and proceed towards the alien.} The bullet speed is derrived from the player ship speed plus a constant. \textcolor{red}{When hit,} the alien death \textcolor{red}{action} should trigger, \textcolor{red}{which is visibly evident from the setting of the alien's death flag.}
+How test will be performed: \textcolor{red}{The player is maneuvered to face a alien and upon pressing the spacebar, a bullet shall originate from the forward tip of the ship and proceed towards the alien.} The bullet speed is derived from the player ship speed plus a constant. \textcolor{red}{When hit,} the alien death \textcolor{red}{action} should trigger, \textcolor{red}{which is visibly evident from the setting of the alien's death flag.}
 
 \item{Asteroid collision with player\\}
 
@@ -231,7 +231,7 @@ Input: Player object and asteroid object
 
 Output: Player loss of life, player location reset, asteroid destruction, asteroid separation, Post-game state (if number of lives == 0)
 
-How test will be performed: \textcolor{red}{The player is maneuvered to come into contact with an asteroid.} When the asteroid collides with the player, both the player and asteroid trigger their death functions, setting flags to register their deaths. On player death, the lives count is decresed which can be compared to the initial value. The asteroid child array will also increase which can once again be compared to the initial value.
+How test will be performed: \textcolor{red}{The player is maneuvered to come into contact with an asteroid.} When the asteroid collides with the player, both the player and asteroid trigger their death functions, setting flags to register their deaths. On player death, the lives count is decreased which can be compared to the initial value. The asteroid child array will also increase which can once again be compared to the initial value.
 
 \item{Asteroid separation\\}
 
@@ -245,7 +245,7 @@ Output: Production of child asteroids
 
 How test will be performed: \textcolor{red}{Starting with a large asteroid and a player, the player shoots a bullet at the asteroid. Upon the asteroid getting hit, the} asteroid itself should become disabled and should spawn 3 children asteroids. By \textcolor{red}{shooting the children, those child asteroids get disabled and spawn another set of children. Once this last set of children is destroyed, the large astroid object will count as dead (since the main object and all sub-objects are dead) and this will decrement the alive asteroid counter.}
 
-\item{Witholding player spawn\\}
+\item{Withholding player spawn\\}
 
 Type: Functional dynamic \textcolor{red}{manual} test
 
@@ -310,7 +310,7 @@ Input/Condition: A developer and all major web browsers
 
 Output/Result: An operational Staroids instance
 
-How test will be performed: Staroids is to run on any major browser, so a developer will open staroids using all major browsers and play through a few games to ensure that the game is functioning as expected. There should be no functional differences between the browsers, but performance is allowed to vary. The developer may judge whether a possible performance decrease is unacceptable.
+How test will be performed: Staroids is to run on any major browser, so a developer will open Staroids using all major browsers and play through a few games to ensure that the game is functioning as expected. There should be no functional differences between the browsers, but performance is allowed to vary. The developer may judge whether a possible performance decrease is unacceptable.
 
 \end{enumerate}
 
@@ -326,9 +326,9 @@ Initial State: pre-game state
 
 Input/Condition: A person to advance the game states
 
-Output/Result: Ensurance that any relevant game prompts are shown to the user
+Output/Result: Insurance that any relevant game prompts are shown to the user
 
-How test will be performed: A member of the Staroids team will start Staroids and advance through the game states manually to ensure that all states have on screen prompts to inform the user about their input options. In the pre-game state, the ship controls, pause button and start button must all be shown to the user on screen. The playing state does not need to show anything. The post-game state must show the restart button and lastly the pause state must show the unpause button.
+How test will be performed: A member of the Staroids team will start Staroids and advance through the game states manually to ensure that all states have on screen prompts to inform the user about their input options. In the pre-game state, the ship controls, pause button and start button must all be shown to the user on screen. The playing state does not need to show anything. The post-game state must show the restart button and lastly the pause state must show the un-pause button.
 
 \end{enumerate}
 
@@ -372,7 +372,7 @@ Input/Condition: Staroids source code and an inspector
 
 Output/Result: Verification of commented code
 
-How test will be performed: Similar to the JSDoc commenting inspection, all complicated pieces of code must be commented to help a reader understand what a particular piece of code is doing. An external programmer can also be brought in to ensure that the code sufficiently commented to allow an outside user to understand what is occuring.
+How test will be performed: Similar to the JSDoc commenting inspection, all complicated pieces of code must be commented to help a reader understand what a particular piece of code is doing. An external programmer can also be brought in to ensure that the code sufficiently commented to allow an outside user to understand what is occurring.
 
 \end{enumerate}
 
@@ -452,7 +452,7 @@ Input: Collision between player and asteroid
 
 Output: Collision sound will be played through speakers
 
-How test will be performed: While the game is in the player statea collision will be simulated and monitored to see if the fire sound is heard.
+How test will be performed: While the game is in the player state collision will be simulated and monitored to see if the fire sound is heard.
 
 \item{Mute sound\\}
 
@@ -462,7 +462,7 @@ Initial State: Playing with mute on
 
 Input: All sound actions will be simulated
 
-Output: Animations still show on screen but no sounds acompany them
+Output: Animations still show on screen but no sounds company them
 
 How test will be performed: The three sound actions above will be simulated and the volume of the computer will be monitured to make sure that no sounds are being produced.
 
@@ -473,13 +473,13 @@ Staroids is quite comparable to the original implementation of HTML5-Asteroids. 
 
 \section{Unit Testing Plan}
 %says should be more detailed -2
-Mocha and Chai are to be used in Staroids unit testing. The testing suite will be a seperate file that runs over top of all the other files and controls what occurs on the screen. All of the games modules are complete, so there is no need for stubs or drivers for testing. The coverage method will be a combination of  Mocha's metric as well as the Staroids team ensuring that each method has been tested at least once.
+Mocha and Chai are to be used in Staroids unit testing. The testing suite will be a separate file that runs over top of all the other files and controls what occurs on the screen. All of the games modules are complete, so there is no need for stubs or drivers for testing. The coverage method will be a combination of  Mocha's metric as well as the Staroids team ensuring that each method has been tested at least once.
 
 \subsection{Unit testing of internal functions}
-To test Staroids functions the team will use test cases on all functions, having at least one test per function, perhaps more. These tests will be created until there is full coverage over all the internal functions. Testing will also run in developer mode, rather than having tests automatically run every time the game is exectuted. The developer mode will have to be enabled from the developer side, and does not require any user inputs (besides activing the mode).
+To test Staroids functions the team will use test cases on all functions, having at least one test per function, perhaps more. These tests will be created until there is full coverage over all the internal functions. Testing will also run in developer mode, rather than having tests automatically run every time the game is executed. The developer mode will have to be enabled from the developer side, and does not require any user inputs (besides activating the mode).
 
 \subsection{Unit testing of output files}
-Staroids will not create any output files, and as such, no testing on output files will be nessescary.
+Staroids will not create any output files, and as such, no testing on output files will be necessary.
 
 \bibliographystyle{plainnat}
 
@@ -496,7 +496,7 @@ Staroids will not create any output files, and as such, no testing on output fil
 The definition of the test cases will call for SYMBOLIC\_CONSTANTS.
 Their values are defined in this section for easy maintenance.
 \textbf{Constants}\\
-FPS = 30; The curent frames per second\\
+FPS = 30; The current frames per second\\
 SHIP\_SIZE = 30; The ship size in pixels\\
 TURN\_SPEED = 180; Player turn speed in degrees per second\\
 SHIP\_THRUST = .2; Player thrust power in pixels per second squared \\
@@ -519,7 +519,7 @@ TEST = false; experimental features \\
 
   \item Do the controls feel comfortable? Do they place the hand in an awkward position?
   \item Do the controls make sense?
-  \item Do the buttons used make sense given their function? Are they relatively consistant with other programs of similar nature you have used?
+  \item Do the buttons used make sense given their function? Are they relatively consistent with other programs of similar nature you have used?
   \item Is the game too difficult or easy? If so, how could this be corrected?
   \item Is the Staroids art style appealing? Would colour improve the experience?
   \item Is the text in the game readable?
