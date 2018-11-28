@@ -46,7 +46,7 @@ Nov 23 & 0.15 & Code coverage, Automated testing, Changes due to testing\\
 Nov 23 & 0.2 & Added usability requirement results\\
 Nov 25 & 0.25 & Comparison to existing Implementation\\
 Nov 28 & 0.3 & Finished functional requirements\\
-Nov 23 & 0.35 & \\
+Nov 23 & 0.35 & Added last non functionals\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -71,9 +71,9 @@ To test this functional requirement we must verify that the game always displays
 \subsection{Player firing and alien destruction}
 ...\\
 \subsection{Asteroid collision with player}
-To test this functional requirement, we can use a combination of code inspection and manual testing. We have to verify that once an asteroid collides with a player, both the asteroid and the player are destroyed. We can verfiy this with code inspection, since the asteroid is a circle, it is easy to calculate if the ship collides with the asteroid, by simply checking the distance between the center points of the two objects. If the distance between them is less than the radius of both obejcts combined, we know they collide. This property can be verified with code inspection, as it has this logic, as well as with manual testing, which has shown this property to be consistent and working.
+
 \subsection{Asteroid separation}
-To test this functional requirement we can use a combination of code inspection and manual testing. We have to verify that when an asteroid (that is not the smallest size) is destroyed it splits into 3 smaller asteroids with random speed and direction. Smaller asteroids can also be destroyed and will split up if they are not the smallest size. We can verfiy these properties with a code inspection, as we can see in the code that each asteroid that is destroyed creates children only if it not the smallest size, as well as showing that they split into 3 random asteroids. This has also been verified with manual testing.
+...\\
 \subsection{Witholding player spawn}
 To test this functional requirement, we must verify that the player will not respawn if their is an adversary within 100 pixels of the spawn point. This can be verfied by code inspection as well as manual testing. The code itself uses a modifed version of the collison to test for this, so as that has been extensively tested, we know that the functionality is okay, so to test the logic, the team inspected the code, and made sure that all flags are correct and placed in the right spots.
 \subsection{Post-game}
@@ -105,7 +105,7 @@ Through code inspection it was determined that all functions and classes have be
 \subsubsection{JSDoc Documentation Compilation}
 Code inspection and referring to the JSDoc Documentation Guides allowed for the JSDoc program to correctly run on the Staroids source code and produce proper documentation.
 \subsubsection{Complicated Function Documentation Inspection}
-
+An outside programmer was brought in to look at the source code of Staroids and ensured that the code was either self explanitory or sufficient comments were used
 
 \section{Comparison to Existing Implementation}
 
