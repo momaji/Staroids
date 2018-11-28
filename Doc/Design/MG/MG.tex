@@ -6,6 +6,7 @@
 \usepackage{multirow}
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{xcolor}
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{hyperref}
@@ -60,10 +61,11 @@ Oct 29/18 & 0.1 & Added basic information\\
 Nov 7/18 & 0.15 & Added anticipated changes\\
 Nov 7/18 & 0.2 & Added some parts of module decomposition\\
 Nov 7/18 & 0.25 & Added unlikely changes and module breakdown\\
-Nov 7/18 & 0.3 & Added tracability matrix\\
-Nov 7/18 & 0.35 & Completed tracability matricies\\
-Nov 7/18 & 0.4 & Removed unnessesary sections\\
+Nov 7/18 & 0.3 & Added traceability matrix\\
+Nov 7/18 & 0.35 & Completed traceability matrices\\
+Nov 7/18 & 0.4 & Removed unnecessary sections\\
 Nov 7/18 & 0.41 & Instantiation of text and formatting\\
+\textcolor{red}{Nov 28/18 & 0.45 & Spelling corrections}\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -74,7 +76,7 @@ Nov 7/18 & 0.41 & Instantiation of text and formatting\\
 
 \section{Introduction}
 
-The Staroids Project is a re-development of the classic arcade game Asteroids, based on an open source implementation found on github. It is meant to be run on all major browsers hence why it was chosen to be written in JavaScript. Throughout the re-development the main principles that have been kept in mind are modularity, and information hiding. The modularization of Staroids will be explained further thorughout this document, and the principle of information hiding is touched on more in the MIS document, and is shown through the use of getters and setter to access state variables of objects, instead of directly being able to change them. The Module Guide is designed to specify the modular structure of the staroids project and as well relate them to goals set out in the SRS document. It should allow both future designers and maintainers to easily identify the different aspects of the software. The document is organized starting with the \ref{SecChange} Changes section that lists both anticipated and unlikely changes of the software requirements. The \ref{SecMH} Module Hierarchy summarizes the module decomposition as constructed by the Staroids team, keeping in mind any anticipated changes that may come in the future. The \ref{SecConnection} Connection section specifies the connections between the software requirements of the project as layed out in the SRS documents, and the modules as listed below. The \ref{SecMD} Module Decomposition gives a detailed description of each module, for further specification please refer to the MIS. The \ref{SecTM} section includes the two tracability matricies, one to check the completeness of the design and modules against the the requirements in the SRS, and the other to show the relations between anticipated changes and the corresponding modules that they would affect. The final section \ref{SecUse} describes the uses relations between the modules of the project.
+The Staroids Project is a re-development of the classic arcade game Asteroids, based on an open source implementation found on Github. It is meant to be run on all major browsers hence why it was chosen to be written in JavaScript. Throughout the re-development the main principles that have been kept in mind are modularity, and information hiding. The modularization of Staroids will be explained further throughout this document, and the principle of information hiding is touched on more in the MIS document, and is shown through the use of getters and setter to access state variables of objects, instead of directly being able to change them. The Module Guide is designed to specify the modular structure of the Staroids project and as well relate them to goals set out in the SRS document. It should allow both future designers and maintainers to easily identify the different aspects of the software. The document is organized starting with the \ref{SecChange} Changes section that lists both anticipated and unlikely changes of the software requirements. The \ref{SecMH} Module Hierarchy summarizes the module decomposition as constructed by the Staroids team, keeping in mind any anticipated changes that may come in the future. The \ref{SecConnection} Connection section specifies the connections between the software requirements of the project as laid out in the SRS documents, and the modules as listed below. The \ref{SecMD} Module Decomposition gives a detailed description of each module, for further specification please refer to the MIS. The \ref{SecTM} section includes the two traceability matrices, one to check the completeness of the design and modules against the the requirements in the SRS, and the other to show the relations between anticipated changes and the corresponding modules that they would affect. The final section \ref{SecUse} describes the uses relations between the modules of the project.
 
 %In the deliverable template for the Module Guide, the introduction section gives an overview of module decomposition and why it is important.
 
@@ -124,7 +126,7 @@ Anticipated changes are the source of the information that is to be hidden insid
 
 \subsection{Unlikely Changes} \label{SecUchange}
 
-Certain elements of Staroids are designed in a way that avoids unnescessary complexity and as a result, would be less likely to require alteration. Other elements of Staroids are complex and are standard throughout the source code, so alteration of that element would require the editing of many module. Hence, it is not intended that these decisions will be changed.
+Certain elements of Staroids are designed in a way that avoids unnecessary complexity and as a result, would be less likely to require alteration. Other elements of Staroids are complex and are standard throughout the source code, so alteration of that element would require the editing of many module. Hence, it is not intended that these decisions will be changed.
 
 \begin{description}
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucUtilities}:] Controls for the player and menu operations.
@@ -163,7 +165,7 @@ actually be implemented.
 {Hardware-Hiding Module} & M1 \\
 \midrule
 
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & \\
+\multirow{7}{0.3\textwidth}{Behavior-Hiding Module} & \\
 & M3 \\
 & M4 \\
 & M5 \\
@@ -218,7 +220,7 @@ Modules of Staroids are decomposed according to the principle of ``information h
 \subsubsection{Sound Module (\mref{mBHs})}
 \begin{description}
 \item[Secrets:] How sounds are played, how audio files are accessed, and the states of each audio object.
-\item[Services:] Controls a plethora of options for each sound that the game might need including: muting, unmuting, pausing and unpausing, stopping, and checking if the sound is paused.
+\item[Services:] Controls a plethora of options for each sound that the game might need including: muting, unmuting, pausing and un-pausing, stopping, and checking if the sound is paused.
 \item[Implemented By:] sound.js
 \end{description}
 
