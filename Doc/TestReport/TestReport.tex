@@ -46,7 +46,9 @@ Nov 23 & 0.15 & Code coverage, Automated testing, Changes due to testing\\
 Nov 23 & 0.2 & Added usability requirement results\\
 Nov 25 & 0.25 & Comparison to existing Implementation\\
 Nov 28 & 0.3 & Finished functional requirements\\
-Nov 23 & 0.35 & Added last non functionals\\
+Nov 28 & 0.35 & Added last non functionals\\
+Nov 28 & 0.35 & Generic edits\\
+Nov 28 & 0.4 & Added sound tests\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -77,7 +79,7 @@ To test this functional requirement we must verify that the game always displays
 \subsection{Witholding player spawn}
 To test this functional requirement, we must verify that the player will not respawn if their is an adversary within 100 pixels of the spawn point. This can be verfied by code inspection as well as manual testing. The code itself uses a modifed version of the collison to test for this, so as that has been extensively tested, we know that the functionality is okay, so to test the logic, the team inspected the code, and made sure that all flags are correct and placed in the right spots.
 \subsection{Post-game}
-To test this functional requirement, we must verify that once the player is dead, the game stops accepting input. Asteroids and aliens willl still spawn, making the game more like a screensaver. We can verify that this occurs by code inspection by checking the post game state of the FSM. It shows that player inputs will no longer have 
+To test this functional requirement, we must verify that once the player is dead, the game stops accepting input. Asteroids and aliens willl still spawn, making the game more like a screensaver. We can verify that this occurs by code inspection by checking the post game state of the FSM. It shows that player inputs will no longer have
 %=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-%
 
 %=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-%
@@ -100,11 +102,22 @@ The Staroids state transitions are programmed into the game, so through code ins
 \subsection{Internal}
 
 \subsubsection{JSDoc Documentation Inspection}
-Through code inspection it was determined that all functions and classes have been adequately for JSDoc and the comments follow the syntax of JSDoc. All code was also verified that it belonged in the most appropriate module.
+Through code inspection it was determined that all functions and classes have been adequately for JSDoc and the comments follow the syntax of JSDoc. All code was also verified that it belonged in the most appropriate module. The only changes brought by this test were the correction of improper JSDoc syntax.
 \subsubsection{JSDoc Documentation Compilation}
-Code inspection and referring to the JSDoc Documentation Guides allowed for the JSDoc program to correctly run on the Staroids source code and produce proper documentation.
+Code inspection and referring to the JSDoc Documentation Guides allowed for the JSDoc program to correctly run on the Staroids source code and produce proper documentation. The only changes brought by this test were the correction of improper JSDoc syntax.
 \subsubsection{Complicated Function Documentation Inspection}
 An outside programmer was brought in to look at the source code of Staroids and ensured that the code was either self explanitory or sufficient comments were used
+
+\subsection{Sound}
+
+\subsubsection{Brake Sound}
+Through playing Staroids numerous times and code inspection, it has been verified that the brake sound will only play when the user is applying the brakes. No Staroids edits were made because of the results of the test.
+\subsubsection{Fire Sound}
+Through playing Staroids numerous times and code inspection, it has been verified that the fire sound will only play when the user presses the fire button and a bullet is produced by the player's ship. No Staroids edits were made because of the results of the test.
+\subsubsection{Collision Sound}
+Through playing Staroids numerous times and code inspection, it has been verified that the collision sound will only play when asteroids collide with the player's and alien's ship. It is also played when an asteroid is destroyed, like expected. No Staroids edits were made because of the results of the test.
+\subsubsection{Mute Sound}
+Through playing Staroids and code inspection, the mute functionality was verified to be usable in any state at any time and will turn off game sounds globally. No Staroids edits were made because of the results of the test.
 
 \section{Comparison to Existing Implementation}
 
@@ -112,7 +125,8 @@ An outside programmer was brought in to look at the source code of Staroids and 
 In comparing staroids to the original open source game it is based on, the first thing that jumps out is the change in styling on the home screen "Press Space to Play" as well as all of the other text in the game. It has been changed to more of a bubble font rather than the traditional square-ish letter stylings of it's predecessor. All the concepts and rules from the original however have been maintained, all that has been changed in that sence is just the shapes of things such as the asteroids, and speeds and movements of objects such as player, bullets, asteroids etc. This being said both games could be created from the same set of requirements, and should be able to pass the same test plan.
 
 \section{Unit Testing}
-%not sure what to write here anyone got any ideas?
+Unit testing nor automated testing was used in the development of Staroids.
+
 \section{Changes Due to Testing}
 So far there have been a couple of major changes due to testing: the alien movement, player movement, player colour and alien bullet. The alien changes came about during testing when it was found that the alien was moving in the pattern desired (sine wave) but the amplitude was too small, and did not give the player enough time to get out of the way. This lead  to the changes in the alien's speed (slower) as well as its amplitude (higher) so it covered a larger path. The next change was player movement and this change simply involved limiting the players speed, due to the fact that during testing it was found to be volatile to the gameplay by just allowing the player to go unlimitedly fast. The max speed that was settled on was based on a trial and error method to get it to a max speed that seemed natural to all team members. The next change was a change to the actual player ships appearance. This change was made based on third party testing that envolved people with no prior experience playing the game, and it was relayed back that the player's ship color being changed to a different colour than the background would be helpful by making it easer to see. Another thing that was brough up during this was changing the ships shape slighly from an equilateral triangle to a isosceles so that the head of the ship would be easier to identify. The final change made due to testing was that of the alien bullet, this was another third party test and the feedback given lead the team to changing the alien bullet to look  different from the player bullet, based on the confusion relayed by this tester.
 
