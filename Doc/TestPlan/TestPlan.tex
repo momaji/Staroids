@@ -169,7 +169,7 @@ How test will be performed: Once the pre-game screen is loaded, the spacebar reg
 
 \item{Prohibit game start on pause\\}
 
-Type: Functional dynamic \textcolor{blue}{manual} test
+Type: Functional dynamic \textcolor{red}{manual} test
 
 Initial State: Pre-game state
 
@@ -177,7 +177,7 @@ Input: Pause button and spacebar pressed
 
 Output: Paused state
 
-How test will be performed: In the pre-game state, \textcolor{blue}{the game will be paused and then the start game button will be pressed}. The paused state will prohibit progression from the pre-game state to the playing state when the spacebar is pressed. \textcolor{blue}{Upon unpausing, the game shall go back to the pre-game state.}
+How test will be performed: In the pre-game state, \textcolor{red}{the game will be paused and then the start game button will be pressed}. The paused state will prohibit progression from the pre-game state to the playing state when the spacebar is pressed. \textcolor{red}{Upon unpausing, the game shall go back to the pre-game state.}
 
 \end{enumerate}
 
@@ -187,7 +187,7 @@ How test will be performed: In the pre-game state, \textcolor{blue}{the game wil
 
 \item{Permitting pause\\}
 
-Type: Functional dynamic \textcolor{blue}{manual} test
+Type: Functional dynamic \textcolor{red}{manual} test
 
 Initial State: Playing State
 
@@ -195,7 +195,7 @@ Input: Pause button pressed
 
 Output: Paused state
 
-How test will be performed: When the spacebar is \textcolor{blue}{pressed}, the game shall enter the paused state. Upon \textcolor{blue}{pressing} the spacebar again, the game shall return to the playing state.
+How test will be performed: When the spacebar is \textcolor{red}{pressed}, the game shall enter the paused state. Upon \textcolor{red}{pressing} the spacebar again, the game shall return to the playing state.
 
 \item{Displaying player information above all\\}
 
@@ -211,7 +211,7 @@ How test will be performed: For the player information to be displayed above all
 
 \item{Player firing and alien destruction\\}
 
-Type: Functional dynamic \textcolor{blue}{manual} test
+Type: Functional dynamic \textcolor{red}{manual} test
 
 Initial State: Playing State
 
@@ -219,11 +219,11 @@ Input: Player object, alien object, and fire button pressed
 
 Output: Bullet generation, bullet movement, alien destruction
 
-How test will be performed: \textcolor{blue}{The player is maneuvered to face a alien and upon pressing the spacebar, a bullet shall originate from the forward tip of the ship and proceed towards the alien.} The bullet speed is derrived from the player ship speed plus a constant. \textcolor{blue}{When hit,} the alien death \textcolor{blue}{action} should trigger, \textcolor{blue}{which is visibly evident from the setting of the alien's death flag.}
+How test will be performed: \textcolor{red}{The player is maneuvered to face a alien and upon pressing the spacebar, a bullet shall originate from the forward tip of the ship and proceed towards the alien.} The bullet speed is derrived from the player ship speed plus a constant. \textcolor{red}{When hit,} the alien death \textcolor{red}{action} should trigger, \textcolor{red}{which is visibly evident from the setting of the alien's death flag.}
 
 \item{Asteroid collision with player\\}
 
-Type: Functional dynamic \textcolor{blue}{manual} test
+Type: Functional dynamic \textcolor{red}{manual} test
 
 Initial State: Playing State
 
@@ -231,11 +231,11 @@ Input: Player object and asteroid object
 
 Output: Player loss of life, player location reset, asteroid destruction, asteroid separation, Post-game state (if number of lives == 0)
 
-How test will be performed: \textcolor{blue}{The player is maneuvered to come into contact with an asteroid.} When the asteroid collides with the player, both the player and asteroid trigger their death functions, setting flags to register their deaths. On player death, the lives count is decresed which can be compared to the initial value. The asteroid child array will also increase which can once again be compared to the initial value.
+How test will be performed: \textcolor{red}{The player is maneuvered to come into contact with an asteroid.} When the asteroid collides with the player, both the player and asteroid trigger their death functions, setting flags to register their deaths. On player death, the lives count is decresed which can be compared to the initial value. The asteroid child array will also increase which can once again be compared to the initial value.
 
 \item{Asteroid separation\\}
 
-Type: Functional dynamic \textcolor{blue}{manual} test
+Type: Functional dynamic \textcolor{red}{manual} test
 
 Initial State: Playing State
 
@@ -243,11 +243,11 @@ Input: Player and Asteroid object
 
 Output: Production of child asteroids
 
-How test will be performed: \textcolor{blue}{Starting with a large asteroid and a player, the player shoots a bullet at the asteroid. Upon the asteroid getting hit, the} asteroid itself should become disabled and should spawn 3 children asteroids. By \textcolor{blue}{shooting the children, those child asteroids get disabled and spawn another set of children. Once this last set of children is destroyed, the large astroid object will count as dead (since the main object and all sub-objects are dead) and this will decrement the alive asteroid counter.}
+How test will be performed: \textcolor{red}{Starting with a large asteroid and a player, the player shoots a bullet at the asteroid. Upon the asteroid getting hit, the} asteroid itself should become disabled and should spawn 3 children asteroids. By \textcolor{red}{shooting the children, those child asteroids get disabled and spawn another set of children. Once this last set of children is destroyed, the large astroid object will count as dead (since the main object and all sub-objects are dead) and this will decrement the alive asteroid counter.}
 
 \item{Witholding player spawn\\}
 
-Type: Functional dynamic \textcolor{blue}{manual} test
+Type: Functional dynamic \textcolor{red}{manual} test
 
 Initial State: Pre-game state
 
@@ -472,6 +472,7 @@ How test will be performed: The three sound actions above will be simulated and 
 Staroids is quite comparable to the original implementation of HTML5-Asteroids. Both have movement of the player ship and asteroids and asteroids explode into smaller asteroids when destroyed. The level mechanic of respawning asteroids is also working. The major differences between Staroids and the original is the absence of the alien and scoring. These are planned to be implemented into Staroids within a week of the Test Plan's creation. Staroids also has one feature that the original is lacking is the ability for the player to break and come to a stop.
 
 \section{Unit Testing Plan}
+%says should be more detailed -2
 Mocha and Chai are to be used in Staroids unit testing. The testing suite will be a seperate file that runs over top of all the other files and controls what occurs on the screen. All of the games modules are complete, so there is no need for stubs or drivers for testing. The coverage method will be a combination of  Mocha's metric as well as the Staroids team ensuring that each method has been tested at least once.
 
 \subsection{Unit testing of internal functions}
