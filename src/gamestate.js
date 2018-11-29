@@ -138,7 +138,6 @@ StateMachine = {
    * @details Updates all sprites and checks for the game over status. Handles the generation of new asteroids at the end of each level (or wave) */
   playing: function () {
     addLives = Game.getScore()/1000;
-    printOut(1,addLives)
     if (addLives>extraLives){
       Game.setLives(Game.getLives() + 1);
       extraLives += 1;
