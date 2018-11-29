@@ -54,7 +54,7 @@ Oct 5 & 0.17 & Added Context of the Work\\
 Oct 6 & 0.18 & Added Individual Product Use Case\\
 Nov 7 & 0.19 & Added sound functional requirements\\
 Nov 7 & 0.2 & Modified max bullet requirement\\
-Nov 28 & 0.21 & Spelling\\
+Nov 28 & 0.21 & Spelling corrections\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -108,7 +108,7 @@ Nov 28 & 0.21 & Spelling\\
 The purpose of the project is to create a fun and dynamic interactive web game, based on the classic 80s arcade game Asteroids, complete with keyboard controls and sound. This game will be designed to, hold the attention of the user and provide hours of entertainment as they work towards beating previous high scores. The game will use HTML5-Asteroids by Doug McInnes as a guide.\\
 
 \subsection{The Stakeholders}
-For the development of Staroids, there are some key shareholders that have impact on what decisions are made and in effect, have sway in the outcome of the project. The stakeholders primary role is to ensure that Staroids is developed properly and that all teams involved in development are satisfied with the project. The main stakeholder in Staroids are the developers as well as the client and the customer. In the case of the Staroids project, the Staroids team are the developers. The clients of the project are both the original HTML5 Asteroids developer and the Staroid team, and lastly the customer of the project is once again the developers and any online web game players.\\
+For the development of Staroids, there are some key shareholders that have impact on what decisions are made and in effect, have sway in the outcome of the project. The stakeholders primary role is to ensure that Staroids is developed properly and that all teams involved in development are satisfied with the project. The main stakeholder in Staroids are the developers as well as the client and the customer. In the case of the Staroids project, the Staroids team are the developers. The clients of the project are both the original HTML5 Asteroids developer and the Staroids team, and lastly the customer of the project is once again the developers and any online web game players.\\
 
 \subsubsection{The Client}
 Staroids is developed for the original creator of HTML5 Asteroids with the purpose of using the proper implementation and documentation techniques. The primary concern of the original creator is Staroids' faithfulness to the original as well as the adaptations of any edits that the creator wanted to make but did not get the chance to do. The Staroids team also takes the part of the client because the team very much wants to complete this project for themselves. It offers a chance to program in a language that is new and tackle a problem that the team has not attempted yet. The developer's main concern is that the project has a straightforward implementation method.\\
@@ -123,7 +123,7 @@ Some other stakeholders that could impact the project are advertisers and web ga
 There are three main mandated constraints for this project; Firstly, the project must be completed by the project due date of December 6, 2018 and all of the project deliverables as stated and outlined by the course instructor are completed on time. Secondly the final project must be a reimplementation of the original  asteroids, an open source game found on Github, so therefore it will need to have a similar design and functionality to the original. Lastly, the implementation will be constrained by the users computer, because although the game can be made to run at as high of a frame rate as possible, the user will only be able to experience what their computer and monitor can handle.\\
 
 \subsection{Naming Conventions and Terminology}
-As described in the Development Plan, our main naming convention is to make use of camel case. This has a distinctive look, as well as being easy to type.To name files, we will be descriptive in the name of the file, making sure that it is obvious to all developers what file contains what information, to name variables, we will also use camel case, and variable names will be a combination of attribute and object, so for example, if we need to store the velocity of the ship, the variable will be named velocityShip.\\
+As described in the Development Plan, our main naming convention is to make use of camel case. This has a distinctive look, as well as being easy to type. To name files, we will be descriptive in the name of the file, making sure that it is obvious to all developers what file contains what information, to name variables, we will also use camel case, and variable names will be a combination of attribute and object, so for example, if we need to store the velocity of the ship, the variable will be named velocityShip.\\
 
 \subsection{Relevant Facts and Assumptions}
 There are many relevant facts and assumptions regarding this product. Most of these assumption are made on what it is thought that the user will do when playing the Staroids game. It is assumed the user will follow the on screen prompts and instructions. As well as know that the pause sign on the game state screen is to pause the game, and the play sign on the pause screen is to return to playing the game. Another assumption is that the user will recognize the symbols at the top of the screen shaped like spaceships are their number of remaining lives, and that the number increasing as they keep playing in the top right corner is their score. The main relevant fact to this project is the original implementation had 1218 lines of code, and is able to run on any web browser as well as on an iPad.\\
@@ -132,7 +132,7 @@ There are many relevant facts and assumptions regarding this product. Most of th
 \section{Functional Requirements}
 
 \subsection{The Scope of the Work and the Product}
-The scope of the project is to duplicate the original asteroids project that Staroids is basing thier work on, but to document the project properly and follow the principles we were taught in 3RA3. This includes the creation of a Javascript game, an index.html file that are can be opened by any browser with a significant market share, as well as another javascript file for the typeface.\\
+The scope of the project is to duplicate the original asteroids project that Staroids is basing their work on, but to document the project properly and follow the principles we were taught in 3RA3. This includes the creation of a JavaScript game, an index.html file that are can be opened by any browser with a significant market share, as well as another JavaScript file for the typeface.\\
 
 \subsubsection{The Context of the Work}
 In the original project the code of HTML5-Asteroids is a convoluted mess of functions and statements making it very difficult for a programmer to understand and work on if they desired to make edits. If the game were designed more in accordance to software design principles, the game would be better to both the user and other developers. While functional, HTML5-Asteroids lacks the process structure and documentation of a large software project. As a result, edits and revisions are much harder to implement. The game also does not follow the software engineering principles of modularity or information hiding. The goal of Staroids is to recreate the original HTML5-Asteroids while following the proper documentation guidelines and modularization techniques.\\
@@ -141,28 +141,28 @@ In the original project the code of HTML5-Asteroids is a convoluted mess of func
 	\begin{table}[H]
 	\caption{Work Partitioning}
 		\begin{adjustwidth}{-2.75cm}{}
-	\begin{tabular}{|c|c|c|p{5cm}|}
-	\hline
-	Event Name & Input & Output & Summary\\
-	\hline
-	Staroids Creation & Developer code & Internet Browser & Recreating a web based game implementation that works on various browsers.\\
-	\hline
-	Staroids Audio & Wav File & Speaker & Adding more sounds into the game.\\
-	\hline
-	Staroids Sprite & Developer graphics and code & Internet Browser & Adding more visuals to the objects in the game.\\
-	\hline
-	Staroids Hits & Developer code & Internet Browser & Creating hit detection for when the spaceship shoots an asteroid. \\
-	\hline
-	Staroids Collisions & Developer code & Internet Browser & Creating collision detection for when the spaceship hits an asteroid.\\
-	\hline
-	Staroids Final Collision & Developer code & Internet Browser & Creating an end screen once a max number of collisions has been met and final collision occurs.\\
-	\hline
-  \end{tabular}
+    	\begin{tabular}{|c|c|c|p{5cm}|}
+    	\hline
+    	Event Name & Input & Output & Summary\\
+    	\hline
+    	Staroids Creation & Developer code & Internet Browser & Recreating a web based game implementation that works on various browsers.\\
+    	\hline
+    	Staroids Audio & Wav File & Speaker & Adding more sounds into the game.\\
+    	\hline
+    	Staroids Sprite & Developer graphics and code & Internet Browser & Adding more visuals to the objects in the game.\\
+    	\hline
+    	Staroids Hits & Developer code & Internet Browser & Creating hit detection for when the spaceship shoots an asteroid. \\
+    	\hline
+    	Staroids Collisions & Developer code & Internet Browser & Creating collision detection for when the spaceship hits an asteroid.\\
+    	\hline
+    	Staroids Final Collision & Developer code & Internet Browser & Creating an end screen once a max number of collisions has been met and final collision occurs.\\
+    	\hline
+      \end{tabular}
 		\end{adjustwidth}
 	\end{table}
 
 \subsubsection{Individual Product Use Cases}
-This product is primarily made to be used by people looking to enjoy retro video games. 80s arcade games on modern platforms have been making a large resurgence in recent years, so our product can be used by anyone looking for that kind of experience. Another use case more general entertainment, as a javascript file, the code itself can be used as an educational experience, but the game itself can have many more goals to obtain, like highest score or fastest time.\\
+This product is primarily made to be used by people looking to enjoy retro video games. 80s arcade games on modern platforms have been making a large resurgence in recent years, so our product can be used by anyone looking for that kind of experience. Another use case more general entertainment, as a JavaScript file, the code itself can be used as an educational experience, but the game itself can have many more goals to obtain, like highest score or fastest time.\\
 
 \subsection{Functional Requirements}
   \begin{itemize}

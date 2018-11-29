@@ -7,6 +7,7 @@
 \usepackage{hyperref}
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{ulem}
 
 \hypersetup{colorlinks=true,
 			linkcolor=blue,
@@ -47,7 +48,8 @@ Sept 27 & Moziah & Added third party tools\\
 Sept 28 & Eoin & Added team meeting plan and feasibility\\
 Sept 28 & Jason & Tidied up document and fixed problematic merge\\
 Sept 28 & Moziah & Architecture updated Gantt chart\\
-\textcolor{red}{Nov 28 & Jason & Spelling corrections}\\
+\textcolor{red}{Nov 28} & Jason & Spelling corrections\\
+\textcolor{red}{Nov 29} & Moziah & removed references to testing frameworks\\
 %Note: You cannot write '&' in the above table because that marks a new column. You must also end the line with '\\'
 \bottomrule
 \end{tabularx}
@@ -110,7 +112,8 @@ The programming language that was chosen to use for this project is JavaScript. 
 \label{technology:ide}
 The IDE that will be used for Staroids is Atom. Atom is one of the most widely used IDE’s for coding in a broad array of languages. While not made specifically for JavaScript, it is still rated a top five JavaScript IDE according to \href{https://jaxenter.com/top-5-javascript-ide-146609.html}{Jaxenter}. Other good features about Atom that will be useful for the development of Staroids is it’s Git integration, as well as the ability to work on the same files together on different computers using its portal feature.
 \subsection{Testing Framework}
-The testing framework that will be used is a combination of two frameworks called Mocha (Testing Framework) and Chai (Assertion Library). This is one of the most widely used JavaScript testing frameworks, and has a built in integration with Atom to make testing as convenient and straightforward as possible.
+\sout{The testing framework that will be used is a combination of two frameworks called Mocha (Testing Framework) and Chai (Assertion Library). This is one of the most widely used JavaScript testing frameworks, and has a built in integration with Atom to make testing as convenient and straightforward as possible.}
+\textcolor{red}{There will be no testing framework used for testing the Staroids game. All tests will be manually done by members of the Staroids team and third party users.}
 \subsection{Document generation}
 All documentation will be written in \LaTeX, as specified in the course outline, and will then have a pdf generated from the \LaTeX file. The only exception to this will be for the documentation of the code, where JsDoc will be used to autogenerate the pdf documentation based on comments. This is because it is a popular and widely used documentation tool for JavaScript and has many tutorials and lots of information online, such as \href{https://milmazz.uno/article/2014/08/27/how-to-document-your-javascript-code/}{milmazz}.
 
