@@ -115,6 +115,7 @@ StateMachine = {
     Game.setScore(0);
     Game.setLives(3);
     Game.setLevel(0);
+    Game.setAsteroids(2);
 
     //Spawn asteroids
     //Append asteroids to Game.sprites
@@ -150,10 +151,17 @@ StateMachine = {
       Game.getSprites()[i].update();
     }
 
-    if (Game.getAsteroids() == 0) {
+    printOut(1,Game.getAsteroids())
+    if (Game.getAsteroids() <= 0) {
       Game.setLevel(Game.getLevel() + 1);
       Game.setLives(Game.getLives() + 1);
-      this.generateAsteroids(MAX_ASTEROIDS + Game.getLevel() * 2);
+      
+      
+      if (MAX_ASTEROIDS + Game.getLevel() * 2 < 16){
+        this.generateAsteroids(MAX_ASTEROIDS + Game.getLevel() * 2);
+      }else{
+        this.generateAsteroids(16);
+      }
     }
 
     if (Game.getPlayer().getActivity() == false) {
@@ -186,10 +194,10 @@ StateMachine = {
   pause: function () {
     for (var i = 0; i < Game.getSprites().length; i++) {
       object = Game.getSprites()[i];
-      if (this.stateSave == "postgame" && object.getName() == "player") {
-        Game.getText().emph("Press 'R' to Restart", 20, 100);
-        continue
-      }
+      //if (this.stateSave == "postgame" && object.getName() == "player") {
+      //  Game.getText().emph("Press 'R' to Restart", 20, 100);
+      //  continue
+      //}
       Game.getSprites()[i].draw();
     }
   },
@@ -197,7 +205,6 @@ StateMachine = {
    * @details Removes all game sprites, then re-generates all the asteroids and then finally resets back to the load state */
   reload: function () {
     Game.setSprites([]);
-
     this.generateAsteroids(MAX_ASTEROIDS);
 
     this.state = "load";

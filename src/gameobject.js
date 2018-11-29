@@ -301,6 +301,8 @@ Player = function () {
   };
   /** Draws the ship and its thruster */
   this.draw = function () {
+    if (Game.getPlayer().getActivity() == false){return;}
+    
     if (this.thrust) {
       //draw the thruster
       this.ctx.strokeStyle = "red";
@@ -1037,8 +1039,7 @@ Asteroid = function () {
     for (var i = 0; i < this.children.length; i += 1) { //for all children...
       this.children[i].update(); //...update them
     }
-
-
+    
     if (this.scale == 3) { //If this asteroid is a large (master/top level) asteroid...
       if (this.isDead()) { //...see if all children have been destroyed
         Game.subAsteroids(1); //decrement amount of asteroids (since itself and no children are alive)

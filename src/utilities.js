@@ -275,6 +275,11 @@ Game = {
   setLevel: function (lvl) {
     this.level = lvl;
   },
+  /** Sets the game's current amount of large asteroids
+   * @param {Integer} The amount of asteroids */
+  setAsteroids: function (num) {
+    this.asteroids=num;
+  },
   /** Sets the game's currently active sprite array
    * @param {Array} sprites The new active sprite array */
   setSprites: function (sprites) {
