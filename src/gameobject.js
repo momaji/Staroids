@@ -365,7 +365,7 @@ Player = function () {
   };
   /** Actions the player takes every frame */
   this.action = function () {
-    if (this.fire && this.bulletCountDown <= 0) { //If able to fire...
+    if (this.fire && this.bulletCountDown <= 15) { //If able to fire...
       this.bulletCountDown = FPS / 1.25; //Reset bullet counter
       bull = new Bullet(); //Create and initialize new bullet
       bull.init(this);
