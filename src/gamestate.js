@@ -104,10 +104,18 @@ StateMachine = {
       Game.getSprites()[i].update();
     }
 
-    Game.getText().emph("Press Space To Start", 20, 100);
+    Game.getText().emph("Press Space To Start", 250, 100);
     if (Key.isDown(Key.SPACE)) {
       this.state = "load";
     }
+    
+    var base = [20,350]
+    Game.getText().norm("Up Arrow Key : Thrust", base[0], base[1]);
+    Game.getText().norm("Right and Left Arrow Key : Turn Ship", base[0], base[1]+50);
+    Game.getText().norm("Down Arrow Key : Brake Ship", base[0], base[1]+100);
+    Game.getText().norm("Space Key : Fire Bullet", base[0], base[1]+150);
+    Game.getText().norm("M Key : Mute Sound", base[0], base[1]+200);
+    Game.getText().norm("P Key : Pause Game", base[0], base[1]+250);
   },
   /** @brief Transition from pre-game to playing states.
    * @details Resets the game lives, score, level. Generates the player ship and asteroids */
@@ -131,7 +139,7 @@ StateMachine = {
     Game.getAlien().init(Game.getCtx());
     Game.addSprites(Game.getAlien());
     
-    extraLives = 0;
+    extraLives = 1;
 
     this.state = "playing";
   },
@@ -151,7 +159,7 @@ StateMachine = {
       Game.getSprites()[i].update();
     }
 
-    printOut(1,Game.getAsteroids())
+    //printOut(1,Game.getAsteroids())
     if (Game.getAsteroids() <= 0) {
       Game.setLevel(Game.getLevel() + 1);
       Game.setLives(Game.getLives() + 1);
