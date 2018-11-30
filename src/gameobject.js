@@ -879,7 +879,7 @@ AlienBullet = function () {
     if (this.getActivity()) {
       this.ctx.beginPath();
       this.ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
-      this.ctx.fillStyle = "red";
+      //this.ctx.fillStyle = "red";
       //can remove these, just added to make more distinct
       this.ctx.fill();
       this.ctx.stroke();
