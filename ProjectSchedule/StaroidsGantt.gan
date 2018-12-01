@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Gantt Chart" company="" webLink="http://" view-date="2018-09-30" view-index="0" gantt-divider-location="300" resource-divider-location="418" version="2.8.9" locale="en_CA">
+<?xml version="1.0" encoding="UTF-8"?><project name="Gantt Chart" company="" webLink="http://" view-date="2018-08-26" view-index="0" gantt-divider-location="300" resource-divider-location="418" version="2.8.9" locale="en_CA">
     <description/>
     <view zooming-state="default:6" id="gantt-chart">
         <field id="tpd3" name="Name" width="158" order="0"/>
@@ -41,108 +41,108 @@
         <task id="7" name="Problem Statement" color="#8cb6ce" meeting="false" start="2018-09-18" duration="4" complete="100" thirdDate="2018-09-27" thirdDate-constraint="0" expand="true">
             <depend id="8" type="2" difference="0" hardness="Strong"/>
         </task>
-        <task id="8" name="Development Plan" color="#cc0000" meeting="false" start="2018-09-22" duration="7" complete="0" thirdDate="2018-09-27" thirdDate-constraint="0" expand="true">
+        <task id="8" name="Development Plan" color="#cc0000" meeting="false" start="2018-09-22" duration="7" complete="100" thirdDate="2018-09-27" thirdDate-constraint="0" expand="true">
             <depend id="14" type="2" difference="0" hardness="Strong"/>
-            <task id="10" name="Communication Plan &amp; Team Member roles" color="#cc0000" meeting="false" start="2018-09-22" duration="7" complete="0" thirdDate="2018-09-21" thirdDate-constraint="0" expand="true"/>
-            <task id="11" name="Coding Style" color="#cc0000" meeting="false" start="2018-09-22" duration="7" complete="0" thirdDate="2018-09-22" thirdDate-constraint="0" expand="true"/>
-            <task id="12" name="Git Workflow" color="#cc0000" meeting="false" start="2018-09-22" duration="7" complete="0" thirdDate="2018-09-22" thirdDate-constraint="0" expand="true"/>
-            <task id="13" name="Technology" color="#cc0000" meeting="false" start="2018-09-22" duration="7" complete="0" thirdDate="2018-09-22" thirdDate-constraint="0" expand="true"/>
-            <task id="68" name="Gantt Chart" color="#cc0000" meeting="false" start="2018-09-22" duration="7" complete="0" thirdDate="2018-09-22" thirdDate-constraint="0" expand="true"/>
-            <task id="66" name="Proof Of Concept" color="#cc0000" meeting="false" start="2018-09-22" duration="7" complete="0" thirdDate="2018-09-22" thirdDate-constraint="0" expand="true"/>
-            <task id="64" name="Modules &amp; Menues" color="#cc0000" meeting="false" start="2018-09-22" duration="7" complete="0" thirdDate="2018-09-22" thirdDate-constraint="0" expand="true"/>
-            <task id="71" name="Third Party Tools" color="#cc0000" meeting="false" start="2018-09-22" duration="7" complete="0" thirdDate="2018-09-22" thirdDate-constraint="0" expand="true"/>
-            <task id="73" name="Team meeting Plan" color="#cc0000" meeting="false" start="2018-09-22" duration="7" complete="0" thirdDate="2018-09-22" thirdDate-constraint="0" expand="true"/>
-            <task id="75" name="Feasability" color="#cc0000" meeting="false" start="2018-09-22" duration="7" complete="0" thirdDate="2018-09-22" thirdDate-constraint="0" expand="true"/>
-            <task id="77" name="Architecture" color="#cc0000" meeting="false" start="2018-09-22" duration="7" complete="0" thirdDate="2018-09-22" thirdDate-constraint="0" expand="true"/>
-            <task id="158" name="Development Plan Completed" color="#cc0000" meeting="true" start="2018-09-28" duration="0" complete="0" thirdDate="2018-09-22" thirdDate-constraint="0" expand="true"/>
+            <task id="10" name="Communication Plan &amp; Team Member roles" color="#cc0000" meeting="false" start="2018-09-22" duration="7" complete="100" thirdDate="2018-09-21" thirdDate-constraint="0" expand="true"/>
+            <task id="11" name="Coding Style" color="#cc0000" meeting="false" start="2018-09-22" duration="7" complete="100" thirdDate="2018-09-22" thirdDate-constraint="0" expand="true"/>
+            <task id="12" name="Git Workflow" color="#cc0000" meeting="false" start="2018-09-22" duration="7" complete="100" thirdDate="2018-09-22" thirdDate-constraint="0" expand="true"/>
+            <task id="13" name="Technology" color="#cc0000" meeting="false" start="2018-09-22" duration="7" complete="100" thirdDate="2018-09-22" thirdDate-constraint="0" expand="true"/>
+            <task id="68" name="Gantt Chart" color="#cc0000" meeting="false" start="2018-09-22" duration="7" complete="100" thirdDate="2018-09-22" thirdDate-constraint="0" expand="true"/>
+            <task id="66" name="Proof Of Concept" color="#cc0000" meeting="false" start="2018-09-22" duration="7" complete="100" thirdDate="2018-09-22" thirdDate-constraint="0" expand="true"/>
+            <task id="64" name="Modules &amp; Menues" color="#cc0000" meeting="false" start="2018-09-22" duration="7" complete="100" thirdDate="2018-09-22" thirdDate-constraint="0" expand="true"/>
+            <task id="71" name="Third Party Tools" color="#cc0000" meeting="false" start="2018-09-22" duration="7" complete="100" thirdDate="2018-09-22" thirdDate-constraint="0" expand="true"/>
+            <task id="73" name="Team meeting Plan" color="#cc0000" meeting="false" start="2018-09-22" duration="7" complete="100" thirdDate="2018-09-22" thirdDate-constraint="0" expand="true"/>
+            <task id="75" name="Feasability" color="#cc0000" meeting="false" start="2018-09-22" duration="7" complete="100" thirdDate="2018-09-22" thirdDate-constraint="0" expand="true"/>
+            <task id="77" name="100" color="#cc0000" meeting="false" start="2018-09-22" duration="7" complete="100" thirdDate="2018-09-22" thirdDate-constraint="0" expand="true"/>
+            <task id="158" name="Development Plan Completed" color="#cc0000" meeting="true" start="2018-09-28" duration="0" complete="100" thirdDate="2018-09-22" thirdDate-constraint="0" expand="true"/>
         </task>
-        <task id="14" name="Requirements Document Revision 0" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-28" thirdDate-constraint="0" expand="true">
-            <task id="78" name="Purpose of Project" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
-            <task id="112" name="Naming Conventions and Terminology" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
-            <task id="110" name="The Scope of the Work and the Product" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
-            <task id="109" name="New Problems" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true" cost-manual-value="10.0" cost-calculated="false"/>
-            <task id="80" name="Risks" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
-            <task id="82" name="Stakeholders" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
-            <task id="84" name="Client" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
-            <task id="147" name="Customers" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true" cost-manual-value="0.0" cost-calculated="true"/>
-            <task id="99" name="Other Stakeholders" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
-            <task id="151" name="Context of the Work" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true" cost-manual-value="0.0" cost-calculated="true"/>
-            <task id="97" name="Off-the-Shelf Solutions" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
-            <task id="107" name="Document and Training" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
-            <task id="105" name="Mandated Constraints" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
-            <task id="103" name="Relevant Facts and Assumptions" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
-            <task id="101" name="Work Partitioning" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
-            <task id="130" name="Open Issues" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
-            <task id="128" name="Tasks" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
-            <task id="126" name="Costs" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
-            <task id="154" name="SRS Doc Completed" color="#009933" meeting="true" start="2018-10-05" duration="0" complete="0" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
+        <task id="14" name="Requirements Document Revision 0" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="100" thirdDate="2018-09-28" thirdDate-constraint="0" expand="true">
+            <task id="78" name="Purpose of Project" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="100" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
+            <task id="112" name="Naming Conventions and Terminology" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="100" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
+            <task id="110" name="The Scope of the Work and the Product" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="100" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
+            <task id="109" name="New Problems" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="100" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true" cost-manual-value="10.0" cost-calculated="false"/>
+            <task id="80" name="Risks" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="100" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
+            <task id="82" name="Stakeholders" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="100" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
+            <task id="84" name="Client" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="100" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
+            <task id="147" name="Customers" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="100" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true" cost-manual-value="0.0" cost-calculated="true"/>
+            <task id="99" name="Other Stakeholders" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="100" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
+            <task id="151" name="Context of the Work" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="100" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true" cost-manual-value="0.0" cost-calculated="true"/>
+            <task id="97" name="Off-the-Shelf Solutions" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="100" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
+            <task id="107" name="Document and Training" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="100" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
+            <task id="105" name="Mandated Constraints" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="100" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
+            <task id="103" name="Relevant Facts and Assumptions" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="100" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
+            <task id="101" name="Work Partitioning" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="100" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
+            <task id="130" name="Open Issues" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="100" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
+            <task id="128" name="Tasks" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="100" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
+            <task id="126" name="Costs" color="#009933" meeting="false" start="2018-09-29" duration="7" complete="100" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
+            <task id="154" name="SRS Doc Completed" color="#009933" meeting="true" start="2018-10-05" duration="0" complete="100" thirdDate="2018-09-29" thirdDate-constraint="0" expand="true"/>
         </task>
         <task id="18" name="Becoming Familiar with our Chosen Coding Style" color="#0033ff" meeting="false" start="2018-10-05" duration="2" complete="100" thirdDate="2018-10-03" thirdDate-constraint="0" expand="true"/>
         <task id="19" name="Refresher of JavaScript Language" color="#0033ff" meeting="false" start="2018-10-05" duration="4" complete="100" thirdDate="2018-10-05" thirdDate-constraint="0" expand="true"/>
-        <task id="15" name="Development of Source Code First Draft" color="#0033ff" meeting="false" start="2018-10-06" duration="36" complete="0" thirdDate="2018-10-08" thirdDate-constraint="0" expand="true">
-            <task id="210" name="canvas environment and index.html created" color="#3333ff" meeting="false" start="2018-10-06" duration="1" complete="0" thirdDate="2018-10-06" thirdDate-constraint="0" expand="true"/>
-            <task id="200" name="Player ship created" color="#3333ff" meeting="false" start="2018-10-06" duration="4" complete="0" thirdDate="2018-10-06" thirdDate-constraint="0" expand="true"/>
-            <task id="201" name="bullet for ship created" color="#3333ff" meeting="false" start="2018-10-10" duration="3" complete="0" thirdDate="2018-10-10" thirdDate-constraint="0" expand="true"/>
-            <task id="212" name="pregame, pause states created" color="#3333ff" meeting="false" start="2018-10-12" duration="3" complete="0" thirdDate="2018-10-12" thirdDate-constraint="0" expand="true"/>
-            <task id="211" name="asteroids created" color="#3333ff" meeting="false" start="2018-10-16" duration="5" complete="0" thirdDate="2018-10-16" thirdDate-constraint="0" expand="true"/>
-            <task id="213" name="endgame state creted" color="#3333ff" meeting="false" start="2018-10-20" duration="4" complete="0" thirdDate="2018-10-20" thirdDate-constraint="0" expand="true"/>
-            <task id="214" name="mute added" color="#3333ff" meeting="false" start="2018-10-23" duration="2" complete="0" thirdDate="2018-10-23" thirdDate-constraint="0" expand="true"/>
-            <task id="215" name="on screen pop ups" color="#3333ff" meeting="false" start="2018-10-25" duration="7" complete="0" thirdDate="2018-10-25" thirdDate-constraint="0" expand="true"/>
-            <task id="216" name="alien created" color="#3333ff" meeting="false" start="2018-11-04" duration="7" complete="0" thirdDate="2018-11-04" thirdDate-constraint="0" expand="true"/>
+        <task id="15" name="Development of Source Code First Draft" color="#0033ff" meeting="false" start="2018-10-06" duration="36" complete="100" thirdDate="2018-10-08" thirdDate-constraint="0" expand="true">
+            <task id="210" name="canvas environment and index.html created" color="#3333ff" meeting="false" start="2018-10-06" duration="1" complete="100" thirdDate="2018-10-06" thirdDate-constraint="0" expand="true"/>
+            <task id="200" name="Player ship created" color="#3333ff" meeting="false" start="2018-10-06" duration="4" complete="100" thirdDate="2018-10-06" thirdDate-constraint="0" expand="true"/>
+            <task id="201" name="bullet for ship created" color="#3333ff" meeting="false" start="2018-10-10" duration="3" complete="100" thirdDate="2018-10-10" thirdDate-constraint="0" expand="true"/>
+            <task id="212" name="pregame, pause states created" color="#3333ff" meeting="false" start="2018-10-12" duration="3" complete="100" thirdDate="2018-10-12" thirdDate-constraint="0" expand="true"/>
+            <task id="211" name="asteroids created" color="#3333ff" meeting="false" start="2018-10-16" duration="5" complete="100" thirdDate="2018-10-16" thirdDate-constraint="0" expand="true"/>
+            <task id="213" name="endgame state creted" color="#3333ff" meeting="false" start="2018-10-20" duration="4" complete="100" thirdDate="2018-10-20" thirdDate-constraint="0" expand="true"/>
+            <task id="214" name="mute added" color="#3333ff" meeting="false" start="2018-10-23" duration="2" complete="100" thirdDate="2018-10-23" thirdDate-constraint="0" expand="true"/>
+            <task id="215" name="on screen pop ups" color="#3333ff" meeting="false" start="2018-10-25" duration="7" complete="100" thirdDate="2018-10-25" thirdDate-constraint="0" expand="true"/>
+            <task id="216" name="alien created" color="#3333ff" meeting="false" start="2018-11-04" duration="7" complete="100" thirdDate="2018-11-04" thirdDate-constraint="0" expand="true"/>
         </task>
-        <task id="204" name="Modularization of code" color="#33ffff" meeting="false" start="2018-10-18" duration="3" complete="0" thirdDate="2018-10-18" thirdDate-constraint="0" expand="true">
-            <task id="205" name="utilities module" color="#33ffff" meeting="false" start="2018-10-18" duration="3" complete="0" thirdDate="2018-10-18" thirdDate-constraint="0" expand="true">
-                <task id="250" name="Constants added" color="#33ffff" meeting="false" start="2018-10-18" duration="3" complete="0" thirdDate="2018-09-30" thirdDate-constraint="0" expand="true"/>
+        <task id="204" name="Modularization of code" color="#33ffff" meeting="false" start="2018-10-18" duration="3" complete="100" thirdDate="2018-10-18" thirdDate-constraint="0" expand="true">
+            <task id="205" name="utilities module" color="#33ffff" meeting="false" start="2018-10-18" duration="3" complete="100" thirdDate="2018-10-18" thirdDate-constraint="0" expand="true">
+                <task id="250" name="Constants added" color="#33ffff" meeting="false" start="2018-10-18" duration="3" complete="100" thirdDate="2018-09-30" thirdDate-constraint="0" expand="true"/>
             </task>
-            <task id="206" name="game object modle" color="#33ffff" meeting="false" start="2018-10-18" duration="3" complete="0" thirdDate="2018-10-18" thirdDate-constraint="0" expand="true">
-                <task id="253" name="Base game object created for common characteristics amognst all others" color="#33ffff" meeting="false" start="2018-10-18" duration="3" complete="0" thirdDate="2018-10-18" thirdDate-constraint="0" expand="true"/>
+            <task id="206" name="game object modle" color="#33ffff" meeting="false" start="2018-10-18" duration="3" complete="100" thirdDate="2018-10-18" thirdDate-constraint="0" expand="true">
+                <task id="253" name="Base game object created for common characteristics amognst all others" color="#33ffff" meeting="false" start="2018-10-18" duration="3" complete="100" thirdDate="2018-10-18" thirdDate-constraint="0" expand="true"/>
             </task>
-            <task id="209" name="gamestate module" color="#33ffff" meeting="false" start="2018-10-18" duration="3" complete="0" thirdDate="2018-10-18" thirdDate-constraint="0" expand="true">
-                <task id="252" name="State machine created with states, as well as update function" color="#33ffff" meeting="false" start="2018-10-18" duration="3" complete="0" thirdDate="2018-10-18" thirdDate-constraint="0" expand="true"/>
+            <task id="209" name="gamestate module" color="#33ffff" meeting="false" start="2018-10-18" duration="3" complete="100" thirdDate="2018-10-18" thirdDate-constraint="0" expand="true">
+                <task id="252" name="State machine created with states, as well as update function" color="#33ffff" meeting="false" start="2018-10-18" duration="3" complete="100" thirdDate="2018-10-18" thirdDate-constraint="0" expand="true"/>
             </task>
-            <task id="208" name="sound module" color="#33ffff" meeting="false" start="2018-10-18" duration="3" complete="0" thirdDate="2018-10-18" thirdDate-constraint="0" expand="true"/>
-            <task id="207" name="head module" color="#33ffff" meeting="false" start="2018-10-18" duration="3" complete="0" thirdDate="2018-10-18" thirdDate-constraint="0" expand="true"/>
+            <task id="208" name="sound module" color="#33ffff" meeting="false" start="2018-10-18" duration="3" complete="100" thirdDate="2018-10-18" thirdDate-constraint="0" expand="true"/>
+            <task id="207" name="head module" color="#33ffff" meeting="false" start="2018-10-18" duration="3" complete="100" thirdDate="2018-10-18" thirdDate-constraint="0" expand="true"/>
         </task>
         <task id="16" name="Proof of Concept Demonstration" color="#0033ff" meeting="true" start="2018-10-19" duration="0" complete="100" thirdDate="2018-10-09" thirdDate-constraint="0" expand="true"/>
         <task id="17" name="Learning Testing Framework" color="#ff9900" meeting="false" start="2018-10-12" duration="3" complete="100" thirdDate="2018-10-12" thirdDate-constraint="0" expand="true"/>
         <task id="24" name="Test Plan Revision 0" color="#ff9900" meeting="false" start="2018-10-16" duration="9" complete="100" thirdDate="2018-10-16" thirdDate-constraint="0" expand="true"/>
         <task id="159" name="Test Plan Rev0 Completed" color="#ff9933" meeting="true" start="2018-10-26" duration="0" complete="100" thirdDate="2018-09-09" thirdDate-constraint="0" priority="2" expand="true"/>
-        <task id="25" name="Testing Schedule" color="#000000" meeting="false" start="2018-11-02" duration="20" complete="0" thirdDate="2018-09-09" thirdDate-constraint="0" expand="true">
-            <task id="191" name="Functional Requirement Tests" color="#666666" meeting="false" start="2018-11-02" duration="8" complete="0" thirdDate="2018-11-02" thirdDate-constraint="0" expand="true">
-                <task id="183" name="Pre-game state tests" color="#666666" meeting="false" start="2018-11-03" duration="4" complete="0" thirdDate="2018-09-09" thirdDate-constraint="0" expand="true"/>
-                <task id="186" name="Playing State tests" color="#666666" meeting="false" start="2018-11-02" duration="8" complete="0" thirdDate="2018-09-09" thirdDate-constraint="0" expand="true"/>
-                <task id="187" name="Post-game state tests" color="#666666" meeting="false" start="2018-11-04" duration="2" complete="0" thirdDate="2018-11-02" thirdDate-constraint="0" expand="true"/>
+        <task id="25" name="Testing Schedule" color="#000000" meeting="false" start="2018-11-02" duration="20" complete="94" thirdDate="2018-09-09" thirdDate-constraint="0" expand="true">
+            <task id="191" name="Functional Requirement Tests" color="#666666" meeting="false" start="2018-11-02" duration="8" complete="100" thirdDate="2018-11-02" thirdDate-constraint="0" expand="true">
+                <task id="183" name="Pre-game state tests" color="#666666" meeting="false" start="2018-11-03" duration="4" complete="100" thirdDate="2018-09-09" thirdDate-constraint="0" expand="true"/>
+                <task id="186" name="Playing State tests" color="#666666" meeting="false" start="2018-11-02" duration="8" complete="100" thirdDate="2018-09-09" thirdDate-constraint="0" expand="true"/>
+                <task id="187" name="Post-game state tests" color="#666666" meeting="false" start="2018-11-04" duration="2" complete="100" thirdDate="2018-11-02" thirdDate-constraint="0" expand="true"/>
             </task>
-            <task id="188" name="Non-Functional Requirement Tests" color="#ffff00" meeting="false" start="2018-11-08" duration="5" complete="0" thirdDate="2018-11-02" thirdDate-constraint="0" expand="true">
-                <task id="192" name="Usability and Style" color="#ffff00" meeting="false" start="2018-11-08" duration="5" complete="0" thirdDate="2018-11-02" thirdDate-constraint="0" expand="true"/>
-                <task id="196" name="Internal Requirements" color="#ffff00" meeting="false" start="2018-11-08" duration="5" complete="0" thirdDate="2018-11-02" thirdDate-constraint="0" expand="true"/>
+            <task id="188" name="Non-Functional Requirement Tests" color="#ffff00" meeting="false" start="2018-11-08" duration="5" complete="100" thirdDate="2018-11-02" thirdDate-constraint="0" expand="true">
+                <task id="192" name="Usability and Style" color="#ffff00" meeting="false" start="2018-11-08" duration="5" complete="100" thirdDate="2018-11-02" thirdDate-constraint="0" expand="true"/>
+                <task id="196" name="Internal Requirements" color="#ffff00" meeting="false" start="2018-11-08" duration="5" complete="100" thirdDate="2018-11-02" thirdDate-constraint="0" expand="true"/>
             </task>
-            <task id="189" name="Poc Tests" color="#3333ff" meeting="false" start="2018-11-16" duration="1" complete="0" thirdDate="2018-11-16" thirdDate-constraint="0" expand="true">
-                <task id="193" name="Browser compatability Tests" color="#3333ff" meeting="false" start="2018-11-16" duration="1" complete="0" thirdDate="2018-11-16" thirdDate-constraint="0" expand="true"/>
+            <task id="189" name="Poc Tests" color="#3333ff" meeting="false" start="2018-11-16" duration="1" complete="100" thirdDate="2018-11-16" thirdDate-constraint="0" expand="true">
+                <task id="193" name="Browser compatability Tests" color="#3333ff" meeting="false" start="2018-11-16" duration="1" complete="100" thirdDate="2018-11-16" thirdDate-constraint="0" expand="true"/>
             </task>
-            <task id="194" name="Code Coverage Tests" color="#000000" meeting="false" start="2018-11-17" duration="3" complete="0" thirdDate="2018-11-22" thirdDate-constraint="0" expand="true"/>
+            <task id="194" name="Code Coverage Tests" color="#000000" meeting="false" start="2018-11-17" duration="3" complete="100" thirdDate="2018-11-22" thirdDate-constraint="0" expand="true"/>
             <task id="198" name="Testing Complete" color="#000000" meeting="true" start="2018-11-22" duration="0" complete="0" thirdDate="2018-11-22" thirdDate-constraint="0" expand="true"/>
         </task>
-        <task id="47" name="Design &amp; Documentation Revision 0" color="#990099" meeting="false" start="2018-11-02" duration="7" complete="0" thirdDate="2018-09-07" thirdDate-constraint="0" expand="true">
-            <task id="261" name="MG" color="#990099" meeting="false" start="2018-11-02" duration="4" complete="0" thirdDate="2018-11-03" thirdDate-constraint="0" expand="true"/>
-            <task id="265" name="MIS" color="#990099" meeting="false" start="2018-11-05" duration="4" complete="0" thirdDate="2018-11-06" thirdDate-constraint="0" expand="true"/>
+        <task id="47" name="Design &amp; Documentation Revision 0" color="#990099" meeting="false" start="2018-11-02" duration="7" complete="100" thirdDate="2018-09-07" thirdDate-constraint="0" expand="true">
+            <task id="261" name="MG" color="#990099" meeting="false" start="2018-11-02" duration="4" complete="100" thirdDate="2018-11-03" thirdDate-constraint="0" expand="true"/>
+            <task id="265" name="MIS" color="#990099" meeting="false" start="2018-11-05" duration="4" complete="100" thirdDate="2018-11-06" thirdDate-constraint="0" expand="true"/>
         </task>
         <task id="167" name="Design &amp; Document Revision 0 Completed" color="#990099" meeting="true" start="2018-11-09" duration="0" complete="100" thirdDate="2018-09-09" thirdDate-constraint="0" expand="true"/>
         <task id="26" name="Revision of code based on testing" color="#000000" meeting="false" start="2018-11-10" duration="7" complete="100" thirdDate="2018-11-10" thirdDate-constraint="0" expand="true"/>
-        <task id="34" name="Revision 0 Demonstration" color="#33ffff" meeting="false" start="2018-11-12" duration="2" complete="0" thirdDate="2018-10-31" thirdDate-constraint="0" expand="true">
-            <task id="302" name="Prep all files and game for easy access" color="#33ffff" meeting="false" start="2018-11-12" duration="2" complete="0" thirdDate="2018-11-12" thirdDate-constraint="0" expand="true"/>
+        <task id="34" name="Revision 0 Demonstration" color="#33ffff" meeting="false" start="2018-11-12" duration="2" complete="100" thirdDate="2018-10-31" thirdDate-constraint="0" expand="true">
+            <task id="302" name="Prep all files and game for easy access" color="#33ffff" meeting="false" start="2018-11-12" duration="2" complete="100" thirdDate="2018-11-12" thirdDate-constraint="0" expand="true"/>
         </task>
         <task id="172" name="Revision 0 Demonstration Completed" color="#33ffff" meeting="true" start="2018-11-14" duration="0" complete="100" thirdDate="2018-09-09" thirdDate-constraint="0" expand="true"/>
-        <task id="28" name="Final Demonstration (Revision 1)" color="#99ff99" meeting="false" start="2018-11-26" duration="4" complete="0" thirdDate="2018-11-26" thirdDate-constraint="0" expand="true">
-            <task id="291" name="Discussion of presentation plan" color="#99ff99" meeting="false" start="2018-11-26" duration="2" complete="0" thirdDate="2018-11-26" thirdDate-constraint="0" expand="true"/>
-            <task id="292" name="Creation of slides" color="#99ff99" meeting="false" start="2018-11-27" duration="1" complete="0" thirdDate="2018-10-27" thirdDate-constraint="0" expand="true"/>
-            <task id="293" name="Mock presentation runthroughs" color="#99ff99" meeting="false" start="2018-11-27" duration="3" complete="0" thirdDate="2018-11-27" thirdDate-constraint="0" expand="true"/>
+        <task id="28" name="Final Demonstration (Revision 1)" color="#99ff99" meeting="false" start="2018-11-26" duration="4" complete="100" thirdDate="2018-11-26" thirdDate-constraint="0" expand="true">
+            <task id="291" name="Discussion of presentation plan" color="#99ff99" meeting="false" start="2018-11-26" duration="2" complete="100" thirdDate="2018-11-26" thirdDate-constraint="0" expand="true"/>
+            <task id="292" name="Creation of slides" color="#99ff99" meeting="false" start="2018-11-27" duration="1" complete="100" thirdDate="2018-10-27" thirdDate-constraint="0" expand="true"/>
+            <task id="293" name="Mock presentation runthroughs" color="#99ff99" meeting="false" start="2018-11-27" duration="3" complete="100" thirdDate="2018-11-27" thirdDate-constraint="0" expand="true"/>
         </task>
         <task id="179" name="Final Demonstration (Revision 1) Completed" color="#00ff00" meeting="true" start="2018-11-30" duration="0" complete="100" thirdDate="2018-11-16" thirdDate-constraint="0" priority="4" expand="true"/>
-        <task id="49" name="Final Documentation (Revision 1)" color="#cccc00" meeting="false" start="2018-11-25" duration="9" complete="0" thirdDate="2018-11-21" thirdDate-constraint="0" expand="true">
-            <task id="314" name="Revising old documents to reflect development changes" color="#cccc00" meeting="false" start="2018-11-25" duration="9" complete="0" thirdDate="2018-10-07" thirdDate-constraint="0" expand="true"/>
-            <task id="313" name="Creating test report" color="#cccc00" meeting="false" start="2018-11-26" duration="7" complete="0" thirdDate="2018-11-26" thirdDate-constraint="0" expand="true"/>
-            <task id="312" name="Spell checking all documetns" color="#cccc00" meeting="false" start="2018-11-28" duration="6" complete="0" thirdDate="2018-11-28" thirdDate-constraint="0" expand="true"/>
+        <task id="49" name="Final Documentation (Revision 1)" color="#cccc00" meeting="false" start="2018-11-25" duration="9" complete="100" thirdDate="2018-11-21" thirdDate-constraint="0" expand="true">
+            <task id="314" name="Revising old documents to reflect development changes" color="#cccc00" meeting="false" start="2018-11-25" duration="9" complete="100" thirdDate="2018-10-07" thirdDate-constraint="0" expand="true"/>
+            <task id="313" name="Creating test report" color="#cccc00" meeting="false" start="2018-11-26" duration="7" complete="100" thirdDate="2018-11-26" thirdDate-constraint="0" expand="true"/>
+            <task id="312" name="Spell checking all documetns" color="#cccc00" meeting="false" start="2018-11-28" duration="6" complete="100" thirdDate="2018-11-28" thirdDate-constraint="0" expand="true"/>
         </task>
         <task id="182" name="Final Documentation (Revision 1) Completed" color="#cccc00" meeting="true" start="2018-12-06" duration="0" complete="100" thirdDate="2018-11-21" thirdDate-constraint="0" priority="4" expand="true"/>
         <task id="33" name="Peer Eval of Other Teams Final Demo" color="#00ff00" meeting="false" start="2018-11-28" duration="3" complete="100" thirdDate="2018-11-28" thirdDate-constraint="0" expand="true"/>
