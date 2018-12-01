@@ -55,6 +55,7 @@ Nov 26 & 2.1 & Spell checked up to testing tools section\\
 Nov 26 & 2.2 & Changed automated testing Approach\\
 Nov 26 & 2.3 & Changed testing tools section\\
 \textcolor{red}{Nov 28} & 2.4 & Spell checking\\
+\textcolor{red}{Dec 1} & 2.4 & Automated testing framework references removed\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -66,7 +67,7 @@ Nov 26 & 2.3 & Changed testing tools section\\
 \section{General Information}
 
 \subsection{Purpose}
-This document is designed to show the detailed test plan for the Staroids game. This will include a description of the testing, validation, and verification procedures that will be implemented. All the tests in this document have been created before the final implementation has been completed or \sout{tests} \textcolor{red}{testing} has actually occured, so it will be the guide followed during the testing phase of the project.
+This document is designed to show the detailed test plan for the Staroids game. This will include a description of the testing, validation, and verification procedures that will be implemented. All the tests in this document have been created before the final implementation has been completed or \sout{tests} \textcolor{red}{testing} has actually occurred, so it will be the guide followed during the testing phase of the project.
 
 \subsection{Scope}
 The scope of the test plan is to provide\sout{s} a basis for testing the functionality of this re-implementation of asteroids. The objective of the Test Plan is to prove all the functional and non functional requirements listed in the SRS document.
@@ -244,7 +245,7 @@ Input: Player and Asteroid object
 
 Output: Production of child asteroids
 
-How test will be performed: \textcolor{red}{Starting with a large asteroid and a player, the player shoots a bullet at the asteroid. Upon the asteroid getting hit, the} asteroid itself should become disabled and should spawn 3 children asteroids. By \textcolor{red}{shooting the children, those child asteroids get disabled and spawn another set of children. Once this last set of children is destroyed, the large astroid object will count as dead (since the main object and all sub-objects are dead) and this will decrement the alive asteroid counter.}
+How test will be performed: \textcolor{red}{Starting with a large asteroid and a player, the player shoots a bullet at the asteroid. Upon the asteroid getting hit, the} asteroid itself should become disabled and should spawn 3 children asteroids. By \textcolor{red}{shooting the children, those child asteroids get disabled and spawn another set of children. Once this last set of children is destroyed, the large asteroid object will count as dead (since the main object and all sub-objects are dead) and this will decrement the alive asteroid counter.}
 
 \item{Withholding player spawn\\}
 
@@ -465,7 +466,7 @@ Input: All sound actions will be simulated
 
 Output: Animations still show on screen but no sounds company them
 
-How test will be performed: The three sound actions above will be simulated and the volume of the computer will be monitured to make sure that no sounds are being produced.
+How test will be performed: The three sound actions above will be simulated and the volume of the computer will be monitored to make sure that no sounds are being produced.
 
 \end{enumerate}
 
@@ -474,7 +475,9 @@ Staroids is quite comparable to the original implementation of HTML5-Asteroids. 
 
 \section{Unit Testing Plan}
 %says should be more detailed -2
-Mocha and Chai are to be used in Staroids unit testing. The testing suite will be a separate file that runs over top of all the other files and controls what occurs on the screen. All of the games modules are complete, so there is no need for stubs or drivers for testing. The coverage method will be a combination of  Mocha's metric as well as the Staroids team ensuring that each method has been tested at least once.
+\sout{Mocha and Chai are to be used in Staroids unit testing. The testing suite will be a separate file that runs over top of all the other files and controls what occurs on the screen. All of the games modules are complete, so there is no need for stubs or drivers for testing. The coverage method will be a combination of  Mocha's metric as well as the Staroids team ensuring that each method has been tested at least once.}
+\textcolor{red}{}
+
 
 \subsection{Unit testing of internal functions}
 To test Staroids functions the team will use test cases on all functions, having at least one test per function, perhaps more. These tests will be created until there is full coverage over all the internal functions. Testing will also run in developer mode, rather than having tests automatically run every time the game is executed. The developer mode will have to be enabled from the developer side, and does not require any user inputs (besides activating the mode).
