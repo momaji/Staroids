@@ -288,8 +288,8 @@ $(function () {
       Game.text.emph(Game.getScore(), 5, 45);
     }
     
-    if (Key.isDown(Key.I)){KILLABLE=false;}
-    if (Key.isDown(Key.K)){KILLABLE=true;}
+    //if (Key.isDown(Key.I)){KILLABLE=false;} //Cheats - Make KILLABLE in utilities.js NOT a constant to activate
+    //if (Key.isDown(Key.K)){KILLABLE=true;}
 
     requestAnimFrame(mainLoop, Game.getCvs());
   }

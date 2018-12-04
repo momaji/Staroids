@@ -1022,10 +1022,10 @@ Asteroid = function () {
   /** Actions an asteroid performs every frame */
   this.action = function () {
 
-    //Debug options to destroy all asteroid of a certain size
-    if (Key.isDown(Key.ONE) && this.scale == 1) this.die();
-    if (Key.isDown(Key.TWO) && this.scale == 2) this.die();
-    if (Key.isDown(Key.THREE) && this.scale == 3) this.die();
+    //Cheats - Uncomment to allow for asteroids of a specifc size to be destroyed with number keys
+    //if (Key.isDown(Key.ONE) && this.scale == 1) this.die();
+    //if (Key.isDown(Key.TWO) && this.scale == 2) this.die();
+    //if (Key.isDown(Key.THREE) && this.scale == 3) this.die();
 
   };
   /** Effect of an asteroid getting destroyed */
