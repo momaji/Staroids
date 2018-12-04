@@ -1,3 +1,8 @@
+/* All coding is based off a modification of Google's Java coding guidelines to adapt it to JavaScript
+ * All variable names are made in camel case with the first letter beling lowercase
+ * Classes are similarily in camel case, but the first letter is capitalized
+ */
+
 /** The current frames per second @const */
 const FPS = 30;
 /** The ship size in pixels @const */

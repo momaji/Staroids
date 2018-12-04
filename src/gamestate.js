@@ -1,3 +1,8 @@
+/* All coding is based off a modification of Google's Java coding guidelines to adapt it to JavaScript
+ * All variable names are made in camel case with the first letter beling lowercase
+ * Classes are similarily in camel case, but the first letter is capitalized
+ */
+
 /* Initailizes the program to listen to when keys are pressed down during game operation.*/
 window.addEventListener('keyup', function (event) {
   Key.onKeyup(event);

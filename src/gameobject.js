@@ -1,3 +1,10 @@
+/* All coding is based off a modification of Google's Java coding guidelines to adapt it to JavaScript
+ * All variable names are made in camel case with the first letter beling lowercase
+ * Classes are similarily in camel case, but the first letter is capitalized
+ * All screen classes are based off the GameObject class which has the basic update function and the relevant draw, interact, reset, move, etc... functions
+ *  This allows for any object to call a general method of another and if the target does not have a specifc response, nothing happens as it was established as blank in GameObject. This improves robustness a lot
+ */
+
 /** The basic object from which all other objects inheret from
  * @constructor */
 GameObject = function () {
@@ -365,7 +372,7 @@ Player = function () {
   };
   /** Actions the player takes every frame */
   this.action = function () {
-    if (this.fire && this.bulletCountDown <= 15) { //If able to fire...
+    if (this.fire && this.bulletCountDown <= 0) { //If able to fire...
       this.bulletCountDown = FPS / 1.25; //Reset bullet counter
       bull = new Bullet(); //Create and initialize new bullet
       bull.init(this);
