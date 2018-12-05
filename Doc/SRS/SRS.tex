@@ -15,6 +15,10 @@
 \usepackage{changepage}
 \usepackage{float}
 
+%\newcounter{Rnum}
+%\newcommand{\RtheRnum}{R\theRnum}
+%\newcommand{\Rref}[1]{R\ref{#1}}
+
 \title{SE 3XA3: Software Requirements Specification\\Staroids}
 
 \author{Team 20, Staroids
@@ -167,29 +171,28 @@ This product is primarily made to be used by people looking to enjoy retro video
 
 \subsection{Functional Requirements}
   \begin{enumerate}
-    \item Run on Google Chrome, Mozilla Firefox, Microsoft Edge and Apple Safari browsers.
-    \item The game shall contain pre-game, playing, post-game, and paused states.
-    \item When initially ran, the pre-game screen shall show first.
-    \item On the pre-game screen, if the play button is pressed, the playing screen shall show.
-    \item On the press of the pause button during playing, the pause state shall show.
-    \item On the press of the pause button while paused, the playing state shall appear again.
-    \item The playing screen shall always display the player character, score and lives.
-    \item Every time the player character is hit by an enemy, the lives count shall decrease by one.
-    \item When the fire button is pressed, the player character will fire a projectile.
-    \item If a projectile hits an enemy, the enemy will be removed, that enemy's death action will occur and the score will be incremented.
-    \item If zero lives remain and the player character is hit, the game shall enter the post game screen.
-    \item After a set amount of time, an enemy character shall appear. He shall shoot at the player character.
-    \item If a large asteroid is hit, it will separate into 3 medium asteroids and the score shall be incremented.
-    \item If a medium asteroid is hit, it will separate into 3 small asteroids and the score shall be incremented.
-    \item If a small asteroid is hit, it will be removed and the score shall be incremented.
-    \item No player character can spawn if there is an asteroid near by.
-    \item Bullets must be removed after a set amount of time on screen
-    \item Projectiles move relative to player speeds.
-    \item If the game is not muted the game will play a sound when the user fires.
-    \item If the game is not muted the game will play a sound when the alien fires.
-    \item If the game is not muted the game will play a sound when the user loses a life.
-    \item If the game is not muted the game will play a sound when an asteroid is destroyed.
-    \item If the game is muted no sound will play.
+    \item\Textbf{F1:} Run on Google Chrome, Mozilla Firefox, Microsoft Edge and Apple Safari browsers.
+    \item\Textbf{F2:} The game shall contain pre-game, playing, post-game, and paused states.
+    \item\Textbf{F3:} When initially ran, the pre-game screen shall show first.
+    \item\Textbf{F4:} On the pre-game screen, if the play button is pressed, the playing screen shall show.
+    \item\Textbf{F5:} On the press of the pause button during playing, the pause state shall show.
+    \item\Textbf{F6:} On the press of the pause button while paused, the playing state shall appear again.
+    \item\Textbf{F7:} The playing screen shall always display the player character, score and lives.
+    \item\Textbf{F8:} Every time the player character is hit by an enemy, the lives count shall decrease by one.
+    \item\Textbf{F9:} When the fire button is pressed, the player character will fire a projectile.
+    \item\Textbf{F10:} If a projectile hits an enemy, the enemy will be removed, that enemy's death action will occur and the score will be incremented.
+    \item\Textbf{F11:} If zero lives remain and the player character is hit, the game shall enter the post game screen.
+    \item\Textbf{F12:} After a set amount of time, an enemy character shall appear. He shall shoot at the player character.
+    \item\Textbf{F13:} If a large asteroid is hit, it will separate into 3 medium asteroids and the score shall be incremented.
+    \item\Textbf{F14:} If a medium asteroid is hit, it will separate into 3 small asteroids and the score shall be incremented.
+    \item\Textbf{F15:} If a small asteroid is hit, it will be removed and the score shall be incremented.
+    \item\Textbf{F16:} No player character can spawn if there is an asteroid near by.
+    \item\Textbf{F17:} Bullets must be removed after a set amount of time on screen
+    \item\Textbf{F18:} Projectiles move relative to player speeds.
+    \item\Textbf{F19:} If the game is not muted the game will play a sound when the user fires.
+    \item\Textbf{F20:} If the game is not muted the game will play a sound when the player brakes.
+    \item\Textbf{F21:} If the game is not muted the game will play a sound when an asteroid is destroyed.
+    \item\Textbf{F22:} If the game is muted no sound will play.
   \end{enumerate}
 
 \section{Non-functional Requirements}
