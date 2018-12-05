@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.9.23)  29 NOV 2018 13:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.9.23)  5 DEC 2018 17:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -376,79 +376,84 @@ LaTeX Info: Redefining \nameref on input line 32.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd)
-Underfull \hbox (badness 2165) in paragraph at lines 55--55
+Underfull \hbox (badness 2165) in paragraph at lines 56--56
 []|\OT1/cmr/m/n/10 Added com-mu-ni-ca-tion plan and
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 55--55
+Underfull \hbox (badness 10000) in paragraph at lines 56--56
 []|\OT1/cmr/m/n/10 removed ref-er-ences to test-ing
  []
 
 [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 66--70
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./DevelopmentPlan.toc)
+\tf@toc=\write4
+\openout4 = `DevelopmentPlan.toc'.
 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 73--76
-
- []
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 86--87
+Underfull \hbox (badness 10000) in paragraph at lines 69--73
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 93--95
+Underfull \hbox (badness 10000) in paragraph at lines 76--79
 
  []
 
 [3]
-Underfull \hbox (badness 10000) in paragraph at lines 97--98
+Underfull \hbox (badness 10000) in paragraph at lines 89--90
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 96--98
 
  []
 
 [4]
+Underfull \hbox (badness 10000) in paragraph at lines 100--101
+
+ []
+
+[5]
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
- [5]
+ [6]
 No file DevelopmentPlan.bbl.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 142.
-[6]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 142.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 145.
+[7]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 145.
  (./DevelopmentPlan.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 142.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 142.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 145.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 145.
 Package rerunfilecheck Info: File `DevelopmentPlan.out' has not changed.
 (rerunfilecheck)             Checksum: B05939C48C3ABF50DB51BFFC7AC17D15;919.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 142.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 145.
  ) 
 Here is how much of TeX's memory you used:
- 6642 strings out of 494953
- 93321 string characters out of 6180977
- 184442 words of memory out of 5000000
+ 6647 strings out of 494953
+ 93381 string characters out of 6180977
+ 187442 words of memory out of 5000000
  9830 multiletter control sequences out of 15000+600000
  11609 words of font info for 46 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 29i,10n,35p,1341b,325s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 29i,10n,35p,1842b,347s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmr7.pfb>
-Output written on DevelopmentPlan.pdf (6 pages, 100429 bytes).
+Output written on DevelopmentPlan.pdf (7 pages, 109112 bytes).
 PDF statistics:
- 133 PDF objects out of 1000 (max. 8388607)
- 117 compressed objects within 2 object streams
- 24 named destinations out of 1000 (max. 500000)
+ 157 PDF objects out of 1000 (max. 8388607)
+ 140 compressed objects within 2 object streams
+ 26 named destinations out of 1000 (max. 500000)
  129 words of extra memory for PDF output out of 10000 (max. 10000000)
 
