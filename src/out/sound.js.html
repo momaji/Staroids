@@ -26,59 +26,65 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>
+            <pre class="prettyprint source linenums"><code>/* All coding is based off a modification of Google's Java coding guidelines to adapt it to JavaScript
+ * All variable names are made in camel case with the first letter beling lowercase
+ * Classes are similarily in camel case, but the first letter is capitalized
+ */
+
 /** Sound effect manager
  * @constructor */
 var Sound = {
-  /** Sound effect for a bullet being fired by the player */
-  LASER: new Audio("laser.wav"),
-  /** Sound effect for the death of a player, asteroid or alien */
-  EXPLOSION: new Audio("explosion.wav"),
-  /** Sound effect of the player applying brakes */
-  AIRBRAKE: new Audio("brake.wav"),
+    /** Sound effect for a bullet being fired by the player */
+    LASER: new Audio("laser.wav"),
+    /** Sound effect for the death of a player, asteroid or alien */
+    EXPLOSION: new Audio("explosion.wav"),
+    /** Sound effect of the player applying brakes */
+    AIRBRAKE: new Audio("brake.wav"),
+    /** Sound effect of the destruction of an asteroid */
+    ASTEROIDDEATH: new Audio("break.wav"),
 
-  muted: true,
-  /** Plays a specific inputted sound. The sound must be in the format 'Sound.[SOUND]'
-   * @param sound The sound that will play */
-  play: function(sound){
-      if (!this.muted){
-          sound.play();
-      }
-  },
-  /** Returns if a sound is playing
-   * @param sound - The Audio object this applies to
-   * @return {Boolean} Returns whether a sound is playing or not */
-  isPlay: function(sound){
-      return !sound.paused;
-  },
-  /** Pauses a sound
-   * @param sound The sound to pause */
-  pause: function(sound){
-      sound.paused = true;
-  },
-  /** Unpauses a sound
-   * @param sound The sound to unpause */
-  unpause: function(sound){
-      sound.paused = false;
-  },
-  /** Stops a currently playing sound
-   * @param sound The sound to stop */
-  stop: function(sound){
-      sound.pause();
-      sound.currentTime = 0;
-  },
-  /** Mutes the sound manager */
-  mute: function(){
-      this.muted = true;
-  },
-  /** Unmutes the sound manager */
-  unmute: function(){
-      this.muted = false;
-  },
-  /** Toggles the mute status of the sound manager */
-  toggle: function(){
-      this.muted = !this.muted;
-  }
+    muted: true,
+    /** Plays a specific inputted sound. The sound must be in the format 'Sound.[SOUND]'
+     * @param sound The sound that will play */
+    play: function (sound) {
+        if (!this.muted) {
+            sound.play();
+        }
+    },
+    /** Returns if a sound is playing
+     * @param sound - The Audio object this applies to
+     * @return {Boolean} Returns whether a sound is playing or not */
+    isPlay: function (sound) {
+        return !sound.paused;
+    },
+    /** Pauses a sound
+     * @param sound The sound to pause */
+    pause: function (sound) {
+        sound.paused = true;
+    },
+    /** Unpauses a sound
+     * @param sound The sound to unpause */
+    unpause: function (sound) {
+        sound.paused = false;
+    },
+    /** Stops a currently playing sound
+     * @param sound The sound to stop */
+    stop: function (sound) {
+        sound.pause();
+        sound.currentTime = 0;
+    },
+    /** Mutes the sound manager */
+    mute: function () {
+        this.muted = true;
+    },
+    /** Unmutes the sound manager */
+    unmute: function () {
+        this.muted = false;
+    },
+    /** Toggles the mute status of the sound manager */
+    toggle: function () {
+        this.muted = !this.muted;
+    }
 };
 </code></pre>
         </article>
@@ -90,13 +96,13 @@ var Sound = {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Alien.html">Alien</a></li><li><a href="AlienBullet.html">AlienBullet</a></li><li><a href="Asteroid.html">Asteroid</a></li><li><a href="Bullet.html">Bullet</a></li><li><a href="Game.html">Game</a></li><li><a href="GameObject.html">GameObject</a></li><li><a href="Key.html">Key</a></li><li><a href="Player.html">Player</a></li><li><a href="Sound.html">Sound</a></li><li><a href="StateMachine.html">StateMachine</a></li><li><a href="Text.html">Text</a></li></ul><h3>Global</h3><ul><li><a href="global.html#BULLET_EXTRA">BULLET_EXTRA</a></li><li><a href="global.html#CVS_HEIGHT">CVS_HEIGHT</a></li><li><a href="global.html#CVS_WIDTH">CVS_WIDTH</a></li><li><a href="global.html#dynamicallyLoadScript">dynamicallyLoadScript</a></li><li><a href="global.html#FPS">FPS</a></li><li><a href="global.html#KILLABLE">KILLABLE</a></li><li><a href="global.html#MAX_ACC">MAX_ACC</a></li><li><a href="global.html#MAX_ASTEROIDS">MAX_ASTEROIDS</a></li><li><a href="global.html#MAX_SPEED">MAX_SPEED</a></li><li><a href="global.html#MIN_SPEED">MIN_SPEED</a></li><li><a href="global.html#printOut">printOut</a></li><li><a href="global.html#pyth">pyth</a></li><li><a href="global.html#SHIP_BRAKE">SHIP_BRAKE</a></li><li><a href="global.html#SHIP_SIZE">SHIP_SIZE</a></li><li><a href="global.html#SHIP_THRUST">SHIP_THRUST</a></li><li><a href="global.html#TEST">TEST</a></li><li><a href="global.html#TURN_SPEED">TURN_SPEED</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Alien.html">Alien</a></li><li><a href="AlienBullet.html">AlienBullet</a></li><li><a href="Asteroid.html">Asteroid</a></li><li><a href="Bullet.html">Bullet</a></li><li><a href="Game.html">Game</a></li><li><a href="GameObject.html">GameObject</a></li><li><a href="Key.html">Key</a></li><li><a href="Player.html">Player</a></li><li><a href="Sound.html">Sound</a></li><li><a href="StateMachine.html">StateMachine</a></li><li><a href="Text.html">Text</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ALIEN_SPAWN">ALIEN_SPAWN</a></li><li><a href="global.html#BULLET_EXTRA">BULLET_EXTRA</a></li><li><a href="global.html#CVS_HEIGHT">CVS_HEIGHT</a></li><li><a href="global.html#CVS_WIDTH">CVS_WIDTH</a></li><li><a href="global.html#dynamicallyLoadScript">dynamicallyLoadScript</a></li><li><a href="global.html#FPS">FPS</a></li><li><a href="global.html#KILLABLE">KILLABLE</a></li><li><a href="global.html#MAX_ACC">MAX_ACC</a></li><li><a href="global.html#MAX_ASTEROIDS">MAX_ASTEROIDS</a></li><li><a href="global.html#MAX_SPEED">MAX_SPEED</a></li><li><a href="global.html#MIN_SPEED">MIN_SPEED</a></li><li><a href="global.html#printOut">printOut</a></li><li><a href="global.html#pyth">pyth</a></li><li><a href="global.html#SHIP_BRAKE">SHIP_BRAKE</a></li><li><a href="global.html#SHIP_SIZE">SHIP_SIZE</a></li><li><a href="global.html#SHIP_THRUST">SHIP_THRUST</a></li><li><a href="global.html#TEST">TEST</a></li><li><a href="global.html#TURN_SPEED">TURN_SPEED</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Nov 07 2018 19:59:30 GMT-0500 (Eastern Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Dec 05 2018 17:53:23 GMT-0500 (Eastern Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

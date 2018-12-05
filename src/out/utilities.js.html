@@ -26,7 +26,12 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** The current frames per second @const */
+            <pre class="prettyprint source linenums"><code>/* All coding is based off a modification of Google's Java coding guidelines to adapt it to JavaScript
+ * All variable names are made in camel case with the first letter beling lowercase
+ * Classes are similarily in camel case, but the first letter is capitalized
+ */
+
+/** The current frames per second @const */
 const FPS = 30;
 /** The ship size in pixels @const */
 const SHIP_SIZE = 30;
@@ -53,13 +58,15 @@ const KILLABLE = true;
 /** Starting amount of asteroids */
 const MAX_ASTEROIDS = 2;
 /** Staroids experimental features toggle */
-const TEST=false;
+const TEST = false;
+/** Alien Spawn time */
+const ALIEN_SPAWN = 700;
 
 /** Debugging script that allows for HTML output under the canvas (to up to five p HTML elements)
  * @param select The id of the output p HTML element
  * @param output What to set the p element to */
-printOut = function(select,output){
-  document.getElementById("output"+select.toString()).innerHTML = select.toString() + ": "+ output;
+printOut = function (select, output) {
+  document.getElementById("output" + select.toString()).innerHTML = select.toString() + ": " + output;
 };
 
 /** Variable to handle user input
@@ -70,59 +77,61 @@ var Key = {
   LEFT: 37,
   UP: 38,
   RIGHT: 39,
-  DOWN:40,
+  DOWN: 40,
   SPACE: 32,
   M: 77,
   P: 80,
   R: 82,
+  I: 73,
+  K: 75,
   ONE: 49,
   TWO: 50,
   THREE: 51,
 
   /** Returns if a specified key is pressed down or not
    * @param keyCode The JavaScript key code to check */
-  isDown: function(keyCode){
+  isDown: function (keyCode) {
     return this.pressed[keyCode];
   },
 
   /** Used by event handler to update the pressed keys
    * @param event The event that needs to be handled */
-  onKeydown: function(event){
-    this.pressed[event.keyCode]=(new Date).getTime();
+  onKeydown: function (event) {
+    this.pressed[event.keyCode] = (new Date).getTime();
   },
 
   /** Used by event handler to uodate released keys
    * @param event Released key */
-  onKeyup: function(event){
+  onKeyup: function (event) {
     delete this.pressed[event.keyCode];
   }
 };
 
 /** Represents the ability to place text onto the HTML Canvas
  * @constructor */
-Text = function(){
+Text = function () {
   /** Establishes font and context to draw to
    * @param context The screen context on which draws will be done upon
    * @param font The font that text will be drawn with */
-  this.init = function(context,font){
+  this.init = function (context, font) {
     this.context = context;
-    this.context.font=font;
+    this.context.font = font;
   };
 
   /** Places normal text on the screen
    * @param text The text to be displayed
    * @param x The x coordinate of the text
    * @param y The y coordinate of the text */
-  this.norm = function(text,x,y){
-    this.context.fillText(text,x,y);
+  this.norm = function (text, x, y) {
+    this.context.fillText(text, x, y);
   };
 
   /** Places emphasized text on the screen
    * @param text The text to be displayed
    * @param x The x coordinate of the text
    * @param y The y coordinate of the text */
-  this.emph = function(text,x,y){
-    this.context.strokeText(text,x,y);
+  this.emph = function (text, x, y) {
+    this.context.strokeText(text, x, y);
   };
 };
 
@@ -163,185 +172,247 @@ Game = {
   sound: null,
   /** A container to hold all countdowns to when a particular button can be pressed */
   counter: {
-      /** Countdown to when the game can be muted */
-      muteSound: FPS,
-      /** Countdown to when the game can be paused */
-      pauseGame: FPS
+    /** Countdown to when the game can be muted */
+    muteSound: FPS,
+    /** Countdown to when the game can be paused */
+    pauseGame: FPS
   },
   /** The current paused state */
   paused: false,
 
   /** Decrements the game's counters every frame */
-  reduceCounter: function(){
-      this.counter.muteSound -= 1;
-      this.counter.pauseGame -= 1;
+  reduceCounter: function () {
+    this.counter.muteSound -= 1;
+    this.counter.pauseGame -= 1;
   },
-  resetMute: function(){
+  resetMute: function () {
     this.counter.muteSound = FPS;
   },
-  resetPause: function(){
+  resetPause: function () {
     this.counter.pauseGame = FPS;
   },
-  
-  drawLives: function(){
+
+  drawLives: function () {
     offset = 0;
-    angle = Math.PI/2;
-    for (var i = 0; i &lt; this.getLives(); i+=1){
+    angle = Math.PI / 2;
+    for (var i = 0; i &lt; this.getLives(); i += 1) {
       this.ctx.strokeStyle = "black";
       this.ctx.lineWidth = SHIP_SIZE / 20;
       this.ctx.beginPath();
 
-      this.ctx.moveTo(// nose of the ship
-        10+offset*15 +  5 * (Math.cos(angle)) * 4/3,
-        15 -            5 * (Math.sin(angle)) * 4/3
+      this.ctx.moveTo( // nose of the ship
+        10 + offset * 15 + 5 * (Math.cos(angle)) * 4 / 3,
+        15 - 5 * (Math.sin(angle)) * 4 / 3
       );
       this.ctx.lineTo( //rear left of ship
-        10+offset*15 -  5 * (2/3*Math.cos(angle) + 2/3*Math.sin(angle)),
-        15 +            5 * (2/3*Math.sin(angle) - 2/3*Math.cos(angle))
+        10 + offset * 15 - 5 * (2 / 3 * Math.cos(angle) + 2 / 3 * Math.sin(angle)),
+        15 + 5 * (2 / 3 * Math.sin(angle) - 2 / 3 * Math.cos(angle))
       );
       this.ctx.lineTo( //rear right of ship
-        10+offset*15 -  5 * (2/3*Math.cos(angle) - 2/3*Math.sin(angle)),
-        15 +            5 * (2/3*Math.sin(angle) + 2/3*Math.cos(angle))
+        10 + offset * 15 - 5 * (2 / 3 * Math.cos(angle) - 2 / 3 * Math.sin(angle)),
+        15 + 5 * (2 / 3 * Math.sin(angle) + 2 / 3 * Math.cos(angle))
       );
 
       this.ctx.closePath();
       this.ctx.stroke();
-      offset+=1
+      offset += 1
     }
   },
-  
+
 
   //Getters
   /** Accesses the game's score
    * @return {Integer} The game's score */
-  getScore: function(){return this.score;},
+  getScore: function () {
+    return this.score;
+  },
   /** Accesses the player's lives
    * @return {Integer} The player's life count */
-  getLives: function(){return this.lives;},
+  getLives: function () {
+    return this.lives;
+  },
   /** Accesses the game's current level
    * @return {Integer} The current level */
-  getLevel: function(){return this.level;},
+  getLevel: function () {
+    return this.level;
+  },
   /** Accesses the game's current amount of large asteroids
    * @return {Integer} The amount of asteroids */
-  getAsteroids: function(){return this.asteroids;},
+  getAsteroids: function () {
+    return this.asteroids;
+  },
   /** Accesses the game canvas' width
    * @return {Integer} The canvas' width */
-  getWidth: function(){return this.canvasWidth;},
+  getWidth: function () {
+    return this.canvasWidth;
+  },
   /** Accesses the game canvas' height
    * @return {Integer} The canvas' height */
-  getHeight: function(){return this.canvasHeight;},
+  getHeight: function () {
+    return this.canvasHeight;
+  },
   /** Accesses the game's canvas
    * @return The canvas the game is being played on */
-  getCvs: function(){return this.cvs;},
+  getCvs: function () {
+    return this.cvs;
+  },
   /** Accesses the game's context
    * @return The game's context */
-  getCtx: function(){return this.ctx;},
+  getCtx: function () {
+    return this.ctx;
+  },
   /** Accesses the game's current sprites
    * @return {Array} The sprites currently in the game */
-  getSprites: function(){return this.sprites;},
+  getSprites: function () {
+    return this.sprites;
+  },
   /** Accesses the game's player
    * @return A pointer to the current player */
-  getPlayer: function(){return this.player;},
+  getPlayer: function () {
+    return this.player;
+  },
   /** Accesses the game's enemy alien
    * @return A pointer to the current alien */
-  getAlien: function(){return this.alien;},
+  getAlien: function () {
+    return this.alien;
+  },
   /** Accesses the game's text placer
    * @return A pointer to the current text generator */
-  getText: function(){return this.text;},
+  getText: function () {
+    return this.text;
+  },
   /** Accesses the game's sound manager
    * @return A pointer to the current sound manager */
-  getSound: function(){return this.sound;},
+  getSound: function () {
+    return this.sound;
+  },
   /** Accesses the game's paused state
    * @return {Boolean} The current paused state */
-  getPaused: function(){return this.paused;},
+  getPaused: function () {
+    return this.paused;
+  },
 
   //Setters
   /** Sets the game's score
    * @param {Integer} score The score to set the game to */
-  setScore: function(score){ this.score=score;},
+  setScore: function (score) {
+    this.score = score;
+  },
   /** Sets the game's life count
    * @param {Integer} life The new life count */
-  setLives: function(life){ this.lives=life;},
+  setLives: function (life) {
+    this.lives = life;
+  },
   /** Sets the game's current level
    * @param {Integer} lvl */
-  setLevel: function(lvl){ this.level=lvl;},
-  /** Sets the game's max large asteroid count
-   * @param {Integer} ast The new asteroid count */
-  setAsteroids: function(ast){ this.asteroids=ast;},
+  setLevel: function (lvl) {
+    this.level = lvl;
+  },
+  /** Sets the game's current amount of large asteroids
+   * @param {Integer} The amount of asteroids */
+  setAsteroids: function (num) {
+    this.asteroids=num;
+  },
   /** Sets the game's currently active sprite array
    * @param {Array} sprites The new active sprite array */
-  setSprites: function(sprites){ this.sprites=sprites;},
+  setSprites: function (sprites) {
+    this.sprites = sprites;
+  },
   /** Sets the game canvas' width
    * @param {Integer} width The canvas' width */
-  setWidth: function(width){ this.canvasWidth=width;},
+  setWidth: function (width) {
+    this.canvasWidth = width;
+  },
   /** Sets the game canvas' height
    * @param {Integer} height The canvas' height */
-  setHeight: function(height){ this.canvasHeight=height;},
+  setHeight: function (height) {
+    this.canvasHeight = height;
+  },
   /** Sets the game's canvas
    * @param cvs The game canvas */
-  setCvs: function(cvs){ this.cvs=cvs;},
+  setCvs: function (cvs) {
+    this.cvs = cvs;
+  },
   /** Sets the game's context
    * @param ctx The context to set */
-  setCtx: function(ctx){ this.ctx=ctx;},
+  setCtx: function (ctx) {
+    this.ctx = ctx;
+  },
   /** Sets the game's player pointer
    * @param player The new player instance */
-  setPlayer: function(player){ this.player=player;},
+  setPlayer: function (player) {
+    this.player = player;
+  },
   /** Sets the game's alien reference
    * @param alien The new alien object */
-  setAlien: function(alien){ this.alien=alien;},
+  setAlien: function (alien) {
+    this.alien = alien;
+  },
   /** Sets the game's text generator
    * @param text The text generator*/
-  setText: function(text){ this.text=text;},
+  setText: function (text) {
+    this.text = text;
+  },
   /** Sets the game's sound manager
    * @param sound The sound manager */
-  setSound: function(sound){ this.sound=sound;},
+  setSound: function (sound) {
+    this.sound = sound;
+  },
 
   //Append-ers
   /** Increases the game's current score
    * @param {Integer} amount The amount to increase the score by */
-  addScore: function (amount){ this.score+=amount;},
-  /** Increases the game's live count
-   * @param {Integer} amount The amount to increase lives by */
-  addLives: function (amount){ this.lives+=amount;},
+  addScore: function (amount) {
+    this.score += amount;
+  },
   /** Increases the game's asteroid count
    * @param {Integer} amount The amount to increase the asteroid count by */
-  addAsteroids: function (amount){ this.asteroids+=amount;},
+  addAsteroids: function (amount) {
+    this.asteroids += amount;
+  },
   /** Adds a sprite to the current active sprites
    * @param sprite The sprite to append */
-  addSprites: function(sprite){ this.getSprites().push(sprite);},
+  addSprites: function (sprite) {
+    this.getSprites().push(sprite);
+  },
 
   //Remove-ers
-  /** Decreases the game's current score
-   * @param {Integer} amount The amount to decrease the score by */
-  subScore: function (amount){ this.score-=amount;},
   /** Decrease the game's live count
    * @param {Integer} amount The amount to decrease lives by */
-  subLives: function (amount){ this.lives-=amount;},
+  subLives: function (amount) {
+    this.lives -= amount;
+  },
   /** Decreases the game's asteroid count
    * @param {Integer} amount The amount to decrease the asteroid count by */
-  subAsteroids: function (amount){ this.asteroids-=amount;},
+  subAsteroids: function (amount) {
+    this.asteroids -= amount;
+  },
   /** Removes a currently active sprite
    * @param sprite The sprite to remove */
-  subSprites: function(sprite){ this.getSprites().remove(sprite);}
+  subSprites: function (sprite) {
+    this.getSprites().remove(sprite);
+  }
 }
 
 /** Computes the hypotenous of a triangle with two sides the length of the param
  * @param {number} x - one side of the triangle
  * @param {number} y - the other side of the triangle */
-pyth = function(x, y){
-  return Math.sqrt(x*x + y*y);
+pyth = function (x, y) {
+  return Math.sqrt(x * x + y * y);
 };
 
 // from:  https://stackoverflow.com/questions/3954438/how-to-remove-item-from-array-by-value
-Array.prototype.remove = function() {
-    var what, a = arguments, L = a.length, ax;
-    while (L &amp;&amp; this.length) {
-        what = a[--L];
-        while ((ax = this.indexOf(what)) !== -1) {
-            this.splice(ax, 1);
-        }
+Array.prototype.remove = function () {
+  var what, a = arguments,
+    L = a.length,
+    ax;
+  while (L &amp;&amp; this.length) {
+    what = a[--L];
+    while ((ax = this.indexOf(what)) !== -1) {
+      this.splice(ax, 1);
     }
-    return this;
+  }
+  return this;
 };
 </code></pre>
         </article>
@@ -353,13 +424,13 @@ Array.prototype.remove = function() {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Alien.html">Alien</a></li><li><a href="AlienBullet.html">AlienBullet</a></li><li><a href="Asteroid.html">Asteroid</a></li><li><a href="Bullet.html">Bullet</a></li><li><a href="Game.html">Game</a></li><li><a href="GameObject.html">GameObject</a></li><li><a href="Key.html">Key</a></li><li><a href="Player.html">Player</a></li><li><a href="Sound.html">Sound</a></li><li><a href="StateMachine.html">StateMachine</a></li><li><a href="Text.html">Text</a></li></ul><h3>Global</h3><ul><li><a href="global.html#BULLET_EXTRA">BULLET_EXTRA</a></li><li><a href="global.html#CVS_HEIGHT">CVS_HEIGHT</a></li><li><a href="global.html#CVS_WIDTH">CVS_WIDTH</a></li><li><a href="global.html#dynamicallyLoadScript">dynamicallyLoadScript</a></li><li><a href="global.html#FPS">FPS</a></li><li><a href="global.html#KILLABLE">KILLABLE</a></li><li><a href="global.html#MAX_ACC">MAX_ACC</a></li><li><a href="global.html#MAX_ASTEROIDS">MAX_ASTEROIDS</a></li><li><a href="global.html#MAX_SPEED">MAX_SPEED</a></li><li><a href="global.html#MIN_SPEED">MIN_SPEED</a></li><li><a href="global.html#printOut">printOut</a></li><li><a href="global.html#pyth">pyth</a></li><li><a href="global.html#SHIP_BRAKE">SHIP_BRAKE</a></li><li><a href="global.html#SHIP_SIZE">SHIP_SIZE</a></li><li><a href="global.html#SHIP_THRUST">SHIP_THRUST</a></li><li><a href="global.html#TEST">TEST</a></li><li><a href="global.html#TURN_SPEED">TURN_SPEED</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Alien.html">Alien</a></li><li><a href="AlienBullet.html">AlienBullet</a></li><li><a href="Asteroid.html">Asteroid</a></li><li><a href="Bullet.html">Bullet</a></li><li><a href="Game.html">Game</a></li><li><a href="GameObject.html">GameObject</a></li><li><a href="Key.html">Key</a></li><li><a href="Player.html">Player</a></li><li><a href="Sound.html">Sound</a></li><li><a href="StateMachine.html">StateMachine</a></li><li><a href="Text.html">Text</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ALIEN_SPAWN">ALIEN_SPAWN</a></li><li><a href="global.html#BULLET_EXTRA">BULLET_EXTRA</a></li><li><a href="global.html#CVS_HEIGHT">CVS_HEIGHT</a></li><li><a href="global.html#CVS_WIDTH">CVS_WIDTH</a></li><li><a href="global.html#dynamicallyLoadScript">dynamicallyLoadScript</a></li><li><a href="global.html#FPS">FPS</a></li><li><a href="global.html#KILLABLE">KILLABLE</a></li><li><a href="global.html#MAX_ACC">MAX_ACC</a></li><li><a href="global.html#MAX_ASTEROIDS">MAX_ASTEROIDS</a></li><li><a href="global.html#MAX_SPEED">MAX_SPEED</a></li><li><a href="global.html#MIN_SPEED">MIN_SPEED</a></li><li><a href="global.html#printOut">printOut</a></li><li><a href="global.html#pyth">pyth</a></li><li><a href="global.html#SHIP_BRAKE">SHIP_BRAKE</a></li><li><a href="global.html#SHIP_SIZE">SHIP_SIZE</a></li><li><a href="global.html#SHIP_THRUST">SHIP_THRUST</a></li><li><a href="global.html#TEST">TEST</a></li><li><a href="global.html#TURN_SPEED">TURN_SPEED</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Nov 07 2018 19:59:30 GMT-0500 (Eastern Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Dec 05 2018 17:53:23 GMT-0500 (Eastern Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
