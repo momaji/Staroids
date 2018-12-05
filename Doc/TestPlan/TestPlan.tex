@@ -57,6 +57,7 @@ Nov 26 & 2.3 & Changed testing tools section\\
 \textcolor{red}{Nov 28} & 2.4 & Spell checking\\
 \textcolor{red}{Dec 1} & 2.5 & Automated testing framework references removed\\
 \textcolor{red}{Dec 1} & 2.6 & Comparison to existing implementation updated to reflect Test Report\\
+\textcolor{red}{Dec 5} & 2.7 & moved sound tests\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -278,6 +279,62 @@ Output: Pre-game State
 How test will be performed: Set up the game in the post-game state and then press the "R" key and check if the new state after the key has been pressed is the pre-game state. It will also be tested that if any other keys are pressed no changes to the game state or game will be performed.
 \end{enumerate}
 
+%moved sound tests
+\subsection{Sound Tests}
+
+\paragraph{Sounds}
+
+\begin{enumerate}
+\item{Brake sound\\}
+
+Type: Functional dynamic manual test
+
+Initial State: Playing
+
+Input: Brake button pressed
+
+Output: Brake sound plays through speakers
+
+How test will be performed: While the game is in the player state the down key will be pushed and it will be monitored to see if the break sound is heard.
+
+\item{Fire sound\\}
+
+Type: Functional dynamic manual test
+
+Initial State: Playing
+
+Input: Fire button pressed
+
+Output: Fire sound through speakers
+
+How test will be performed: While the game is in the player state the spacebar key will be pushed and it will be monitored to see if the fire sound is heard.
+
+\item{Collision sound\\}
+
+Type: Functional dynamic manual test
+
+Initial State: Playing
+
+Input: Collision between player and asteroid
+
+Output: Collision sound will be played through speakers
+
+How test will be performed: While the game is in the player state collision will be simulated and monitored to see if the fire sound is heard.
+
+\item{Mute sound\\}
+
+Type: Functional dynamic manual test
+
+Initial State: Playing with mute on
+
+Input: All sound actions will be simulated
+
+Output: Animations still show on screen but no sounds company them
+
+How test will be performed: The three sound actions above will be simulated and the volume of the computer will be monitored to make sure that no sounds are being produced.
+
+\end{enumerate}
+
 
 \subsection{Tests for Nonfunctional Requirements}
 
@@ -413,61 +470,6 @@ Input/Condition: An outside person
 Output/Result: The outsider playing through Staroids a few times
 
 How test will be performed: A friend or colleague will open Staroids with only the knowledge of what they can do in the game. After a few plays, the person is informed about all the functions of Staroids and how to perform them. The person then proceeds to play a few more rounds. After they are finished playing, they will be asked some \hyperref[interview:questions]{questions} with regards to the game's usability and playability.
-
-\end{enumerate}
-
-\subsection{Sound Tests}
-
-\paragraph{Sounds}
-
-\begin{enumerate}
-\item{Brake sound\\}
-
-Type: Functional dynamic manual test
-
-Initial State: Playing
-
-Input: Brake button pressed
-
-Output: Brake sound plays through speakers
-
-How test will be performed: While the game is in the player state the down key will be pushed and it will be monitored to see if the break sound is heard.
-
-\item{Fire sound\\}
-
-Type: Functional dynamic manual test
-
-Initial State: Playing
-
-Input: Fire button pressed
-
-Output: Fire sound through speakers
-
-How test will be performed: While the game is in the player state the spacebar key will be pushed and it will be monitored to see if the fire sound is heard.
-
-\item{Collision sound\\}
-
-Type: Functional dynamic manual test
-
-Initial State: Playing
-
-Input: Collision between player and asteroid
-
-Output: Collision sound will be played through speakers
-
-How test will be performed: While the game is in the player state collision will be simulated and monitored to see if the fire sound is heard.
-
-\item{Mute sound\\}
-
-Type: Functional dynamic manual test
-
-Initial State: Playing with mute on
-
-Input: All sound actions will be simulated
-
-Output: Animations still show on screen but no sounds company them
-
-How test will be performed: The three sound actions above will be simulated and the volume of the computer will be monitored to make sure that no sounds are being produced.
 
 \end{enumerate}
 
