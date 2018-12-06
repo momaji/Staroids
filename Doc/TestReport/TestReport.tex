@@ -57,6 +57,7 @@ Nov 28 & 0.35 & Added last non functionals\\
 Nov 28 & 0.35 & Generic edits\\
 Nov 28 & 0.4 & Added sound tests\\
 Dec 5 & 0.45 & Traceability matrix for test cases to requirements\\
+Dec 5 & 0.45 & Traceability matrix for test cases to modules\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -68,13 +69,13 @@ Dec 5 & 0.45 & Traceability matrix for test cases to requirements\\
 This document is meant to show \\
 
 \section{Functional Requirements Evaluation}
-\subsection{Loading into pre-game}
+\subsection{TC1: Loading into pre-game}
 To test this functional requirement, we must verify that the game always starts in pre-game state.
 This can be verified by manual code inspection, as upon start-up,
 the code has no option but to begin in the pre-game phase. To see this,
  look at the "start" function in Staroids/src/gamestate.js.
  It sets the state to "pregame" on start, which cannot be avoided.
-\subsection{Starting game}
+\subsection{TC2: Starting game}
 To test this functional requirement, we must verify that for all Staroids game in the "pregame" state,
 they will be moved from the pregame state to the playing state within one second after pressing the spacebar.
 This can be verified by code inspection as well as manual testing.
@@ -83,14 +84,14 @@ The pregame state is also restrictive to what states can be reached from the pre
 so it has to move into the playing state within a second.
 This has also been the subject of extensive testing by many people,
 and all empirical evidence points to this behavior occurring consistently.
-\subsection{Prohibit game start on pause}
+\subsection{TC3: Prohibit game start on pause}
 To test this functional requirement, we must verify that when the game is paused,
 all game functions must stop, all inputs must not be accepted (except un-pause)
 and all game variables must be preserved.
 To test this, we can use a combination of code inspection,
 to verify that the paused state does not allow certain inputs and that it pauses the game state.
 This can also be verified by the teams testing, which shows that this behavior is consistent as well.
-\subsection{Permitting pause}
+\subsection{TC4: Permitting pause}
 To test this functional requirement, we must verify that the game will accept the pause input
 while the game is in a playing state.
 This can be verified by code inspection and manual bug testing.
@@ -99,53 +100,50 @@ nothing will obstruct the input or the game from changing state to paused.
 To test this, we tested how the game would respond to a series of pause commands during
 different times during the game execution, and from this testing,
 it seems like the pause commands works regardless of other situations.
-\subsection{Displaying player information above all}
+\subsection{TC5: Displaying player information above all}
 To test this functional requirement we must verify that the game always displays accurate user information, as well as verfying that the player info is drawn above all over graphical objects. To do this, we can use code inspection and manual testing. The code itself shows that the game info is displayed above all, as it drawn on top of all asteroids, players and bullets. Manual testing also confirms that this is held, as observation has shown that all objects are drawn under the player information.
-\subsection{Player firing and alien destruction}
+\subsection{TC6: Player firing and alien destruction}
 To test this functional requirement, we must verify that the game will remove the alien object from the screen once a player bullet collides with it. This can be verified by code inspection and manual testing. The code itself will show that there is a case in the alien object for when it occupies the same area on the screen as the player bullet, and in this case it set's its own state to die and removes itself from the sprites array. Manual testing also confirms this by seeing the alien removed from the screen and game. \\
-\subsection{Asteroid collision with player}
+\subsection{TC7: Asteroid collision with player}
 To test this functional requirement we must verify that when an asteroid collides with a player, both the player and the asteroid is destroyed. Asteroids are perfect circles, so checking collision is easy, as you can simply check the distance between center points, and if it is less than the combined radius of both objects, then you know that they have collided. This has been experimental verified quite intensely as all meaningful player actions use this code quite extensively.\\
-\subsection{Asteroid separation}
+\subsection{TC8: Asteroid separation}
 To test this functional requirement we must verify that any asteroid (that is not of the smallest size) that is destroyed breaks into 3 smaller asteroids, with random trajectories. This can be verified with code inspection, as collision checks the size of the asteroid before breaking, as well as manual testing, as in all the player testing we have had on the latest version, we have experienced no errors with asteroid separation.
-\subsection{Withholding player spawn}
+\subsection{TC9: Withholding player spawn}
 To test this functional requirement, we must verify that the player will not respawn if their is an adversary within 100 pixels of the spawn point. This can be verified by code inspection as well as manual testing. The code itself uses a modified version of the collision to test for this, so as that has been extensively tested, we know that the functionality is okay, so to test the logic, the team inspected the code, and made sure that all flags are correct and placed in the right spots.
-\subsection{Post-game}
+\subsection{TC 10: Post-game}
 To test this functional requirement, we must verify that once the player is dead, the game stops accepting input. Asteroids and aliens will still spawn, making the game more like a screensaver. We can verify that this occurs by code inspection by checking the post game state of the FSM. It shows that player inputs will no longer have
+\subsubsection{TC11: Brake Sound}
+Through playing Staroids numerous times and code inspection, it has been verified that the brake sound will only play when the user is applying the brakes. No Staroids edits were made because of the results of the test.
+\subsubsection{TC12: Fire Sound}
+Through playing Staroids numerous times and code inspection, it has been verified that the fire sound will only play when the user presses the fire button and a bullet is produced by the player's ship. No Staroids edits were made because of the results of the test.
+\subsubsection{TC13: Collision Sound}
+Through playing Staroids numerous times and code inspection, it has been verified that the collision sound will only play when asteroids collide with the player's and alien's ship. It is also played when an asteroid is destroyed, like expected. No Staroids edits were made because of the results of the test.
+\subsubsection{TC14: Mute Sound}
+Through playing Staroids and code inspection, the mute functionality was verified to be usable in any state at any time and will turn off game sounds globally. No Staroids edits were made because of the results of the test.
 
 \section{Nonfunctional Requirements Evaluation}
 
 \subsection{Usability}
 
-\subsubsection{Player test}
+\subsubsection{TC15: Player test}
 To test usability, playability and feel of the game, the Staroids team recruited ten outside people to play Staroids and give feedback. Several questions were asked of the test players, particularly about the feel of the game and how it played. The most common feedback we received related to the alien and the appearance of the ship. The alien was annoying and not a challenge to the play testers, so his spawn chance and times were reduced and he was made easier to hit. When the testers faced the new alien, there were much fewer complaints about him. The second large complaint from testers was the appearance of the ship. The ship, alien and asteroids used to be all white filled shapes with a black border. Testers often could not tell the direction the ship was facing, or even which object was their ship. To fix this, the ship was made narrower which helped show the front of the ship and the player ship and alien were made into solid black shapes so they are visible at a glance. The alien bullets and player bullets were more differentiated due to feedback as well.\\
 
-\subsubsection{Browser test}
+\subsubsection{TC16: Browser test}
 To test Staroids, the Staroids team used all major browsers for development and testing in an effort to notice Staroids bugs and issues that were specific to one browser. None were found.\\
 
 \subsection{Informational}
 
-\subsubsection{State Change}
+\subsubsection{TC17: State Change}
 The Staroids state transitions are programmed into the game, so through code inspection and testing, all state transitions were tested. An error involving the game starting while paused was found through this test.
 
 \subsection{Internal}
 
-\subsubsection{JSDoc Documentation Inspection}
+\subsubsection{TC18: JSDoc Documentation Inspection}
 Through code inspection it was determined that all functions and classes have been adequately for JSDoc and the comments follow the syntax of JSDoc. All code was also verified that it belonged in the most appropriate module. The only changes brought by this test were the correction of improper JSDoc syntax.
-\subsubsection{JSDoc Documentation Compilation}
+\subsubsection{TC19: JSDoc Documentation Compilation}
 Code inspection and referring to the JSDoc Documentation Guides allowed for the JSDoc program to correctly run on the Staroids source code and produce proper documentation. The only changes brought by this test were the correction of improper JSDoc syntax.
-\subsubsection{Complicated Function Documentation Inspection}
+\subsubsection{TC20: Complicated Function Documentation Inspection}
 An outside programmer was brought in to look at the source code of Staroids and ensured that the code was either self explanatory or sufficient comments were used
-
-\subsection{Sound}
-
-\subsubsection{Brake Sound}
-Through playing Staroids numerous times and code inspection, it has been verified that the brake sound will only play when the user is applying the brakes. No Staroids edits were made because of the results of the test.
-\subsubsection{Fire Sound}
-Through playing Staroids numerous times and code inspection, it has been verified that the fire sound will only play when the user presses the fire button and a bullet is produced by the player's ship. No Staroids edits were made because of the results of the test.
-\subsubsection{Collision Sound}
-Through playing Staroids numerous times and code inspection, it has been verified that the collision sound will only play when asteroids collide with the player's and alien's ship. It is also played when an asteroid is destroyed, like expected. No Staroids edits were made because of the results of the test.
-\subsubsection{Mute Sound}
-Through playing Staroids and code inspection, the mute functionality was verified to be usable in any state at any time and will turn off game sounds globally. No Staroids edits were made because of the results of the test.
 
 \section{Comparison to Existing Implementation}
 
