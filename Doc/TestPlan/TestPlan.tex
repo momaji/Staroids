@@ -141,300 +141,283 @@ See \href{https://gitlab.cas.mcmaster.ca/nagyj2/Staroids/tree/master/ProjectSche
 
 \subsubsection{States}
 
-\paragraph{Pre-game State Tests}
+\paragraph{Pre-game State Tests\\\\}
 
-\begin{enumerate}
-
-\item{Loading into pre-game\\}
+\textbf{TC1:}Loading into pre-game\\
 %number tests
 %create tests that are meant to fail
 
-Type: Functional dynamic manual test
+Type: Functional dynamic manual test\\
 
-Initial State: Closed
+Initial State: Closed\\
 
-Input: Opening file
+Input: Opening file\\
 
-Output: In pre-game state
+Output: In pre-game state\\
 
-How test will be performed: On game start, the game should be in the pre-game state. This can be accomplished by an assertion as part of the game set-up that states that the current game state is the pre-game.
+How test will be performed: On game start, the game should be in the pre-game state. This can be accomplished by an assertion as part of the game set-up that states that the current game state is the pre-game.\\
 
-\item{Starting game\\}
+\textbf{TC2:}Starting game\\
 
-Type: Functional dynamic manual test
+Type: Functional dynamic manual test\\
 
-Initial State: Pre-game state
+Initial State: Pre-game state\\
 
-Input: Spacebar pressed
+Input: Spacebar pressed\\
 
-Output: In playing state
+Output: In playing state\\
 
-How test will be performed: Once the pre-game screen is loaded, the spacebar registers as pressed and Staroids should enter the playing state. Staroids is allowed to go through a few intermediate states but must end on the playing state within one second.
+How test will be performed: Once the pre-game screen is loaded, the spacebar registers as pressed and Staroids should enter the playing state. Staroids is allowed to go through a few intermediate states but must end on the playing state within one second.\\
 
-\item{Prohibit game start on pause\\}
+\textbf{TC3:}Prohibit game start on pause\\
 
-Type: Functional dynamic \textcolor{red}{manual} test
+Type: Functional dynamic \textcolor{red}{manual} test\\
 
-Initial State: Pre-game state
+Initial State: Pre-game state\\
 
-Input: Pause button and spacebar pressed
+Input: Pause button and spacebar pressed\\
 
-Output: Paused state
+Output: Paused state\\
 
-How test will be performed: In the pre-game state, \textcolor{red}{the game will be paused and then the start game button will be pressed}. The paused state will prohibit progression from the pre-game state to the playing state when the spacebar is pressed. \textcolor{red}{Upon un-pausing, the game shall go back to the pre-game state.}
+How test will be performed: In the pre-game state, \textcolor{red}{the game will be paused and then the start game button will be pressed}. The paused state will prohibit progression from the pre-game state to the playing state when the spacebar is pressed. \textcolor{red}{Upon un-pausing, the game shall go back to the pre-game state.}\\
 
-\end{enumerate}
+%\end{enumerate}
 
-\paragraph{Playing State Tests}
+\paragraph{Playing State Tests\\\\}
 
-\begin{enumerate}
+\textbf{TC4:}Permitting pause\\
 
-\item{Permitting pause\\}
+Type: Functional dynamic \textcolor{red}{manual} test\\
 
-Type: Functional dynamic \textcolor{red}{manual} test
+Initial State: Playing State\\
 
-Initial State: Playing State
+Input: Pause button pressed\\
 
-Input: Pause button pressed
+Output: Paused state\\
 
-Output: Paused state
+How test will be performed: When the spacebar is \textcolor{red}{pressed}, the game shall enter the paused state. Upon \textcolor{red}{pressing} the spacebar again, the game shall return to the playing state.\\
 
-How test will be performed: When the spacebar is \textcolor{red}{pressed}, the game shall enter the paused state. Upon \textcolor{red}{pressing} the spacebar again, the game shall return to the playing state.
+\textbf{TC5:}Displaying player information above all\\
 
-\item{Displaying player information above all\\}
+Type: Structural static manual test\\
 
-Type: Structural static manual test
+Initial State: None\\
 
-Initial State: None
+Input: None\\
 
-Input: None
+Output: None\\
 
-Output: None
+How test will be performed: For the player information to be displayed above all other sprites, those sprites need to be drawn last. Inspecting the code will ensure that the player, score and lives are drawn above all other sprites.\\
 
-How test will be performed: For the player information to be displayed above all other sprites, those sprites need to be drawn last. Inspecting the code will ensure that the player, score and lives are drawn above all other sprites.
+\textbf{TC6:}Player firing and alien destruction\\
 
-\item{Player firing and alien destruction\\}
+Type: Functional dynamic \textcolor{red}{manual} test\\
 
-Type: Functional dynamic \textcolor{red}{manual} test
+Initial State: Playing State\\
 
-Initial State: Playing State
+Input: Player object, alien object, and fire button pressed\\
 
-Input: Player object, alien object, and fire button pressed
+Output: Bullet generation, bullet movement, alien destruction\\
 
-Output: Bullet generation, bullet movement, alien destruction
+How test will be performed: \textcolor{red}{The player is maneuvered to face a alien and upon pressing the spacebar, a bullet shall originate from the forward tip of the ship and proceed towards the alien.} The bullet speed is derived from the player ship speed plus a constant. \textcolor{red}{When hit,} the alien death \textcolor{red}{action} should trigger, \textcolor{red}{which is visibly evident from the setting of the alien's death flag.}\\
 
-How test will be performed: \textcolor{red}{The player is maneuvered to face a alien and upon pressing the spacebar, a bullet shall originate from the forward tip of the ship and proceed towards the alien.} The bullet speed is derived from the player ship speed plus a constant. \textcolor{red}{When hit,} the alien death \textcolor{red}{action} should trigger, \textcolor{red}{which is visibly evident from the setting of the alien's death flag.}
+\textbf{TC7:}Asteroid collision with player\\
 
-\item{Asteroid collision with player\\}
+Type: Functional dynamic \textcolor{red}{manual} test\\
 
-Type: Functional dynamic \textcolor{red}{manual} test
+Initial State: Playing State\\
 
-Initial State: Playing State
+Input: Player object and asteroid object\\
 
-Input: Player object and asteroid object
+Output: Player loss of life, player location reset, asteroid destruction, asteroid separation, Post-game state (if number of lives == 0)\\
 
-Output: Player loss of life, player location reset, asteroid destruction, asteroid separation, Post-game state (if number of lives == 0)
+How test will be performed: \textcolor{red}{The player is maneuvered to come into contact with an asteroid.} When the asteroid collides with the player, both the player and asteroid trigger their death functions, setting flags to register their deaths. On player death, the lives count is decreased which can be compared to the initial value. The asteroid child array will also increase which can once again be compared to the initial value.\\
 
-How test will be performed: \textcolor{red}{The player is maneuvered to come into contact with an asteroid.} When the asteroid collides with the player, both the player and asteroid trigger their death functions, setting flags to register their deaths. On player death, the lives count is decreased which can be compared to the initial value. The asteroid child array will also increase which can once again be compared to the initial value.
+\textbf{TC8:}Asteroid separation\\
 
-\item{Asteroid separation\\}
+Type: Functional dynamic \textcolor{red}{manual} test\\
 
-Type: Functional dynamic \textcolor{red}{manual} test
+Initial State: Playing State\\
 
-Initial State: Playing State
+Input: Player and Asteroid object\\
 
-Input: Player and Asteroid object
+Output: Production of child asteroids\\
 
-Output: Production of child asteroids
+How test will be performed: \textcolor{red}{Starting with a large asteroid and a player, the player shoots a bullet at the asteroid. Upon the asteroid getting hit, the} asteroid itself should become disabled and should spawn 3 children asteroids. By \textcolor{red}{shooting the children, those child asteroids get disabled and spawn another set of children. Once this last set of children is destroyed, the large asteroid object will count as dead (since the main object and all sub-objects are dead) and this will decrement the alive asteroid counter.}\\
 
-How test will be performed: \textcolor{red}{Starting with a large asteroid and a player, the player shoots a bullet at the asteroid. Upon the asteroid getting hit, the} asteroid itself should become disabled and should spawn 3 children asteroids. By \textcolor{red}{shooting the children, those child asteroids get disabled and spawn another set of children. Once this last set of children is destroyed, the large asteroid object will count as dead (since the main object and all sub-objects are dead) and this will decrement the alive asteroid counter.}
+\textbf{TC9:}Withholding player spawn\\
 
-\item{Withholding player spawn\\}
+Type: Functional dynamic \textcolor{red}{manual} test\\
 
-Type: Functional dynamic \textcolor{red}{manual} test
+Initial State: Pre-game state\\
 
-Initial State: Pre-game state
+Input: Spacebar pressed\\
 
-Input: Spacebar pressed
+Output: Delayed player spawning\\
 
-Output: Delayed player spawning
+How test will be performed: When the player changes from the pre-game state to the playing state, the player should not spawn if an asteroid is within 100 pixels. If there is, the game shall wait for the asteroid to pass and then spawn the player\\
 
-How test will be performed: When the player changes from the pre-game state to the playing state, the player should not spawn if an asteroid is within 100 pixels. If there is, the game shall wait for the asteroid to pass and then spawn the player
 
-\end{enumerate}
+\paragraph{Post-game State Tests\\\\}
 
-\paragraph{Post-game State Tests}
-\begin{enumerate}
+\textbf{TC10:}Post-game\\
 
-\item{Post-game\\}
+Type: Functional dynamic manual test\\
 
-Type: Functional dynamic manual test
+Initial State: Post-game State\\
 
-Initial State: Post-game State
+Input: The restart game button "R" is pressed\\
 
-Input: The restart game button "R" is pressed
+Output: Pre-game State\\
 
-Output: Pre-game State
-
-How test will be performed: Set up the game in the post-game state and then press the "R" key and check if the new state after the key has been pressed is the pre-game state. It will also be tested that if any other keys are pressed no changes to the game state or game will be performed.
-\end{enumerate}
+How test will be performed: Set up the game in the post-game state and then press the "R" key and check if the new state after the key has been pressed is the pre-game state. It will also be tested that if any other keys are pressed no changes to the game state or game will be performed.\\
 
 %moved sound tests
 \subsection{Sound Tests}
 
-\paragraph{Sounds}
+\paragraph{Sounds\\\\}
 
-\begin{enumerate}
-\item{Brake sound\\}
+\textbf{TC11:}Brake sound\\
 
-Type: Functional dynamic manual test
+Type: Functional dynamic manual test\\
 
-Initial State: Playing
+Initial State: Playing\\
 
-Input: Brake button pressed
+Input: Brake button pressed\\
 
-Output: Brake sound plays through speakers
+Output: Brake sound plays through speakers\\
 
-How test will be performed: While the game is in the player state the down key will be pushed and it will be monitored to see if the break sound is heard.
+How test will be performed: While the game is in the player state the down key will be pushed and it will be monitored to see if the break sound is heard.\\
 
-\item{Fire sound\\}
+\textbf{TC12:}Fire sound\\
 
-Type: Functional dynamic manual test
+Type: Functional dynamic manual test\\
 
-Initial State: Playing
+Initial State: Playing\\
 
-Input: Fire button pressed
+Input: Fire button pressed\\
 
-Output: Fire sound through speakers
+Output: Fire sound through speakers\\
 
-How test will be performed: While the game is in the player state the spacebar key will be pushed and it will be monitored to see if the fire sound is heard.
+How test will be performed: While the game is in the player state the spacebar key will be pushed and it will be monitored to see if the fire sound is heard.\\
 
-\item{Collision sound\\}
+\textbf{TC13:}Collision sound\\
 
-Type: Functional dynamic manual test
+Type: Functional dynamic manual test\\
 
-Initial State: Playing
+Initial State: Playing\\
 
-Input: Collision between player and asteroid
+Input: Collision between player and asteroid\\
 
-Output: Collision sound will be played through speakers
+Output: Collision sound will be played through speakers\\
 
-How test will be performed: While the game is in the player state collision will be simulated and monitored to see if the fire sound is heard.
+How test will be performed: While the game is in the player state collision will be simulated and monitored to see if the fire sound is heard.\\
 
-\item{Mute sound\\}
+\textbf{TC14:}Mute sound\\
 
-Type: Functional dynamic manual test
+Type: Functional dynamic manual test\\
 
-Initial State: Playing with mute on
+Initial State: Playing with mute on\\
 
-Input: All sound actions will be simulated
+Input: All sound actions will be simulated\\
 
-Output: Animations still show on screen but no sounds company them
+Output: Animations still show on screen but no sounds company them\\
 
-How test will be performed: The three sound actions above will be simulated and the volume of the computer will be monitored to make sure that no sounds are being produced.
-
-\end{enumerate}
+How test will be performed: The three sound actions above will be simulated and the volume of the computer will be monitored to make sure that no sounds are being produced.\\
 
 
 \subsection{Tests for Nonfunctional Requirements}
 
 \subsubsection{Usability and Style}
 
-\paragraph{Player Test}
+\paragraph{Player Test\\\\}
 
-\begin{enumerate}
 
-\item{Player test\\}
+\textbf{TC15:}Player test\\
 %All look and feel requirements
 %readable text
 %good performance
 %strain on hand
 
-Type: Functional dynamic manual test
+Type: Functional dynamic manual test\\
 
-Initial State: pre-game state
+Initial State: pre-game state\\
 
-Input/Condition: An outside person
+Input/Condition: An outside person\\
 
-Output/Result: The outsider playing through Staroids a few times
+Output/Result: The outsider playing through Staroids a few times\\
 
-How test will be performed: A friend or colleague will open Staroids with only the knowledge of what they can do in the game. After a few plays, the person is informed about all the functions of Staroids and how to perform them. The person then proceeds to play a few more rounds. After they are finished playing, they will be asked some \hyperref[interview:questions]{questions} with regards to the game's usability and playability.
+How test will be performed: A friend or colleague will open Staroids with only the knowledge of what they can do in the game. After a few plays, the person is informed about all the functions of Staroids and how to perform them. The person then proceeds to play a few more rounds. After they are finished playing, they will be asked some \hyperref[interview:questions]{questions} with regards to the game's usability and playability.\\
 
-\item{Browsers\\}
+\textbf{TC16:}Browsers\\
 
-Type: Functional dynamic manual test
+Type: Functional dynamic manual test\\
 
-Initial State: Closed
+Initial State: Closed\\
 
-Input/Condition: A developer and all major web browsers
+Input/Condition: A developer and all major web browsers\\
 
-Output/Result: An operational Staroids instance
+Output/Result: An operational Staroids instance\\
 
-How test will be performed: Staroids is to run on any major browser, so a developer will open Staroids using all major browsers and play through a few games to ensure that the game is functioning as expected. There should be no functional differences between the browsers, but performance is allowed to vary. The developer may judge whether a possible performance decrease is unacceptable.
+How test will be performed: Staroids is to run on any major browser, so a developer will open Staroids using all major browsers and play through a few games to ensure that the game is functioning as expected. There should be no functional differences between the browsers, but performance is allowed to vary. The developer may judge whether a possible performance decrease is unacceptable.\\
 
-\end{enumerate}
 
-\paragraph{Informational Tests}
+\paragraph{Informational Tests\\\\}
 
-\begin{enumerate}
 
-\item{State change\\}
+\textbf{TC17:}State change\\
 
-Type: Functional dynamic manual test
+Type: Functional dynamic manual test\\
 
-Initial State: pre-game state
+Initial State: pre-game state\\
 
-Input/Condition: A person to advance the game states
+Input/Condition: A person to advance the game states\\
 
-Output/Result: Insurance that any relevant game prompts are shown to the user
+Output/Result: Insurance that any relevant game prompts are shown to the user\\
 
-How test will be performed: A member of the Staroids team will start Staroids and advance through the game states manually to ensure that all states have on screen prompts to inform the user about their input options. In the pre-game state, the ship controls, pause button and start button must all be shown to the user on screen. The playing state does not need to show anything. The post-game state must show the restart button and lastly the pause state must show the un-pause button.
+How test will be performed: A member of the Staroids team will start Staroids and advance through the game states manually to ensure that all states have on screen prompts to inform the user about their input options. In the pre-game state, the ship controls, pause button and start button must all be shown to the user on screen. The playing state does not need to show anything. The post-game state must show the restart button and lastly the pause state must show the un-pause button.\\
 
-\end{enumerate}
 
 \subsubsection{Internal Requirements}
 
-\paragraph{Documentation}
+\paragraph{Documentation\\\\}
 
-\begin{enumerate}
+\textbf{TC18:}JSDoc Documentation Inspection\\
 
-\item{JSDoc Documentation Inspection\\}
+Type: Structural static manual test\\
 
-Type: Structural static manual test
+Initial State: Closed game\\
 
-Initial State: Closed game
+Input/Condition: Staroids source code and an inspector\\
 
-Input/Condition: Staroids source code and an inspector
+Output/Result: Verification of proper JSDoc documentation\\
 
-Output/Result: Verification of proper JSDoc documentation
+How test will be performed: To ensure all functions and classes are properly commented in accordance to JSDoc, a developer of Staroids will need to inspect the Staroids source code to ensure that all functions are documented and documented correctly. The developer will also ensure that all the modules contain only elements that are related to the game's operation.\\
 
-How test will be performed: To ensure all functions and classes are properly commented in accordance to JSDoc, a developer of Staroids will need to inspect the Staroids source code to ensure that all functions are documented and documented correctly. The developer will also ensure that all the modules contain only elements that are related to the game's operation.
+\textbf{TC19:}JSDoc Documentation Compilation\\
 
-\item{JSDoc Documentation Compilation\\}
+Type: Structural static automatic test\\
 
-Type: Structural static automatic test
+Initial State: Closed game\\
 
-Initial State: Closed game
+Input/Condition: JSDoc executable and the Staroids modules\\
 
-Input/Condition: JSDoc executable and the Staroids modules
+Output/Result: Properly created JSDoc documentation\\
 
-Output/Result: Properly created JSDoc documentation
+How test will be performed: In addition to an inspector looking over the JSDoc comments, the executable should also compile proper documentation based on the JSDoc commenting within the source code.\\
 
-How test will be performed: In addition to an inspector looking over the JSDoc comments, the executable should also compile proper documentation based on the JSDoc commenting within the source code.
+\textbf{TC20:}Complicated Function Documentation Inspection\\
 
-\item{Complicated Function Documentation Inspection\\}
+Type: Structural static manual test\\
 
-Type: Structural static manual test
+Initial State: Closed game\\
 
-Initial State: Closed game
+Input/Condition: Staroids source code and an inspector\\
 
-Input/Condition: Staroids source code and an inspector
+Output/Result: Verification of commented code\\
 
-Output/Result: Verification of commented code
+How test will be performed: Similar to the JSDoc commenting inspection, all complicated pieces of code must be commented to help a reader understand what a particular piece of code is doing. An external programmer can also be brought in to ensure that the code sufficiently commented to allow an outside user to understand what is occurring.\\\\
 
-How test will be performed: Similar to the JSDoc commenting inspection, all complicated pieces of code must be commented to help a reader understand what a particular piece of code is doing. An external programmer can also be brought in to ensure that the code sufficiently commented to allow an outside user to understand what is occurring.
-
-\end{enumerate}
 
 \subsection{Traceability Between Test Cases and Requirements}
 All test cases in this document have been established based on the requirements stated in the \href{https://gitlab.cas.mcmaster.ca/nagyj2/Staroids/blob/master/Doc/SRS/SRS.pdf}{SRS} document. Each individual test case was designed based on proving at least one requirement from there.
@@ -443,35 +426,32 @@ All test cases in this document have been established based on the requirements 
 
 \subsection{Usability}
 
-\paragraph{Browser test}
+\paragraph{Browser test\\\\}
 
-\begin{enumerate}
+\textbf{TC16:}Browsers\\
 
-\item{Playability on all major browsers\\}
+Type: Functional dynamic manual test\\
 
-Type: Functional dynamic manual test
+Initial State: Closed\\
 
-Initial State: None (Game closed)
+Input/Condition: A developer and all major web browsers\\
 
-Input: Open game with browser
+Output/Result: An operational Staroids instance\\
 
-Output: Game runs in pregame state on browser
+How test will be performed: Staroids is to run on any major browser, so a developer will open Staroids using all major browsers and play through a few games to ensure that the game is functioning as expected. There should be no functional differences between the browsers, but performance is allowed to vary. The developer may judge whether a possible performance decrease is unacceptable.\\
 
-How test will be performed: The test will be performed by opening the game with the specified browsers (Edge, Firefox, Safari, Chrome) and looking to see if the pregame screen shows up.
+\textbf{TC15:}Player test\\
 
-\item{Player test\\}
+Type: Functional dynamic manual test\\
 
-Type: Functional dynamic manual test
-
-Initial State: pre-game state
+Initial State: pre-game state\\
 
 Input/Condition: An outside person
 
-Output/Result: The outsider playing through Staroids a few times
+Output/Result: The outsider playing through Staroids a few times\\
 
-How test will be performed: A friend or colleague will open Staroids with only the knowledge of what they can do in the game. After a few plays, the person is informed about all the functions of Staroids and how to perform them. The person then proceeds to play a few more rounds. After they are finished playing, they will be asked some \hyperref[interview:questions]{questions} with regards to the game's usability and playability.
+How test will be performed: A friend or colleague will open Staroids with only the knowledge of what they can do in the game. After a few plays, the person is informed about all the functions of Staroids and how to perform them. The person then proceeds to play a few more rounds. After they are finished playing, they will be asked some \hyperref[interview:questions]{questions} with regards to the game's usability and playability.\\
 
-\end{enumerate}
 
 \section{Comparison to Existing Implementation}
 \sout{Staroids is quite comparable to the original implementation of HTML5-Asteroids. Both have movement of the player ship and asteroids and asteroids explode into smaller asteroids when destroyed. The level mechanic of respawning asteroids is also working. The major differences between Staroids and the original is the absence of the alien and scoring. These are planned to be implemented into Staroids within a week of the Test Plan's creation. Staroids also has one feature that the original is lacking is the ability for the player to break and come to a stop.}
