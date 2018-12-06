@@ -200,8 +200,41 @@ TC20 & NF13, NF14, NF16, NF17, NF18, NF19\\
 \end{table}
 
 \section{Trace to Modules}
-%put in diagram from testplan/mis
-Please Refer to \href{https://gitlab.cas.mcmaster.ca/nagyj2/Staroids/blob/master/Doc/Design/MG/MG.pdf}{Module Guide} section 6
+
+\begin{table}[H]
+\centering
+\begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
+\toprule
+\textbf{Test Case} & \textbf{Module}\\
+\midrule
+%Functional Focus
+TC1  & M1, M2, M3, M6\\
+TC2  & M3, M6\\
+TC3  & M3, M6\\
+TC4  & M3, M6\\
+TC5  & M5, M6\\
+TC6  & M5\\
+TC7  & M5\\
+TC8  & M5\\
+TC9  & M6\\
+TC10 & M3, M6\\
+TC11 & M4\\
+TC12 & M4\\
+TC13 & M4\\
+TC14 & M4\\
+%Non-Functional and Proof of Concept Focus
+TC15 & M1, M2, M3, M4, M5, M6\\
+TC16 & M1, M2\\
+TC17 & M6\\
+TC18 & M2, M3, M4, M5, M6\\
+TC19 & M2, M3, M4, M5, M6\\
+TC20 & M2, M3, M4, M5, M6\\
+
+\bottomrule
+\end{tabular}
+\caption{Trace Between Test Cases and Module}
+\end{table}
+
 \section{Code Coverage Metrics}
 No formal code coverage software was used for this project based on the decision made by the Staroids team to move away from automated testing as explained above and rely strictly on manual testing. However throughout the development of Staroids, and specifically during the MIS portion, the Staroids team went through all individual functions, variables, objects and methods and either documented them if they were used or deleted them if they were not used. This helped increase the percentage of code covered in during testing. Also in conjunction with the MIS, each module method was determined to be a part of any particular test and the correct result of that test would verify that method worked.
 
